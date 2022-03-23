@@ -1,0 +1,23 @@
+{
+  "name": "table-flow-graph",
+  "version": "0.0.1",
+  "description": "A Table flow graph editor",
+  "author": "Mutueye",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rimraf dist && rollup -c",
+    "watch": "rimraf dist && rollup -cw"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "rollup": "^2.70.1",
+    "rollup-plugin-typescript2": "^0.31.2",
+    "typescript": "^4.6.2"
+  }
+}
