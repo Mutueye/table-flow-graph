@@ -12,9 +12,16 @@
   ],
   "scripts": {
     "build": "rimraf dist && rollup -c",
-    "watch": "rimraf dist && rollup -cw"
+    "watch": "rimraf dist && rollup -cw",
+    "lint": "eslint --ext .js,.ts --ignore-path .eslintignore --fix src"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.16.0",
+    "@typescript-eslint/parser": "^5.16.0",
+    "eslint": "^8.11.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.6.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.70.1",
     "rollup-plugin-typescript2": "^0.31.2",
