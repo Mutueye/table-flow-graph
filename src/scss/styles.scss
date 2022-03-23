@@ -1,0 +1,16 @@
+.graph-container {
+  display: flex;
+  width: 100%;
+  border-left: 1px solid #e9e9e9;
+  border-top: 1px solid #e9e9e9;
+  min-height: 200px;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: transparent;
+  .grid-row {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+  }
+}

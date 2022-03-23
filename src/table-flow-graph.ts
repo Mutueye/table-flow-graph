@@ -1,10 +1,19 @@
 import { div } from './lib/dom';
+import './scss/styles.scss';
 
-export default class GridFlow {
+export interface FlowGraphColumn {
+  title: string;
+  width: string;
+}
+export interface FlowGraphOptions {
+  columns: FlowGraphColumn[];
+}
+
+export class TableFlowGraph {
   public element: HTMLElement;
   public isAlive: boolean;
 
-  constructor(element) {
+  constructor(element: HTMLElement, options: FlowGraphOptions) {
     if (typeof element === 'string') {
       element = document.querySelector(element);
     }
@@ -15,7 +24,9 @@ export default class GridFlow {
 
     this.element = element;
 
-    this.element.appendChild(div('grid-flow-container'));
+    console.log('options:::::::', options);
+
+    div('graph-container', this.element);
 
     // element.classList.add(cls.main);
 

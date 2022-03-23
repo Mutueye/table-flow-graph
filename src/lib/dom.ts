@@ -1,6 +1,7 @@
-export function div(className: string): HTMLDivElement {
+export function div(className: string, parentNode: HTMLElement = null): HTMLDivElement {
   const div: HTMLDivElement = document.createElement('div');
   div.className = className;
+  if (parentNode) parentNode.appendChild(div);
   return div;
 }
 
