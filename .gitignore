@@ -30,6 +30,7 @@ bower_components
 # OS metadata
 .DS_Store
 Thumbs.db
+.eslintcache
 
 # Ignore built ts files
 dist
