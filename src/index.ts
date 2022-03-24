@@ -1,25 +1,29 @@
 import { div } from './lib/dom';
 import './scss/styles.scss';
 
-export interface FlowGraphColumn {
-  title: string;
-  width: string;
-}
-export interface FlowGraphOptions {
-  columns: FlowGraphColumn[];
+import { TFGraphColumn, TFGraphRow, TFGraphNode } from './types';
+
+export interface TFGraphOptions {
+  columns?: TFGraphColumn[];
+  rows?: TFGraphRow[];
+  nodes: TFGraphNode[];
+  // if have rows data, will use rows.length instead of this prop.
+  totalRows?: number;
+  // if have columns data, will use columns.length instead of this prop.
+  totalColumns?: number;
 }
 
 export class TableFlowGraph {
   public element: HTMLElement;
   public isAlive: boolean;
 
-  constructor(element: HTMLElement, options: FlowGraphOptions) {
+  constructor(element: HTMLElement, options: TFGraphOptions) {
     if (typeof element === 'string') {
       element = document.querySelector(element);
     }
 
     if (!element || !element.nodeName) {
-      throw new Error('no element is specified to initialize GridFlow');
+      throw new Error('no element is specified to initialize TableFlowGraph');
     }
 
     this.element = element;

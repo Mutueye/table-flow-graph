@@ -2,27 +2,25 @@ const path = require('path');
 import { terser } from 'rollup-plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import scss from 'rollup-plugin-scss';
-
 import pkg from './package.json';
 
-const version = pkg.version;
 const banner = `/**
- * table-flow-graph v${version}
+ * table-flow-graph v${pkg.version}
  * Copyright ${new Date().getFullYear()} Mutueye. Licensed under MIT
  */
 `;
 
 const resolve = (_path) => path.resolve(__dirname, _path);
 
-const outputs = [
+const outputList = [
   {
-    file: resolve('dist/table-flow-graph.js'),
+    file: resolve('dist/index.js'),
     format: 'umd',
     name: 'TableFlowGraph',
     banner,
   },
   {
-    file: resolve('dist/table-flow-graph.min.js'),
+    file: resolve('dist/index.min.js'),
     format: 'umd',
     name: 'TableFlowGraph',
     banner,
@@ -40,13 +38,13 @@ const outputs = [
   },
 ];
 
-module.exports = outputs.map((output) => {
+module.exports = outputList.map((output) => {
   return {
-    input: resolve('src/table-flow-graph.ts'),
+    input: resolve('src/index.ts'),
     output,
     plugins: [
       typescript({ tsconfig: './tsconfig.json' }),
-      scss({ output: resolve('dist/table-flow-graph.css'), sourceMap: true }),
+      scss({ output: resolve('dist/index.css'), sourceMap: true }),
       output.min ? terser() : null,
     ],
   };

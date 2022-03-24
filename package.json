@@ -4,9 +4,9 @@
   "description": "A Table flow graph editor",
   "author": "Mutueye",
   "license": "MIT",
-  "main": "dist/table-flow-graph.common.js",
-  "module": "dist/table-flow-graph.es.js",
-  "types": "dist/table-flow-graph.d.ts",
+  "main": "dist/index.common.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
