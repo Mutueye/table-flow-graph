@@ -1,17 +1,6 @@
-import { div } from './lib/dom';
-import './scss/styles.scss';
-
-import { TFGraphColumn, TFGraphRow, TFGraphNode } from './types';
-
-export interface TFGraphOptions {
-  columns?: TFGraphColumn[];
-  rows?: TFGraphRow[];
-  nodes: TFGraphNode[];
-  // if have rows data, will use rows.length instead of this prop.
-  totalRows?: number;
-  // if have columns data, will use columns.length instead of this prop.
-  totalColumns?: number;
-}
+import './index.scss';
+import { renderTable } from './lib/renderGraph';
+import { TFGraphOptions } from './types';
 
 export class TableFlowGraph {
   public element: HTMLElement;
@@ -30,14 +19,7 @@ export class TableFlowGraph {
 
     console.log('options:::::::', options);
 
-    div('graph-container', this.element);
-
-    // element.classList.add(cls.main);
-
-    // this.settings = defaultSettings();
-    // for (const key in userSettings) {
-    //   this.settings[key] = userSettings[key];
-    // }
+    renderTable(options, this.element);
     this.isAlive = true;
   }
 

@@ -38,14 +38,21 @@ const outputList = [
   },
 ];
 
-module.exports = outputList.map((output) => {
+module.exports = outputList.map((outputData) => {
+  const output = {
+    file: outputData.file,
+    format: outputData.format,
+    banner: outputData.banner,
+  };
+  if (outputData.name) output.name = outputData.name;
+
   return {
     input: resolve('src/index.ts'),
     output,
     plugins: [
       typescript({ tsconfig: './tsconfig.json' }),
-      scss({ output: resolve('dist/index.css'), sourceMap: true }),
-      output.min ? terser() : null,
+      scss({ output: resolve('dist/index.css') }),
+      outputData.min ? terser() : null,
     ],
   };
 });

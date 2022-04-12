@@ -1,0 +1,27 @@
+@import 'styles/vars.scss';
+
+$header-color: #f3f4f6;
+$border-color: #ebeef5;
+
+.tfgraph-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-left: 1px solid $border-color;
+  border-top: 1px solid $border-color;
+  // border-bottom: 1px solid $border-color;
+  .tfgraph-tr {
+    .tfgraph-th {
+      font-size: 14px;
+      padding: 15px;
+      border-right: 1px solid $border-color;
+      border-bottom: 1px solid $border-color;
+      background-color: $header-color;
+    }
+    .tfgraph-td {
+      font-size: 13px;
+      padding: 15px;
+      border-right: 1px solid $border-color;
+      border-bottom: 1px solid $border-color;
+    }
+  }
+}
