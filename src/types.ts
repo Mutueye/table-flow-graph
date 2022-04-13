@@ -39,6 +39,7 @@ export interface TFGraphNode {
 
 // 构建表格传入的选项
 export interface TFGraphOptions {
+  parentElement: HTMLElement;
   nodes: TFGraphNode[];
   columns?: TFGraphColumn[];
   totalRows?: number;

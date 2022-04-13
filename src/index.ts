@@ -11,16 +11,16 @@ export class TableFlowGraph {
   public options: TFGraphOptions;
   public isAlive: boolean;
 
-  constructor(element: HTMLElement, options: TFGraphOptions) {
-    if (typeof element === 'string') {
-      element = document.querySelector(element);
+  constructor(options: TFGraphOptions) {
+    if (typeof options.parentElement === 'string') {
+      options.parentElement = document.querySelector(options.parentElement);
     }
 
-    if (!element || !element.nodeName) {
+    if (!options.parentElement || !options.parentElement.nodeName) {
       throw new Error('no element is specified to initialize TableFlowGraph');
     }
 
-    this.element = createClassElement('div', 'tfgraph', element);
+    this.element = createClassElement('div', 'tfgraph', options.parentElement);
     this.cells = [];
     this.options = options;
     this.options.mode = options.mode ? options.mode : 'view';
