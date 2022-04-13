@@ -1,9 +1,14 @@
+import TFGraphCell from './components/TFGraphCell';
 import './index.scss';
+import { createClassElement } from './lib/dom';
 import { renderTable } from './lib/renderGraph';
+import { renderLines } from './lib/renderLines';
 import { TFGraphOptions } from './types';
 
 export class TableFlowGraph {
   public element: HTMLElement;
+  public cells: TFGraphCell[];
+  public options: TFGraphOptions;
   public isAlive: boolean;
 
   constructor(element: HTMLElement, options: TFGraphOptions) {
@@ -15,11 +20,13 @@ export class TableFlowGraph {
       throw new Error('no element is specified to initialize TableFlowGraph');
     }
 
-    this.element = element;
+    this.element = createClassElement('div', 'tfgraph', element);
+    this.cells = [];
+    this.options = options;
+    this.options.mode = options.mode ? options.mode : 'view';
 
-    console.log('options:::::::', options);
-
-    renderTable(options, this.element);
+    renderTable(this);
+    renderLines(this);
     this.isAlive = true;
   }
 

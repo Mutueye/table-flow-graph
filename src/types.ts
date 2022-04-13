@@ -19,13 +19,29 @@ export interface TFGraphNode {
   column: number;
   colSpan: number;
   rowSpan: number;
-  type: 'default' | 'success' | 'warning' | 'danger' | 'primary';
+  type?: 'default' | 'success' | 'warning' | 'danger' | 'primary';
+  isBtn?: boolean;
 }
+
+// export interface ThemeOption {
+//   borderColor: string;
+//   titleColor: string;
+//   backgroundColor: string;
+// }
+
+// export interface Theme {
+//   default: ThemeOption;
+//   success: ThemeOption;
+//   warning: ThemeOption;
+//   danger: ThemeOption;
+//   primary: ThemeOption;
+// }
 
 // 构建表格传入的选项
 export interface TFGraphOptions {
   nodes: TFGraphNode[];
   columns?: TFGraphColumn[];
   totalRows?: number;
+  mode: 'edit' | 'view';
   // TODO lines
 }

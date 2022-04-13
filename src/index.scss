@@ -3,25 +3,54 @@
 $header-color: #f3f4f6;
 $border-color: #ebeef5;
 
+.tfgraph {
+  position: relative;
+  width: 100%;
+}
+
 .tfgraph-table {
   width: 100%;
   border-collapse: collapse;
   border-left: 1px solid $border-color;
   border-top: 1px solid $border-color;
+
   // border-bottom: 1px solid $border-color;
   .tfgraph-tr {
+    height: 1px; // for div in td 100% work
     .tfgraph-th {
       font-size: 14px;
+      font-weight: normal;
       padding: 15px;
       border-right: 1px solid $border-color;
       border-bottom: 1px solid $border-color;
       background-color: $header-color;
     }
     .tfgraph-td {
-      font-size: 13px;
-      padding: 15px;
+      height: inherit; // for div in td 100% work
+      padding: 0px;
       border-right: 1px solid $border-color;
       border-bottom: 1px solid $border-color;
+      .tfgraph-cell {
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+      }
     }
   }
 }
+
+@import 'styles/theme.scss';
+
+.tfgraph-line-layer {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
