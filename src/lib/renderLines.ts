@@ -2,5 +2,6 @@ import { TableFlowGraph } from '..';
 import { createClassElement } from './dom';
 
 export function renderLines(graphInstance: TableFlowGraph) {
-  createClassElement('div', 'tfgraph-line-layer', graphInstance.element);
+  const linesLayerEl = createClassElement('div', 'tfgraph-line-layer', graphInstance.element);
+  return linesLayerEl;
 }

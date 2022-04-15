@@ -81,3 +81,26 @@
     }
   }
 }
+
+.tfgraph-anchor {
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  .tfgraph-anchor-point {
+    width: 6px;
+    height: 6px;
+    cursor: pointer;
+    border-radius: 3px;
+    pointer-events: all;
+    position: absolute;
+    left: -3px;
+    top: -3px;
+    opacity: 0.2;
+    background-color: #666666;
+  }
+  &:hover {
+    .tfgraph-anchor-point {
+      opacity: 1;
+    }
+  }
+}

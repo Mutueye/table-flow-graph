@@ -1,10 +1,11 @@
-@import 'styles/vars.scss';
+@import 'vars.scss';
 
 $header-color: #f3f4f6;
 $border-color: #ebeef5;
 
 .tfgraph {
   position: relative;
+  user-select: none;
   width: 100%;
 }
 
@@ -31,20 +32,32 @@ $border-color: #ebeef5;
       border-right: 1px solid $border-color;
       border-bottom: 1px solid $border-color;
       .tfgraph-cell {
+        position: relative;
         height: 100%;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
         padding: 15px;
+        min-height: 66px;
       }
     }
   }
 }
 
-@import 'styles/theme.scss';
+@import 'theme.scss';
 
 .tfgraph-line-layer {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.tfgraph-anchor-layer {
   position: absolute;
   pointer-events: none;
   top: 0;

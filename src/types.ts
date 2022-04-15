@@ -1,17 +1,17 @@
-// 表格列结构
+// table column header data
 export interface TFGraphColumn {
   id?: string;
   title: string;
   width: string;
 }
 
-// 表格行结构
+// table row header data
 export interface TFGraphRow {
   id?: string;
   title: string;
 }
 
-// 节点数据结构
+// node data
 export interface TFGraphNode {
   id?: string;
   title: string;
@@ -37,12 +37,26 @@ export interface TFGraphNode {
 //   primary: ThemeOption;
 // }
 
-// 构建表格传入的选项
+// table-flow-graph options
 export interface TFGraphOptions {
   parentElement: HTMLElement;
   nodes: TFGraphNode[];
   columns?: TFGraphColumn[];
+  totalColumns?: number;
+  rows?: TFGraphRow[];
   totalRows?: number;
   mode: 'edit' | 'view';
   // TODO lines
 }
+
+// anchor point's relative position of a table cell
+export type Bearing =
+  | 'topleft'
+  | 'top'
+  | 'topright'
+  | 'left'
+  | 'center'
+  | 'right'
+  | 'bottomleft'
+  | 'bottom'
+  | 'bottomright';
