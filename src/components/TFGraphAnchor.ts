@@ -9,6 +9,9 @@ export default class TFGraphAnchor {
   public col: HTMLElement;
   public offsetX: boolean;
   public offsetY: boolean;
+  public id: string = '';
+  public posX: number = 0;
+  public posY: number = 0;
 
   constructor(
     bearing: Bearing,
@@ -24,19 +27,26 @@ export default class TFGraphAnchor {
     this.tr = document.getElementById(`${graphInstance.id}_tr_${row}`);
     this.col = document.getElementById(`${graphInstance.id}_col_${column}`);
     if (this.tr && this.col) {
+      // create dom elements
       this.element = createClassElement('div', 'tfgraph-anchor', graphInstance.anchorsLayer);
       createClassElement('div', 'tfgraph-anchor-point', this.element);
-      this.element.setAttribute(
-        'id',
-        `${graphInstance.id}_anchor_${row}_${column}_${bearing}_${
-          offsetX ? 'offsetx' : 'normalx'
-        }_${offsetY ? 'offsety' : 'normaly'}`,
-      );
+
+      // set common id
+      this.id = `anchor_${row}_${column}_${bearing}_${offsetX ? 'offsetx' : 'normalx'}_${
+        offsetY ? 'offsety' : 'normaly'
+      }`;
+      this.element.setAttribute('id', `${graphInstance.id}_${this.id}`);
+
       graphInstance.anchors.push(this);
-      setTimeout(() => {
-        this.setPosition();
-      }, 1);
+      setTimeout(() => this.setPosition(), 1);
     }
+  }
+
+  setOnePosition(x, y) {
+    this.posX = x;
+    this.posY = y;
+    this.element.style.left = x + 'px';
+    this.element.style.top = y + 'px';
   }
 
   public setPosition() {
@@ -49,40 +59,31 @@ export default class TFGraphAnchor {
 
     switch (this.bearing) {
       case 'topleft':
-        this.element.style.left = x_left + 'px';
-        this.element.style.top = y_top + 'px';
+        this.setOnePosition(x_left, y_top);
         break;
       case 'top':
-        this.element.style.left = x_center + 'px';
-        this.element.style.top = y_top + 'px';
+        this.setOnePosition(x_center, y_top);
         break;
       case 'topright':
-        this.element.style.left = x_right + 'px';
-        this.element.style.top = y_top + 'px';
+        this.setOnePosition(x_right, y_top);
         break;
       case 'right':
-        this.element.style.left = x_right + 'px';
-        this.element.style.top = y_center + 'px';
+        this.setOnePosition(x_right, y_center);
         break;
       case 'bottomright':
-        this.element.style.left = x_right + 'px';
-        this.element.style.top = y_bottom + 'px';
+        this.setOnePosition(x_right, y_bottom);
         break;
       case 'bottom':
-        this.element.style.left = x_center + 'px';
-        this.element.style.top = y_bottom + 'px';
+        this.setOnePosition(x_center, y_bottom);
         break;
       case 'bottomleft':
-        this.element.style.left = x_left + 'px';
-        this.element.style.top = y_bottom + 'px';
+        this.setOnePosition(x_left, y_bottom);
         break;
       case 'left':
-        this.element.style.left = x_left + 'px';
-        this.element.style.top = y_center + 'px';
+        this.setOnePosition(x_left, y_center);
         break;
       case 'center':
-        this.element.style.left = x_center + 'px';
-        this.element.style.top = y_center + 'px';
+        this.setOnePosition(x_center, y_center);
         break;
       default:
         break;

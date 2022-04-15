@@ -1,4 +1,5 @@
 import { TableFlowGraph } from '..';
+import TFGraphAnchor from '../components/TFGraphAnchor';
 import TFGraphCell from '../components/TFGraphCell';
 import { createClassElement, removeElement } from './dom';
 
@@ -83,4 +84,38 @@ export function renderLinesLayer(graphInstance: TableFlowGraph) {
 // render anchors layer
 export function renderAnchorsLayer(graphInstance: TableFlowGraph) {
   return createClassElement('div', 'tfgraph-anchor-layer', graphInstance.element);
+}
+
+export function drawLine(
+  parentEl: HTMLElement,
+  anchorA: TFGraphAnchor,
+  anchorB: TFGraphAnchor,
+  thickness: number = 2,
+  isStart: boolean = true,
+  isEnd: boolean = true,
+) {
+  // start point
+  var x1 = anchorA.posX;
+  var y1 = anchorA.posY;
+  // end point
+  var x2 = anchorB.posX;
+  var y2 = anchorB.posY;
+
+  // distance
+  var length = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+
+  // center
+  var cx = (x1 + x2) / 2 - length / 2;
+  var cy = (y1 + y2) / 2 - thickness / 2;
+  // angle
+  var angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
+
+  const lineElement = createClassElement('div', 'tfgraph-line', parentEl);
+  if (isStart) createClassElement('div', 'start-point', lineElement);
+  if (isEnd) createClassElement('div', 'arrow', lineElement);
+  lineElement.style.width = length + 'px';
+  lineElement.style.height = thickness + 'px';
+  lineElement.style.left = cx + 'px';
+  lineElement.style.top = cy + 'px';
+  lineElement.style.transform = `rotate(${angle}deg)`;
 }
