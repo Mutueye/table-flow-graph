@@ -2,6 +2,9 @@ import { TableFlowGraph } from '..';
 import { createClassElement } from '../lib/dom';
 import { Bearing } from '../types';
 
+/**
+ * Anchor point for drawing lines
+ */
 export default class TFGraphAnchor {
   public element: HTMLElement;
   public bearing: Bearing;
@@ -12,6 +15,7 @@ export default class TFGraphAnchor {
   public id: string = '';
   public posX: number = 0;
   public posY: number = 0;
+  public hidden: boolean = false;
 
   constructor(
     bearing: Bearing,
@@ -31,14 +35,16 @@ export default class TFGraphAnchor {
       this.element = createClassElement('div', 'tfgraph-anchor', graphInstance.anchorsLayer);
       createClassElement('div', 'tfgraph-anchor-point', this.element);
 
-      // set common id
+      // set TFGraphAnchor instance id
       this.id = `anchor_${row}_${column}_${bearing}_${offsetX ? 'offsetx' : 'normalx'}_${
         offsetY ? 'offsety' : 'normaly'
       }`;
+      // set dom id
       this.element.setAttribute('id', `${graphInstance.id}_${this.id}`);
 
       graphInstance.anchors.push(this);
       setTimeout(() => this.setPosition(), 1);
+      // this.setPosition();
     }
   }
 
@@ -47,6 +53,15 @@ export default class TFGraphAnchor {
     this.posY = y;
     this.element.style.left = x + 'px';
     this.element.style.top = y + 'px';
+    this.element.setAttribute('title', `xpos & ypos=${x},${y}`);
+  }
+
+  public setVisible(visible: boolean) {
+    if (visible) {
+      this.element.classList.remove('hidden');
+    } else {
+      this.element.classList.add('hidden');
+    }
   }
 
   public setPosition() {

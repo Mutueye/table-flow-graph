@@ -1,4 +1,5 @@
 const path = require('path');
+const glob = require('glob');
 import { terser } from 'rollup-plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import scss from 'rollup-plugin-scss';
@@ -51,7 +52,10 @@ module.exports = outputList.map((outputData) => {
     output,
     plugins: [
       typescript({ tsconfig: './tsconfig.json' }),
-      scss({ output: resolve('dist/index.css') }),
+      scss({
+        output: resolve('dist/index.css'),
+        watch: glob.sync('src/styles/**/*.@(sa|sc|c)ss'),
+      }),
       outputData.min ? terser() : null,
     ],
   };

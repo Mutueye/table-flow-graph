@@ -60,3 +60,8 @@ export type Bearing =
   | 'bottomleft'
   | 'bottom'
   | 'bottomright';
+
+export type Position = {
+  x: number;
+  y: number;
+};

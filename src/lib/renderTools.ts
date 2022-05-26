@@ -1,6 +1,7 @@
 import { TableFlowGraph } from '..';
 import TFGraphAnchor from '../components/TFGraphAnchor';
 import TFGraphCell from '../components/TFGraphCell';
+import { Position } from '../types';
 import { createClassElement, removeElement } from './dom';
 
 /**
@@ -86,20 +87,21 @@ export function renderAnchorsLayer(graphInstance: TableFlowGraph) {
   return createClassElement('div', 'tfgraph-anchor-layer', graphInstance.element);
 }
 
+// draw line between two point
 export function drawLine(
   parentEl: HTMLElement,
-  anchorA: TFGraphAnchor,
-  anchorB: TFGraphAnchor,
+  positionA: Position, // x and y position relative to table element
+  positionB: Position,
   thickness: number = 2,
   isStart: boolean = true,
   isEnd: boolean = true,
 ) {
   // start point
-  var x1 = anchorA.posX;
-  var y1 = anchorA.posY;
+  var x1 = positionA.x;
+  var y1 = positionA.y;
   // end point
-  var x2 = anchorB.posX;
-  var y2 = anchorB.posY;
+  var x2 = positionB.x;
+  var y2 = positionB.y;
 
   // distance
   var length = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
@@ -113,9 +115,35 @@ export function drawLine(
   const lineElement = createClassElement('div', 'tfgraph-line', parentEl);
   if (isStart) createClassElement('div', 'start-point', lineElement);
   if (isEnd) createClassElement('div', 'arrow', lineElement);
-  lineElement.style.width = length + 'px';
+  lineElement.style.width = length + thickness + 'px';
   lineElement.style.height = thickness + 'px';
-  lineElement.style.left = cx + 'px';
+  lineElement.style.left = cx - 0.5 * thickness + 'px';
   lineElement.style.top = cy + 'px';
+  lineElement.style.borderRadius = thickness + 'px';
   lineElement.style.transform = `rotate(${angle}deg)`;
+}
+
+// 多点连线
+export function drawLineGroup(
+  parentEl: HTMLElement,
+  anchorList: TFGraphAnchor[],
+  extraEndPoint?: Position, // The last point is cursor postion when drawing lines
+) {
+  if (anchorList.length < 2) return;
+  const lineGroupElement = createClassElement('div', 'tfgraph-line-group', parentEl);
+  const pointList: Position[] = anchorList.map((anchor) => ({
+    x: anchor.posX,
+    y: anchor.posY,
+  }));
+  if (extraEndPoint) pointList.push(extraEndPoint);
+  for (let i = 0; i < pointList.length - 1; i++) {
+    drawLine(
+      lineGroupElement,
+      pointList[i],
+      pointList[i + 1],
+      2,
+      i === 0,
+      i === anchorList.length - 2,
+    );
+  }
 }

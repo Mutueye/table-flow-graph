@@ -1,6 +1,11 @@
 import './styles/index.scss';
 import { createClassElement } from './lib/dom';
-import { drawLine, renderAnchorsLayer, renderLinesLayer, renderTable } from './lib/renderGraph';
+import {
+  drawLineGroup,
+  renderAnchorsLayer,
+  renderLinesLayer,
+  renderTable,
+} from './lib/renderTools';
 import { TFGraphOptions } from './types';
 import TFGraphCell from './components/TFGraphCell';
 import TFGraphAnchor from './components/TFGraphAnchor';
@@ -40,13 +45,21 @@ export class TableFlowGraph {
       this.options.totalColumns = this.options.columns.length;
 
     this.linesLayer = renderLinesLayer(this);
-    if (this.options.mode === 'edit') {
-      this.anchorsLayer = renderAnchorsLayer(this);
-    }
+    // if (this.options.mode === 'edit') {
+    this.anchorsLayer = renderAnchorsLayer(this);
     // render chart
     renderTable(this);
 
-    setTimeout(() => drawLine(this.linesLayer, this.anchors[0], this.anchors[24]), 100);
+    setTimeout(
+      () =>
+        drawLineGroup(this.linesLayer, [
+          this.anchors[0],
+          this.anchors[24],
+          this.anchors[28],
+          this.anchors[32],
+        ]),
+      100,
+    );
 
     window.addEventListener('resize', this, false);
 

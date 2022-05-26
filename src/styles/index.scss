@@ -45,8 +45,6 @@ $border-color: #ebeef5;
   }
 }
 
-@import 'theme.scss';
-
 .tfgraph-line-layer {
   position: absolute;
   pointer-events: none;
@@ -65,5 +63,184 @@ $border-color: #ebeef5;
   bottom: 0;
   left: 0;
   z-index: 2;
+}
+
+.tfgraph-node {
+  cursor: pointer;
+  display: flex;
+  align-self: stretch;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  min-height: 36px;
+  padding: 8px 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.2s;
+
+  &.default {
+    border-color: #ebeef5;
+    color: #666666;
+    background-color: #f3f4f6;
+
+    &.isBtn {
+      cursor: pointer;
+
+      &:hover {
+        border-color: #ebeef5;
+        color: #333333;
+        background-color: #f1f2f4;
+      }
+    }
+  }
+
+  &.success {
+    border-color: #80c269;
+    color: #80c269;
+    background-color: #80c26910;
+
+    &.isBtn {
+      cursor: pointer;
+
+      &:hover {
+        border-color: #80c269;
+        color: #ffffff;
+        background-color: #80c269;
+      }
+    }
+  }
+
+  &.warning {
+    border-color: #f96400;
+    color: #f96400;
+    background-color: #f9640010;
+
+    &.isBtn {
+      cursor: pointer;
+
+      &:hover {
+        border-color: #f96400;
+        color: #ffffff;
+        background-color: #f96400;
+      }
+    }
+  }
+
+  &.danger {
+    border-color: #fc7373;
+    color: #fc7373;
+    background-color: #fc737310;
+
+    &.isBtn {
+      cursor: pointer;
+
+      &:hover {
+        border-color: #fc7373;
+        color: #ffffff;
+        background-color: #fc7373;
+      }
+    }
+  }
+
+  &.primary {
+    border-color: $color-theme;
+    color: $color-theme;
+    background-color: #377df610;
+
+    &.isBtn {
+      cursor: pointer;
+
+      &:hover {
+        border-color: $color-theme;
+        color: #ffffff;
+        background-color: $color-theme;
+      }
+    }
+  }
+}
+
+.tfgraph-anchor {
+  width: 0px;
+  height: 0px;
+  position: absolute;
+
+  .tfgraph-anchor-point {
+    width: 6px;
+    height: 6px;
+    cursor: pointer;
+    border-radius: 3px;
+    pointer-events: all;
+    position: absolute;
+    left: -3px;
+    top: -3px;
+    opacity: 0.2;
+    background-color: #666666;
+  }
+
+  &:hover {
+    .tfgraph-anchor-point {
+      opacity: 1;
+    }
+  }
+  &.hidden {
+    display: none;
+  }
+}
+
+.tfgraph-line-group {
+  pointer-events: none;
+}
+
+.tfgraph-line {
+  background-color: $color-theme;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  line-height: 1px;
+  pointer-events: all;
+  cursor: pointer;
+  &:hover {
+    background-color: $color-red;
+  }
+  .start-point {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    top: -2px;
+    left: -3px;
+    background-color: $color-theme;
+  }
+  .arrow {
+    position: absolute;
+    right: 0px;
+    width: 0px;
+    height: 0px;
+    // width: 6px;
+    // height: 10px;
+    // top: -4px;
+    // background: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg width='6px' height='10px' viewBox='0 0 6 10' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Ctitle%3Earrow%3C/title%3E%3Cdefs%3E%3Cpath d='M2.17157288 0.752893219 L5.70710678 4.28842712 L5.70710678 4.28842712 C6.09763107 4.67895142 6.09763107 5.3121164 5.70710678 5.70264069 L2.17157288 9.23817459 C1.78104858 9.62869888 1.1478836 9.62869888 0.757359313 9.23817459 C0.366835021 8.8476503 0.366835021 8.21448532 0.757359313 7.82396103 L3.58546609 4.995 L0.757359313 2.16710678 C0.366835021 1.77658249 0.366835021 1.14341751 0.757359313 0.752893219 C1.1478836 0.362368927 1.78104858 0.362368927 2.17157288 0.752893219 Z' id='path-1'%3E%3C/path%3E%3C/defs%3E%3Cg id='Main' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='refs' transform='translate(-6939.000000  -5382.000000)'%3E%3Cg id='flowlines/elements/arrow' transform='translate(6939.000000  5382.000000)'%3E%3Cmask id='mask-2' fill='white'%3E%3Cuse xlink:href='%23path-1'%3E%3C/use%3E%3C/mask%3E%3Cuse id='Combined-Shape' fill='%23979797' xlink:href='%23path-1'%3E%3C/use%3E%3Cg id='%E7%BC%96%E7%BB%84' mask='url(%23mask-2)' fill='%23377DF6'%3E%3Cg id='app/979797'%3E%3Crect id='Rectangle' x='0' y='0' width='6' height='10'%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    // width: 14px;
+    // height: 10px;
+    // margin-top: -4px;
+    // background-color: $color-theme;
+    &::before {
+      content: '';
+      position: absolute;
+      right: -6px;
+      top: -5px;
+      border-left-width: 10px;
+      border-top-width: 6px;
+      border-right-width: 6px;
+      border-bottom-width: 6px;
+      border-color: transparent;
+      border-left-color: $color-theme;
+    }
+  }
 }
 

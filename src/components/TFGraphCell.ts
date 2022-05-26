@@ -26,6 +26,7 @@ export default class TFGraphCell {
     this.column = column;
     this.element = this.createTabelCell(data, row, column, graphInstance);
     parentElement.appendChild(this.element);
+    // add anchors for current table cell
     this.createAnchors(graphInstance);
   }
 
