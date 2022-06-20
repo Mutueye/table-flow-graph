@@ -1,7 +1,7 @@
 import './styles/index.scss';
 import { createClassElement } from './lib/dom';
 import {
-  drawLineGroup,
+  renderLineGroup,
   renderAnchorsLayer,
   renderLinesLayer,
   renderTable,
@@ -9,6 +9,7 @@ import {
 import { TFGraphOptions } from './types';
 import TFGraphCell from './components/TFGraphCell';
 import TFGraphAnchor from './components/TFGraphAnchor';
+// import { debounce } from './lib/utils';
 
 export class TableFlowGraph {
   public element: HTMLElement;
@@ -20,26 +21,45 @@ export class TableFlowGraph {
   public linesLayer: HTMLElement;
   public anchorsLayer: HTMLElement;
 
-  constructor(options: TFGraphOptions) {
-    if (!options.parentElement) {
+  constructor(el: HTMLElement, options: TFGraphOptions) {
+    if (!el) {
       throw new Error('no element is specified to initialize TableFlowGraph');
     }
 
     // use id as unique key, to support multiple table-flow-graph instances in one page.
-    if (options.parentElement.getAttribute('id')) {
-      this.id = options.parentElement.getAttribute('id');
+    if (el.getAttribute('id')) {
+      this.id = el.getAttribute('id');
     } else {
       this.id = 'id' + (Math.random() * 100000).toFixed(0);
     }
 
     // root container element
-    this.element = createClassElement('div', 'tfgraph', options.parentElement);
+    this.element = createClassElement('div', 'tfgraph', el);
     this.cells = [];
     this.anchors = [];
 
     // init options
     this.options = options;
     this.options.mode = options.mode ? options.mode : 'view';
+
+    this.render();
+
+    // resize trigger render
+    // if (this.options.refreshOnResize) {
+    //   window.addEventListener(
+    //     'resize',
+    //     debounce(() => this.render(), 500),
+    //     false,
+    //   );
+    // }
+
+    window.addEventListener('resize', this, false);
+
+    this.isAlive = true;
+  }
+
+  render() {
+    this.element.innerHTML = '';
     if (typeof this.options.rows !== 'undefined') this.options.totalRows = this.options.rows.length;
     if (typeof this.options.columns !== 'undefined')
       this.options.totalColumns = this.options.columns.length;
@@ -52,7 +72,7 @@ export class TableFlowGraph {
 
     setTimeout(
       () =>
-        drawLineGroup(this.linesLayer, [
+        renderLineGroup(this.linesLayer, [
           this.anchors[0],
           this.anchors[24],
           this.anchors[28],
@@ -60,10 +80,6 @@ export class TableFlowGraph {
         ]),
       100,
     );
-
-    window.addEventListener('resize', this, false);
-
-    this.isAlive = true;
   }
 
   // handle addEventListener event

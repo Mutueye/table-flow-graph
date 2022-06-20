@@ -6,14 +6,21 @@ import { Bearing } from '../types';
  * Anchor point for drawing lines
  */
 export default class TFGraphAnchor {
+  // element of this TFGraphAnchor
   public element: HTMLElement;
+  // the bearing relative to this anchor's parent table cell
   public bearing: Bearing;
   public tr: HTMLElement;
   public col: HTMLElement;
-  public offsetX: boolean;
-  public offsetY: boolean;
+  // is the anchor on table cell border or on inner block border(top / bottom)
+  public isOffsetX: boolean;
+  // is the anchor on table cell border or on inner block border(left / right)
+  public isOffsetY: boolean;
+  // id for this TFGraphAnchor class
   public id: string = '';
+  // x position relative to table area
   public posX: number = 0;
+  // y position relative to table area
   public posY: number = 0;
   public hidden: boolean = false;
 
@@ -22,12 +29,12 @@ export default class TFGraphAnchor {
     row: number,
     column: number,
     graphInstance: TableFlowGraph,
-    offsetX: boolean = false,
-    offsetY: boolean = false,
+    isOffsetX: boolean = false,
+    isOffsetY: boolean = false,
   ) {
     this.bearing = bearing;
-    this.offsetX = offsetX;
-    this.offsetY = offsetY;
+    this.isOffsetX = isOffsetX;
+    this.isOffsetY = isOffsetY;
     this.tr = document.getElementById(`${graphInstance.id}_tr_${row}`);
     this.col = document.getElementById(`${graphInstance.id}_col_${column}`);
     if (this.tr && this.col) {
@@ -36,8 +43,8 @@ export default class TFGraphAnchor {
       createClassElement('div', 'tfgraph-anchor-point', this.element);
 
       // set TFGraphAnchor instance id
-      this.id = `anchor_${row}_${column}_${bearing}_${offsetX ? 'offsetx' : 'normalx'}_${
-        offsetY ? 'offsety' : 'normaly'
+      this.id = `anchor_${row}_${column}_${bearing}_${isOffsetX ? 'offsetx' : 'normalx'}_${
+        isOffsetY ? 'offsety' : 'normaly'
       }`;
       // set dom id
       this.element.setAttribute('id', `${graphInstance.id}_${this.id}`);
@@ -65,12 +72,12 @@ export default class TFGraphAnchor {
   }
 
   public setPosition() {
-    const x_left = this.col.offsetLeft + (this.offsetX ? 15 : 0);
+    const x_left = this.col.offsetLeft + (this.isOffsetX ? 15 : 0);
     const x_center = this.col.offsetLeft + 0.5 * this.col.offsetWidth;
-    const x_right = this.col.offsetLeft + this.col.offsetWidth - (this.offsetX ? 15 : 0);
-    const y_top = this.tr.offsetTop + (this.offsetY ? 15 : 0);
+    const x_right = this.col.offsetLeft + this.col.offsetWidth - (this.isOffsetX ? 15 : 0);
+    const y_top = this.tr.offsetTop + (this.isOffsetY ? 15 : 0);
     const y_center = this.tr.offsetTop + 0.5 * this.tr.offsetHeight;
-    const y_bottom = this.tr.offsetTop + this.tr.offsetHeight - (this.offsetY ? 15 : 0);
+    const y_bottom = this.tr.offsetTop + this.tr.offsetHeight - (this.isOffsetY ? 15 : 0);
 
     switch (this.bearing) {
       case 'topleft':

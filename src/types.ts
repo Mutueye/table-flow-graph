@@ -39,13 +39,13 @@ export interface TFGraphNode {
 
 // table-flow-graph options
 export interface TFGraphOptions {
-  parentElement: HTMLElement;
   nodes: TFGraphNode[];
   columns?: TFGraphColumn[];
   totalColumns?: number;
   rows?: TFGraphRow[];
   totalRows?: number;
   mode: 'edit' | 'view';
+  refreshOnResize?: Boolean;
   // TODO lines
 }
 

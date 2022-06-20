@@ -88,7 +88,7 @@ export function renderAnchorsLayer(graphInstance: TableFlowGraph) {
 }
 
 // draw line between two point
-export function drawLine(
+export function renderLine(
   parentEl: HTMLElement,
   positionA: Position, // x and y position relative to table element
   positionB: Position,
@@ -123,8 +123,8 @@ export function drawLine(
   lineElement.style.transform = `rotate(${angle}deg)`;
 }
 
-// 多点连线
-export function drawLineGroup(
+// connect points with lines
+export function renderLineGroup(
   parentEl: HTMLElement,
   anchorList: TFGraphAnchor[],
   extraEndPoint?: Position, // The last point is cursor postion when drawing lines
@@ -137,7 +137,7 @@ export function drawLineGroup(
   }));
   if (extraEndPoint) pointList.push(extraEndPoint);
   for (let i = 0; i < pointList.length - 1; i++) {
-    drawLine(
+    renderLine(
       lineGroupElement,
       pointList[i],
       pointList[i + 1],
