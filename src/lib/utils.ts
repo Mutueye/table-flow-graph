@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function debounce<F extends Function>(func: F, wait: number): F {
   let timeoutID: number;
 
@@ -7,8 +8,10 @@ export function debounce<F extends Function>(func: F, wait: number): F {
   }
 
   // conversion through any necessary as it wont satisfy criteria otherwise
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return <any>function (this: any, ...args: any[]) {
     clearTimeout(timeoutID);
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const context = this;
 
     timeoutID = window.setTimeout(function () {

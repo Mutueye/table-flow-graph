@@ -1,4 +1,4 @@
-import { TableFlowGraph } from '..';
+import { TableFlowGraph } from '../index';
 import { createClassElement } from '../lib/dom';
 import { TFGraphNode } from '../types';
 import TFGraphAnchor from './TFGraphAnchor';

@@ -1,18 +1,18 @@
 // table column header data
-export interface TFGraphColumn {
+export type TFGraphColumn = {
   id?: string;
   title: string;
   width: string;
-}
+};
 
 // table row header data
-export interface TFGraphRow {
+export type TFGraphRow = {
   id?: string;
   title: string;
-}
+};
 
 // node data
-export interface TFGraphNode {
+export type TFGraphNode = {
   id?: string;
   title: string;
   row: number;
@@ -21,7 +21,7 @@ export interface TFGraphNode {
   rowSpan: number;
   type?: 'default' | 'success' | 'warning' | 'danger' | 'primary';
   isBtn?: boolean;
-}
+};
 
 // export interface ThemeOption {
 //   borderColor: string;
@@ -37,17 +37,18 @@ export interface TFGraphNode {
 //   primary: ThemeOption;
 // }
 
+export type Mode = 'edit' | 'preview';
+
 // table-flow-graph options
-export interface TFGraphOptions {
+export type TFGraphOptions = {
   nodes: TFGraphNode[];
   columns?: TFGraphColumn[];
   totalColumns?: number;
   rows?: TFGraphRow[];
   totalRows?: number;
-  mode: 'edit' | 'view';
-  refreshOnResize?: Boolean;
+  isEditor: boolean;
   // TODO lines
-}
+};
 
 // anchor point's relative position of a table cell
 export type Bearing =
@@ -64,4 +65,29 @@ export type Bearing =
 export type Position = {
   x: number;
   y: number;
+};
+
+export type BtnType = 'default' | 'primary' | 'warning' | 'danger' | 'success' | 'clean';
+
+export type BtnOptions = {
+  label?: string;
+  type?: BtnType;
+  onClick?: (e: MouseEvent) => void;
+};
+
+export type TogglerItem = {
+  label: string;
+  id?: string;
+};
+
+export type TogglerOptions = {
+  items: TogglerItem[];
+  initialActiveIndex?: number;
+  onChange?: (item: TogglerItem, index: number) => void;
+};
+
+export type TogglerButton = {
+  itemData: TogglerItem;
+  el: HTMLElement;
+  index: number;
 };

@@ -1,4 +1,4 @@
-import { TableFlowGraph } from '..';
+import { TableFlowGraph } from '../index';
 import TFGraphAnchor from '../components/TFGraphAnchor';
 import TFGraphCell from '../components/TFGraphCell';
 import { Position } from '../types';
@@ -13,7 +13,7 @@ export function renderTable(graphInstance: TableFlowGraph) {
   const tableEl = createClassElement('table', 'tfgraph-table', graphInstance.element);
   createHeader(graphInstance, tableEl);
   createRows(graphInstance, tableEl);
-  createTds(graphInstance);
+  createCells(graphInstance);
 }
 
 // render table header
@@ -42,7 +42,7 @@ const createRows = (graphInstance: TableFlowGraph, parentEl: HTMLTableElement) =
 };
 
 // render tabel cells
-const createTds = (graphInstance: TableFlowGraph) => {
+const createCells = (graphInstance: TableFlowGraph) => {
   // spaned table cell id array
   const spanedTdIds = [];
   const nodes = graphInstance.options.nodes;
@@ -92,25 +92,25 @@ export function renderLine(
   parentEl: HTMLElement,
   positionA: Position, // x and y position relative to table element
   positionB: Position,
-  thickness: number = 2,
-  isStart: boolean = true,
-  isEnd: boolean = true,
+  thickness = 2,
+  isStart = true,
+  isEnd = true,
 ) {
   // start point
-  var x1 = positionA.x;
-  var y1 = positionA.y;
+  const x1 = positionA.x;
+  const y1 = positionA.y;
   // end point
-  var x2 = positionB.x;
-  var y2 = positionB.y;
+  const x2 = positionB.x;
+  const y2 = positionB.y;
 
   // distance
-  var length = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+  const length = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 
   // center
-  var cx = (x1 + x2) / 2 - length / 2;
-  var cy = (y1 + y2) / 2 - thickness / 2;
+  const cx = (x1 + x2) / 2 - length / 2;
+  const cy = (y1 + y2) / 2 - thickness / 2;
   // angle
-  var angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
+  const angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
 
   const lineElement = createClassElement('div', 'tfgraph-line', parentEl);
   if (isStart) createClassElement('div', 'start-point', lineElement);

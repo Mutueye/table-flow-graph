@@ -169,3 +169,18 @@ export function queryChildren(element: HTMLElement, selector: string): HTMLEleme
     matches(child, selector),
   );
 }
+
+export function getStyles(element: HTMLElement): CSSStyleDeclaration {
+  return getComputedStyle(element);
+}
+
+export function setStyles(element: HTMLElement, obj: Partial<CSSStyleDeclaration>) {
+  for (const key in obj) {
+    let val = obj[key];
+    if (typeof val === 'number') {
+      val = `${val}px`;
+    }
+    element.style[key] = val;
+  }
+  return element;
+}

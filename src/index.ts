@@ -6,20 +6,23 @@ import {
   renderLinesLayer,
   renderTable,
 } from './lib/renderTools';
-import { TFGraphOptions } from './types';
+import { Mode, TFGraphOptions } from './types';
 import TFGraphCell from './components/TFGraphCell';
 import TFGraphAnchor from './components/TFGraphAnchor';
+import TFGraphToolbar from './components/TFGraphToolbar';
 // import { debounce } from './lib/utils';
 
 export class TableFlowGraph {
   public element: HTMLElement;
+  public options: TFGraphOptions;
+  public id: string;
   public cells: TFGraphCell[];
   public anchors: TFGraphAnchor[];
-  public options: TFGraphOptions;
-  public isAlive: boolean;
-  public id: string;
+  public toolbar: TFGraphToolbar;
   public linesLayer: HTMLElement;
   public anchorsLayer: HTMLElement;
+  public isAlive: boolean;
+  public mode: Mode;
 
   constructor(el: HTMLElement, options: TFGraphOptions) {
     if (!el) {
@@ -33,14 +36,25 @@ export class TableFlowGraph {
       this.id = 'id' + (Math.random() * 100000).toFixed(0);
     }
 
+    // init options
+    this.options = options;
+    if (typeof this.options.rows !== 'undefined') this.options.totalRows = this.options.rows.length;
+    if (typeof this.options.columns !== 'undefined')
+      this.options.totalColumns = this.options.columns.length;
+    // this.options.mode = options.mode ? options.mode : 'view';
+
+    // create toolbar and edit state
+    if (this.options.isEditor) {
+      this.mode = 'edit';
+      this.toolbar = new TFGraphToolbar(el, this);
+    } else {
+      this.mode = 'preview';
+    }
+
     // root container element
     this.element = createClassElement('div', 'tfgraph', el);
     this.cells = [];
     this.anchors = [];
-
-    // init options
-    this.options = options;
-    this.options.mode = options.mode ? options.mode : 'view';
 
     this.render();
 
@@ -60,10 +74,6 @@ export class TableFlowGraph {
 
   render() {
     this.element.innerHTML = '';
-    if (typeof this.options.rows !== 'undefined') this.options.totalRows = this.options.rows.length;
-    if (typeof this.options.columns !== 'undefined')
-      this.options.totalColumns = this.options.columns.length;
-
     this.linesLayer = renderLinesLayer(this);
     // if (this.options.mode === 'edit') {
     this.anchorsLayer = renderAnchorsLayer(this);
@@ -82,7 +92,16 @@ export class TableFlowGraph {
     );
   }
 
-  // handle addEventListener event
+  public changeMode(mode: Mode) {
+    if (this.mode !== mode) {
+      this.mode = mode;
+      this.anchors.forEach((anchor: TFGraphAnchor) => {
+        anchor.setVisible(mode === 'edit');
+      });
+    }
+  }
+
+  // handle addEventListener events
   handleEvent(event) {
     switch (event.type) {
       case 'resize':

@@ -1,4 +1,4 @@
-import { TableFlowGraph } from '..';
+import { TableFlowGraph } from '../index';
 import { createClassElement } from '../lib/dom';
 import { Bearing } from '../types';
 
@@ -17,20 +17,20 @@ export default class TFGraphAnchor {
   // is the anchor on table cell border or on inner block border(left / right)
   public isOffsetY: boolean;
   // id for this TFGraphAnchor class
-  public id: string = '';
+  public id = '';
   // x position relative to table area
-  public posX: number = 0;
+  public posX = 0;
   // y position relative to table area
-  public posY: number = 0;
-  public hidden: boolean = false;
+  public posY = 0;
+  public hidden = false;
 
   constructor(
     bearing: Bearing,
     row: number,
     column: number,
     graphInstance: TableFlowGraph,
-    isOffsetX: boolean = false,
-    isOffsetY: boolean = false,
+    isOffsetX = false,
+    isOffsetY = false,
   ) {
     this.bearing = bearing;
     this.isOffsetX = isOffsetX;
@@ -50,6 +50,7 @@ export default class TFGraphAnchor {
       this.element.setAttribute('id', `${graphInstance.id}_${this.id}`);
 
       graphInstance.anchors.push(this);
+      this.setVisible(graphInstance.mode === 'edit');
       setTimeout(() => this.setPosition(), 1);
       // this.setPosition();
     }

@@ -1,0 +1,52 @@
+// border
+@mixin border($scope, $color) {
+  @if $scope == all {
+    border: 1px solid $color;
+  } @else {
+    border-#{$scope}: 1px solid $color;
+  }
+}
+
+// background-color & hover color
+@mixin bgColor($color) {
+  background-color: $color;
+  &.is-hoverable {
+    &:hover {
+      background-color: mix($color-white, $color, 15%);
+    }
+  }
+}
+
+// font color & hover color
+@mixin fontColor($color) {
+  color: $color;
+  &.is-hoverable {
+    &:hover {
+      color: mix($color-white, $color, 15%);
+    }
+  }
+}
+
+// border color & hover color
+@mixin borderColor($color) {
+  border-color: $color;
+  &.is-hoverable {
+    &:hover {
+      border-color: mix($color-white, $color, 15%);
+    }
+  }
+}
+
+// add 'px' to number
+@function numToPx($number) {
+  @return $number + 0px;
+}
+
+// clearfix
+@mixin clearfix {
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}

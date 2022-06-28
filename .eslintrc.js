@@ -12,10 +12,13 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended', // Make sure this is always the last element in the array.
   ],
   plugins: ['prettier', '@typescript-eslint'],
   rules: {
     'prettier/prettier': ['error', {}, { usePrettierrc: true }],
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error'],
   },
 };

@@ -1,7 +1,8 @@
-@import 'vars.scss';
+@import 'util.scss';
 
 $header-color: #f3f4f6;
 $border-color: #ebeef5;
+$control-height: 36px;
 
 .tfgraph {
   position: relative;
@@ -170,14 +171,14 @@ $border-color: #ebeef5;
   position: absolute;
 
   .tfgraph-anchor-point {
-    width: 6px;
-    height: 6px;
+    width: 7px;
+    height: 7px;
     cursor: pointer;
-    border-radius: 3px;
+    border-radius: 4px;
     pointer-events: all;
     position: absolute;
-    left: -3px;
-    top: -3px;
+    left: -3.5px;
+    top: -3.5px;
     opacity: 0.2;
     background-color: #666666;
   }
@@ -209,11 +210,11 @@ $border-color: #ebeef5;
   }
   .start-point {
     position: absolute;
-    width: 6px;
-    height: 6px;
-    border-radius: 3px;
-    top: -2px;
-    left: -3px;
+    width: 7px;
+    height: 7px;
+    border-radius: 4px;
+    top: -2.5px;
+    left: -2.5px;
     background-color: $color-theme;
   }
   .arrow {
@@ -241,6 +242,109 @@ $border-color: #ebeef5;
       border-color: transparent;
       border-left-color: $color-theme;
     }
+  }
+}
+
+.tfgraph-toolbar {
+  position: relative;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tfgraph-button {
+  border-radius: 4px;
+  height: $control-height;
+  padding: 0 15px;
+  outline: none;
+  cursor: pointer;
+  border-width: 1px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: 500;
+  color: white;
+  transition: all ease 0.2s;
+  font-size: 14px;
+  &.disabled {
+    opacity: 0.5;
+    filter: grayscale(80%);
+    cursor: not-allowed;
+  }
+  &.default {
+    background-color: $color-white;
+    color: $font-color-title;
+    border-color: $color-border-dark;
+    &:hover {
+      // background-color: $color-white;
+      color: $color-theme;
+      border-color: $color-theme;
+    }
+  }
+  &.clean {
+    border: none;
+    color: $font-color-title;
+    background-color: transparent;
+    &:hover {
+      color: $color-theme;
+      background-color: $color-gray-f2;
+    }
+  }
+}
+
+.tfgraph-toggler {
+  background-color: $color-theme;
+  height: $control-height;
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .tfgraph-toggler-btn {
+    transition: all ease 0.2s;
+    height: $control-height;
+    background-color: transparent;
+    position: relative;
+    z-index: 2;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0 8px;
+    color: white;
+    opacity: 0.6;
+    &:first-child {
+      padding-left: 14px;
+    }
+    &:last-child {
+      padding-right: 14px;
+    }
+    &.active {
+      opacity: 1;
+      cursor: default;
+      color: $color-theme;
+    }
+    &:hover {
+      color: white;
+      opacity: 1;
+      &.active {
+        color: $color-theme;
+        opacity: 1;
+      }
+    }
+  }
+  .tfgraph-toggler-indicator {
+    transition: all ease 0.2s;
+    height: $control-height - 8px;
+    position: absolute;
+    border-radius: 3px;
+    z-index: 1;
+    min-width: 30px;
+    background-color: white;
+    top: 4px;
+    left: 4px;
   }
 }
 

@@ -1,0 +1,329 @@
+@import 'vars.scss';
+@import 'mixin.scss';
+
+/* 背景颜色样式
+-------------------------- */
+$colors: (
+  'blue': $color-blue,
+  'blue-light': $color-blue-light,
+  'blue-lighter': $color-blue-lighter,
+  'red': $color-red,
+  'red-light': $color-red-light,
+  'red-lighter': $color-red-lighter,
+  'yellow': $color-yellow,
+  'yellow-light': $color-yellow-light,
+  'yellow-lighter': $color-yellow-lighter,
+  'green': $color-green,
+  'green-light': $color-green-light,
+  'green-lighter': $color-green-lighter,
+  'purple': $color-purple,
+  'purple-light': $color-purple-light,
+  'purple-lighter': $color-purple-lighter,
+  'black': $color-black,
+  'gray-33': $color-gray-33,
+  'gray-66': $color-gray-66,
+  'gray-7e': $color-gray-7e,
+  'gray-99': $color-gray-99,
+  'gray-cc': $color-gray-cc,
+  'gray-dc': $color-gray-dc,
+  'gray-e6': $color-gray-e6,
+  'gray-ea': $color-gray-ea,
+  'gray-f2': $color-gray-f2,
+  'gray-f5': $color-gray-f5,
+  'gray-f8': $color-gray-f8,
+  'gray-fa': $color-gray-fa,
+  'white': $color-white,
+);
+// 遍历生成颜色样式，例如'bg-color-blue-lighter'
+@each $name, $color in $colors {
+  .bg-#{$name} {
+    @include bgColor($color);
+  }
+  .text-#{$name} {
+    @include fontColor($color);
+  }
+  .border-#{$name} {
+    @include borderColor($color);
+  }
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+/* flex布局
+-------------------------- */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.items-center {
+  align-items: center;
+}
+.items-end {
+  align-items: flex-end;
+}
+.items-start {
+  align-items: flex-start;
+}
+.items-baseline {
+  align-items: baseline;
+}
+.items-stretch {
+  align-items: stretch;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-start {
+  justify-content: flex-start;
+}
+.justify-end {
+  justify-content: flex-end;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-around {
+  justify-content: space-around;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.flex-sub,
+.flex-1 {
+  flex: 1;
+}
+.self-stretch {
+  align-self: stretch;
+}
+.self-start {
+  align-self: flex-start;
+}
+.self-end {
+  align-self: flex-end;
+}
+// 存在剩余空间放大
+.flex-grow {
+  flex-grow: 1;
+}
+.flex-shrink {
+  flex-shrink: 1;
+}
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+/* 辅助样式
+-------------------------- */
+
+// 'T', 'R', 'B', 'L', 'X', 'Y' 分别代表top,right,bottom,left, left+right, top+bottom
+$directions: 'T', 'R', 'B', 'L', 'X', 'Y';
+
+// 充满内容区
+.fill-inner {
+  align-self: stretch;
+  width: 100%;
+  height: 100%;
+}
+
+.w-full {
+  width: 100%;
+}
+.h-full {
+  height: 100%;
+}
+
+// 1到100的margin/padding辅助样式，比如marginT36代表marign-top: 36px;
+@for $size from 0 through 500 {
+  .m-#{$size} {
+    margin: numToPx($size) !important;
+  }
+  .w-#{$size} {
+    width: numToPx($size);
+  }
+  .max-w-#{$size} {
+    max-width: numToPx($size);
+  }
+  .min-w-#{$size} {
+    min-width: numToPx($size);
+  }
+  .h-#{$size} {
+    height: numToPx($size);
+  }
+  .max-h-#{$size} {
+    max-height: numToPx($size);
+  }
+  .min-h-#{$size} {
+    min-height: numToPx($size);
+  }
+  .leading-#{$size} {
+    line-height: numToPx($size);
+  }
+  .p-#{$size} {
+    padding: numToPx($size) !important;
+  }
+  @each $direction in $directions {
+    @if $direction == 'T' {
+      .mt-#{$size} {
+        margin-top: numToPx($size) !important;
+      }
+      .pt-#{$size} {
+        padding-top: numToPx($size) !important;
+      }
+    }
+    @if $direction == 'R' {
+      .mr-#{$size} {
+        margin-right: numToPx($size) !important;
+      }
+      .pr-#{$size} {
+        padding-right: numToPx($size) !important;
+      }
+    }
+    @if $direction == 'B' {
+      .mb-#{$size} {
+        margin-bottom: numToPx($size) !important;
+      }
+      .pb-#{$size} {
+        padding-bottom: numToPx($size) !important;
+      }
+    }
+    @if $direction == 'L' {
+      .ml-#{$size} {
+        margin-left: numToPx($size) !important;
+      }
+      .pl-#{$size} {
+        padding-left: numToPx($size) !important;
+      }
+    }
+    @if $direction == 'X' {
+      .mx-#{$size} {
+        margin-left: numToPx($size);
+        margin-right: numToPx($size) !important;
+      }
+      .px-#{$size} {
+        padding-left: numToPx($size);
+        padding-right: numToPx($size) !important;
+      }
+    }
+    @if $direction == 'Y' {
+      .my-#{$size} {
+        margin-top: numToPx($size);
+        margin-bottom: numToPx($size) !important;
+      }
+      .py-#{$size} {
+        padding-top: numToPx($size);
+        padding-bottom: numToPx($size) !important;
+      }
+    }
+  }
+}
+
+// 生成边框样式,比如 borderT1-dark表示border-top: 1px solid $color-border-dark;
+// border2-lighter 表示 border: 2px solid $color-border-lighter;
+// $border-colors: (
+//   'dark': $color-border-dark,
+//   'light': $color-border-light,
+//   'lighter': $color-border-lighter,
+// );
+// @for $width from 1 through 4 {
+//   .border#{$width} {
+//     border: numToPx($width) solid $color-border;
+//   }
+//   @each $name, $color in $border-colors {
+//     .border#{$width}-#{$name} {
+//       border: numToPx($width) solid $color;
+//     }
+//   }
+//   @each $direction in $directions {
+//     @if $direction == 'T' {
+//       .borderT#{$width} {
+//         border-top: numToPx($width) solid $color-border;
+//       }
+//       @each $name, $color in $border-colors {
+//         .borderT#{$width}-#{$name} {
+//           border-top: numToPx($width) solid $color;
+//         }
+//       }
+//     }
+//     @if $direction == 'R' {
+//       .borderR#{$width} {
+//         border-right: numToPx($width) solid $color-border;
+//       }
+//       @each $name, $color in $border-colors {
+//         .borderR#{$width}-#{$name} {
+//           border-right: numToPx($width) solid $color;
+//         }
+//       }
+//     }
+//     @if $direction == 'B' {
+//       .borderB#{$width} {
+//         border-bottom: numToPx($width) solid $color-border;
+//       }
+//       @each $name, $color in $border-colors {
+//         .borderB#{$width}-#{$name} {
+//           border-bottom: numToPx($width) solid $color;
+//         }
+//       }
+//     }
+//     @if $direction == 'L' {
+//       .borderL#{$width} {
+//         border-left: numToPx($width) solid $color-border;
+//       }
+//       @each $name, $color in $border-colors {
+//         .borderL#{$width}-#{$name} {
+//           border-left: numToPx($width) solid $color;
+//         }
+//       }
+//     }
+//     @if $direction == 'X' {
+//       .borderX#{$width} {
+//         border-left: numToPx($width) solid $color-border;
+//         border-right: numToPx($width) solid $color-border;
+//       }
+//       @each $name, $color in $border-colors {
+//         .borderX#{$width}-#{$name} {
+//           border-left: numToPx($width) solid $color;
+//           border-right: numToPx($width) solid $color;
+//         }
+//       }
+//     }
+//     @if $direction == 'Y' {
+//       .borderY#{$width} {
+//         border-top: numToPx($width) solid $color-border;
+//         border-bottom: numToPx($width) solid $color-border;
+//       }
+//       @each $name, $color in $border-colors {
+//         .borderY#{$width}-#{$name} {
+//           border-top: numToPx($width) solid $color;
+//           border-bottom: numToPx($width) solid $color;
+//         }
+//       }
+//     }
+//   }
+// }
+
+// 字号class
+@each $name, $size in $font-sizes {
+  .text-size-#{$name} {
+    font-size: $size;
+  }
+}
+.font-bold {
+  font-weight: bold;
+}
+
+.font-semibold {
+  font-weight: 500;
+}
+// 单行文字截断
+.truncate {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
