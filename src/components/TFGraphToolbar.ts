@@ -1,6 +1,6 @@
 import { TableFlowGraph } from '../index';
 import { createClassElement } from '../lib/dom';
-import Button from './ui/Button';
+// import Button from './ui/Button';
 import Toggler from './ui/Toggler';
 import { Mode } from '../types';
 
@@ -18,22 +18,21 @@ export default class TFGraphToolbar {
         { label: '预览模式', id: 'preview' },
       ],
       onChange: (item) => {
-        console.log(item.label);
         graphInstance.changeMode(item.id as Mode);
       },
     });
-    new Button(this.element, { label: 'default' });
-    new Button(this.element, {
-      label: 'clean',
-      type: 'clean',
-      onClick: () => {
-        console.log('clean clicked');
-      },
-    });
-    new Button(this.element, { label: 'primary', type: 'primary' });
-    new Button(this.element, { label: 'warning', type: 'warning' });
-    new Button(this.element, { label: 'danger', type: 'danger' });
-    new Button(this.element, { label: 'success', type: 'success' });
+    // new Button(this.element, { label: 'default' });
+    // new Button(this.element, {
+    //   label: 'clean',
+    //   type: 'clean',
+    //   onClick: () => {
+    //     console.log('clean clicked');
+    //   },
+    // });
+    // new Button(this.element, { label: 'primary', type: 'primary' });
+    // new Button(this.element, { label: 'warning', type: 'warning' });
+    // new Button(this.element, { label: 'danger', type: 'danger' });
+    // new Button(this.element, { label: 'success', type: 'success' });
     // testBtn.setDisabled();
   }
 }

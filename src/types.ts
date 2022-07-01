@@ -47,10 +47,10 @@ export type TFGraphOptions = {
   rows?: TFGraphRow[];
   totalRows?: number;
   isEditor: boolean;
-  // TODO lines
+  lines: string[][]; // 2d list of anchor point ids
 };
 
-// anchor point's relative position of a table cell
+// anchor point's relative position to a table cell
 export type Bearing =
   | 'topleft'
   | 'top'
@@ -65,6 +65,19 @@ export type Bearing =
 export type Position = {
   x: number;
   y: number;
+};
+
+export type LineOptions = {
+  positionA: Position; // x and y position relative to table element
+  positionB: Position;
+  thickness: number;
+  isStart: boolean;
+  isEnd: boolean;
+};
+
+export type LineGroupOptions = {
+  anchorIds: string[];
+  isDrawingActive: boolean; // current line group is drawing
 };
 
 export type BtnType = 'default' | 'primary' | 'warning' | 'danger' | 'success' | 'clean';

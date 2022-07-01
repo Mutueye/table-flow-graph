@@ -1,15 +1,11 @@
 import './styles/index.scss';
 import { createClassElement } from './lib/dom';
-import {
-  renderLineGroup,
-  renderAnchorsLayer,
-  renderLinesLayer,
-  renderTable,
-} from './lib/renderTools';
-import { Mode, TFGraphOptions } from './types';
+import { renderAnchorsLayer, renderLinesLayer, renderTable } from './lib/renderTools';
+import { Mode, Position, TFGraphOptions } from './types';
 import TFGraphCell from './components/TFGraphCell';
 import TFGraphAnchor from './components/TFGraphAnchor';
 import TFGraphToolbar from './components/TFGraphToolbar';
+import TFGraphLineGroup from './components/TFGraphLineGroup';
 // import { debounce } from './lib/utils';
 
 export class TableFlowGraph {
@@ -23,6 +19,10 @@ export class TableFlowGraph {
   public anchorsLayer: HTMLElement;
   public isAlive: boolean;
   public mode: Mode;
+  public mousePosition: Position;
+  public lineAnchorIds: string[][];
+  public isDrawingLine: boolean;
+  public currentDrawingLine: TFGraphLineGroup;
 
   constructor(el: HTMLElement, options: TFGraphOptions) {
     if (!el) {
@@ -42,6 +42,24 @@ export class TableFlowGraph {
     if (typeof this.options.columns !== 'undefined')
       this.options.totalColumns = this.options.columns.length;
     // this.options.mode = options.mode ? options.mode : 'view';
+    if (this.options.lines && Array.isArray(this.options.lines)) {
+      this.lineAnchorIds = this.options.lines;
+    } else {
+      this.lineAnchorIds = [
+        [
+          'anchor_1_0_topright_normalx_offsety',
+          'anchor_0_0_bottomright_normalx_normaly',
+          'anchor_0_2_bottomright_normalx_normaly',
+          'anchor_1_2_bottomright_normalx_normaly',
+          'anchor_3_3_top_normalx_offsety',
+        ],
+        [
+          'anchor_3_2_bottom_normalx_offsety',
+          'anchor_5_2_center_normalx_normaly',
+          'anchor_5_4_left_offsetx_normaly',
+        ],
+      ];
+    }
 
     // create toolbar and edit state
     if (this.options.isEditor) {
@@ -68,8 +86,23 @@ export class TableFlowGraph {
     // }
 
     window.addEventListener('resize', this, false);
+    this.element.addEventListener('mousemove', this, false);
 
     this.isAlive = true;
+  }
+
+  // handle addEventListener events
+  handleEvent(event) {
+    switch (event.type) {
+      case 'resize':
+        this.onResize();
+        break;
+      case 'mousemove':
+        this.onMourseMove(event);
+        break;
+      default:
+        break;
+    }
   }
 
   render() {
@@ -80,35 +113,25 @@ export class TableFlowGraph {
     // render chart
     renderTable(this);
 
-    setTimeout(
-      () =>
-        renderLineGroup(this.linesLayer, [
-          this.anchors[0],
-          this.anchors[24],
-          this.anchors[28],
-          this.anchors[32],
-        ]),
-      100,
-    );
-  }
-
-  public changeMode(mode: Mode) {
-    if (this.mode !== mode) {
-      this.mode = mode;
-      this.anchors.forEach((anchor: TFGraphAnchor) => {
-        anchor.setVisible(mode === 'edit');
+    setTimeout(() => {
+      this.lineAnchorIds.forEach((lineGroup) => {
+        new TFGraphLineGroup(
+          this.linesLayer,
+          { anchorIds: lineGroup, isDrawingActive: false },
+          this,
+        );
       });
-    }
+    }, 100);
   }
 
-  // handle addEventListener events
-  handleEvent(event) {
-    switch (event.type) {
-      case 'resize':
-        this.onResize();
-        break;
-      default:
-        break;
+  onMourseMove(event) {
+    const rect = this.element.getBoundingClientRect();
+    const offsetX = event.clientX - rect.left;
+    const offsetY = event.clientY - rect.top;
+    this.mousePosition = { x: offsetX, y: offsetY };
+    // console.log('event:::::::::', offsetX, offsetY);
+    if (this.isDrawingLine && this.currentDrawingLine) {
+      this.currentDrawingLine.onMouseMove(this);
     }
   }
 
@@ -134,4 +157,32 @@ export class TableFlowGraph {
     window.removeEventListener('resize', this, false);
     this.isAlive = false;
   }
+
+  public changeMode(mode: Mode) {
+    if (this.mode !== mode) {
+      this.mode = mode;
+      this.anchors.forEach((anchor: TFGraphAnchor) => {
+        anchor.setVisible(mode === 'edit');
+      });
+    }
+  }
+
+  public createLineGroup(anchorId) {
+    this.lineAnchorIds.push([anchorId]);
+    this.isDrawingLine = true;
+    this.currentDrawingLine = new TFGraphLineGroup(
+      this.linesLayer,
+      { anchorIds: [anchorId], isDrawingActive: true },
+      this,
+    );
+  }
+
+  public addLineSegment(anchorId) {
+    if (this.isDrawingLine && this.currentDrawingLine) {
+      this.currentDrawingLine.addLineSegment(anchorId);
+    }
+  }
+
+  // TODO press 'enter' or 'space' to end drawing line
+  // TODO press 'esc' to delete last line anchor point
 }

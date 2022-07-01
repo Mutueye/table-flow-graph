@@ -41,6 +41,7 @@ export default class TFGraphAnchor {
       // create dom elements
       this.element = createClassElement('div', 'tfgraph-anchor', graphInstance.anchorsLayer);
       createClassElement('div', 'tfgraph-anchor-point', this.element);
+      createClassElement('div', 'tfgraph-anchor-area', this.element);
 
       // set TFGraphAnchor instance id
       this.id = `anchor_${row}_${column}_${bearing}_${isOffsetX ? 'offsetx' : 'normalx'}_${
@@ -53,6 +54,13 @@ export default class TFGraphAnchor {
       this.setVisible(graphInstance.mode === 'edit');
       setTimeout(() => this.setPosition(), 1);
       // this.setPosition();
+      this.element.addEventListener('click', () => {
+        if (!graphInstance.isDrawingLine) {
+          graphInstance.createLineGroup(this.id);
+        } else {
+          graphInstance.addLineSegment(this.id);
+        }
+      });
     }
   }
 
