@@ -1,3 +1,5 @@
+import { cloneDeep, isEqual } from 'lodash-es';
+
 import './styles/index.scss';
 import { createClassElement } from './lib/dom';
 import { renderAnchorsLayer, renderLinesLayer, renderTable } from './lib/renderTools';
@@ -20,7 +22,9 @@ export class TableFlowGraph {
   public isAlive: boolean;
   public mode: Mode;
   public mousePosition: Position;
-  public lineAnchorIds: string[][];
+  public hoveredAnchor: TFGraphAnchor; // current Anchor that mouse hoverd
+  public lineAnchorIds: string[][]; // anchor ids to draw lines
+  public originLineAnchorIds: string[][]; // compare to lineAnchorIds to determine if lines are changed
   public isDrawingLine: boolean;
   public currentDrawingLine: TFGraphLineGroup;
 
@@ -60,6 +64,7 @@ export class TableFlowGraph {
         ],
       ];
     }
+    this.originLineAnchorIds = cloneDeep(this.lineAnchorIds);
 
     // create toolbar and edit state
     if (this.options.isEditor) {
@@ -86,6 +91,7 @@ export class TableFlowGraph {
     // }
 
     window.addEventListener('resize', this, false);
+    window.addEventListener('keydown', this, false);
     this.element.addEventListener('mousemove', this, false);
 
     this.isAlive = true;
@@ -99,6 +105,9 @@ export class TableFlowGraph {
         break;
       case 'mousemove':
         this.onMourseMove(event);
+        break;
+      case 'keydown':
+        this.onKeydown(event);
         break;
       default:
         break;
@@ -143,6 +152,28 @@ export class TableFlowGraph {
     }
   }
 
+  onKeydown = (e) => {
+    // console.group('keyboard event');
+    // console.log('event', e);
+    // console.log('event.code', e.code);
+    // console.log('event.key', e.key);
+    // console.log('event.altKey', e.altKey);
+    // console.log('event.ctrlKey', e.ctrlKey);
+    // console.log('event.shiftKey', e.shiftKey);
+    // console.log('event.metaKey', e.metaKey);
+    // console.log('event.getModifierState()', e.getModifierState('Alt'));
+    // console.groupEnd();
+    if (e.code === 'Enter') {
+      if (this.isDrawingLine) {
+        this.endDrawLine();
+      }
+    } else if (e.code === 'Escape') {
+      if (this.isDrawingLine) {
+        this.currentDrawingLine.escapeDrawing();
+      }
+    }
+  };
+
   update() {
     if (!this.isAlive) {
       return;
@@ -155,7 +186,26 @@ export class TableFlowGraph {
     }
 
     window.removeEventListener('resize', this, false);
+    this.element.removeEventListener('mousemove', this, false);
     this.isAlive = false;
+  }
+
+  public startDrawLine() {
+    this.isDrawingLine = true;
+    this.originLineAnchorIds = cloneDeep(this.lineAnchorIds);
+  }
+
+  public endDrawLine() {
+    this.isDrawingLine = false;
+    if (this.currentDrawingLine) {
+      this.currentDrawingLine.endDrawing();
+      this.currentDrawingLine = undefined;
+    }
+    // console.log('draw line end::::::::', this.originLineAnchorIds, this.lineAnchorIds);
+    if (!isEqual(this.originLineAnchorIds, this.lineAnchorIds)) {
+      // console.log('lines changed::::::::', this.lineAnchorIds);
+      // TODO trgger event: linesChanged
+    }
   }
 
   public changeMode(mode: Mode) {
@@ -167,12 +217,16 @@ export class TableFlowGraph {
     }
   }
 
+  public setHoveredAnchor(anchor: TFGraphAnchor | undefined) {
+    this.hoveredAnchor = anchor;
+  }
+
   public createLineGroup(anchorId) {
+    this.startDrawLine();
     this.lineAnchorIds.push([anchorId]);
-    this.isDrawingLine = true;
     this.currentDrawingLine = new TFGraphLineGroup(
       this.linesLayer,
-      { anchorIds: [anchorId], isDrawingActive: true },
+      { anchorIds: this.lineAnchorIds[this.lineAnchorIds.length - 1], isDrawingActive: true },
       this,
     );
   }

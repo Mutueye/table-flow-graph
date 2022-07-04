@@ -61,6 +61,14 @@ export default class TFGraphAnchor {
           graphInstance.addLineSegment(this.id);
         }
       });
+      this.element.addEventListener('mouseenter', () => {
+        graphInstance.setHoveredAnchor(this);
+      });
+      this.element.addEventListener('mouseleave', () => {
+        if (graphInstance.hoveredAnchor.id === this.id) {
+          graphInstance.setHoveredAnchor(undefined);
+        }
+      });
     }
   }
 

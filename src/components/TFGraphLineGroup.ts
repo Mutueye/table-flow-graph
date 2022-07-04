@@ -1,5 +1,5 @@
 import { TableFlowGraph } from '../index';
-import { createClassElement } from '../lib/dom';
+import { createClassElement, removeElement } from '../lib/dom';
 import { LineGroupOptions, Position } from '../types';
 import TFGraphAnchor from './TFGraphAnchor';
 import TFGraphLine from './TFGraphLine';
@@ -15,6 +15,7 @@ export default class TFGraphLineGroup {
   // public lineCursorEnd: HTMLElement;
   // public lineCursoeStart: HTMLElement;
   public cursorLine: TFGraphLine; // line currently drawing at end
+  public lines: TFGraphLine[]; // 画的线段数组
   public cursorLineStartPosition: Position;
   public graphInstance: TableFlowGraph;
 
@@ -42,6 +43,8 @@ export default class TFGraphLineGroup {
 
   public drawLines() {
     this.anchors = [];
+    this.lines = [];
+    if (this.anchorIds.length === 0) return;
     this.anchorIds.forEach((anchorId) => {
       const targetAnchor = this.graphInstance.anchors.find((anchor) => anchor.id === anchorId);
       this.anchors.push(targetAnchor);
@@ -53,13 +56,14 @@ export default class TFGraphLineGroup {
     }));
     if (pointList.length > 1) {
       for (let i = 0; i < pointList.length - 1; i++) {
-        new TFGraphLine(this.element, {
+        const line = new TFGraphLine(this.element, {
           positionA: pointList[i],
           positionB: pointList[i + 1],
           thickness: 2,
           isStart: i === 0,
           isEnd: i === pointList.length - 2 && !this.isDrawingActive,
         });
+        this.lines.push(line);
       }
     }
     // 画线时增加鼠标的位置连线
@@ -76,9 +80,40 @@ export default class TFGraphLineGroup {
     }
   }
 
+  public endDrawing() {
+    // removeElement(this.cursorLine.element);
+    this.isDrawingActive = false;
+    this.drawLines();
+  }
+
+  public escapeDrawing() {
+    if (this.cursorLine) {
+      if (this.anchorIds.length > 0) {
+        this.anchorIds.pop();
+        if (this.anchorIds.length === 0) {
+          removeElement(this.element);
+          // remove the last anchor id in this line group
+          this.graphInstance.lineAnchorIds = this.graphInstance.lineAnchorIds.filter(
+            (lineArray) => lineArray.length > 1,
+          );
+          this.graphInstance.endDrawLine();
+        } else {
+          this.drawLines();
+        }
+      }
+    }
+  }
+
   public onMouseMove(graphInstance: TableFlowGraph) {
     if (this.cursorLine) {
-      this.cursorLine.drawLine(this.cursorLineStartPosition, graphInstance.mousePosition);
+      let targetPosition = graphInstance.mousePosition;
+      if (graphInstance.hoveredAnchor && !this.anchorIds.includes(graphInstance.hoveredAnchor.id)) {
+        targetPosition = {
+          x: graphInstance.hoveredAnchor.posX,
+          y: graphInstance.hoveredAnchor.posY,
+        };
+      }
+      this.cursorLine.drawLine(this.cursorLineStartPosition, targetPosition);
     }
   }
 }
