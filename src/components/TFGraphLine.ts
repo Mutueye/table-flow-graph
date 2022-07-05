@@ -1,6 +1,7 @@
 // import { TableFlowGraph } from '../index';
 import { createClassElement, removeElement } from '../lib/dom';
 import { LineOptions, Position } from '../types';
+import TFGraphLineGroup from './TFGraphLineGroup';
 
 /**
  * table-flow-graph line
@@ -11,13 +12,24 @@ export default class TFGraphLine {
   public startPointEl: HTMLElement;
   public endArrowEl: HTMLElement;
 
-  constructor(parentElement: HTMLElement, options: LineOptions) {
-    this.element = createClassElement('div', 'tfgraph-line', parentElement);
+  constructor(parent: TFGraphLineGroup, options: LineOptions) {
+    this.element = createClassElement('div', 'tfgraph-line', parent.element);
     const { positionA, positionB, thickness = 2, isStart = true, isEnd = true } = options;
     this.thickness = thickness;
     if (isStart) this.toggleStartPoint();
     if (isEnd) this.toggleEndArrow();
     this.drawLine(positionA, positionB);
+    this.element.addEventListener('mouseenter', () => parent.setHovered(true));
+    this.element.addEventListener('mouseleave', () => parent.setHovered(false));
+    this.element.addEventListener('dblclick', () => parent.doubleClick());
+  }
+
+  public setHoverd(hovered = true) {
+    if (hovered) {
+      this.element.classList.add('hovered');
+    } else {
+      this.element.classList.remove('hovered');
+    }
   }
 
   public drawLine(positionA: Position, positionB: Position) {

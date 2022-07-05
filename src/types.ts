@@ -48,6 +48,7 @@ export type TFGraphOptions = {
   totalRows?: number;
   isEditor: boolean;
   lines: string[][]; // 2d list of anchor point ids
+  onChangeLines: (lines: string[][]) => void;
 };
 
 // anchor point's relative position to a table cell

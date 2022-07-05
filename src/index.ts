@@ -1,7 +1,7 @@
 import { cloneDeep, isEqual } from 'lodash-es';
 
 import './styles/index.scss';
-import { createClassElement } from './lib/dom';
+import { createClassElement, removeElement } from './lib/dom';
 import { renderAnchorsLayer, renderLinesLayer, renderTable } from './lib/renderTools';
 import { Mode, Position, TFGraphOptions } from './types';
 import TFGraphCell from './components/TFGraphCell';
@@ -199,12 +199,30 @@ export class TableFlowGraph {
     this.isDrawingLine = false;
     if (this.currentDrawingLine) {
       this.currentDrawingLine.endDrawing();
+      if (this.currentDrawingLine.anchorIds.length <= 1) {
+        this.removeLine(this.currentDrawingLine);
+      }
       this.currentDrawingLine = undefined;
     }
-    // console.log('draw line end::::::::', this.originLineAnchorIds, this.lineAnchorIds);
     if (!isEqual(this.originLineAnchorIds, this.lineAnchorIds)) {
-      // console.log('lines changed::::::::', this.lineAnchorIds);
-      // TODO trgger event: linesChanged
+      // trigger event: linesChanged
+      this.onChangeLines();
+    }
+  }
+
+  public onChangeLines() {
+    if (typeof this.options.onChangeLines === 'function') {
+      this.options.onChangeLines(this.lineAnchorIds);
+    }
+  }
+
+  public removeLine(line: TFGraphLineGroup) {
+    removeElement(line.element);
+    this.lineAnchorIds = this.lineAnchorIds.filter((lines) => !isEqual(lines, line.anchorIds));
+    if (!isEqual(this.lineAnchorIds, this.originLineAnchorIds)) {
+      this.originLineAnchorIds = cloneDeep(this.lineAnchorIds);
+      // trigger event: linesChanged
+      this.onChangeLines();
     }
   }
 

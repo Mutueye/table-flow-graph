@@ -69,6 +69,12 @@ export default class TFGraphAnchor {
           graphInstance.setHoveredAnchor(undefined);
         }
       });
+      // dblclick to finish drawing lines
+      this.element.addEventListener('dblclick', () => {
+        if (graphInstance.isDrawingLine) {
+          graphInstance.endDrawLine();
+        }
+      });
     }
   }
 

@@ -15,9 +15,10 @@ export default class TFGraphLineGroup {
   // public lineCursorEnd: HTMLElement;
   // public lineCursoeStart: HTMLElement;
   public cursorLine: TFGraphLine; // line currently drawing at end
-  public lines: TFGraphLine[]; // 画的线段数组
+  public lines: TFGraphLine[];
   public cursorLineStartPosition: Position;
   public graphInstance: TableFlowGraph;
+  public hovered: boolean; // is mouse hover
 
   constructor(
     parentElement: HTMLElement,
@@ -41,6 +42,16 @@ export default class TFGraphLineGroup {
     }
   }
 
+  public doubleClick() {
+    if (this.hovered) {
+      if (this.isDrawingActive) {
+        this.graphInstance.endDrawLine();
+      } else {
+        this.graphInstance.removeLine(this);
+      }
+    }
+  }
+
   public drawLines() {
     this.anchors = [];
     this.lines = [];
@@ -56,7 +67,7 @@ export default class TFGraphLineGroup {
     }));
     if (pointList.length > 1) {
       for (let i = 0; i < pointList.length - 1; i++) {
-        const line = new TFGraphLine(this.element, {
+        const line = new TFGraphLine(this, {
           positionA: pointList[i],
           positionB: pointList[i + 1],
           thickness: 2,
@@ -66,18 +77,26 @@ export default class TFGraphLineGroup {
         this.lines.push(line);
       }
     }
-    // 画线时增加鼠标的位置连线
+    // add line between last anchor position and mouse position when drawing
     if (this.isDrawingActive) {
       this.cursorLineStartPosition = pointList[pointList.length - 1];
       // draw cursor line
-      this.cursorLine = new TFGraphLine(this.element, {
+      this.cursorLine = new TFGraphLine(this, {
         positionA: this.cursorLineStartPosition,
         positionB: this.graphInstance.mousePosition,
         thickness: 2,
         isStart: pointList.length === 0,
         isEnd: true,
       });
+      this.lines.push(this.cursorLine);
     }
+  }
+
+  public setHovered(hovered = true) {
+    this.hovered = hovered;
+    this.lines.forEach((line) => {
+      line.setHoverd(hovered);
+    });
   }
 
   public endDrawing() {

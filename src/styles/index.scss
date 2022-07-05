@@ -214,9 +214,20 @@ $control-height: 36px;
   line-height: 1px;
   pointer-events: all;
   cursor: pointer;
-  &:hover {
+  &.hovered {
     background-color: $color-red;
+    .start-point {
+      background-color: $color-red;
+    }
+    .arrow {
+      &::before {
+        border-left-color: $color-red;
+      }
+    }
   }
+  // &:hover {
+  //   background-color: $color-red;
+  // }
   .start-point {
     position: absolute;
     width: 7px;
