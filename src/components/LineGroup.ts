@@ -1,21 +1,21 @@
 import { TableFlowGraph } from '../index';
 import { createClassElement, removeElement } from '../lib/dom';
 import { LineGroupOptions, Position } from '../types';
-import TFGraphAnchor from './TFGraphAnchor';
-import TFGraphLine from './TFGraphLine';
+import Anchor from './Anchor';
+import LineSegment from './LineSegment';
 
 /**
  * table-flow-graph line group
  */
-export default class TFGraphLineGroup {
+export default class LineGroup {
   public element: HTMLElement;
   public isDrawingActive: boolean;
   public anchorIds: string[];
-  public anchors: TFGraphAnchor[];
+  public anchors: Anchor[];
   // public lineCursorEnd: HTMLElement;
   // public lineCursoeStart: HTMLElement;
-  public cursorLine: TFGraphLine; // line currently drawing at end
-  public lines: TFGraphLine[];
+  public cursorLine: LineSegment; // line currently drawing at end
+  public lines: LineSegment[];
   public cursorLineStartPosition: Position;
   public graphInstance: TableFlowGraph;
   public hovered: boolean; // is mouse hover
@@ -67,7 +67,7 @@ export default class TFGraphLineGroup {
     }));
     if (pointList.length > 1) {
       for (let i = 0; i < pointList.length - 1; i++) {
-        const line = new TFGraphLine(this, {
+        const line = new LineSegment(this, {
           positionA: pointList[i],
           positionB: pointList[i + 1],
           thickness: 2,
@@ -81,7 +81,7 @@ export default class TFGraphLineGroup {
     if (this.isDrawingActive) {
       this.cursorLineStartPosition = pointList[pointList.length - 1];
       // draw cursor line
-      this.cursorLine = new TFGraphLine(this, {
+      this.cursorLine = new LineSegment(this, {
         positionA: this.cursorLineStartPosition,
         positionB: this.graphInstance.mousePosition,
         thickness: 2,
@@ -126,6 +126,7 @@ export default class TFGraphLineGroup {
   public onMouseMove(graphInstance: TableFlowGraph) {
     if (this.cursorLine) {
       let targetPosition = graphInstance.mousePosition;
+      // snap to hovered anchor
       if (graphInstance.hoveredAnchor && !this.anchorIds.includes(graphInstance.hoveredAnchor.id)) {
         targetPosition = {
           x: graphInstance.hoveredAnchor.posX,

@@ -5,8 +5,8 @@ import { Bearing } from '../types';
 /**
  * Anchor point for drawing lines
  */
-export default class TFGraphAnchor {
-  // element of this TFGraphAnchor
+export default class Anchor {
+  // element of this Anchor
   public element: HTMLElement;
   // the bearing relative to this anchor's parent table cell
   public bearing: Bearing;
@@ -16,7 +16,7 @@ export default class TFGraphAnchor {
   public isOffsetX: boolean;
   // is the anchor on table cell border or on inner block border(left / right)
   public isOffsetY: boolean;
-  // id for this TFGraphAnchor class
+  // id for this Anchor class
   public id = '';
   // x position relative to table area
   public posX = 0;
@@ -43,7 +43,7 @@ export default class TFGraphAnchor {
       createClassElement('div', 'tfgraph-anchor-point', this.element);
       createClassElement('div', 'tfgraph-anchor-area', this.element);
 
-      // set TFGraphAnchor instance id
+      // set Anchor instance id
       this.id = `anchor_${row}_${column}_${bearing}_${isOffsetX ? 'offsetx' : 'normalx'}_${
         isOffsetY ? 'offsety' : 'normaly'
       }`;

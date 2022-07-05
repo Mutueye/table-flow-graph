@@ -1,12 +1,12 @@
 import { TableFlowGraph } from '../index';
 import { createClassElement } from '../lib/dom';
 import { TFGraphNode } from '../types';
-import TFGraphAnchor from './TFGraphAnchor';
+import Anchor from './Anchor';
 
 /**
  * table-flow-graph tabel cell
  */
-export default class TFGraphCell {
+export default class TableCell {
   public element: HTMLElement;
   public nodeEl: HTMLElement;
   public hasNode: boolean;
@@ -61,55 +61,55 @@ export default class TFGraphCell {
     for (let row = this.row; row < this.row + this.rowSpan; row++) {
       for (let col = this.column; col < this.column + this.colSpan; col++) {
         if (row === 0) {
-          new TFGraphAnchor('top', row, col, graphInstance);
-          new TFGraphAnchor('topright', row, col, graphInstance);
+          new Anchor('top', row, col, graphInstance);
+          new Anchor('topright', row, col, graphInstance);
           if (this.column === 0) {
-            new TFGraphAnchor('topleft', row, col, graphInstance);
+            new Anchor('topleft', row, col, graphInstance);
           }
         }
         if (col === 0) {
-          new TFGraphAnchor('left', row, col, graphInstance);
-          new TFGraphAnchor('bottomleft', row, col, graphInstance);
+          new Anchor('left', row, col, graphInstance);
+          new Anchor('bottomleft', row, col, graphInstance);
         }
         if (col === this.column + this.colSpan - 1) {
-          new TFGraphAnchor('right', row, col, graphInstance);
+          new Anchor('right', row, col, graphInstance);
         }
         if (row === this.row + this.rowSpan - 1) {
-          new TFGraphAnchor('bottom', row, col, graphInstance);
+          new Anchor('bottom', row, col, graphInstance);
         }
         if (col === this.column + this.colSpan - 1 || row === this.row + this.rowSpan - 1) {
-          new TFGraphAnchor('bottomright', row, col, graphInstance);
+          new Anchor('bottomright', row, col, graphInstance);
         }
         if (this.hasNode) {
           if (col === this.column) {
-            new TFGraphAnchor('left', row, col, graphInstance, true, false);
+            new Anchor('left', row, col, graphInstance, true, false);
             if (row < this.row + this.rowSpan - 1) {
-              new TFGraphAnchor('bottomleft', row, col, graphInstance, true, false);
+              new Anchor('bottomleft', row, col, graphInstance, true, false);
             }
           }
           if (col === this.column + this.colSpan - 1) {
-            new TFGraphAnchor('right', row, col, graphInstance, true, false);
+            new Anchor('right', row, col, graphInstance, true, false);
             if (row < this.row + this.rowSpan - 1) {
-              new TFGraphAnchor('bottomright', row, col, graphInstance, true, false);
+              new Anchor('bottomright', row, col, graphInstance, true, false);
             }
           }
           if (row === this.row) {
-            new TFGraphAnchor('top', row, col, graphInstance, false, true);
+            new Anchor('top', row, col, graphInstance, false, true);
             if (col < this.column + this.colSpan - 1) {
-              new TFGraphAnchor('topright', row, col, graphInstance, false, true);
+              new Anchor('topright', row, col, graphInstance, false, true);
             }
           }
           if (row === this.row + this.rowSpan - 1) {
-            new TFGraphAnchor('bottom', row, col, graphInstance, false, true);
+            new Anchor('bottom', row, col, graphInstance, false, true);
             if (col < this.column + this.colSpan - 1) {
-              new TFGraphAnchor('bottomright', row, col, graphInstance, false, true);
+              new Anchor('bottomright', row, col, graphInstance, false, true);
             }
           }
         }
       }
     }
     if (!this.hasNode) {
-      new TFGraphAnchor('center', this.row, this.column, graphInstance);
+      new Anchor('center', this.row, this.column, graphInstance);
     }
   }
 }

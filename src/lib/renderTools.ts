@@ -1,5 +1,6 @@
 import { TableFlowGraph } from '../index';
-import TFGraphCell from '../components/TFGraphCell';
+import TableCell from '../components/TableCell';
+import TableHeaderCell from '../components/TableHeaderCell';
 import { createClassElement, removeElement } from './dom';
 
 /**
@@ -18,10 +19,7 @@ export function renderTable(graphInstance: TableFlowGraph) {
 const createHeader = (graphInstance: TableFlowGraph, parentEl: HTMLTableElement) => {
   const tr = createClassElement('tr', 'tfgraph-tr');
   graphInstance.options.columns.forEach((column, index) => {
-    const th = createClassElement('th', 'tfgraph-th', tr);
-    th.innerHTML = column.title;
-    th.setAttribute('width', column.width);
-    th.setAttribute('id', `${graphInstance.id}_col_${index}`);
+    new TableHeaderCell(tr, column, index, graphInstance);
   });
   parentEl.appendChild(tr);
 };
@@ -69,7 +67,7 @@ const createCells = (graphInstance: TableFlowGraph) => {
           targetTd.setAttribute('colSpan', targetNode.colSpan.toString());
           targetTd.setAttribute('rowSpan', targetNode.rowSpan.toString());
         }
-        graphInstance.cells.push(new TFGraphCell(targetTd, targetNode, i, j, graphInstance));
+        graphInstance.cells.push(new TableCell(targetTd, targetNode, i, j, graphInstance));
       }
     }
   }

@@ -1,18 +1,18 @@
 // import { TableFlowGraph } from '../index';
 import { createClassElement, removeElement } from '../lib/dom';
 import { LineOptions, Position } from '../types';
-import TFGraphLineGroup from './TFGraphLineGroup';
+import LineGroup from './LineGroup';
 
 /**
  * table-flow-graph line
  */
-export default class TFGraphLine {
+export default class LineSegment {
   public element: HTMLElement;
   public thickness: number;
   public startPointEl: HTMLElement;
   public endArrowEl: HTMLElement;
 
-  constructor(parent: TFGraphLineGroup, options: LineOptions) {
+  constructor(parent: LineGroup, options: LineOptions) {
     this.element = createClassElement('div', 'tfgraph-line', parent.element);
     const { positionA, positionB, thickness = 2, isStart = true, isEnd = true } = options;
     this.thickness = thickness;

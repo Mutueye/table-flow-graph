@@ -11,6 +11,7 @@ export default class Button {
   constructor(parentElement: HTMLElement, options: BtnOptions) {
     const { label, type, onClick } = options;
     let className = 'tfgraph-button is-hoverable';
+    if (options.className) className += ' ' + options.className;
     switch (type) {
       case 'primary':
         className += ' bg-blue border-blue';

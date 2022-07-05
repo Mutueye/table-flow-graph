@@ -7,7 +7,7 @@ import { Mode } from '../types';
 /**
  * table-flow-graph toolbar
  */
-export default class TFGraphToolbar {
+export default class Toolbar {
   public element: HTMLElement;
 
   constructor(parentElement: HTMLElement, graphInstance: TableFlowGraph) {
@@ -21,6 +21,10 @@ export default class TFGraphToolbar {
         graphInstance.changeMode(item.id as Mode);
       },
     });
+    // const rightBtns = createClassElement('div', 'flex-row items-center', this.element);
+    // new Button(rightBtns, { label: '添加列', type: 'primary', className: 'mr-10' });
+    // new Button(rightBtns, { label: '添加行', type: 'primary' });
+
     // new Button(this.element, { label: 'default' });
     // new Button(this.element, {
     //   label: 'clean',

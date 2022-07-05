@@ -86,6 +86,7 @@ export type BtnType = 'default' | 'primary' | 'warning' | 'danger' | 'success' |
 export type BtnOptions = {
   label?: string;
   type?: BtnType;
+  className?: string;
   onClick?: (e: MouseEvent) => void;
 };
 
