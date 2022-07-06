@@ -21,7 +21,7 @@ export default class LineSegment {
     this.drawLine(positionA, positionB);
     this.element.addEventListener('mouseenter', () => parent.setHovered(true));
     this.element.addEventListener('mouseleave', () => parent.setHovered(false));
-    this.element.addEventListener('dblclick', () => parent.doubleClick());
+    this.element.addEventListener('dblclick', () => parent.onDoubleClick());
   }
 
   public setHoverd(hovered = true) {

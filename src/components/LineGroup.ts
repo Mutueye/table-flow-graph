@@ -42,12 +42,12 @@ export default class LineGroup {
     }
   }
 
-  public doubleClick() {
+  public onDoubleClick() {
     if (this.hovered) {
       if (this.isDrawingActive) {
-        this.graphInstance.endDrawLine();
+        this.graphInstance.lineController.endDrawLine();
       } else {
-        this.graphInstance.removeLine(this);
+        this.graphInstance.lineController.removeLineGroup(this);
       }
     }
   }
@@ -112,10 +112,11 @@ export default class LineGroup {
         if (this.anchorIds.length === 0) {
           removeElement(this.element);
           // remove the last anchor id in this line group
-          this.graphInstance.lineAnchorIds = this.graphInstance.lineAnchorIds.filter(
-            (lineArray) => lineArray.length > 1,
-          );
-          this.graphInstance.endDrawLine();
+          this.graphInstance.lineController.lineAnchorIds =
+            this.graphInstance.lineController.lineAnchorIds.filter(
+              (lineArray) => lineArray.length > 1,
+            );
+          this.graphInstance.lineController.endDrawLine();
         } else {
           this.drawLines();
         }

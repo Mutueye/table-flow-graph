@@ -1,13 +1,12 @@
-import { cloneDeep, isEqual } from 'lodash-es';
-
 import './styles/index.scss';
-import { createClassElement, removeElement } from './lib/dom';
-import { renderAnchorsLayer, renderLinesLayer, renderTable } from './lib/renderTools';
+import { createClassElement } from './lib/dom';
+import { renderAnchorsLayer, renderTable } from './lib/renderTools';
 import { Mode, Position, TFGraphOptions } from './types';
 import TableCell from './components/TableCell';
 import Anchor from './components/Anchor';
 import Toolbar from './components/Toolbar';
-import LineGroup from './components/LineGroup';
+// import LineGroup from './components/LineGroup';
+import LineController from './components/LineController';
 // import { debounce } from './lib/utils';
 
 export class TableFlowGraph {
@@ -17,16 +16,13 @@ export class TableFlowGraph {
   public cells: TableCell[];
   public anchors: Anchor[];
   public toolbar: Toolbar;
-  public linesLayer: HTMLElement;
+  // public linesLayer: HTMLElement;
   public anchorsLayer: HTMLElement;
   public isAlive: boolean;
   public mode: Mode;
   public mousePosition: Position;
   public hoveredAnchor: Anchor; // current Anchor that mouse hoverd
-  public lineAnchorIds: string[][]; // anchor ids to draw lines
-  public originLineAnchorIds: string[][]; // compare to lineAnchorIds to determine if lines are changed
-  public isDrawingLine: boolean;
-  public currentDrawingLine: LineGroup;
+  public lineController: LineController;
 
   constructor(el: HTMLElement, options: TFGraphOptions) {
     if (!el) {
@@ -83,12 +79,6 @@ export class TableFlowGraph {
     if (typeof this.options.columns !== 'undefined')
       this.options.totalColumns = this.options.columns.length;
     // this.options.mode = options.mode ? options.mode : 'view';
-    if (this.options.lines && Array.isArray(this.options.lines)) {
-      this.lineAnchorIds = this.options.lines;
-    } else {
-      this.lineAnchorIds = [];
-    }
-    this.originLineAnchorIds = cloneDeep(this.lineAnchorIds);
 
     // create toolbar and edit state
     if (this.options.isEditor) {
@@ -100,6 +90,7 @@ export class TableFlowGraph {
 
     // root container element
     this.element = createClassElement('div', 'tfgraph', el);
+    this.lineController = new LineController(this);
     this.cells = [];
     this.anchors = [];
 
@@ -107,17 +98,13 @@ export class TableFlowGraph {
   }
 
   public render() {
-    this.element.innerHTML = '';
-    this.linesLayer = renderLinesLayer(this);
     // if (this.options.mode === 'edit') {
     this.anchorsLayer = renderAnchorsLayer(this);
     // render table
     renderTable(this);
     // render lines
     setTimeout(() => {
-      this.lineAnchorIds.forEach((lineGroup) => {
-        new LineGroup(this.linesLayer, { anchorIds: lineGroup, isDrawingActive: false }, this);
-      });
+      this.lineController.renderLines();
     }, 100);
   }
 
@@ -126,10 +113,7 @@ export class TableFlowGraph {
     const offsetX = event.clientX - rect.left;
     const offsetY = event.clientY - rect.top;
     this.mousePosition = { x: offsetX, y: offsetY };
-    // console.log('event:::::::::', offsetX, offsetY);
-    if (this.isDrawingLine && this.currentDrawingLine) {
-      this.currentDrawingLine.onMouseMove(this);
-    }
+    this.lineController.onMouseMove();
   }
 
   onResize() {
@@ -152,12 +136,12 @@ export class TableFlowGraph {
     // console.log('event.getModifierState()', e.getModifierState('Alt'));
     // console.groupEnd();
     if (e.code === 'Enter') {
-      if (this.isDrawingLine) {
-        this.endDrawLine();
+      if (this.lineController.isDrawingLine) {
+        this.lineController.endDrawLine();
       }
     } else if (e.code === 'Escape') {
-      if (this.isDrawingLine) {
-        this.currentDrawingLine.escapeDrawing();
+      if (this.lineController.isDrawingLine) {
+        this.lineController.currentDrawingLine.escapeDrawing();
       }
     }
   };
@@ -178,40 +162,8 @@ export class TableFlowGraph {
     this.isAlive = false;
   }
 
-  public startDrawLine() {
-    this.isDrawingLine = true;
-    this.originLineAnchorIds = cloneDeep(this.lineAnchorIds);
-  }
-
-  public endDrawLine() {
-    this.isDrawingLine = false;
-    if (this.currentDrawingLine) {
-      this.currentDrawingLine.endDrawing();
-      if (this.currentDrawingLine.anchorIds.length <= 1) {
-        this.removeLine(this.currentDrawingLine);
-      }
-      this.currentDrawingLine = undefined;
-    }
-    if (!isEqual(this.originLineAnchorIds, this.lineAnchorIds)) {
-      // trigger event: linesChanged
-      this.onChangeLines();
-    }
-  }
-
-  public onChangeLines() {
-    if (typeof this.options.onChangeLines === 'function') {
-      this.options.onChangeLines(this.lineAnchorIds);
-    }
-  }
-
-  public removeLine(line: LineGroup) {
-    removeElement(line.element);
-    this.lineAnchorIds = this.lineAnchorIds.filter((lines) => !isEqual(lines, line.anchorIds));
-    if (!isEqual(this.lineAnchorIds, this.originLineAnchorIds)) {
-      this.originLineAnchorIds = cloneDeep(this.lineAnchorIds);
-      // trigger event: linesChanged
-      this.onChangeLines();
-    }
+  public setHoveredAnchor(anchor: Anchor | undefined) {
+    this.hoveredAnchor = anchor;
   }
 
   public changeMode(mode: Mode) {
@@ -220,26 +172,6 @@ export class TableFlowGraph {
       this.anchors.forEach((anchor: Anchor) => {
         anchor.setVisible(mode === 'edit');
       });
-    }
-  }
-
-  public setHoveredAnchor(anchor: Anchor | undefined) {
-    this.hoveredAnchor = anchor;
-  }
-
-  public createLineGroup(anchorId) {
-    this.startDrawLine();
-    this.lineAnchorIds.push([anchorId]);
-    this.currentDrawingLine = new LineGroup(
-      this.linesLayer,
-      { anchorIds: this.lineAnchorIds[this.lineAnchorIds.length - 1], isDrawingActive: true },
-      this,
-    );
-  }
-
-  public addLineSegment(anchorId) {
-    if (this.isDrawingLine && this.currentDrawingLine) {
-      this.currentDrawingLine.addLineSegment(anchorId);
     }
   }
 

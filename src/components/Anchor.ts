@@ -55,10 +55,10 @@ export default class Anchor {
       setTimeout(() => this.setPosition(), 1);
       // this.setPosition();
       this.element.addEventListener('click', () => {
-        if (!graphInstance.isDrawingLine) {
-          graphInstance.createLineGroup(this.id);
+        if (!graphInstance.lineController.isDrawingLine) {
+          graphInstance.lineController.createLineGroup(this.id);
         } else {
-          graphInstance.addLineSegment(this.id);
+          graphInstance.lineController.addLineSegment(this.id);
         }
       });
       this.element.addEventListener('mouseenter', () => {
@@ -71,8 +71,8 @@ export default class Anchor {
       });
       // dblclick to finish drawing lines
       this.element.addEventListener('dblclick', () => {
-        if (graphInstance.isDrawingLine) {
-          graphInstance.endDrawLine();
+        if (graphInstance.lineController.isDrawingLine) {
+          graphInstance.lineController.endDrawLine();
         }
       });
     }

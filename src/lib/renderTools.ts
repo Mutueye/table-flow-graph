@@ -74,9 +74,9 @@ const createCells = (graphInstance: TableFlowGraph) => {
 };
 
 // render lines layer
-export function renderLinesLayer(graphInstance: TableFlowGraph) {
-  return createClassElement('div', 'tfgraph-line-layer', graphInstance.element);
-}
+// export function renderLinesLayer(graphInstance: TableFlowGraph) {
+//   return createClassElement('div', 'tfgraph-line-layer', graphInstance.element);
+// }
 
 // render anchors layer
 export function renderAnchorsLayer(graphInstance: TableFlowGraph) {
