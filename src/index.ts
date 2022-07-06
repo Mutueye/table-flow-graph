@@ -1,24 +1,22 @@
 import './styles/index.scss';
 import { createClassElement } from './lib/dom';
 import { Mode, Position, TFGraphOptions } from './types';
-import Anchor from './components/Anchor';
 import Toolbar from './components/Toolbar';
-// import LineGroup from './components/LineGroup';
 import TableController from './components/TableController';
 import LineController from './components/LineController';
 import AnchorController from './components/AnchorController';
-// import { debounce } from './lib/utils';
+
+// TODO default options
 
 export class TableFlowGraph {
   public element: HTMLElement;
+  public baseElement: HTMLElement;
   public options: TFGraphOptions;
   public id: string;
-  public anchors: Anchor[];
   public toolbar: Toolbar;
   public isAlive: boolean;
   public mode: Mode;
   public mousePosition: Position;
-  public hoveredAnchor: Anchor; // current Anchor that mouse hoverd
   public tableController: TableController;
   public lineController: LineController;
   public anchorController: AnchorController;
@@ -26,18 +24,18 @@ export class TableFlowGraph {
   constructor(el: HTMLElement, options: TFGraphOptions) {
     if (!el) {
       throw new Error('no element is specified to initialize TableFlowGraph');
+    } else {
+      this.baseElement = el;
     }
 
-    this.load(el, options);
+    // use id as unique key, to support multiple table-flow-graph instances in one page.
+    if (this.baseElement.getAttribute('id')) {
+      this.id = this.baseElement.getAttribute('id');
+    } else {
+      this.id = 'id' + (Math.random() * 100000).toFixed(0);
+    }
 
-    // resize trigger render
-    // if (this.options.refreshOnResize) {
-    //   window.addEventListener(
-    //     'resize',
-    //     debounce(() => this.render(), 500),
-    //     false,
-    //   );
-    // }
+    this.init(options);
 
     window.addEventListener('resize', this, false);
     window.addEventListener('keydown', this, false);
@@ -46,15 +44,8 @@ export class TableFlowGraph {
     this.isAlive = true;
   }
 
-  public load(el: HTMLElement, options: TFGraphOptions) {
-    // use id as unique key, to support multiple table-flow-graph instances in one page.
-    if (el.getAttribute('id')) {
-      this.id = el.getAttribute('id');
-    } else {
-      this.id = 'id' + (Math.random() * 100000).toFixed(0);
-    }
-
-    el.innerHTML = '';
+  public init(options: TFGraphOptions) {
+    this.baseElement.innerHTML = '';
 
     this.options = options;
     if (typeof this.options.rows !== 'undefined') {
@@ -67,17 +58,16 @@ export class TableFlowGraph {
     // create toolbar and edit state
     if (this.options.isEditor) {
       this.mode = 'edit';
-      this.toolbar = new Toolbar(el, this);
+      this.toolbar = new Toolbar(this.baseElement, this);
     } else {
       this.mode = 'preview';
     }
 
-    // root container element
-    this.element = createClassElement('div', 'tfgraph', el);
+    // create root dom elements and controllers
+    this.element = createClassElement('div', 'tfgraph', this.baseElement);
     this.lineController = new LineController(this);
     this.anchorController = new AnchorController(this);
     this.tableController = new TableController(this);
-    this.anchors = [];
 
     this.render();
   }
@@ -85,10 +75,10 @@ export class TableFlowGraph {
   public render() {
     // render table
     this.tableController.renderTable();
+    // render anchors
+    this.anchorController.renderAnchors();
     // render lines
-    setTimeout(() => {
-      this.lineController.renderLines();
-    }, 100);
+    this.lineController.renderLines();
   }
 
   // handle addEventListener events
@@ -117,42 +107,32 @@ export class TableFlowGraph {
   }
 
   onResize() {
-    if (this.anchors && this.anchors.length > 0) {
-      this.anchors.forEach((anchor) => {
-        anchor.setPosition();
-      });
-    }
+    this.anchorController.resetPosition();
   }
 
   onKeydown = (e) => {
-    // console.group('keyboard event');
-    // console.log('event', e);
-    // console.log('event.code', e.code);
-    // console.log('event.key', e.key);
-    // console.log('event.altKey', e.altKey);
-    // console.log('event.ctrlKey', e.ctrlKey);
-    // console.log('event.shiftKey', e.shiftKey);
-    // console.log('event.metaKey', e.metaKey);
-    // console.log('event.getModifierState()', e.getModifierState('Alt'));
-    // console.groupEnd();
     if (e.code === 'Enter') {
+      // press enter to finish drawing line
       if (this.lineController.isDrawingLine) {
         this.lineController.endDrawLine();
       }
     } else if (e.code === 'Escape') {
+      // press esc to cancel last anchor point when drawing line
       if (this.lineController.isDrawingLine) {
         this.lineController.currentDrawingLine.escapeDrawing();
       }
     }
   };
 
-  update() {
+  public update(options: TFGraphOptions) {
     if (!this.isAlive) {
       return;
+    } else {
+      this.init(options);
     }
   }
 
-  destroy() {
+  public destroy() {
     if (!this.isAlive) {
       return;
     }
@@ -162,19 +142,10 @@ export class TableFlowGraph {
     this.isAlive = false;
   }
 
-  public setHoveredAnchor(anchor: Anchor | undefined) {
-    this.hoveredAnchor = anchor;
-  }
-
   public changeMode(mode: Mode) {
     if (this.mode !== mode) {
       this.mode = mode;
-      this.anchors.forEach((anchor: Anchor) => {
-        anchor.setVisible(mode === 'edit');
-      });
+      this.anchorController.setAnchorsVisible(mode === 'edit');
     }
   }
-
-  // TODO press 'enter' or 'space' to end drawing line
-  // TODO press 'esc' to delete last line anchor point
 }

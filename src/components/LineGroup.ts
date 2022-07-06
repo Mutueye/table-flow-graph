@@ -52,7 +52,9 @@ export default class LineGroup {
     this.lines = [];
     if (this.anchorIds.length === 0) return;
     this.anchorIds.forEach((anchorId) => {
-      const targetAnchor = this.graphInstance.anchors.find((anchor) => anchor.id === anchorId);
+      const targetAnchor = this.graphInstance.anchorController.anchors.find(
+        (anchor) => anchor.id === anchorId,
+      );
       this.anchors.push(targetAnchor);
     });
     this.element.innerHTML = '';
@@ -123,10 +125,13 @@ export default class LineGroup {
     if (this.cursorLine) {
       let targetPosition = graphInstance.mousePosition;
       // snap to hovered anchor
-      if (graphInstance.hoveredAnchor && !this.anchorIds.includes(graphInstance.hoveredAnchor.id)) {
+      if (
+        graphInstance.anchorController.hoveredAnchor &&
+        !this.anchorIds.includes(graphInstance.anchorController.hoveredAnchor.id)
+      ) {
         targetPosition = {
-          x: graphInstance.hoveredAnchor.posX,
-          y: graphInstance.hoveredAnchor.posY,
+          x: graphInstance.anchorController.hoveredAnchor.posX,
+          y: graphInstance.anchorController.hoveredAnchor.posY,
         };
       }
       this.cursorLine.drawLine(this.cursorLineStartPosition, targetPosition);

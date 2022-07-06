@@ -27,7 +27,28 @@ export default class TableHeaderCell {
   ): HTMLElement {
     const el = createClassElement('th', 'tfgraph-th', parentElement);
     el.innerHTML = data.title;
-    if (data.width) el.setAttribute('width', data.width);
+    if (data.width) {
+      // TODO load width value from options
+      let width = data.width;
+      switch (data.width) {
+        case 'large':
+          width = '200';
+          break;
+        case 'md':
+          width = '170';
+          break;
+        case 'sm':
+          width = '130';
+          break;
+        case 'xs':
+          width = '105';
+          break;
+        default:
+          width = data.width;
+          break;
+      }
+      el.setAttribute('width', width);
+    }
     el.setAttribute('id', `${graphInstance.id}_col_${column}`);
     return el;
   }

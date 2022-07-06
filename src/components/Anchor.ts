@@ -54,10 +54,10 @@ export default class Anchor {
       // set dom id
       this.element.setAttribute('id', `${graphInstance.id}_${this.id}`);
 
-      graphInstance.anchors.push(this);
+      graphInstance.anchorController.anchors.push(this);
       this.setVisible(graphInstance.mode === 'edit');
-      setTimeout(() => this.setPosition(), 1);
-      // this.setPosition();
+      // setTimeout(() => this.setPosition(), 1);
+      this.setPosition();
       this.element.addEventListener('click', () => {
         if (!graphInstance.lineController.isDrawingLine) {
           graphInstance.lineController.createLineGroup(this.id);
@@ -66,11 +66,11 @@ export default class Anchor {
         }
       });
       this.element.addEventListener('mouseenter', () => {
-        graphInstance.setHoveredAnchor(this);
+        graphInstance.anchorController.setHoveredAnchor(this);
       });
       this.element.addEventListener('mouseleave', () => {
-        if (graphInstance.hoveredAnchor.id === this.id) {
-          graphInstance.setHoveredAnchor(undefined);
+        if (graphInstance.anchorController.hoveredAnchor.id === this.id) {
+          graphInstance.anchorController.setHoveredAnchor(undefined);
         }
       });
       // dblclick to finish drawing lines

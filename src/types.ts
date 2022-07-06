@@ -1,8 +1,10 @@
+export type ColumnWidth = 'auto' | 'lg' | 'md' | 'sm' | 'xs';
+
 // table column header data
 export type TFGraphColumn = {
   id?: string;
   title: string;
-  width: string;
+  width: ColumnWidth | string;
 };
 
 // table row header data

@@ -18,6 +18,7 @@ export default class Table {
   }
 
   public renderTable() {
+    this.element.innerHTML = '';
     this.createHeader();
     this.createRows();
     this.createCells();

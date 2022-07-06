@@ -28,6 +28,7 @@ export default class LineController {
   }
 
   public renderLines() {
+    this.element.innerHTML = '';
     this.lineAnchorIds.forEach((lineGroup) => {
       new LineGroup(
         this.element,
