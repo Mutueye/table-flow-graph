@@ -12,8 +12,6 @@ export default class LineGroup {
   public isDrawingActive: boolean;
   public anchorIds: string[];
   public anchors: Anchor[];
-  // public lineCursorEnd: HTMLElement;
-  // public lineCursoeStart: HTMLElement;
   public cursorLine: LineSegment; // line currently drawing at end
   public lines: LineSegment[];
   public cursorLineStartPosition: Position;
@@ -27,9 +25,6 @@ export default class LineGroup {
   ) {
     this.element = createClassElement('div', 'tfgraph-line-group', parentElement);
     this.isDrawingActive = options.isDrawingActive;
-    // if (this.isDrawingActive) {
-    //   graphInstance.currentDrawingLine = this;
-    // }
     this.anchorIds = options.anchorIds;
     this.graphInstance = graphInstance;
     this.drawLines();

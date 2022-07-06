@@ -1,28 +1,27 @@
 import './styles/index.scss';
 import { createClassElement } from './lib/dom';
-import { renderAnchorsLayer, renderTable } from './lib/renderTools';
 import { Mode, Position, TFGraphOptions } from './types';
-import TableCell from './components/TableCell';
 import Anchor from './components/Anchor';
 import Toolbar from './components/Toolbar';
 // import LineGroup from './components/LineGroup';
+import TableController from './components/TableController';
 import LineController from './components/LineController';
+import AnchorController from './components/AnchorController';
 // import { debounce } from './lib/utils';
 
 export class TableFlowGraph {
   public element: HTMLElement;
   public options: TFGraphOptions;
   public id: string;
-  public cells: TableCell[];
   public anchors: Anchor[];
   public toolbar: Toolbar;
-  // public linesLayer: HTMLElement;
-  public anchorsLayer: HTMLElement;
   public isAlive: boolean;
   public mode: Mode;
   public mousePosition: Position;
   public hoveredAnchor: Anchor; // current Anchor that mouse hoverd
+  public tableController: TableController;
   public lineController: LineController;
+  public anchorController: AnchorController;
 
   constructor(el: HTMLElement, options: TFGraphOptions) {
     if (!el) {
@@ -47,6 +46,51 @@ export class TableFlowGraph {
     this.isAlive = true;
   }
 
+  public load(el: HTMLElement, options: TFGraphOptions) {
+    // use id as unique key, to support multiple table-flow-graph instances in one page.
+    if (el.getAttribute('id')) {
+      this.id = el.getAttribute('id');
+    } else {
+      this.id = 'id' + (Math.random() * 100000).toFixed(0);
+    }
+
+    el.innerHTML = '';
+
+    this.options = options;
+    if (typeof this.options.rows !== 'undefined') {
+      this.options.totalRows = this.options.rows.length;
+    }
+    if (typeof this.options.columns !== 'undefined') {
+      this.options.totalColumns = this.options.columns.length;
+    }
+
+    // create toolbar and edit state
+    if (this.options.isEditor) {
+      this.mode = 'edit';
+      this.toolbar = new Toolbar(el, this);
+    } else {
+      this.mode = 'preview';
+    }
+
+    // root container element
+    this.element = createClassElement('div', 'tfgraph', el);
+    this.lineController = new LineController(this);
+    this.anchorController = new AnchorController(this);
+    this.tableController = new TableController(this);
+    this.anchors = [];
+
+    this.render();
+  }
+
+  public render() {
+    // render table
+    this.tableController.renderTable();
+    // render lines
+    setTimeout(() => {
+      this.lineController.renderLines();
+    }, 100);
+  }
+
   // handle addEventListener events
   handleEvent(event) {
     switch (event.type) {
@@ -62,50 +106,6 @@ export class TableFlowGraph {
       default:
         break;
     }
-  }
-
-  public load(el: HTMLElement, options: TFGraphOptions) {
-    // use id as unique key, to support multiple table-flow-graph instances in one page.
-    if (el.getAttribute('id')) {
-      this.id = el.getAttribute('id');
-    } else {
-      this.id = 'id' + (Math.random() * 100000).toFixed(0);
-    }
-
-    el.innerHTML = '';
-
-    this.options = options;
-    if (typeof this.options.rows !== 'undefined') this.options.totalRows = this.options.rows.length;
-    if (typeof this.options.columns !== 'undefined')
-      this.options.totalColumns = this.options.columns.length;
-    // this.options.mode = options.mode ? options.mode : 'view';
-
-    // create toolbar and edit state
-    if (this.options.isEditor) {
-      this.mode = 'edit';
-      this.toolbar = new Toolbar(el, this);
-    } else {
-      this.mode = 'preview';
-    }
-
-    // root container element
-    this.element = createClassElement('div', 'tfgraph', el);
-    this.lineController = new LineController(this);
-    this.cells = [];
-    this.anchors = [];
-
-    this.render();
-  }
-
-  public render() {
-    // if (this.options.mode === 'edit') {
-    this.anchorsLayer = renderAnchorsLayer(this);
-    // render table
-    renderTable(this);
-    // render lines
-    setTimeout(() => {
-      this.lineController.renderLines();
-    }, 100);
   }
 
   onMourseMove(event) {

@@ -39,7 +39,11 @@ export default class Anchor {
     this.col = document.getElementById(`${graphInstance.id}_col_${column}`);
     if (this.tr && this.col) {
       // create dom elements
-      this.element = createClassElement('div', 'tfgraph-anchor', graphInstance.anchorsLayer);
+      this.element = createClassElement(
+        'div',
+        'tfgraph-anchor',
+        graphInstance.anchorController.element,
+      );
       createClassElement('div', 'tfgraph-anchor-point', this.element);
       createClassElement('div', 'tfgraph-anchor-area', this.element);
 
