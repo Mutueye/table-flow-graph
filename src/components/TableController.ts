@@ -7,14 +7,20 @@ import TableHeaderCell from './TableHeaderCell';
  * table-flow-graph tabel
  */
 export default class Table {
-  public element: HTMLElement;
   graphInstance: TableFlowGraph;
+  public element: HTMLElement;
   public cells: TableCell[];
+  public headerCells: TableHeaderCell[];
+  public canDeleteColumn: boolean;
+  public canDeleteRow: boolean;
 
   constructor(graphInstance: TableFlowGraph) {
     this.graphInstance = graphInstance;
     this.element = createClassElement('table', 'tfgraph-table', this.graphInstance.element);
+    this.headerCells = [];
     this.cells = [];
+    this.canDeleteColumn = false;
+    this.canDeleteRow = false;
   }
 
   public renderTable() {
@@ -28,7 +34,8 @@ export default class Table {
   createHeader() {
     const tr = createClassElement('tr', 'tfgraph-tr');
     this.graphInstance.options.columns.forEach((column, index) => {
-      new TableHeaderCell(tr, column, index, this.graphInstance);
+      const headerCell = new TableHeaderCell(tr, column, index, this.graphInstance);
+      this.headerCells.push(headerCell);
     });
     this.element.appendChild(tr);
   }

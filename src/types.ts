@@ -4,7 +4,7 @@ export type ColumnWidth = 'auto' | 'lg' | 'md' | 'sm' | 'xs';
 export type TFGraphColumn = {
   id?: string;
   title: string;
-  width: ColumnWidth | string;
+  width?: ColumnWidth | string;
 };
 
 // table row header data
@@ -46,11 +46,17 @@ export type TFGraphOptions = {
   nodes: TFGraphNode[];
   columns?: TFGraphColumn[];
   totalColumns?: number;
+  maxColumns?: number;
   rows?: TFGraphRow[];
   totalRows?: number;
+  maxRows?: number;
   isEditor: boolean;
-  lines: string[][]; // 2d list of anchor point ids
-  onChangeLines: (lines: string[][]) => void;
+  lines: string[][]; // 2D array of anchor point ids to draw lines
+  onChangeLines?: (lines: string[][]) => void; // lines changed
+  onAddColumn?: () => void; // add column
+  onEditColumn?: (column: TFGraphColumn) => void; // edit column
+  onDeleteColumn?: (column: TFGraphColumn) => void; // delete column
+  onAddRow?: () => void; // add row
 };
 
 // anchor point's relative position to a table cell
@@ -107,4 +113,14 @@ export type TogglerButton = {
   itemData: TogglerItem;
   el: HTMLElement;
   index: number;
+};
+
+export type PopupOptions = {
+  placement?: 'top' | 'right' | 'bottom' | 'left';
+  contentElement?: HTMLElement;
+};
+
+export type HeaderCellMenuOptions = {
+  showAdd?: boolean;
+  showDelete?: boolean;
 };

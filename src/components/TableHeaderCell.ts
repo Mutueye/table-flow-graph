@@ -1,36 +1,55 @@
 import { TableFlowGraph } from '../index';
 import { createClassElement } from '../lib/dom';
 import { TFGraphColumn } from '../types';
+import Popup from './ui/Popup';
+import TableHeaderCellMenu from './TableHeaderCellMenu';
 
 /**
  * table-flow-graph tabel header cell
  */
 export default class TableHeaderCell {
+  public graphInstance: TableFlowGraph;
   public element: HTMLElement;
-  public column: number;
+  public columnIndex: number;
+  public isLast: boolean;
+  public columnData: TFGraphColumn;
+  public canDelete: boolean;
+  public canAdd: boolean;
+  public popMenu: Popup | null;
+  public menu: TableHeaderCellMenu | null;
 
   constructor(
     parentElement: HTMLElement,
-    data: TFGraphColumn,
-    column: number,
+    columnData: TFGraphColumn,
+    columnIndex: number,
     graphInstance: TableFlowGraph,
   ) {
-    this.column = column;
-    this.element = this.createElement(parentElement, data, column, graphInstance);
+    this.graphInstance = graphInstance;
+    this.columnIndex = columnIndex;
+    this.columnData = columnData;
+    this.isLast = this.columnIndex === this.graphInstance.options.columns.length - 1;
+    this.element = this.createElement(parentElement);
+    this.menu = new TableHeaderCellMenu(this, { showDelete: this.isLast, showAdd: this.isLast });
+    this.popMenu = new Popup(this.element, { placement: 'top', contentElement: this.menu.element });
+    this.element.addEventListener('mouseenter', () => {
+      if (this.popMenu) {
+        this.popMenu.mouseEnter();
+      }
+    });
+    this.element.addEventListener('mouseleave', () => {
+      if (this.popMenu) {
+        this.popMenu.mouseLeave();
+      }
+    });
   }
 
-  createElement(
-    parentElement: HTMLElement,
-    data: TFGraphColumn,
-    column,
-    graphInstance: TableFlowGraph,
-  ): HTMLElement {
+  createElement(parentElement: HTMLElement): HTMLElement {
     const el = createClassElement('th', 'tfgraph-th', parentElement);
-    el.innerHTML = data.title;
-    if (data.width) {
+    el.innerHTML = this.columnData.title;
+    if (this.columnData.width) {
       // TODO load width value from options
-      let width = data.width;
-      switch (data.width) {
+      let width = this.columnData.width;
+      switch (this.columnData.width) {
         case 'large':
           width = '200';
           break;
@@ -44,12 +63,14 @@ export default class TableHeaderCell {
           width = '105';
           break;
         default:
-          width = data.width;
+          width = this.columnData.width;
           break;
       }
       el.setAttribute('width', width);
+    } else {
+      el.setAttribute('width', 'auto');
     }
-    el.setAttribute('id', `${graphInstance.id}_col_${column}`);
+    el.setAttribute('id', `${this.graphInstance.id}_col_${this.columnIndex}`);
     return el;
   }
 }

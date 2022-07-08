@@ -3,6 +3,7 @@
 $header-color: #f3f4f6;
 $border-color: #ebeef5;
 $control-height: 36px;
+$control-height-sm: 28px;
 
 .tfgraph {
   position: relative;
@@ -275,6 +276,7 @@ $control-height: 36px;
 }
 
 .tfgraph-button {
+  white-space: nowrap;
   border-radius: 4px;
   height: $control-height;
   padding: 0 15px;
@@ -288,6 +290,12 @@ $control-height: 36px;
   color: white;
   transition: all ease 0.2s;
   font-size: 14px;
+  &.sm {
+    border-radius: 3px;
+    padding: 0 10px;
+    font-size: 12px;
+    height: $control-height-sm;
+  }
   &.disabled {
     opacity: 0.5;
     filter: grayscale(80%);
@@ -367,4 +375,111 @@ $control-height: 36px;
     left: 4px;
   }
 }
+
+$popup-border-color: rgba(0,0,0, 0.25);
+
+.tfgraph-popup {
+  width: 0;
+  height: 0;
+  position: fixed;
+  z-index: 999;
+  transition: all ease 0.2s;
+  overflow: visible;
+  .tfgraph-popup-area {
+    position: absolute;
+    width: auto;
+    height: auto;
+    .tfgraph-popup-arrow {
+      position: absolute;
+      display: block;
+      width: 16px;
+      height: 8px;
+      &::before,
+      &::after {
+        position: absolute;
+        display: block;
+        content: "";
+        border-color: transparent;
+        border-style: solid;
+      }
+    }
+    &.top {
+      bottom: 0;
+      .tfgraph-popup-arrow {
+        &::before {
+          bottom: 0;
+          border-width: 8px 8px 0;
+          border-top-color: $popup-border-color;
+        }
+        &::after {
+          bottom: 1px;
+          border-width: 8px 8px 0;
+          border-top-color: white;
+        }
+      }
+    }
+    &.right {
+      left: 0;
+      .tfgraph-popup-arrow {
+        width: 8px;
+        height: 16px;
+        left: -7px;
+        &::before {
+          left: 0;
+          border-width: 8px 8px 8px 0;
+          border-right-color: $popup-border-color;
+        }
+    
+        &::after {
+          left: 1px;
+          border-width: 8px 8px 8px 0;
+          border-right-color: white;
+        }
+      }
+    }
+    &.bottom {
+      top: 0;
+      .tfgraph-popup-arrow {
+        top: -7px;
+        &::before {
+          top: 0;
+          border-width: 0px 8px 8px 8px;
+          border-bottom-color: $popup-border-color;
+        }
+        &::after {
+          top: 1px;
+          border-width: 0px 8px 8px 8px;
+          border-bottom-color: white;
+        }
+      }
+    }
+    &.left {
+      right: 0;
+      .tfgraph-popup-arrow {
+        width: 8px;
+        height: 16px;
+        right: -7px;
+        &::before {
+          right: 0;
+          border-width: 8px 0px 8px 8px;
+          border-left-color: $popup-border-color;
+        }
+        &::after {
+          right: 1px;
+          border-width: 8px 0px 8px 8px;
+          border-left-color: white;
+        }
+      }
+    }
+    .tfgraph-popup-box {
+      width: auto;
+      height: auto;
+      background-color: white;
+      overflow: hidden;
+      border: 1px solid $popup-border-color;
+      border-radius: 4px;
+    }
+  }
+}
+
 

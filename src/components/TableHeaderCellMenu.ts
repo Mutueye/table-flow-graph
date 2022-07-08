@@ -1,0 +1,63 @@
+import { TableFlowGraph } from '../index';
+import { createClassElement } from '../lib/dom';
+import { HeaderCellMenuOptions } from '../types';
+import Button from './ui/Button';
+import TableHeaderCell from './TableHeaderCell';
+
+/**
+ * table-flow-graph tabel header cell menu
+ */
+export default class TableHeaderCellMenu {
+  graphInstance: TableFlowGraph;
+  options: HeaderCellMenuOptions;
+  public element: HTMLElement;
+  public headerCell: TableHeaderCell;
+
+  constructor(headerCell: TableHeaderCell, options: HeaderCellMenuOptions) {
+    this.headerCell = headerCell;
+    this.graphInstance = this.headerCell.graphInstance;
+    this.options = options;
+    this.element = createClassElement('div', 'flex flex-row py-10 px-5');
+    this.createBtns(this.element);
+  }
+
+  createBtns(parentElement: HTMLElement) {
+    new Button(parentElement, {
+      label: '编辑',
+      type: 'primary',
+      className: 'mx-5 sm',
+      onClick: () => {
+        if (typeof this.graphInstance.options.onEditColumn === 'function') {
+          this.graphInstance.options.onEditColumn(this.headerCell.columnData);
+        }
+        this.headerCell.popMenu.dismiss();
+      },
+    });
+    if (this.options.showAdd) {
+      new Button(parentElement, {
+        label: '添加列',
+        type: 'primary',
+        className: 'mx-5 sm',
+        onClick: () => {
+          if (typeof this.graphInstance.options.onAddColumn === 'function') {
+            this.graphInstance.options.onAddColumn();
+          }
+          this.headerCell.popMenu.dismiss();
+        },
+      });
+    }
+    if (this.options.showDelete) {
+      new Button(parentElement, {
+        label: '删除列',
+        type: 'danger',
+        className: 'mx-5 sm',
+        onClick: () => {
+          if (typeof this.graphInstance.options.onDeleteColumn === 'function') {
+            this.graphInstance.options.onDeleteColumn(this.headerCell.columnData);
+          }
+          this.headerCell.popMenu.dismiss();
+        },
+      });
+    }
+  }
+}

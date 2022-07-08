@@ -1,5 +1,5 @@
 import './styles/index.scss';
-import { createClassElement } from './lib/dom';
+import { createClassElement, setStyles } from './lib/dom';
 import { Mode, Position, TFGraphOptions } from './types';
 import Toolbar from './components/Toolbar';
 import TableController from './components/TableController';
@@ -39,7 +39,7 @@ export class TableFlowGraph {
 
     window.addEventListener('resize', this, false);
     window.addEventListener('keydown', this, false);
-    this.element.addEventListener('mousemove', this, false);
+    window.addEventListener('mousemove', this, false);
 
     this.isAlive = true;
   }
@@ -124,11 +124,17 @@ export class TableFlowGraph {
     }
   };
 
-  public update(options: TFGraphOptions) {
+  public refresh(options: TFGraphOptions) {
     if (!this.isAlive) {
       return;
     } else {
-      this.init(options);
+      setTimeout(() => {
+        const height = this.baseElement.getBoundingClientRect().height;
+        // maintain consistent height when rerendering dom elements
+        setStyles(this.baseElement, { height: height + 'px' });
+        this.init(options);
+        setStyles(this.baseElement, { height: 'auto' });
+      });
     }
   }
 
@@ -138,7 +144,9 @@ export class TableFlowGraph {
     }
 
     window.removeEventListener('resize', this, false);
-    this.element.removeEventListener('mousemove', this, false);
+    window.removeEventListener('keydown', this, false);
+    window.removeEventListener('mousemove', this, false);
+
     this.isAlive = false;
   }
 
