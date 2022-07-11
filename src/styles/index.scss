@@ -68,7 +68,6 @@ $control-height-sm: 28px;
 }
 
 .tfgraph-node {
-  cursor: pointer;
   display: flex;
   align-self: stretch;
   width: 100%;
@@ -214,7 +213,6 @@ $control-height-sm: 28px;
   position: absolute;
   line-height: 1px;
   pointer-events: all;
-  cursor: pointer;
   &.hovered {
     background-color: $color-red;
     .start-point {
@@ -479,6 +477,12 @@ $popup-border-color: rgba(0,0,0, 0.25);
       border: 1px solid $popup-border-color;
       border-radius: 4px;
     }
+  }
+}
+
+.edit {
+  .tfgraph-line {
+    cursor: pointer;
   }
 }
 

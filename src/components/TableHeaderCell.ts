@@ -29,18 +29,6 @@ export default class TableHeaderCell {
     this.columnData = columnData;
     this.isLast = this.columnIndex === this.graphInstance.options.columns.length - 1;
     this.element = this.createElement(parentElement);
-    this.menu = new TableHeaderCellMenu(this, { showDelete: this.isLast, showAdd: this.isLast });
-    this.popMenu = new Popup(this.element, { placement: 'top', contentElement: this.menu.element });
-    this.element.addEventListener('mouseenter', () => {
-      if (this.popMenu) {
-        this.popMenu.mouseEnter();
-      }
-    });
-    this.element.addEventListener('mouseleave', () => {
-      if (this.popMenu) {
-        this.popMenu.mouseLeave();
-      }
-    });
   }
 
   createElement(parentElement: HTMLElement): HTMLElement {
@@ -72,5 +60,23 @@ export default class TableHeaderCell {
     }
     el.setAttribute('id', `${this.graphInstance.id}_col_${this.columnIndex}`);
     return el;
+  }
+
+  public setControls() {
+    this.menu = new TableHeaderCellMenu(this, {
+      showDelete: this.isLast && this.graphInstance.tableController.canDeleteColumn,
+      showAdd: this.isLast,
+    });
+    this.popMenu = new Popup(this.element, { placement: 'top', contentElement: this.menu.element });
+    this.element.addEventListener('mouseenter', () => {
+      if (this.popMenu) {
+        this.popMenu.mouseEnter();
+      }
+    });
+    this.element.addEventListener('mouseleave', () => {
+      if (this.popMenu) {
+        this.popMenu.mouseLeave();
+      }
+    });
   }
 }

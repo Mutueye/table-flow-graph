@@ -1,5 +1,6 @@
 import './styles/index.scss';
 import { createClassElement, setStyles } from './lib/dom';
+import { debounce } from './lib/utils';
 import { Mode, Position, TFGraphOptions } from './types';
 import Toolbar from './components/Toolbar';
 import TableController from './components/TableController';
@@ -65,6 +66,7 @@ export class TableFlowGraph {
 
     // create root dom elements and controllers
     this.element = createClassElement('div', 'tfgraph', this.baseElement);
+    if (this.mode === 'edit') this.element.classList.add('edit');
     this.lineController = new LineController(this);
     this.anchorController = new AnchorController(this);
     this.tableController = new TableController(this);
@@ -107,7 +109,7 @@ export class TableFlowGraph {
   }
 
   onResize() {
-    this.anchorController.resetPosition();
+    debounce(() => this.anchorController.resetPosition(), 500);
   }
 
   onKeydown = (e) => {
@@ -153,7 +155,13 @@ export class TableFlowGraph {
   public changeMode(mode: Mode) {
     if (this.mode !== mode) {
       this.mode = mode;
+      if (mode === 'edit') {
+        this.element.classList.add('edit');
+      } else {
+        this.element.classList.remove('edit');
+      }
       this.anchorController.setAnchorsVisible(mode === 'edit');
+      this.tableController.renderTable();
     }
   }
 }

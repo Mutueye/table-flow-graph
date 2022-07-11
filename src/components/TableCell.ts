@@ -6,6 +6,7 @@ import { TFGraphNode } from '../types';
  * table-flow-graph tabel cell
  */
 export default class TableCell {
+  public graphInstance;
   public element: HTMLElement;
   public nodeEl: HTMLElement;
   public nodeData?: TFGraphNode;
@@ -22,9 +23,10 @@ export default class TableCell {
     column: number,
     graphInstance: TableFlowGraph,
   ) {
+    this.graphInstance = graphInstance;
     this.row = row;
     this.column = column;
-    this.element = this.createTabelCell(data, row, column, graphInstance);
+    this.element = this.createTabelCell(data, row, column, this.graphInstance);
     parentElement.appendChild(this.element);
     // add anchors for current table cell
     // this.createAnchors(graphInstance);
@@ -41,7 +43,7 @@ export default class TableCell {
     if (data) {
       const node = createClassElement('button', 'tfgraph-node');
       node.classList.add(data.type);
-      if (data.isBtn) node.classList.add('isBtn');
+      if (data.isBtn && this.graphInstance.mode !== 'edit') node.classList.add('isBtn');
       node.innerText = data.title;
       // node.innerText = data.id;
       el.appendChild(node);

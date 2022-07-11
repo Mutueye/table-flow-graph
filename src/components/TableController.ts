@@ -13,6 +13,7 @@ export default class Table {
   public headerCells: TableHeaderCell[];
   public canDeleteColumn: boolean;
   public canDeleteRow: boolean;
+  public occupiedList: number[][]; // 1: occupied, 0: not occupied
 
   constructor(graphInstance: TableFlowGraph) {
     this.graphInstance = graphInstance;
@@ -21,13 +22,38 @@ export default class Table {
     this.cells = [];
     this.canDeleteColumn = false;
     this.canDeleteRow = false;
+    this.occupiedList = [];
   }
 
   public renderTable() {
     this.element.innerHTML = '';
     this.createHeader();
-    this.createRows();
+    this.createTds();
     this.createCells();
+    this.setControls();
+  }
+
+  public setControls() {
+    // get canDeleteColumn & canDeleteRow by this.cells
+    const totalColumns = this.graphInstance.options.totalColumns;
+    const totalRows = this.graphInstance.options.totalRows;
+    this.canDeleteColumn = true;
+    this.canDeleteRow = true;
+    for (let i = 0; i < totalRows - 1; i++) {
+      if (this.occupiedList[i][totalColumns - 1] !== 0) {
+        this.canDeleteColumn = false;
+      }
+    }
+    for (let i = 0; i < totalColumns - 1; i++) {
+      if (this.occupiedList[totalRows - 1][i] !== 0) {
+        this.canDeleteRow = false;
+      }
+    }
+    this.headerCells.forEach((headerCell) => {
+      if (this.graphInstance.mode === 'edit') {
+        headerCell.setControls();
+      }
+    });
   }
 
   // render table header
@@ -41,13 +67,16 @@ export default class Table {
   }
 
   // render table rows and tds
-  createRows() {
+  createTds() {
     for (let i = 0; i < this.graphInstance.options.totalRows; i++) {
       const tr = createClassElement('tr', 'tfgraph-tr');
       tr.setAttribute('id', `${this.graphInstance.id}_tr_${i}`);
+      const occupiedRow: number[] = [];
+      this.occupiedList.push(occupiedRow);
       for (let j = 0; j < this.graphInstance.options.totalColumns; j++) {
         const td = createClassElement('td', 'tfgraph-td', tr);
         td.setAttribute('id', `${this.graphInstance.id}_td_${i}_${j}`);
+        occupiedRow.push(0);
       }
       this.element.appendChild(tr);
     }
@@ -65,6 +94,7 @@ export default class Table {
           for (let j = node.row; j < node.row + node.rowSpan; j++) {
             if (!(i === node.column && j === node.row)) {
               spanedTdIds.push(`${this.graphInstance.id}_td_${j}_${i}`);
+              this.occupiedList[j][i] = 1;
             }
           }
         }
@@ -82,6 +112,7 @@ export default class Table {
           if (targetNode) {
             targetTd.setAttribute('colSpan', targetNode.colSpan.toString());
             targetTd.setAttribute('rowSpan', targetNode.rowSpan.toString());
+            this.occupiedList[i][j] = 1;
           }
           this.cells.push(new TableCell(targetTd, targetNode, i, j, this.graphInstance));
         }

@@ -90,10 +90,12 @@ export default class LineGroup {
   }
 
   public setHovered(hovered = true) {
-    this.hovered = hovered;
-    this.lines.forEach((line) => {
-      line.setHoverd(hovered);
-    });
+    if (this.graphInstance.mode === 'edit') {
+      this.hovered = hovered;
+      this.lines.forEach((line) => {
+        line.setHoverd(hovered);
+      });
+    }
   }
 
   public endDrawing() {
