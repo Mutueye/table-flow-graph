@@ -23,7 +23,8 @@ export default class TableHeaderCellMenu {
 
   createBtns(parentElement: HTMLElement) {
     new Button(parentElement, {
-      label: '编辑',
+      icon: 'edit',
+      label: this.graphInstance.options.labels.editColumn,
       type: 'primary',
       className: 'mx-5 sm',
       onClick: () => {
@@ -33,25 +34,28 @@ export default class TableHeaderCellMenu {
         this.headerCell.popMenu.dismiss();
       },
     });
-    if (this.options.showAdd) {
-      new Button(parentElement, {
-        label: '添加列',
-        type: 'primary',
-        className: 'mx-5 sm',
-        onClick: () => {
-          if (typeof this.graphInstance.options.onAddColumn === 'function') {
-            this.graphInstance.options.onAddColumn();
-          }
-          this.headerCell.popMenu.dismiss();
-        },
-      });
-    }
+    // if (this.options.showAdd) {
+    //   new Button(parentElement, {
+    //     label: '添加列',
+    //     type: 'primary',
+    //     className: 'mx-5 sm',
+    //     onClick: () => {
+    //       if (typeof this.graphInstance.options.onAddColumn === 'function') {
+    //         this.graphInstance.options.onAddColumn();
+    //       }
+    //       this.headerCell.popMenu.dismiss();
+    //     },
+    //   });
+    // }
     if (this.options.showDelete) {
       new Button(parentElement, {
-        label: '删除列',
+        icon: 'x',
+        label: this.graphInstance.options.labels.deleteColumn,
         type: 'danger',
         className: 'mx-5 sm',
         onClick: () => {
+          this.graphInstance.options.columns.pop();
+          this.graphInstance.init(this.graphInstance.options);
           if (typeof this.graphInstance.options.onDeleteColumn === 'function') {
             this.graphInstance.options.onDeleteColumn(this.headerCell.columnData);
           }

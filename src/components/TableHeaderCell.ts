@@ -27,7 +27,7 @@ export default class TableHeaderCell {
     this.graphInstance = graphInstance;
     this.columnIndex = columnIndex;
     this.columnData = columnData;
-    this.isLast = this.columnIndex === this.graphInstance.options.columns.length - 1;
+    this.isLast = this.columnIndex === this.graphInstance.options.totalColumns - 1;
     this.element = this.createElement(parentElement);
   }
 
@@ -65,7 +65,7 @@ export default class TableHeaderCell {
   public setControls() {
     this.menu = new TableHeaderCellMenu(this, {
       showDelete: this.isLast && this.graphInstance.tableController.canDeleteColumn,
-      showAdd: this.isLast,
+      // showAdd: this.isLast,
     });
     this.popMenu = new Popup(this.element, { placement: 'top', contentElement: this.menu.element });
     this.element.addEventListener('mouseenter', () => {

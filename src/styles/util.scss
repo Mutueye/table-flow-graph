@@ -45,6 +45,9 @@ $colors: (
   .border-#{$name} {
     @include borderColor($color);
   }
+  .fill-#{$name} {
+    @include fillColor($color)
+  }
 }
 
 .overflow-hidden {

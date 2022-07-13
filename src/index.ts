@@ -8,6 +8,23 @@ import LineController from './components/LineController';
 import AnchorController from './components/AnchorController';
 
 // TODO default options
+const defaultOptions: TFGraphOptions = {
+  totalColumns: 8,
+  totalRows: 8,
+  labels: {
+    editMode: 'Edit Mode',
+    previewMode: 'Preview Mode',
+    editColumn: 'Edit Column',
+    addColumn: 'Add Column',
+    deleteColumn: 'Delete Column',
+    addRow: 'Add Row',
+    deleteRow: 'Delete Row',
+    editNode: 'Edit Node',
+    addNode: 'Add Node',
+    adjustNodeSize: 'Adjust Node Size',
+    moveNode: 'Move Node',
+  },
+};
 
 export class TableFlowGraph {
   public element: HTMLElement;
@@ -48,7 +65,7 @@ export class TableFlowGraph {
   public init(options: TFGraphOptions) {
     this.baseElement.innerHTML = '';
 
-    this.options = options;
+    this.options = Object.assign(defaultOptions, options);
     if (typeof this.options.rows !== 'undefined') {
       this.options.totalRows = this.options.rows.length;
     }

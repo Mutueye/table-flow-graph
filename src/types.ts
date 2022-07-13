@@ -41,22 +41,39 @@ export type TFGraphNode = {
 
 export type Mode = 'edit' | 'preview';
 
+// labels for ui
+export type Labels = {
+  editMode?: string;
+  previewMode?: string;
+  editColumn?: string;
+  addColumn?: string;
+  deleteColumn?: string;
+  addRow?: string;
+  deleteRow?: string;
+  editNode?: string;
+  addNode?: string;
+  adjustNodeSize?: string;
+  moveNode?: string;
+};
+
 // table-flow-graph options
 export type TFGraphOptions = {
-  nodes: TFGraphNode[];
+  nodes?: TFGraphNode[];
   columns?: TFGraphColumn[];
   totalColumns?: number;
   maxColumns?: number;
   rows?: TFGraphRow[];
   totalRows?: number;
   maxRows?: number;
-  isEditor: boolean;
-  lines: string[][]; // 2D array of anchor point ids to draw lines
+  isEditor?: boolean;
+  lines?: string[][]; // 2D array of anchor point ids to draw lines
+  labels?: Labels;
   onChangeLines?: (lines: string[][]) => void; // lines changed
   onAddColumn?: () => void; // add column
   onEditColumn?: (column: TFGraphColumn) => void; // edit column
   onDeleteColumn?: (column: TFGraphColumn) => void; // delete column
   onAddRow?: () => void; // add row
+  onDeleteRow?: () => void; // delete the last row
 };
 
 // anchor point's relative position to a table cell
@@ -95,6 +112,7 @@ export type BtnOptions = {
   label?: string;
   type?: BtnType;
   className?: string;
+  icon?: string;
   onClick?: (e: MouseEvent) => void;
 };
 

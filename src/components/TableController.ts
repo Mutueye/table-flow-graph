@@ -54,16 +54,24 @@ export default class Table {
         headerCell.setControls();
       }
     });
+    // TODO set table cell controls
+    // 1. remove last row
+    // 2. empty cell: add node
+    // 3. node cell: edit node content
+    // 4. node cell: adjust node size
+    // 5. nofr cell: move node position
   }
 
   // render table header
   createHeader() {
-    const tr = createClassElement('tr', 'tfgraph-tr');
-    this.graphInstance.options.columns.forEach((column, index) => {
-      const headerCell = new TableHeaderCell(tr, column, index, this.graphInstance);
-      this.headerCells.push(headerCell);
-    });
-    this.element.appendChild(tr);
+    if (this.graphInstance.options.columns && this.graphInstance.options.columns.length > 0) {
+      const tr = createClassElement('tr', 'tfgraph-tr');
+      this.graphInstance.options.columns.forEach((column, index) => {
+        const headerCell = new TableHeaderCell(tr, column, index, this.graphInstance);
+        this.headerCells.push(headerCell);
+      });
+      this.element.appendChild(tr);
+    }
   }
 
   // render table rows and tds

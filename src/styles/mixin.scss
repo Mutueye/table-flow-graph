@@ -17,6 +17,16 @@
   }
 }
 
+// svg fill-color & hover color
+@mixin fillColor($color) {
+  fill: $color;
+  &.is-hoverable {
+    &:hover {
+      fill: mix($color-white, $color, 15%);
+    }
+  }
+}
+
 // font color & hover color
 @mixin fontColor($color) {
   color: $color;

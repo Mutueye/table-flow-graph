@@ -1,8 +1,9 @@
 import { TableFlowGraph } from '../index';
 import { createClassElement } from '../lib/dom';
-// import Button from './ui/Button';
+import Button from './ui/Button';
 import Toggler from './ui/Toggler';
 import { Mode } from '../types';
+// import { Icon } from './ui/Icon';
 
 /**
  * table-flow-graph toolbar
@@ -16,20 +17,24 @@ export default class Toolbar {
     this.element = createClassElement('div', 'tfgraph-toolbar', parentElement);
     new Toggler(this.element, {
       items: [
-        { label: '编辑模式', id: 'edit' },
-        { label: '预览模式', id: 'preview' },
+        { label: this.graphInstance.options.labels.editMode, id: 'edit' },
+        { label: this.graphInstance.options.labels.previewMode, id: 'preview' },
       ],
       onChange: (item) => {
         graphInstance.changeMode(item.id as Mode);
       },
     });
-    // const rightBtns = createClassElement('div', 'flex-row items-center', this.element);
-    // new Button(rightBtns, {
-    //   label: '添加列',
-    //   type: 'primary',
-    //   className: 'mr-10',
-    //   onClick: () => this.addColumn(this.graphInstance),
+    // new Icon(this.element, {
+    //   name: 'plus',
+    //   style: { width: '16px', height: '16px' },
     // });
+    const rightBtns = createClassElement('div', 'flex-row items-center', this.element);
+    new Button(rightBtns, {
+      icon: 'plus',
+      label: this.graphInstance.options.labels.addColumn,
+      type: 'primary',
+      onClick: () => this.addColumn(this.graphInstance),
+    });
     // new Button(rightBtns, { label: '添加行', type: 'primary' });
 
     // new Button(this.element, { label: 'default' });
