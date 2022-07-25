@@ -55,7 +55,7 @@ module.exports = outputList.map((outputData) => {
       typescript({ tsconfig: './tsconfig.json' }),
       scss({
         output: resolve('dist/index.css'),
-        watch: glob.sync('src/styles/**/*.@(sa|sc|c)ss'),
+        watch: glob.sync('src/**/*.@(sa|sc|c)ss'),
       }),
       outputData.min ? terser() : null,
     ],

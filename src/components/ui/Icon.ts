@@ -36,6 +36,7 @@ export class Icon {
         setStyles(this.element, options.style);
       }
       if (options.className) this.element.setAttribute('class', options.className);
+      this.element.classList.add('tfgraph-icon');
       parentElement.appendChild(this.element);
     }
   }

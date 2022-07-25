@@ -1,6 +1,6 @@
 import { cloneDeep, isEqual } from 'lodash-es';
 import { TableFlowGraph } from '../index';
-import { createClassElement, removeElement } from '../lib/dom';
+import { createClassElement, removeElement, setStyles } from '../lib/dom';
 import LineGroup from './LineGroup';
 
 /**
@@ -40,11 +40,19 @@ export default class LineController {
 
   public startDrawLine() {
     this.isDrawingLine = true;
+    // set lines layer below anchors layer when draing line
+    setStyles(this.element, { zIndex: '1' });
+    setStyles(this.graphInstance.anchorController.element, { zIndex: '2' });
+
     this.originLineAnchorIds = cloneDeep(this.lineAnchorIds);
   }
 
   public endDrawLine() {
     this.isDrawingLine = false;
+    // set lines layer above anchors layer when draing line
+    setStyles(this.element, { zIndex: '2' });
+    setStyles(this.graphInstance.anchorController.element, { zIndex: '1' });
+
     if (this.currentDrawingLine) {
       this.currentDrawingLine.endDrawing();
       if (this.currentDrawingLine.anchorIds.length <= 1) {

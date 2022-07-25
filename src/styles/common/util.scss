@@ -121,6 +121,13 @@ $colors: (
   flex-shrink: 0;
 }
 
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+
 /* 辅助样式
 -------------------------- */
 
@@ -141,8 +148,47 @@ $directions: 'T', 'R', 'B', 'L', 'X', 'Y';
   height: 100%;
 }
 
+@for $pct from 0 through 100 {
+  .left-#{$pct}pct {
+    left: $pct + 0%;
+  }
+  .top-#{$pct}pct {
+    top: $pct + 0%;
+  }
+  .right-#{$pct}pct {
+    right: $pct + 0%;
+  }
+  .bottom-#{$pct}pct {
+    bottom: $pct + 0%;
+  }
+}
+
 // 1到100的margin/padding辅助样式，比如marginT36代表marign-top: 36px;
 @for $size from 0 through 500 {
+  .left-#{$size} {
+    left: numToPx($size);
+  }
+  .-left-#{$size} {
+    left: -1 * numToPx($size);
+  }
+  .right-#{$size} {
+    right: numToPx($size);
+  }
+  .-right-#{$size} {
+    right: -1 * numToPx($size);
+  }
+  .top-#{$size} {
+    top: numToPx($size);
+  }
+  .-top-#{$size} {
+    top: -1 * numToPx($size);
+  }
+  .bottom-#{$size} {
+    bottom: numToPx($size);
+  }
+  .-bottom-#{$size} {
+    bottom: -1 * numToPx($size);
+  }
   .m-#{$size} {
     margin: numToPx($size) !important;
   }
@@ -174,6 +220,9 @@ $directions: 'T', 'R', 'B', 'L', 'X', 'Y';
     @if $direction == 'T' {
       .mt-#{$size} {
         margin-top: numToPx($size) !important;
+      }
+      .-mt-#{$size} {
+        margin-top: -1 * numToPx($size) !important;
       }
       .pt-#{$size} {
         padding-top: numToPx($size) !important;

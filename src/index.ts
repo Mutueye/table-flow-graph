@@ -7,7 +7,7 @@ import TableController from './components/TableController';
 import LineController from './components/LineController';
 import AnchorController from './components/AnchorController';
 
-// TODO default options
+// default options
 const defaultOptions: TFGraphOptions = {
   totalColumns: 8,
   totalRows: 8,
@@ -21,6 +21,7 @@ const defaultOptions: TFGraphOptions = {
     deleteRow: 'Delete Row',
     editNode: 'Edit Node',
     addNode: 'Add Node',
+    deleteNode: 'Delete Node',
     adjustNodeSize: 'Adjust Node Size',
     moveNode: 'Move Node',
   },
@@ -65,7 +66,11 @@ export class TableFlowGraph {
   public init(options: TFGraphOptions) {
     this.baseElement.innerHTML = '';
 
-    this.options = Object.assign(defaultOptions, options);
+    this.options = Object.assign({}, defaultOptions, options);
+    if (options.labels) {
+      this.options.labels = Object.assign({}, defaultOptions.labels, options.labels);
+      console.log('this.options.labels::::::::', this.options.labels);
+    }
     if (typeof this.options.rows !== 'undefined') {
       this.options.totalRows = this.options.rows.length;
     }
@@ -143,7 +148,7 @@ export class TableFlowGraph {
     }
   };
 
-  public refresh(options: TFGraphOptions) {
+  public refresh(options?: TFGraphOptions) {
     if (!this.isAlive) {
       return;
     } else {
@@ -151,7 +156,7 @@ export class TableFlowGraph {
         const height = this.baseElement.getBoundingClientRect().height;
         // maintain consistent height when rerendering dom elements
         setStyles(this.baseElement, { height: height + 'px' });
-        this.init(options);
+        this.init(options ? options : this.options);
         setStyles(this.baseElement, { height: 'auto' });
       });
     }

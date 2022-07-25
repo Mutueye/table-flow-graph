@@ -1,6 +1,7 @@
 import { createClassElement } from '../../lib/dom';
 import { BtnOptions } from '../../types';
 import { Icon } from './Icon';
+import Tooltip from './Tooltip';
 
 /**
  * table-flow-graph button
@@ -8,48 +9,27 @@ import { Icon } from './Icon';
 export default class Button {
   public element: HTMLElement;
   public disabled: boolean;
+  public btnToolTip: Tooltip;
 
   constructor(parentElement: HTMLElement, options: BtnOptions) {
-    const { label, type, onClick, icon } = options;
+    const { label, type, onClick, icon, tooltip } = options;
     let className = 'tfgraph-button is-hoverable';
-    let iconClassName = '';
     if (options.className) className += ' ' + options.className;
-    switch (type) {
-      case 'primary':
-        className += ' bg-blue border-blue';
-        iconClassName += ' fill-white';
-        break;
-      case 'warning':
-        className += ' bg-yellow border-yellow';
-        iconClassName += ' fill-white';
-        break;
-      case 'danger':
-        className += ' bg-red border-red';
-        iconClassName += ' fill-white';
-        break;
-      case 'success':
-        className += ' bg-green border-green';
-        iconClassName += ' fill-white';
-        break;
-      case 'clean':
-        className += ' clean';
-        iconClassName += ' fill-gray-33';
-        break;
-      case 'default':
-        className += ' default';
-        iconClassName += ' fill-gray-33';
-        break;
-      default:
-        className += ' default';
-        iconClassName += ' fill-gray-33';
-        break;
-    }
+    className += ' ' + (type ? type : 'default');
     this.element = createClassElement('button', className, parentElement);
-    if (icon) new Icon(this.element, { name: icon, size: 16, className: iconClassName + ' mr-5' });
-    createClassElement('span', '', this.element).innerHTML = label;
-    if (typeof onClick === 'function') {
-      this.element.addEventListener('click', onClick);
+    if (icon) new Icon(this.element, { name: icon, size: 16, className: label ? 'mr-5' : '' });
+    if (label) {
+      createClassElement('span', '', this.element).innerHTML = label;
     }
+    if (tooltip) this.btnToolTip = new Tooltip(this.element, { label: tooltip });
+
+    this.element.addEventListener('click', (e) => {
+      if (this.btnToolTip) this.btnToolTip.dismiss();
+      if (this.disabled) return;
+      if (typeof onClick === 'function') {
+        onClick(e);
+      }
+    });
   }
 
   setDisabled() {

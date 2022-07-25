@@ -1,12 +1,12 @@
 import { createClassElement, removeElement, setStyles } from '../../lib/dom';
-import { PopupOptions } from '../../types';
+import { TooltipOptoins } from '../../types';
 
 /**
  * table-flow-graph popup
  */
-export default class Popup {
+export default class Tooltip {
   targetElement: HTMLElement;
-  options: PopupOptions;
+  options: TooltipOptoins;
   public element: HTMLElement;
   public areaElement: HTMLElement;
   public boxElement: HTMLElement;
@@ -15,26 +15,28 @@ export default class Popup {
   public rendered: boolean;
   public timeoutId: number | null;
 
-  constructor(targetElement: HTMLElement, options: PopupOptions) {
+  constructor(targetElement: HTMLElement, options: TooltipOptoins) {
     this.targetElement = targetElement;
     this.options = options;
     this.rendered = false;
+    this.targetElement.addEventListener('mouseenter', () => this.mouseEnter());
+    this.targetElement.addEventListener('mouseleave', () => this.mouseLeave());
   }
 
   public render() {
-    const { placement = 'top', contentElement } = this.options;
+    const { placement = 'top', label } = this.options;
 
     const targetRect = this.targetElement.getBoundingClientRect();
-    this.element = createClassElement('div', 'tfgraph-popup', document.body);
+    this.element = createClassElement('div', 'tfgraph-tooltip', document.body);
     setStyles(this.element, {
       left: targetRect.left + 0.5 * targetRect.width + 'px',
       top: targetRect.top + 0.5 * targetRect.height + 'px',
     });
 
-    this.areaElement = createClassElement('div', `tfgraph-popup-area ${placement}`, this.element);
-    this.boxElement = createClassElement('div', 'tfgraph-popup-box', this.areaElement);
-    this.arrowElement = createClassElement('div', 'tfgraph-popup-arrow', this.areaElement);
-    if (contentElement) this.boxElement.appendChild(contentElement);
+    this.areaElement = createClassElement('div', `tfgraph-tooltip-area ${placement}`, this.element);
+    this.boxElement = createClassElement('div', 'tfgraph-tooltip-box', this.areaElement);
+    this.arrowElement = createClassElement('div', 'tfgraph-tooltip-arrow', this.areaElement);
+    if (label) this.boxElement.innerHTML = label;
 
     const areaRect = this.areaElement.getBoundingClientRect();
     const arrowRect = this.arrowElement.getBoundingClientRect();
@@ -43,7 +45,7 @@ export default class Popup {
     switch (placement) {
       case 'top':
         areaStyleObj.left = -0.5 * areaRect.width + 'px';
-        areaStyleObj.bottom = 0.5 * targetRect.height + 'px';
+        areaStyleObj.bottom = 0.5 * targetRect.height + 10 + 'px';
         arrowStyleObj.left = 0.5 * (areaRect.width - arrowRect.width) + 'px';
         break;
       case 'right':
@@ -67,15 +69,13 @@ export default class Popup {
     setStyles(this.areaElement, areaStyleObj);
     setStyles(this.arrowElement, arrowStyleObj);
 
-    this.areaElement.addEventListener('mouseenter', () => this.mouseEnter());
-    this.areaElement.addEventListener('mouseleave', () => this.mouseLeave());
     this.rendered = true;
   }
 
   public dismiss() {
     this.rendered = false;
-    this.areaElement.removeEventListener('mouseenter', () => this.mouseEnter());
-    this.areaElement.removeEventListener('mouseleave', () => this.mouseLeave());
+    this.targetElement.removeEventListener('mouseenter', () => this.mouseEnter());
+    this.targetElement.removeEventListener('mouseleave', () => this.mouseLeave());
     removeElement(this.element);
   }
 
@@ -89,6 +89,6 @@ export default class Popup {
   public mouseLeave() {
     this.timeoutId = window.setTimeout(() => {
       this.dismiss();
-    }, 200);
+    }, 50);
   }
 }

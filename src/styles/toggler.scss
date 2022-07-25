@@ -1,0 +1,60 @@
+.tfgraph-toggler {
+  background-color: $color-theme;
+  height: $control-height;
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .tfgraph-toggler-btn {
+    transition: all ease 0.2s;
+    height: $control-height;
+    background-color: transparent;
+    position: relative;
+    z-index: 2;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0 8px;
+    color: white;
+    opacity: 0.6;
+
+    &:first-child {
+      padding-left: 14px;
+    }
+
+    &:last-child {
+      padding-right: 14px;
+    }
+
+    &.active {
+      opacity: 1;
+      cursor: default;
+      color: $color-theme;
+    }
+
+    &:hover {
+      color: white;
+      opacity: 1;
+
+      &.active {
+        color: $color-theme;
+        opacity: 1;
+      }
+    }
+  }
+
+  .tfgraph-toggler-indicator {
+    transition: all ease 0.2s;
+    height: $control-height - 8px;
+    position: absolute;
+    border-radius: 3px;
+    z-index: 1;
+    min-width: 30px;
+    background-color: white;
+    top: 4px;
+    left: 4px;
+  }
+}

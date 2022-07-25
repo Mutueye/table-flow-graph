@@ -2,6 +2,7 @@ import { TableFlowGraph } from '../index';
 import { createClassElement, removeElement } from '../lib/dom';
 import TableCell from './TableCell';
 import TableHeaderCell from './TableHeaderCell';
+import Button from './ui/Button';
 
 /**
  * table-flow-graph tabel
@@ -9,6 +10,7 @@ import TableHeaderCell from './TableHeaderCell';
 export default class Table {
   graphInstance: TableFlowGraph;
   public element: HTMLElement;
+  public bottomControlEL: HTMLElement | null;
   public cells: TableCell[];
   public headerCells: TableHeaderCell[];
   public canDeleteColumn: boolean;
@@ -49,17 +51,57 @@ export default class Table {
         this.canDeleteRow = false;
       }
     }
+
+    console.log('canDeleteColujn:::::::::::::', this.canDeleteColumn);
+
+    // set headerCell controls
     this.headerCells.forEach((headerCell) => {
       if (this.graphInstance.mode === 'edit') {
-        headerCell.setControls();
+        headerCell.setEditControls();
       }
     });
+
+    // set tabel cell controls
+    this.cells.forEach((cell) => {
+      if (this.graphInstance.mode === 'edit') {
+        cell.setEditControls();
+      }
+    });
+
+    this.createBottomControl();
+
     // TODO set table cell controls
     // 1. remove last row
     // 2. empty cell: add node
     // 3. node cell: edit node content
     // 4. node cell: adjust node size
-    // 5. nofr cell: move node position
+    // 5. node cell: move node position
+  }
+
+  public createBottomControl() {
+    if (this.graphInstance.mode === 'edit' && !this.bottomControlEL) {
+      this.bottomControlEL = createClassElement(
+        'div',
+        'flex flex-row items-center justify-between mt-15',
+        this.graphInstance.element,
+      );
+      // add row btn
+      new Button(this.bottomControlEL, {
+        icon: 'plus',
+        label: this.graphInstance.options.labels.addRow,
+        className: 'flex-1',
+        onClick: () => {
+          if (typeof this.graphInstance.options.onAddRow === 'function') {
+            this.graphInstance.options.onAddRow();
+          }
+        },
+      });
+    } else {
+      if (this.bottomControlEL) {
+        removeElement(this.bottomControlEL);
+        this.bottomControlEL = null;
+      }
+    }
   }
 
   // render table header

@@ -1,6 +1,7 @@
 import { TableFlowGraph } from '../index';
 import { createClassElement } from '../lib/dom';
 import { TFGraphColumn } from '../types';
+import Button from './ui/Button';
 import Popup from './ui/Popup';
 import TableHeaderCellMenu from './TableHeaderCellMenu';
 
@@ -17,6 +18,7 @@ export default class TableHeaderCell {
   public canAdd: boolean;
   public popMenu: Popup | null;
   public menu: TableHeaderCellMenu | null;
+  public controlLayer: HTMLElement;
 
   constructor(
     parentElement: HTMLElement,
@@ -62,21 +64,61 @@ export default class TableHeaderCell {
     return el;
   }
 
-  public setControls() {
-    this.menu = new TableHeaderCellMenu(this, {
-      showDelete: this.isLast && this.graphInstance.tableController.canDeleteColumn,
-      // showAdd: this.isLast,
+  // header cell controls for edit mode
+  public setEditControls() {
+    // this.menu = new TableHeaderCellMenu(this, {
+    //   showDelete: this.isLast && this.graphInstance.tableController.canDeleteColumn,
+    //   // showAdd: this.isLast,
+    // });
+    // this.popMenu = new Popup(this.element, { placement: 'top', contentElement: this.menu.element });
+    // this.element.addEventListener('mouseenter', () => {
+    //   if (this.popMenu) {
+    //     this.popMenu.mouseEnter();
+    //   }
+    // });
+    // this.element.addEventListener('mouseleave', () => {
+    //   if (this.popMenu) {
+    //     this.popMenu.mouseLeave();
+    //   }
+    // });
+    this.controlLayer = createClassElement(
+      'div',
+      'tfgraph-cell-control-layer hidden',
+      this.element,
+    );
+    new Button(this.controlLayer, {
+      icon: 'edit',
+      type: 'primary',
+      className: 'absolute left-6 top-6 p-0 sm w-28',
+      tooltip: this.graphInstance.options.labels.editColumn,
+      onClick: () => {
+        if (typeof this.graphInstance.options.onEditColumn === 'function') {
+          this.graphInstance.options.onEditColumn(this.columnData);
+        }
+      },
     });
-    this.popMenu = new Popup(this.element, { placement: 'top', contentElement: this.menu.element });
-    this.element.addEventListener('mouseenter', () => {
-      if (this.popMenu) {
-        this.popMenu.mouseEnter();
-      }
-    });
-    this.element.addEventListener('mouseleave', () => {
-      if (this.popMenu) {
-        this.popMenu.mouseLeave();
-      }
-    });
+    if (this.isLast && this.graphInstance.tableController.canDeleteColumn) {
+      new Button(this.controlLayer, {
+        icon: 'x',
+        type: 'danger',
+        className: 'absolute right-6 top-6 p-0 sm w-28',
+        tooltip: this.graphInstance.options.labels.deleteColumn,
+        onClick: () => {
+          if (typeof this.graphInstance.options.onDeleteColumn === 'function') {
+            this.graphInstance.options.onDeleteColumn(this.columnData);
+          }
+        },
+      });
+    }
+    this.element.addEventListener('mouseenter', () => this.onMouseEnter());
+    this.element.addEventListener('mouseleave', () => this.onMouseLeave());
+  }
+
+  onMouseEnter() {
+    this.controlLayer.classList.remove('hidden');
+  }
+
+  onMouseLeave() {
+    this.controlLayer.classList.add('hidden');
   }
 }

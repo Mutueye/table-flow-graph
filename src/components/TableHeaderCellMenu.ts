@@ -54,8 +54,8 @@ export default class TableHeaderCellMenu {
         type: 'danger',
         className: 'mx-5 sm',
         onClick: () => {
-          this.graphInstance.options.columns.pop();
-          this.graphInstance.init(this.graphInstance.options);
+          // this.graphInstance.options.columns.pop();
+          // this.graphInstance.init(this.graphInstance.options);
           if (typeof this.graphInstance.options.onDeleteColumn === 'function') {
             this.graphInstance.options.onDeleteColumn(this.headerCell.columnData);
           }

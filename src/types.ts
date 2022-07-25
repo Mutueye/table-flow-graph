@@ -52,6 +52,7 @@ export type Labels = {
   deleteRow?: string;
   editNode?: string;
   addNode?: string;
+  deleteNode?: string;
   adjustNodeSize?: string;
   moveNode?: string;
 };
@@ -114,6 +115,7 @@ export type BtnOptions = {
   className?: string;
   icon?: string;
   onClick?: (e: MouseEvent) => void;
+  tooltip?: string;
 };
 
 export type TogglerItem = {
@@ -136,6 +138,11 @@ export type TogglerButton = {
 export type PopupOptions = {
   placement?: 'top' | 'right' | 'bottom' | 'left';
   contentElement?: HTMLElement;
+};
+
+export type TooltipOptoins = {
+  placement?: 'top' | 'right' | 'bottom' | 'left';
+  label?: string;
 };
 
 export type HeaderCellMenuOptions = {

@@ -1,0 +1,143 @@
+$header-color: #f3f4f6;
+$border-color: #ebeef5;
+
+
+.tfgraph-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-left: 1px solid $border-color;
+  border-top: 1px solid $border-color;
+  // border-bottom: 1px solid $border-color;
+  .tfgraph-tr {
+    height: 1px; // for div in td 100% work
+    .tfgraph-th {
+      min-width: 100px;
+      font-size: 14px;
+      font-weight: normal;
+      position: relative;
+      padding: 15px;
+      border-right: 1px solid $border-color;
+      border-bottom: 1px solid $border-color;
+      background-color: $header-color;
+    }
+    .tfgraph-td {
+      min-width: 100px;
+      height: inherit; // for div in td 100% work
+      padding: 0px;
+      border-right: 1px solid $border-color;
+      border-bottom: 1px solid $border-color;
+      .tfgraph-cell {
+        position: relative;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+        min-height: 66px;
+      }
+    }
+    .tfgraph-cell-control-layer {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      overflow: hidden;
+      min-width: 0;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      // border: 1px solid $color-theme;
+      background-color: rgba(0, 0, 0, 0.2);
+      &.hidden {
+        display: none;
+      }
+    }
+  }
+}
+
+.tfgraph-node {
+  display: flex;
+  align-self: stretch;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  min-height: 36px;
+  padding: 8px 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.2s;
+  &.default {
+    border-color: #ebeef5;
+    color: #666666;
+    background-color: #f3f4f6;
+    &.isBtn {
+      cursor: pointer;
+      &:hover {
+        border-color: #ebeef5;
+        color: #333333;
+        background-color: #f1f2f4;
+      }
+    }
+  }
+  &.success {
+    border-color: #80c269;
+    color: #80c269;
+    background-color: #80c26910;
+    &.isBtn {
+      cursor: pointer;
+      &:hover {
+        border-color: #80c269;
+        color: #ffffff;
+        background-color: #80c269;
+      }
+    }
+  }
+  &.warning {
+    border-color: #f96400;
+    color: #f96400;
+    background-color: #f9640010;
+    &.isBtn {
+      cursor: pointer;
+      &:hover {
+        border-color: #f96400;
+        color: #ffffff;
+        background-color: #f96400;
+      }
+    }
+  }
+  &.danger {
+    border-color: #fc7373;
+    color: #fc7373;
+    background-color: #fc737310;
+    &.isBtn {
+      cursor: pointer;
+      &:hover {
+        border-color: #fc7373;
+        color: #ffffff;
+        background-color: #fc7373;
+      }
+    }
+  }
+  &.primary {
+    border-color: $color-theme;
+    color: $color-theme;
+    background-color: #377df610;
+    &.isBtn {
+      cursor: pointer;
+      &:hover {
+        border-color: $color-theme;
+        color: #ffffff;
+        background-color: $color-theme;
+      }
+    }
+  }
+}
