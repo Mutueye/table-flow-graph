@@ -1,7 +1,7 @@
-import { TableFlowGraph } from '../index';
-import { createClassElement } from '../lib/dom';
-import { TFGraphNode } from '../types';
-import Button from './ui/Button';
+import { TableFlowGraph } from '../../index';
+import { createClassElement } from '../../lib/dom';
+import { TFGraphNode } from '../../types';
+import Button from '../ui/button/Button';
 
 /**
  * table-flow-graph tabel cell
@@ -74,6 +74,16 @@ export default class TableCell {
     // );
     if (this.nodeData) {
       new Button(this.controlLayer, {
+        icon: 'move',
+        type: 'primary',
+        tooltip: this.graphInstance.options.labels.moveNode,
+        className: 'absolute left-6 top-6 p-0 sm w-28',
+        onClick: () => {
+          // TODO
+          console.log('clicked::::::::');
+        },
+      });
+      new Button(this.controlLayer, {
         icon: 'edit',
         type: 'primary',
         tooltip: this.graphInstance.options.labels.editNode,
@@ -84,10 +94,20 @@ export default class TableCell {
         },
       });
       new Button(this.controlLayer, {
-        icon: 'x',
+        icon: 'remove',
         type: 'danger',
         tooltip: this.graphInstance.options.labels.deleteNode,
         className: 'absolute right-6 top-6 p-0 sm w-28',
+        onClick: () => {
+          // TODO
+          console.log('clicked::::::::');
+        },
+      });
+      new Button(this.controlLayer, {
+        icon: 'expand',
+        type: 'primary',
+        tooltip: this.graphInstance.options.labels.adjustNodeSize,
+        className: 'absolute right-6 bottom-6 p-0 sm w-28',
         onClick: () => {
           // TODO
           console.log('clicked::::::::');

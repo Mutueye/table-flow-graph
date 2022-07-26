@@ -1,8 +1,8 @@
-import { TableFlowGraph } from '../index';
-import { createClassElement } from '../lib/dom';
-import Button from './ui/Button';
-import Toggler from './ui/Toggler';
-import { Mode } from '../types';
+import { TableFlowGraph } from '../../index';
+import { createClassElement } from '../../lib/dom';
+import Button from '../ui/button/Button';
+import Toggler from '../ui/toggler/Toggler';
+import { Mode } from '../../types';
 // import { Icon } from './ui/Icon';
 
 /**

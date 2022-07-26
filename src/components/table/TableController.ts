@@ -1,8 +1,8 @@
-import { TableFlowGraph } from '../index';
-import { createClassElement, removeElement } from '../lib/dom';
+import { TableFlowGraph } from '../../index';
+import { createClassElement, removeElement } from '../../lib/dom';
 import TableCell from './TableCell';
 import TableHeaderCell from './TableHeaderCell';
-import Button from './ui/Button';
+import Button from '../ui/button/Button';
 
 /**
  * table-flow-graph tabel
@@ -52,8 +52,6 @@ export default class Table {
       }
     }
 
-    console.log('canDeleteColujn:::::::::::::', this.canDeleteColumn);
-
     // set headerCell controls
     this.headerCells.forEach((headerCell) => {
       if (this.graphInstance.mode === 'edit') {
@@ -71,7 +69,7 @@ export default class Table {
     this.createBottomControl();
 
     // TODO set table cell controls
-    // 1. remove last row
+    // 1. remove last row ✓
     // 2. empty cell: add node
     // 3. node cell: edit node content
     // 4. node cell: adjust node size

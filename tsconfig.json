@@ -3,6 +3,8 @@
     "module": "esnext",
     "target": "es5",
     "outDir": "./dist",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "moduleResolution": "node",
     "declaration": true,
     "declarationDir": ".",

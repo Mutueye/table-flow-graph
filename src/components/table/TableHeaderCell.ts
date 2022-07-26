@@ -1,9 +1,9 @@
-import { TableFlowGraph } from '../index';
-import { createClassElement } from '../lib/dom';
-import { TFGraphColumn } from '../types';
-import Button from './ui/Button';
-import Popup from './ui/Popup';
-import TableHeaderCellMenu from './TableHeaderCellMenu';
+import { TableFlowGraph } from '../../index';
+import { createClassElement } from '../../lib/dom';
+import { TFGraphColumn } from '../../types';
+import Button from '../ui/button/Button';
+import Popup from '../ui/popup/Popup';
+// import TableHeaderCellMenu from './TableHeaderCellMenu';
 
 /**
  * table-flow-graph tabel header cell
@@ -17,7 +17,7 @@ export default class TableHeaderCell {
   public canDelete: boolean;
   public canAdd: boolean;
   public popMenu: Popup | null;
-  public menu: TableHeaderCellMenu | null;
+  // public menu: TableHeaderCellMenu | null;
   public controlLayer: HTMLElement;
 
   constructor(

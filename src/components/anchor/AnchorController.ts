@@ -1,6 +1,6 @@
-import { TableFlowGraph } from '../index';
-import { createClassElement } from '../lib/dom';
-import TableCell from './TableCell';
+import { TableFlowGraph } from '../../index';
+import { createClassElement } from '../../lib/dom';
+import TableCell from '../table/TableCell';
 import Anchor from './Anchor';
 
 /**

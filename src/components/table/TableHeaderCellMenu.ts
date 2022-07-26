@@ -1,11 +1,12 @@
-import { TableFlowGraph } from '../index';
-import { createClassElement } from '../lib/dom';
-import { HeaderCellMenuOptions } from '../types';
-import Button from './ui/Button';
+import { TableFlowGraph } from '../../index';
+import { createClassElement } from '../../lib/dom';
+import { HeaderCellMenuOptions } from '../../types';
+import Button from '../ui/button/Button';
 import TableHeaderCell from './TableHeaderCell';
 
 /**
  * table-flow-graph tabel header cell menu
+ * !!Deprecated
  */
 export default class TableHeaderCellMenu {
   graphInstance: TableFlowGraph;

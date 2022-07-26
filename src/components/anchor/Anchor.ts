@@ -1,6 +1,6 @@
-import { TableFlowGraph } from '../index';
-import { createClassElement } from '../lib/dom';
-import { Bearing } from '../types';
+import { TableFlowGraph } from '../../index';
+import { createClassElement } from '../../lib/dom';
+import { Bearing } from '../../types';
 
 /**
  * Anchor point for drawing lines

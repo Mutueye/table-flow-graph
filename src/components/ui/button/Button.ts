@@ -1,7 +1,7 @@
-import { createClassElement } from '../../lib/dom';
-import { BtnOptions } from '../../types';
-import { Icon } from './Icon';
-import Tooltip from './Tooltip';
+import { createClassElement } from '../../../lib/dom';
+import { BtnOptions } from '../../../types';
+import { Icon } from '../icon/Icon';
+import Tooltip from '../tooltip/Tooltip';
 
 /**
  * table-flow-graph button

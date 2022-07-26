@@ -1,6 +1,6 @@
 import { cloneDeep, isEqual } from 'lodash-es';
-import { TableFlowGraph } from '../index';
-import { createClassElement, removeElement, setStyles } from '../lib/dom';
+import { TableFlowGraph } from '../../index';
+import { createClassElement, removeElement, setStyles } from '../../lib/dom';
 import LineGroup from './LineGroup';
 
 /**

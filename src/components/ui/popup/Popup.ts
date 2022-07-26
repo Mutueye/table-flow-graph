@@ -1,5 +1,5 @@
-import { createClassElement, removeElement, setStyles } from '../../lib/dom';
-import { PopupOptions } from '../../types';
+import { createClassElement, removeElement, setStyles } from '../../../lib/dom';
+import { PopupOptions } from '../../../types';
 
 /**
  * table-flow-graph popup

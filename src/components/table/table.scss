@@ -34,7 +34,7 @@ $border-color: #ebeef5;
         align-items: center;
         justify-content: center;
         padding: 15px;
-        min-height: 66px;
+        min-height: 70px;
       }
     }
     .tfgraph-cell-control-layer {
@@ -51,7 +51,7 @@ $border-color: #ebeef5;
       align-items: center;
       justify-content: center;
       // border: 1px solid $color-theme;
-      background-color: rgba(0, 0, 0, 0.2);
+      background-color: rgba(0, 0, 0, 0.05);
       &.hidden {
         display: none;
       }

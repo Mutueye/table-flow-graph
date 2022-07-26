@@ -1,12 +1,12 @@
 @import './common/util.scss';
-@import 'table.scss';
-@import 'node.scss';
-@import 'line.scss';
-@import 'anchor.scss';
-@import 'button.scss';
-@import 'toggler.scss';
-@import 'popup.scss';
-@import 'tooltip.scss';
+@import '../components/table/table.scss';
+@import '../components/table/node.scss';
+@import '../components/line/line.scss';
+@import '../components/anchor/anchor.scss';
+@import '../components/ui/button/button.scss';
+@import '../components/ui/toggler/toggler.scss';
+@import '../components/ui/popup/popup.scss';
+@import '../components/ui/tooltip/tooltip.scss';
 
 .tfgraph {
   position: relative;
@@ -32,6 +32,15 @@
     bottom: 0;
     left: 0;
     z-index: 2;
+  }
+  .tfgraph-cell-mask-layer {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
   }
 }
 

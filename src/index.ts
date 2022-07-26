@@ -2,10 +2,10 @@ import './styles/index.scss';
 import { createClassElement, setStyles } from './lib/dom';
 import { debounce } from './lib/utils';
 import { Mode, Position, TFGraphOptions } from './types';
-import Toolbar from './components/Toolbar';
-import TableController from './components/TableController';
-import LineController from './components/LineController';
-import AnchorController from './components/AnchorController';
+import Toolbar from './components/toolbar/Toolbar';
+import TableController from './components/table/TableController';
+import LineController from './components/line/LineController';
+import AnchorController from './components/anchor/AnchorController';
 
 // default options
 const defaultOptions: TFGraphOptions = {
@@ -69,7 +69,6 @@ export class TableFlowGraph {
     this.options = Object.assign({}, defaultOptions, options);
     if (options.labels) {
       this.options.labels = Object.assign({}, defaultOptions.labels, options.labels);
-      console.log('this.options.labels::::::::', this.options.labels);
     }
     if (typeof this.options.rows !== 'undefined') {
       this.options.totalRows = this.options.rows.length;

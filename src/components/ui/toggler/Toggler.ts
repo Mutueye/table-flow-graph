@@ -1,5 +1,5 @@
-import { createClassElement, setStyles } from '../../lib/dom';
-import { TogglerOptions, TogglerButton } from '../../types';
+import { createClassElement, setStyles } from '../../../lib/dom';
+import { TogglerOptions, TogglerButton } from '../../../types';
 
 /**
  * table-flow-graph toggler btn group
