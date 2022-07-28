@@ -171,6 +171,14 @@ export default class Table {
     this.tableMask.stopMask();
   }
 
+  // sumit cell position / size change
+  public submitCellChange() {
+    this.isMovingCell = false;
+    this.isResizingCell = false;
+    this.graphInstance.toolbar.enable();
+    this.tableMask.submitChange();
+  }
+
   public createBottomControl() {
     if (this.graphInstance.mode === 'edit' && !this.bottomControlEL) {
       this.bottomControlEL = createClassElement(

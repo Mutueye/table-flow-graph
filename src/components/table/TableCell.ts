@@ -88,8 +88,9 @@ export default class TableCell {
         tooltip: this.graphInstance.options.labels.editNode,
         className: 'absolute left-6 bottom-6 p-0 sm w-28',
         onClick: () => {
-          // TODO
-          console.log('clicked::::::::');
+          if (typeof this.graphInstance.options.onEditNode === 'function') {
+            this.graphInstance.options.onEditNode(this.nodeData);
+          }
         },
       });
       new Button(this.controlLayer, {
@@ -98,8 +99,9 @@ export default class TableCell {
         tooltip: this.graphInstance.options.labels.deleteNode,
         className: 'absolute right-6 top-6 p-0 sm w-28',
         onClick: () => {
-          // TODO
-          console.log('clicked::::::::');
+          if (typeof this.graphInstance.options.onDeleteNode === 'function') {
+            this.graphInstance.options.onDeleteNode(this.nodeData);
+          }
         },
       });
       new Button(this.controlLayer, {
@@ -118,8 +120,9 @@ export default class TableCell {
         className: 'absolute left-6 top-6 p-0 sm w-28',
         tooltip: this.graphInstance.options.labels.addNode,
         onClick: () => {
-          // TODO
-          console.log('clicked::::::::');
+          if (typeof this.graphInstance.options.onAddNode === 'function') {
+            this.graphInstance.options.onAddNode(this.row, this.column);
+          }
         },
       });
       if (

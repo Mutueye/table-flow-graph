@@ -32,7 +32,7 @@ export default class TableMask {
   private showMask(targetTableCell: TableCell) {
     this.targetCell = targetTableCell;
     this.setFilteredOccupiedList();
-    this.maskBox = new TableMaskBox(this.element, this.graphInstance);
+    this.maskBox = new TableMaskBox(this.element, this.targetCell, this.graphInstance);
     this.mouseGridRect = this.getMouseRect();
     this.targetCellRect = this.getRectByRowAndColumn(this.targetCell.row, this.targetCell.column);
     this.setMaskBoxStatus();
@@ -41,8 +41,12 @@ export default class TableMask {
   // occupied list without target tabel cell
   private setFilteredOccupiedList() {
     this.filteredOccupiedList = cloneDeep(this.graphInstance.tableController.occupiedList);
-    for (let i = this.targetCell.row; i <= this.targetCell.rowSpan - 1; i++) {
-      for (let j = this.targetCell.column; j <= this.targetCell.colSpan - 1; j++) {
+    for (let i = this.targetCell.row; i < this.targetCell.row + this.targetCell.rowSpan; i++) {
+      for (
+        let j = this.targetCell.column;
+        j < this.targetCell.column + this.targetCell.colSpan;
+        j++
+      ) {
         this.filteredOccupiedList[i][j] = 0;
       }
     }
@@ -76,11 +80,32 @@ export default class TableMask {
     this.maskBox.setPositinAndSize({
       left: topLeftRect.left,
       top: topLeftRect.top,
-      width: bottomRightRect.left - topLeftRect.left + bottomRightRect.width,
-      height: bottomRightRect.top - topLeftRect.top + bottomRightRect.height,
+      width: bottomRightRect.left - topLeftRect.left + bottomRightRect.width + 1,
+      height: bottomRightRect.top - topLeftRect.top + bottomRightRect.height + 1,
     });
 
-    // TODO set disable/enable
+    // set maskbox disable/enable
+    let doable = true;
+    for (
+      let i = this.resultCellPositionAndSize.row;
+      i < this.resultCellPositionAndSize.row + this.resultCellPositionAndSize.rowSpan;
+      i++
+    ) {
+      for (
+        let j = this.resultCellPositionAndSize.column;
+        j < this.resultCellPositionAndSize.column + this.resultCellPositionAndSize.colSpan;
+        j++
+      ) {
+        if (this.filteredOccupiedList[i][j] > 0) {
+          doable = false;
+        }
+      }
+    }
+    if (doable) {
+      this.maskBox.enable();
+    } else {
+      this.maskBox.disable();
+    }
   }
 
   public startMask(targetTableCell: TableCell) {
@@ -92,6 +117,28 @@ export default class TableMask {
     this.element.classList.add('hidden');
     removeElement(this.maskBox.element);
     this.maskBox = null;
+  }
+
+  public submitChange() {
+    this.stopMask();
+    const targetCellPositionAndSize: CellPositionAndSize = {
+      row: this.targetCell.row,
+      column: this.targetCell.column,
+      rowSpan: this.targetCell.rowSpan,
+      colSpan: this.targetCell.colSpan,
+    };
+    if (!isEqual(this.resultCellPositionAndSize, targetCellPositionAndSize)) {
+      const oldNode = cloneDeep(this.targetCell.nodeData);
+      this.targetCell.nodeData.row = this.resultCellPositionAndSize.row;
+      this.targetCell.nodeData.column = this.resultCellPositionAndSize.column;
+      this.targetCell.nodeData.rowSpan = this.resultCellPositionAndSize.rowSpan;
+      this.targetCell.nodeData.colSpan = this.resultCellPositionAndSize.colSpan;
+      // 提交变更
+      if (typeof this.graphInstance.options.onChangeNode === 'function') {
+        this.graphInstance.options.onChangeNode(this.targetCell.nodeData, oldNode);
+      }
+      this.graphInstance.refresh();
+    }
   }
 
   // get tableGridRect of current mouse position at

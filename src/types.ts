@@ -75,6 +75,10 @@ export type TFGraphOptions = {
   onDeleteColumn?: (column: TFGraphColumn) => void; // delete column
   onAddRow?: () => void; // add row
   onDeleteRow?: () => void; // delete the last row
+  onAddNode?: (row: number, column: number) => void;
+  onEditNode?: (nodeData: TFGraphNode) => void;
+  onDeleteNode?: (nodeData: TFGraphNode) => void;
+  onChangeNode?: (newNode: TFGraphNode, oldNode: TFGraphNode) => void;
 };
 
 // anchor point's relative position to a table cell
