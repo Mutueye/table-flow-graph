@@ -11,6 +11,7 @@ import { Mode } from '../../types';
 export default class Toolbar {
   public element: HTMLElement;
   public graphInstance: TableFlowGraph;
+  public disabledMask: HTMLElement;
 
   constructor(parentElement: HTMLElement, graphInstance: TableFlowGraph) {
     this.graphInstance = graphInstance;
@@ -35,6 +36,8 @@ export default class Toolbar {
       type: 'primary',
       onClick: () => this.addColumn(this.graphInstance),
     });
+
+    this.disabledMask = createClassElement('div', 'tfgraph-toolbar-mask hidden', this.element);
     // new Button(rightBtns, { label: '添加行', type: 'primary' });
 
     // new Button(this.element, { label: 'default' });
@@ -56,5 +59,13 @@ export default class Toolbar {
     if (typeof graphInstance.options.onAddColumn === 'function') {
       graphInstance.options.onAddColumn();
     }
+  }
+
+  disable() {
+    this.disabledMask.classList.remove('hidden');
+  }
+
+  enable() {
+    this.disabledMask.classList.add('hidden');
   }
 }

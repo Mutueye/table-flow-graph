@@ -141,3 +141,11 @@ $border-color: #ebeef5;
     }
   }
 }
+
+.tfgraph-table-mask-cell {
+  position: absolute;
+  background-color: transparentize($color-green, 0.5);
+  border: 1px solid $color-green;
+  pointer-events: all;
+  transition: all ease-out 0.2s;
+}

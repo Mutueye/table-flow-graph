@@ -2,7 +2,9 @@ import { TableFlowGraph } from '../../index';
 import { createClassElement, removeElement } from '../../lib/dom';
 import TableCell from './TableCell';
 import TableHeaderCell from './TableHeaderCell';
+import TableMask from './TableMask';
 import Button from '../ui/button/Button';
+import { ColumnSpec, RowSpec, TableGridRect } from '../../types';
 
 /**
  * table-flow-graph tabel
@@ -16,18 +18,29 @@ export default class Table {
   public canDeleteColumn: boolean;
   public canDeleteRow: boolean;
   public occupiedList: number[][]; // 1: occupied, 0: not occupied
+  public tableMask: TableMask;
+  public isMovingCell: boolean;
+  public isResizingCell: boolean;
 
   constructor(graphInstance: TableFlowGraph) {
     this.graphInstance = graphInstance;
     this.element = createClassElement('table', 'tfgraph-table', this.graphInstance.element);
+    this.initTableStatus();
+  }
+
+  private initTableStatus() {
     this.headerCells = [];
     this.cells = [];
     this.canDeleteColumn = false;
     this.canDeleteRow = false;
     this.occupiedList = [];
+    this.isMovingCell = false;
+    this.isResizingCell = false;
   }
 
+  // render table and set table controls
   public renderTable() {
+    this.initTableStatus();
     this.element.innerHTML = '';
     this.createHeader();
     this.createTds();
@@ -36,44 +49,126 @@ export default class Table {
   }
 
   public setControls() {
-    // get canDeleteColumn & canDeleteRow by this.cells
-    const totalColumns = this.graphInstance.options.totalColumns;
-    const totalRows = this.graphInstance.options.totalRows;
-    this.canDeleteColumn = true;
-    this.canDeleteRow = true;
-    for (let i = 0; i < totalRows - 1; i++) {
-      if (this.occupiedList[i][totalColumns - 1] !== 0) {
-        this.canDeleteColumn = false;
+    const isEditMode = this.graphInstance.mode === 'edit';
+    if (isEditMode) {
+      // get canDeleteColumn & canDeleteRow by this.cells
+      const totalColumns = this.graphInstance.options.totalColumns;
+      const totalRows = this.graphInstance.options.totalRows;
+      this.canDeleteColumn = true;
+      this.canDeleteRow = true;
+      for (let i = 0; i < totalRows - 1; i++) {
+        if (this.occupiedList[i][totalColumns - 1] !== 0) {
+          this.canDeleteColumn = false;
+        }
       }
-    }
-    for (let i = 0; i < totalColumns - 1; i++) {
-      if (this.occupiedList[totalRows - 1][i] !== 0) {
-        this.canDeleteRow = false;
+      for (let i = 0; i < totalColumns - 1; i++) {
+        if (this.occupiedList[totalRows - 1][i] !== 0) {
+          this.canDeleteRow = false;
+        }
       }
-    }
 
-    // set headerCell controls
-    this.headerCells.forEach((headerCell) => {
-      if (this.graphInstance.mode === 'edit') {
+      const columnSpecs: ColumnSpec[] = []; // [{left, width, columnIndex}]
+      const rowSpecs: RowSpec[] = []; // [{ top, height, rowIndex}]
+
+      this.headerCells.forEach((headerCell) => {
+        // set headerCell controls
         headerCell.setEditControls();
-      }
-    });
+        // get columns's width and position
+        columnSpecs.push({
+          width: headerCell.element.getBoundingClientRect().width + 1,
+          left: headerCell.element.offsetLeft - 1,
+          columnIndex: headerCell.columnIndex,
+        });
+      });
 
-    // set tabel cell controls
-    this.cells.forEach((cell) => {
-      if (this.graphInstance.mode === 'edit') {
+      this.cells.forEach((cell) => {
+        // set tabel cell controls
         cell.setEditControls();
-      }
-    });
+      });
 
-    this.createBottomControl();
+      // get rowSpects(row top position and height)
+      for (let i = 0; i < this.graphInstance.options.totalRows; i++) {
+        const targetCell = this.getMinRowSpanCell(i, 1);
+        const targetCellHeight = targetCell.element.getBoundingClientRect().height;
+        const targetCellRowHeight = targetCellHeight / targetCell.rowSpan;
+        rowSpecs.push({
+          top: targetCell.element.offsetTop - 1 + (i - targetCell.row) * targetCellRowHeight,
+          height: targetCellRowHeight + 1,
+          rowIndex: i,
+        });
+      }
+
+      // each table grid's left, top, width, height without rowspan and colspan
+      const tableGridRectList: TableGridRect[] = [];
+      rowSpecs.forEach((rowSpec) => {
+        columnSpecs.forEach((columnSpec) => {
+          tableGridRectList.push(Object.assign({}, rowSpec, columnSpec));
+        });
+      });
+
+      this.tableMask = new TableMask(tableGridRectList, this.graphInstance);
+
+      this.createBottomControl();
+    } else {
+      // TODO click node event
+    }
 
     // TODO set table cell controls
     // 1. remove last row ✓
-    // 2. empty cell: add node
-    // 3. node cell: edit node content
+    // 2. empty cell: add node ✓
+    // 3. node cell: edit node content ✓
     // 4. node cell: adjust node size
     // 5. node cell: move node position
+  }
+
+  //  recursively find min rowspan cell for targetRow
+  getMinRowSpanCell(row: number, minRowSpan = 1) {
+    let targetRowCell: TableCell | null = null;
+    const rowCells = this.cells.filter((cell) => cell.row === row);
+    if (rowCells.length === 0) {
+      if (row > 0) {
+        targetRowCell = this.getMinRowSpanCell(row - 1, minRowSpan + 1);
+      }
+    } else {
+      let rowSpan = 20;
+      rowCells.forEach((cell) => {
+        if (cell.rowSpan < rowSpan && cell.rowSpan >= minRowSpan) {
+          rowSpan = cell.rowSpan;
+          targetRowCell = cell;
+        }
+      });
+    }
+    return targetRowCell;
+  }
+
+  public onMouseMove() {
+    if (this.isMovingCell || this.isResizingCell) {
+      this.tableMask.onMouseMove();
+    }
+  }
+
+  public startMoving(targetCell: TableCell) {
+    this.isMovingCell = true;
+    this.graphInstance.toolbar.disable();
+    this.tableMask.startMask(targetCell);
+  }
+
+  public stopMoving() {
+    this.isMovingCell = false;
+    this.graphInstance.toolbar.enable();
+    this.tableMask.stopMask();
+  }
+
+  public startResizing(targetCell: TableCell) {
+    this.isResizingCell = true;
+    this.graphInstance.toolbar.disable();
+    this.tableMask.startMask(targetCell);
+  }
+
+  public stopResizing() {
+    this.isResizingCell = false;
+    this.graphInstance.toolbar.enable();
+    this.tableMask.stopMask();
   }
 
   public createBottomControl() {

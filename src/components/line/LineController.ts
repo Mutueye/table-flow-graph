@@ -40,6 +40,7 @@ export default class LineController {
 
   public startDrawLine() {
     this.isDrawingLine = true;
+    this.graphInstance.toolbar.disable();
     // set lines layer below anchors layer when draing line
     setStyles(this.element, { zIndex: '1' });
     setStyles(this.graphInstance.anchorController.element, { zIndex: '2' });
@@ -49,6 +50,7 @@ export default class LineController {
 
   public endDrawLine() {
     this.isDrawingLine = false;
+    this.graphInstance.toolbar.enable();
     // set lines layer above anchors layer when draing line
     setStyles(this.element, { zIndex: '2' });
     setStyles(this.graphInstance.anchorController.element, { zIndex: '1' });

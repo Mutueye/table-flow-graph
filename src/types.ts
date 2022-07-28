@@ -94,6 +94,20 @@ export type Position = {
   y: number;
 };
 
+export interface ColumnSpec {
+  left: number;
+  width: number;
+  columnIndex: number;
+}
+
+export interface RowSpec {
+  top: number;
+  height: number;
+  rowIndex: number;
+}
+
+export type TableGridRect = ColumnSpec & RowSpec;
+
 export type LineOptions = {
   positionA: Position; // x and y position relative to table element
   positionB: Position;
@@ -148,4 +162,18 @@ export type TooltipOptoins = {
 export type HeaderCellMenuOptions = {
   showAdd?: boolean;
   showDelete?: boolean;
+};
+
+export type PositionAndSize = {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+};
+
+export type CellPositionAndSize = {
+  row: number;
+  column: number;
+  rowSpan: number;
+  colSpan: number;
 };

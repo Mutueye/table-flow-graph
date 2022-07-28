@@ -127,6 +127,7 @@ export class TableFlowGraph {
     const offsetY = event.clientY - rect.top;
     this.mousePosition = { x: offsetX, y: offsetY };
     this.lineController.onMouseMove();
+    this.tableController.onMouseMove();
   }
 
   onResize() {
@@ -143,6 +144,12 @@ export class TableFlowGraph {
       // press esc to cancel last anchor point when drawing line
       if (this.lineController.isDrawingLine) {
         this.lineController.currentDrawingLine.escapeDrawing();
+      }
+      if (this.tableController.isMovingCell) {
+        this.tableController.stopMoving();
+      }
+      if (this.tableController.isResizingCell) {
+        this.tableController.stopResizing();
       }
     }
   };

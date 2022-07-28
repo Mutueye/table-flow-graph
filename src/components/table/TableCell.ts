@@ -79,8 +79,7 @@ export default class TableCell {
         tooltip: this.graphInstance.options.labels.moveNode,
         className: 'absolute left-6 top-6 p-0 sm w-28',
         onClick: () => {
-          // TODO
-          console.log('clicked::::::::');
+          this.graphInstance.tableController.startMoving(this);
         },
       });
       new Button(this.controlLayer, {
@@ -109,8 +108,7 @@ export default class TableCell {
         tooltip: this.graphInstance.options.labels.adjustNodeSize,
         className: 'absolute right-6 bottom-6 p-0 sm w-28',
         onClick: () => {
-          // TODO
-          console.log('clicked::::::::');
+          this.graphInstance.tableController.startResizing(this);
         },
       });
     } else {

@@ -1,12 +1,12 @@
 @import './common/util.scss';
 @import '../components/table/table.scss';
-@import '../components/table/node.scss';
 @import '../components/line/line.scss';
 @import '../components/anchor/anchor.scss';
 @import '../components/ui/button/button.scss';
 @import '../components/ui/toggler/toggler.scss';
 @import '../components/ui/popup/popup.scss';
 @import '../components/ui/tooltip/tooltip.scss';
+@import '../components/toolbar/toolbar.scss';
 
 .tfgraph {
   position: relative;
@@ -35,7 +35,6 @@
   }
   .tfgraph-cell-mask-layer {
     position: absolute;
-    pointer-events: none;
     top: 0;
     right: 0;
     bottom: 0;
