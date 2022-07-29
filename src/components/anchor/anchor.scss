@@ -22,6 +22,27 @@
     cursor: pointer;
     pointer-events: all;
     position: absolute;
+    .tfgraph-anchor-circle {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      left: 0;
+      top: 0;
+      border-radius: 8px;
+      border: 1px solid $color-theme;
+      background-color: transparentize($color-theme, 1);
+      pointer-events: none;
+      transform: scale(0.3);
+      opacity: 0;
+      transition: all ease-out 0.1s;
+    }
+    &:hover {
+      .tfgraph-anchor-circle {
+        transform: scale(1);
+        background-color: transparentize($color-theme, 0.8);
+        opacity: 1;
+      }
+    }
   }
   &:hover {
     .tfgraph-anchor-point {

@@ -19310,7 +19310,8 @@
                 // create dom elements
                 this.element = createClassElement('div', 'tfgraph-anchor', graphInstance.anchorController.element);
                 createClassElement('div', 'tfgraph-anchor-point', this.element);
-                createClassElement('div', 'tfgraph-anchor-area', this.element);
+                var area = createClassElement('div', 'tfgraph-anchor-area', this.element);
+                createClassElement('div', 'tfgraph-anchor-circle', area);
                 // set Anchor instance id
                 this.id = "anchor_".concat(row, "_").concat(column, "_").concat(bearing, "_").concat(isOffsetX ? 'offsetx' : 'normalx', "_").concat(isOffsetY ? 'offsety' : 'normaly');
                 // set dom id

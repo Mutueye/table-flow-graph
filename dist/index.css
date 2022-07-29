@@ -64976,6 +64976,25 @@
   pointer-events: all;
   position: absolute;
 }
+.tfgraph-anchor .tfgraph-anchor-area .tfgraph-anchor-circle {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 0;
+  top: 0;
+  border-radius: 8px;
+  border: 1px solid #377df4;
+  background-color: rgba(55, 125, 244, 0);
+  pointer-events: none;
+  transform: scale(0.3);
+  opacity: 0;
+  transition: all ease-out 0.1s;
+}
+.tfgraph-anchor .tfgraph-anchor-area:hover .tfgraph-anchor-circle {
+  transform: scale(1);
+  background-color: rgba(55, 125, 244, 0.2);
+  opacity: 1;
+}
 .tfgraph-anchor:hover .tfgraph-anchor-point {
   opacity: 1;
 }

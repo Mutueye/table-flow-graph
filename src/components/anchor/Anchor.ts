@@ -45,7 +45,8 @@ export default class Anchor {
         graphInstance.anchorController.element,
       );
       createClassElement('div', 'tfgraph-anchor-point', this.element);
-      createClassElement('div', 'tfgraph-anchor-area', this.element);
+      const area = createClassElement('div', 'tfgraph-anchor-area', this.element);
+      createClassElement('div', 'tfgraph-anchor-circle', area);
 
       // set Anchor instance id
       this.id = `anchor_${row}_${column}_${bearing}_${isOffsetX ? 'offsetx' : 'normalx'}_${
