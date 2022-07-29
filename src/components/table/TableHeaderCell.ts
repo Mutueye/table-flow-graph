@@ -89,7 +89,7 @@ export default class TableHeaderCell {
     new Button(this.controlLayer, {
       icon: 'edit',
       type: 'primary',
-      className: 'absolute left-6 top-6 p-0 sm w-28',
+      className: 'absolute left-6 top-6 p-0 sm w-28 btn-tl',
       tooltip: this.graphInstance.options.labels.editColumn,
       onClick: () => {
         if (typeof this.graphInstance.options.onEditColumn === 'function') {
@@ -101,7 +101,7 @@ export default class TableHeaderCell {
       new Button(this.controlLayer, {
         icon: 'x',
         type: 'danger',
-        className: 'absolute right-6 top-6 p-0 sm w-28',
+        className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
         tooltip: this.graphInstance.options.labels.deleteColumn,
         onClick: () => {
           if (typeof this.graphInstance.options.onDeleteColumn === 'function') {

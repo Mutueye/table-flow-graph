@@ -64774,8 +64774,35 @@
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.05);
 }
+.tfgraph-table .tfgraph-tr .tfgraph-cell-control-layer .btn-tl {
+  transition: all ease-out 0.1;
+  transform: translate(-15px, -15px);
+  opacity: 0;
+}
+.tfgraph-table .tfgraph-tr .tfgraph-cell-control-layer .btn-tr {
+  transition: all ease-out 0.1;
+  transform: translate(15px, -15px);
+  opacity: 0;
+}
+.tfgraph-table .tfgraph-tr .tfgraph-cell-control-layer .btn-bl {
+  transition: all ease-out 0.1;
+  transform: translate(-15px, 15px);
+  opacity: 0;
+}
+.tfgraph-table .tfgraph-tr .tfgraph-cell-control-layer .btn-br {
+  transition: all ease-out 0.1;
+  transform: translate(15px, 15px);
+  opacity: 0;
+}
 .tfgraph-table .tfgraph-tr .tfgraph-cell-control-layer.hidden {
   display: none;
+}
+.tfgraph-table .tfgraph-tr .tfgraph-cell-control-layer:hover .btn-tl,
+.tfgraph-table .tfgraph-tr .tfgraph-cell-control-layer:hover .btn-tr,
+.tfgraph-table .tfgraph-tr .tfgraph-cell-control-layer:hover .btn-bl,
+.tfgraph-table .tfgraph-tr .tfgraph-cell-control-layer:hover .btn-br {
+  transform: translate(0, 0);
+  opacity: 1;
 }
 
 .tfgraph-node {

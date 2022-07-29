@@ -17,6 +17,7 @@ export default class TableCell {
   public column: number;
   public rowSpan: number;
   public colSpan: number;
+  public isTarget: boolean; // is moving or resizing this cell
 
   constructor(
     parentElement: HTMLElement,
@@ -77,7 +78,7 @@ export default class TableCell {
         icon: 'move',
         type: 'primary',
         tooltip: this.graphInstance.options.labels.moveNode,
-        className: 'absolute left-6 top-6 p-0 sm w-28',
+        className: 'absolute left-6 top-6 p-0 sm w-28 btn-tl',
         onClick: () => {
           this.graphInstance.tableController.startMoving(this);
         },
@@ -86,7 +87,7 @@ export default class TableCell {
         icon: 'edit',
         type: 'primary',
         tooltip: this.graphInstance.options.labels.editNode,
-        className: 'absolute left-6 bottom-6 p-0 sm w-28',
+        className: 'absolute left-6 bottom-6 p-0 sm w-28 btn-bl',
         onClick: () => {
           if (typeof this.graphInstance.options.onEditNode === 'function') {
             this.graphInstance.options.onEditNode(this.nodeData);
@@ -97,7 +98,7 @@ export default class TableCell {
         icon: 'remove',
         type: 'danger',
         tooltip: this.graphInstance.options.labels.deleteNode,
-        className: 'absolute right-6 top-6 p-0 sm w-28',
+        className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
         onClick: () => {
           if (typeof this.graphInstance.options.onDeleteNode === 'function') {
             this.graphInstance.options.onDeleteNode(this.nodeData);
@@ -108,7 +109,7 @@ export default class TableCell {
         icon: 'expand',
         type: 'primary',
         tooltip: this.graphInstance.options.labels.adjustNodeSize,
-        className: 'absolute right-6 bottom-6 p-0 sm w-28',
+        className: 'absolute right-6 bottom-6 p-0 sm w-28 btn-br',
         onClick: () => {
           this.graphInstance.tableController.startResizing(this);
         },
@@ -117,7 +118,7 @@ export default class TableCell {
       new Button(this.controlLayer, {
         icon: 'plus',
         type: 'primary',
-        className: 'absolute left-6 top-6 p-0 sm w-28',
+        className: 'absolute left-6 top-6 p-0 sm w-28 btn-tl',
         tooltip: this.graphInstance.options.labels.addNode,
         onClick: () => {
           if (typeof this.graphInstance.options.onAddNode === 'function') {
@@ -132,7 +133,7 @@ export default class TableCell {
         new Button(this.controlLayer, {
           icon: 'x',
           type: 'danger',
-          className: 'absolute right-6 top-6 p-0 sm w-28',
+          className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
           tooltip: this.graphInstance.options.labels.deleteRow,
           onClick: () => {
             if (typeof this.graphInstance.options.onDeleteRow === 'function') {
@@ -152,5 +153,15 @@ export default class TableCell {
 
   onMouseLeave() {
     this.controlLayer.classList.add('hidden');
+  }
+
+  public setIsTarget(isTarget: boolean) {
+    if (isTarget && !this.isTarget) {
+      this.isTarget = true;
+      this.element.style.opacity = '0.4';
+    } else if (!isTarget && this.isTarget) {
+      this.isTarget = false;
+      this.element.style.opacity = '1';
+    }
   }
 }

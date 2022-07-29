@@ -31,6 +31,7 @@ export default class TableMask {
 
   private showMask(targetTableCell: TableCell) {
     this.targetCell = targetTableCell;
+    this.targetCell.setIsTarget(true);
     this.setFilteredOccupiedList();
     this.maskBox = new TableMaskBox(this.element, this.targetCell, this.graphInstance);
     this.mouseGridRect = this.getMouseRect();
@@ -116,6 +117,7 @@ export default class TableMask {
   public stopMask() {
     this.element.classList.add('hidden');
     removeElement(this.maskBox.element);
+    this.targetCell.setIsTarget(false);
     this.maskBox = null;
   }
 

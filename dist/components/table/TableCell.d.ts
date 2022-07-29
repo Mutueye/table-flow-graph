@@ -14,9 +14,11 @@ export default class TableCell {
     column: number;
     rowSpan: number;
     colSpan: number;
+    isTarget: boolean;
     constructor(parentElement: HTMLElement, data: TFGraphNode | null, row: number, column: number, graphInstance: TableFlowGraph);
     createTabelCell(data: TFGraphNode | null, row: any, column: any, graphInstance: TableFlowGraph): HTMLElement;
     setEditControls(): void;
     onMouseEnter(): void;
     onMouseLeave(): void;
+    setIsTarget(isTarget: boolean): void;
 }

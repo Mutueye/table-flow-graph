@@ -52,8 +52,37 @@ $border-color: #ebeef5;
       justify-content: center;
       // border: 1px solid $color-theme;
       background-color: rgba(0, 0, 0, 0.05);
+      .btn-tl {
+        transition: all ease-out 0.1;
+        transform: translate(-15px, -15px);
+        opacity: 0;
+      }
+      .btn-tr {
+        transition: all ease-out 0.1;
+        transform: translate(15px, -15px);
+        opacity: 0;
+      }
+      .btn-bl {
+        transition: all ease-out 0.1;
+        transform: translate(-15px, 15px);
+        opacity: 0;
+      }
+      .btn-br {
+        transition: all ease-out 0.1;
+        transform: translate(15px, 15px);
+        opacity: 0;
+      }
       &.hidden {
         display: none;
+      }
+      &:hover {
+        .btn-tl,
+        .btn-tr,
+        .btn-bl,
+        .btn-br {
+          transform: translate(0, 0);
+          opacity: 1;
+        }
       }
     }
   }

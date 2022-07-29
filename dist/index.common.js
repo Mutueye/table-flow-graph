@@ -416,7 +416,7 @@ var TableCell = /** @class */ (function () {
                 icon: 'move',
                 type: 'primary',
                 tooltip: this.graphInstance.options.labels.moveNode,
-                className: 'absolute left-6 top-6 p-0 sm w-28',
+                className: 'absolute left-6 top-6 p-0 sm w-28 btn-tl',
                 onClick: function () {
                     _this.graphInstance.tableController.startMoving(_this);
                 },
@@ -425,7 +425,7 @@ var TableCell = /** @class */ (function () {
                 icon: 'edit',
                 type: 'primary',
                 tooltip: this.graphInstance.options.labels.editNode,
-                className: 'absolute left-6 bottom-6 p-0 sm w-28',
+                className: 'absolute left-6 bottom-6 p-0 sm w-28 btn-bl',
                 onClick: function () {
                     if (typeof _this.graphInstance.options.onEditNode === 'function') {
                         _this.graphInstance.options.onEditNode(_this.nodeData);
@@ -436,7 +436,7 @@ var TableCell = /** @class */ (function () {
                 icon: 'remove',
                 type: 'danger',
                 tooltip: this.graphInstance.options.labels.deleteNode,
-                className: 'absolute right-6 top-6 p-0 sm w-28',
+                className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
                 onClick: function () {
                     if (typeof _this.graphInstance.options.onDeleteNode === 'function') {
                         _this.graphInstance.options.onDeleteNode(_this.nodeData);
@@ -447,7 +447,7 @@ var TableCell = /** @class */ (function () {
                 icon: 'expand',
                 type: 'primary',
                 tooltip: this.graphInstance.options.labels.adjustNodeSize,
-                className: 'absolute right-6 bottom-6 p-0 sm w-28',
+                className: 'absolute right-6 bottom-6 p-0 sm w-28 btn-br',
                 onClick: function () {
                     _this.graphInstance.tableController.startResizing(_this);
                 },
@@ -457,7 +457,7 @@ var TableCell = /** @class */ (function () {
             new Button(this.controlLayer, {
                 icon: 'plus',
                 type: 'primary',
-                className: 'absolute left-6 top-6 p-0 sm w-28',
+                className: 'absolute left-6 top-6 p-0 sm w-28 btn-tl',
                 tooltip: this.graphInstance.options.labels.addNode,
                 onClick: function () {
                     if (typeof _this.graphInstance.options.onAddNode === 'function') {
@@ -470,7 +470,7 @@ var TableCell = /** @class */ (function () {
                 new Button(this.controlLayer, {
                     icon: 'x',
                     type: 'danger',
-                    className: 'absolute right-6 top-6 p-0 sm w-28',
+                    className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
                     tooltip: this.graphInstance.options.labels.deleteRow,
                     onClick: function () {
                         if (typeof _this.graphInstance.options.onDeleteRow === 'function') {
@@ -488,6 +488,16 @@ var TableCell = /** @class */ (function () {
     };
     TableCell.prototype.onMouseLeave = function () {
         this.controlLayer.classList.add('hidden');
+    };
+    TableCell.prototype.setIsTarget = function (isTarget) {
+        if (isTarget && !this.isTarget) {
+            this.isTarget = true;
+            this.element.style.opacity = '0.4';
+        }
+        else if (!isTarget && this.isTarget) {
+            this.isTarget = false;
+            this.element.style.opacity = '1';
+        }
     };
     return TableCell;
 }());
@@ -557,7 +567,7 @@ var TableHeaderCell = /** @class */ (function () {
         new Button(this.controlLayer, {
             icon: 'edit',
             type: 'primary',
-            className: 'absolute left-6 top-6 p-0 sm w-28',
+            className: 'absolute left-6 top-6 p-0 sm w-28 btn-tl',
             tooltip: this.graphInstance.options.labels.editColumn,
             onClick: function () {
                 if (typeof _this.graphInstance.options.onEditColumn === 'function') {
@@ -569,7 +579,7 @@ var TableHeaderCell = /** @class */ (function () {
             new Button(this.controlLayer, {
                 icon: 'x',
                 type: 'danger',
-                className: 'absolute right-6 top-6 p-0 sm w-28',
+                className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
                 tooltip: this.graphInstance.options.labels.deleteColumn,
                 onClick: function () {
                     if (typeof _this.graphInstance.options.onDeleteColumn === 'function') {
@@ -18657,6 +18667,7 @@ var TableMask = /** @class */ (function () {
     }
     TableMask.prototype.showMask = function (targetTableCell) {
         this.targetCell = targetTableCell;
+        this.targetCell.setIsTarget(true);
         this.setFilteredOccupiedList();
         this.maskBox = new TableMaskBox(this.element, this.targetCell, this.graphInstance);
         this.mouseGridRect = this.getMouseRect();
@@ -18721,6 +18732,7 @@ var TableMask = /** @class */ (function () {
     TableMask.prototype.stopMask = function () {
         this.element.classList.add('hidden');
         removeElement(this.maskBox.element);
+        this.targetCell.setIsTarget(false);
         this.maskBox = null;
     };
     TableMask.prototype.submitChange = function () {
