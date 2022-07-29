@@ -180,7 +180,11 @@ export default class Table {
   }
 
   public createBottomControl() {
-    if (this.graphInstance.mode === 'edit' && !this.bottomControlEL) {
+    if (
+      this.graphInstance.mode === 'edit' &&
+      !this.bottomControlEL &&
+      this.graphInstance.options.totalRows < this.graphInstance.options.maxRows
+    ) {
       this.bottomControlEL = createClassElement(
         'div',
         'flex flex-row items-center justify-between mt-15',

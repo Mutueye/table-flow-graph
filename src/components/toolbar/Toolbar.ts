@@ -12,11 +12,13 @@ export default class Toolbar {
   public element: HTMLElement;
   public graphInstance: TableFlowGraph;
   public disabledMask: HTMLElement;
+  public modeToggler: Toggler;
+  public newColumnBtn: Button;
 
   constructor(parentElement: HTMLElement, graphInstance: TableFlowGraph) {
     this.graphInstance = graphInstance;
     this.element = createClassElement('div', 'tfgraph-toolbar', parentElement);
-    new Toggler(this.element, {
+    this.modeToggler = new Toggler(this.element, {
       items: [
         { label: this.graphInstance.options.labels.editMode, id: 'edit' },
         { label: this.graphInstance.options.labels.previewMode, id: 'preview' },
@@ -30,7 +32,7 @@ export default class Toolbar {
     //   style: { width: '16px', height: '16px' },
     // });
     const rightBtns = createClassElement('div', 'flex-row items-center', this.element);
-    new Button(rightBtns, {
+    this.newColumnBtn = new Button(rightBtns, {
       icon: 'plus',
       label: this.graphInstance.options.labels.addColumn,
       type: 'primary',
@@ -53,6 +55,7 @@ export default class Toolbar {
     // new Button(this.element, { label: 'danger', type: 'danger' });
     // new Button(this.element, { label: 'success', type: 'success' });
     // testBtn.setDisabled();
+    this.setToolbarState();
   }
 
   addColumn(graphInstance) {
@@ -67,5 +70,13 @@ export default class Toolbar {
 
   enable() {
     this.disabledMask.classList.add('hidden');
+  }
+
+  setToolbarState() {
+    if (this.graphInstance.options.totalColumns >= this.graphInstance.options.maxColumns) {
+      this.newColumnBtn.element.classList.add('hidden');
+    } else {
+      this.newColumnBtn.element.classList.remove('hidden');
+    }
   }
 }

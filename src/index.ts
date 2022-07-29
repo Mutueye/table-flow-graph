@@ -11,6 +11,8 @@ import AnchorController from './components/anchor/AnchorController';
 const defaultOptions: TFGraphOptions = {
   totalColumns: 8,
   totalRows: 8,
+  maxColumns: 12,
+  maxRows: 20,
   labels: {
     editMode: 'Edit Mode',
     previewMode: 'Preview Mode',
@@ -75,6 +77,12 @@ export class TableFlowGraph {
     }
     if (typeof this.options.columns !== 'undefined') {
       this.options.totalColumns = this.options.columns.length;
+    }
+    if (this.options.totalRows > this.options.maxRows) {
+      this.options.totalRows = this.options.maxRows;
+    }
+    if (this.options.totalColumns > this.options.maxColumns) {
+      this.options.totalColumns = this.options.maxColumns;
     }
 
     // create toolbar and edit state
