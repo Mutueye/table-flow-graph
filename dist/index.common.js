@@ -400,6 +400,8 @@ var TableCell = /** @class */ (function () {
             this.colSpan = 1;
             this.hasNode = false;
         }
+        // set min height base on row span
+        el.style.minHeight = 80 * this.rowSpan + 'px';
         return el;
     };
     // cell controls for edit mode
