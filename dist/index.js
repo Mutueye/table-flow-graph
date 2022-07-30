@@ -19512,7 +19512,7 @@
         totalColumns: 8,
         totalRows: 8,
         maxColumns: 12,
-        maxRows: 20,
+        maxRows: 30,
         labels: {
             editMode: 'Edit Mode',
             previewMode: 'Preview Mode',
