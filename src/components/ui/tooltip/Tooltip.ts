@@ -13,7 +13,8 @@ export default class Tooltip {
   public arrowElement: HTMLElement;
   public disabled: boolean;
   public rendered: boolean;
-  public timeoutId: number | null;
+  public dismissTimeoutId: number | null;
+  public showTimeoutId: number | null;
 
   constructor(targetElement: HTMLElement, options: TooltipOptoins) {
     this.targetElement = targetElement;
@@ -70,24 +71,36 @@ export default class Tooltip {
     setStyles(this.arrowElement, arrowStyleObj);
 
     this.rendered = true;
+    if (this.showTimeoutId) {
+      window.clearTimeout(this.showTimeoutId);
+      this.showTimeoutId = null;
+    }
   }
 
   public dismiss() {
     this.rendered = false;
     this.targetElement.removeEventListener('mouseenter', () => this.mouseEnter());
     this.targetElement.removeEventListener('mouseleave', () => this.mouseLeave());
-    removeElement(this.element);
+    if (this.element) removeElement(this.element);
   }
 
   public mouseEnter() {
-    if (!this.rendered) this.render();
-    if (this.timeoutId) {
-      window.clearTimeout(this.timeoutId);
+    if (!this.rendered && !this.showTimeoutId) {
+      this.showTimeoutId = window.setTimeout(() => {
+        this.render();
+      }, 500);
+    }
+    if (this.dismissTimeoutId) {
+      window.clearTimeout(this.dismissTimeoutId);
     }
   }
 
   public mouseLeave() {
-    this.timeoutId = window.setTimeout(() => {
+    if (this.showTimeoutId) {
+      window.clearTimeout(this.showTimeoutId);
+      this.showTimeoutId = null;
+    }
+    this.dismissTimeoutId = window.setTimeout(() => {
       this.dismiss();
     }, 50);
   }

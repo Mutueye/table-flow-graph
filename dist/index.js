@@ -180,24 +180,37 @@
             setStyles(this.areaElement, areaStyleObj);
             setStyles(this.arrowElement, arrowStyleObj);
             this.rendered = true;
+            if (this.showTimeoutId) {
+                window.clearTimeout(this.showTimeoutId);
+                this.showTimeoutId = null;
+            }
         };
         Tooltip.prototype.dismiss = function () {
             var _this = this;
             this.rendered = false;
             this.targetElement.removeEventListener('mouseenter', function () { return _this.mouseEnter(); });
             this.targetElement.removeEventListener('mouseleave', function () { return _this.mouseLeave(); });
-            removeElement(this.element);
+            if (this.element)
+                removeElement(this.element);
         };
         Tooltip.prototype.mouseEnter = function () {
-            if (!this.rendered)
-                this.render();
-            if (this.timeoutId) {
-                window.clearTimeout(this.timeoutId);
+            var _this = this;
+            if (!this.rendered && !this.showTimeoutId) {
+                this.showTimeoutId = window.setTimeout(function () {
+                    _this.render();
+                }, 500);
+            }
+            if (this.dismissTimeoutId) {
+                window.clearTimeout(this.dismissTimeoutId);
             }
         };
         Tooltip.prototype.mouseLeave = function () {
             var _this = this;
-            this.timeoutId = window.setTimeout(function () {
+            if (this.showTimeoutId) {
+                window.clearTimeout(this.showTimeoutId);
+                this.showTimeoutId = null;
+            }
+            this.dismissTimeoutId = window.setTimeout(function () {
                 _this.dismiss();
             }, 50);
         };

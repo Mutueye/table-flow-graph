@@ -11,7 +11,8 @@ export default class Tooltip {
     arrowElement: HTMLElement;
     disabled: boolean;
     rendered: boolean;
-    timeoutId: number | null;
+    dismissTimeoutId: number | null;
+    showTimeoutId: number | null;
     constructor(targetElement: HTMLElement, options: TooltipOptoins);
     render(): void;
     dismiss(): void;
