@@ -4,6 +4,10 @@
   "description": "A simple flow graph editor/viewer",
   "author": "mutueye <mutuyueniao@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mutueye/table-flow-graph"
+  },
   "main": "dist/index.common.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
