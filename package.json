@@ -1,7 +1,7 @@
 {
   "name": "table-flow-graph",
   "version": "0.1.0",
-  "description": "A Table flow graph editor",
+  "description": "A simple flow graph editor/viewer",
   "author": "mutueye <mutuyueniao@gmail.com>",
   "license": "MIT",
   "main": "dist/index.common.js",
