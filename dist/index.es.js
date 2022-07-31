@@ -476,7 +476,8 @@ var TableCell = /** @class */ (function () {
                     }
                 },
             });
-            if (this.row === this.graphInstance.options.totalRows - 1 &&
+            if (this.graphInstance.options.totalRows > 1 &&
+                this.row === this.graphInstance.options.totalRows - 1 &&
                 this.graphInstance.tableController.canDeleteRow) {
                 new Button(this.controlLayer, {
                     icon: 'x',

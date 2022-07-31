@@ -129,6 +129,7 @@ export default class TableCell {
         },
       });
       if (
+        this.graphInstance.options.totalRows > 1 &&
         this.row === this.graphInstance.options.totalRows - 1 &&
         this.graphInstance.tableController.canDeleteRow
       ) {
