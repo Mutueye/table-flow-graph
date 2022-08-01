@@ -35,7 +35,7 @@ export default defineConfig({
       },
       colors: {
         gray: colors.gray,
-        blue: colors.lightBlue,
+        blue: colors.sky,
         red: colors.rose,
         pink: colors.fuchsia,
         'trans-white-20': 'rgba(255, 255, 255, 0.2)',
