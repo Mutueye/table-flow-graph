@@ -15,6 +15,7 @@ export default defineConfig({
     commonjsOptions: {
       ignoreDynamicRequires: false,
     },
+    outDir: '../docDist',
   },
   server: {
     open: true,
