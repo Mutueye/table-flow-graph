@@ -8,7 +8,7 @@ export declare type TFGraphRow = {
     id?: string;
     title: string;
 };
-export declare type TFGraphNode = {
+export interface TFGraphNode {
     id?: string;
     title: string;
     row: number;
@@ -17,7 +17,7 @@ export declare type TFGraphNode = {
     rowSpan: number;
     type?: 'default' | 'success' | 'warning' | 'danger' | 'primary';
     isBtn?: boolean;
-};
+}
 export declare type Mode = 'edit' | 'preview';
 export declare type Labels = {
     editMode?: string;
@@ -44,6 +44,7 @@ export declare type TFGraphOptions = {
     isEditor?: boolean;
     lines?: string[][];
     labels?: Labels;
+    renderNode?: (node: TFGraphNode, parentElement: HTMLElement) => HTMLElement;
     onChangeLines?: (lines: string[][]) => void;
     onAddColumn?: () => void;
     onEditColumn?: (column: TFGraphColumn) => void;

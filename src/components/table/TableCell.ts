@@ -45,7 +45,12 @@ export default class TableCell {
       const node = createClassElement('button', 'tfgraph-node');
       node.classList.add(data.type);
       if (data.isBtn && this.graphInstance.mode !== 'edit') node.classList.add('isBtn');
-      node.innerText = data.title;
+      if (typeof this.graphInstance.options.renderNode === 'function') {
+        node.appendChild(this.graphInstance.options.renderNode(data, node));
+      } else {
+        node.innerText = data.title;
+      }
+
       // node.innerText = data.id;
       el.appendChild(node);
       this.hasNode = true;

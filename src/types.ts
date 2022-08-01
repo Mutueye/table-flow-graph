@@ -14,7 +14,7 @@ export type TFGraphRow = {
 };
 
 // node data
-export type TFGraphNode = {
+export interface TFGraphNode {
   id?: string;
   title: string;
   row: number;
@@ -23,7 +23,7 @@ export type TFGraphNode = {
   rowSpan: number;
   type?: 'default' | 'success' | 'warning' | 'danger' | 'primary';
   isBtn?: boolean;
-};
+}
 
 // export interface ThemeOption {
 //   borderColor: string;
@@ -69,6 +69,7 @@ export type TFGraphOptions = {
   isEditor?: boolean;
   lines?: string[][]; // 2D array of anchor point ids to draw lines
   labels?: Labels;
+  renderNode?: (node: TFGraphNode, parentElement: HTMLElement) => HTMLElement;
   onChangeLines?: (lines: string[][]) => void; // lines changed
   onAddColumn?: () => void; // add column
   onEditColumn?: (column: TFGraphColumn) => void; // edit column
