@@ -1,17 +1,17 @@
 export type ColumnWidth = 'auto' | 'lg' | 'md' | 'sm' | 'xs';
 
 // table column header data
-export type TFGraphColumn = {
+export interface TFGraphColumn {
   id?: string;
   title: string;
   width?: ColumnWidth | string;
-};
+}
 
 // table row header data
-export type TFGraphRow = {
+export interface TFGraphRow {
   id?: string;
   title: string;
-};
+}
 
 // node data
 export interface TFGraphNode {
@@ -58,7 +58,7 @@ export type Labels = {
 };
 
 // table-flow-graph options
-export type TFGraphOptions = {
+export interface TFGraphOptions {
   nodes?: TFGraphNode[];
   columns?: TFGraphColumn[];
   totalColumns?: number;
@@ -80,7 +80,7 @@ export type TFGraphOptions = {
   onEditNode?: (nodeData: TFGraphNode) => void;
   onDeleteNode?: (nodeData: TFGraphNode) => void;
   onChangeNode?: (newNode: TFGraphNode, oldNode: TFGraphNode) => void;
-};
+}
 
 // anchor point's relative position to a table cell
 export type Bearing =
@@ -113,40 +113,40 @@ export interface RowSpec {
 
 export type TableGridRect = ColumnSpec & RowSpec;
 
-export type LineOptions = {
+export interface LineOptions {
   positionA: Position; // x and y position relative to table element
   positionB: Position;
   thickness: number;
   isStart: boolean;
   isEnd: boolean;
-};
+}
 
-export type LineGroupOptions = {
+export interface LineGroupOptions {
   anchorIds: string[];
   isDrawingActive: boolean; // current line group is drawing
-};
+}
 
 export type BtnType = 'default' | 'primary' | 'warning' | 'danger' | 'success' | 'clean';
 
-export type BtnOptions = {
+export interface BtnOptions {
   label?: string;
   type?: BtnType;
   className?: string;
   icon?: string;
   onClick?: (e: MouseEvent) => void;
   tooltip?: string;
-};
+}
 
 export type TogglerItem = {
   label: string;
   id?: string;
 };
 
-export type TogglerOptions = {
+export interface TogglerOptions {
   items: TogglerItem[];
   initialActiveIndex?: number;
   onChange?: (item: TogglerItem, index: number) => void;
-};
+}
 
 export type TogglerButton = {
   itemData: TogglerItem;
@@ -154,20 +154,20 @@ export type TogglerButton = {
   index: number;
 };
 
-export type PopupOptions = {
+export interface PopupOptions {
   placement?: 'top' | 'right' | 'bottom' | 'left';
   contentElement?: HTMLElement;
-};
+}
 
-export type TooltipOptoins = {
+export interface TooltipOptoins {
   placement?: 'top' | 'right' | 'bottom' | 'left';
   label?: string;
-};
+}
 
-export type HeaderCellMenuOptions = {
+export interface HeaderCellMenuOptions {
   showAdd?: boolean;
   showDelete?: boolean;
-};
+}
 
 export type PositionAndSize = {
   left: number;

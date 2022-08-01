@@ -1,0 +1,4 @@
+{
+  "name": "src",
+  "description": "用于在src中的代码使用绝对路径，比如'src/pages/home/Home'"
+}
