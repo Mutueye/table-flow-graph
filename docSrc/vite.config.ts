@@ -11,6 +11,7 @@ export default defineConfig({
       src: path.resolve(__dirname, './src'),
     },
   },
+  base: './',
   build: {
     commonjsOptions: {
       ignoreDynamicRequires: false,
