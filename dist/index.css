@@ -64755,7 +64755,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  box-sizing: border-box;
   justify-content: center;
   padding: 15px;
   min-height: 70px;
@@ -65379,10 +65378,17 @@
   display: none !important;
 }
 
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+}
+
 .tfgraph {
   position: relative;
   user-select: none;
-  box-sizing: border-box;
   width: 100%;
 }
 .tfgraph .tfgraph-anchor-layer {

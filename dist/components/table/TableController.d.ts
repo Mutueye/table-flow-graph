@@ -28,7 +28,7 @@ export default class Table {
     startResizing(targetCell: TableCell): void;
     stopResizing(): void;
     submitCellChange(): void;
-    createBottomControl(): void;
+    setBottomControl(): void;
     createHeader(): void;
     createTds(): void;
     createCells(): void;

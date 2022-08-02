@@ -1,5 +1,5 @@
 /**
- * table-flow-graph v0.1.2
+ * table-flow-graph v0.1.4
  * Copyright 2022 Mutueye. Licensed under MIT
  */
 
@@ -18891,8 +18891,8 @@ var Table = /** @class */ (function () {
                 });
             });
             this.tableMask = new TableMask(tableGridRectList_1, this.graphInstance);
-            this.createBottomControl();
         }
+        this.setBottomControl();
         // TODO set table cell controls
         // 1. remove last row ✓
         // 2. empty cell: add node ✓
@@ -18953,7 +18953,7 @@ var Table = /** @class */ (function () {
         this.graphInstance.toolbar.enable();
         this.tableMask.submitChange();
     };
-    Table.prototype.createBottomControl = function () {
+    Table.prototype.setBottomControl = function () {
         var _this = this;
         if (this.graphInstance.mode === 'edit' &&
             !this.bottomControlEL &&
@@ -19340,7 +19340,7 @@ var Anchor = /** @class */ (function () {
         this.isOffsetX = isOffsetX;
         this.isOffsetY = isOffsetY;
         this.tr = document.getElementById("".concat(graphInstance.id, "_tr_").concat(row));
-        this.col = document.getElementById("".concat(graphInstance.id, "_col_").concat(column));
+        this.col = this.tr.getElementsByTagName('td')[column];
         if (this.tr && this.col) {
             // create dom elements
             this.element = createClassElement('div', 'tfgraph-anchor', graphInstance.anchorController.element);
