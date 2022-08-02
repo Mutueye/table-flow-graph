@@ -13,12 +13,19 @@ $border-color: #ebeef5;
     .tfgraph-th {
       min-width: 100px;
       font-size: 14px;
+      text-align: center;
       font-weight: normal;
       position: relative;
       padding: 15px;
       border-right: 1px solid $border-color;
       border-bottom: 1px solid $border-color;
       background-color: $header-color;
+      &.empty {
+        padding: 0px;
+        border: none;
+        height: 0;
+        line-height: 0;
+      }
     }
     .tfgraph-td {
       min-width: 100px;
@@ -92,11 +99,14 @@ $border-color: #ebeef5;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  cursor: default;
   font-size: 13px;
   font-weight: 500;
   line-height: 18px;
   min-height: 36px;
   padding: 8px 10px;
+  color: #333333;
+  background-color: #f3f4f6;
   border: 1px solid #dcdcdc;
   border-radius: 8px;
   text-align: center;

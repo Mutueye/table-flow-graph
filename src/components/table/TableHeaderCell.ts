@@ -35,7 +35,11 @@ export default class TableHeaderCell {
 
   createElement(parentElement: HTMLElement): HTMLElement {
     const el = createClassElement('th', 'tfgraph-th', parentElement);
-    el.innerHTML = this.columnData.title;
+    if (this.columnData.title) {
+      el.innerHTML = this.columnData.title;
+    } else {
+      el.classList.add('empty');
+    }
     if (this.columnData.width) {
       // TODO load width value from options
       let width = this.columnData.width;

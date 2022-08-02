@@ -78,6 +78,14 @@ export class TableFlowGraph {
     if (typeof this.options.columns !== 'undefined') {
       this.options.totalColumns = this.options.columns.length;
     }
+    if (!this.options.columns || this.options.columns.length === 0) {
+      this.options.columns = [];
+      for (let i = 0; i < this.options.totalColumns; i++) {
+        this.options.columns.push({
+          width: 'auto',
+        });
+      }
+    }
     if (this.options.totalRows > this.options.maxRows) {
       this.options.totalRows = this.options.maxRows;
     }
@@ -139,7 +147,10 @@ export class TableFlowGraph {
   }
 
   onResize() {
-    debounce(() => this.anchorController.resetPosition(), 500);
+    debounce(() => {
+      // TODO lineController rerender lines
+      this.anchorController.resetPosition();
+    }, 100)();
   }
 
   onKeydown = (e) => {

@@ -36,7 +36,7 @@ export default class Anchor {
     this.isOffsetX = isOffsetX;
     this.isOffsetY = isOffsetY;
     this.tr = document.getElementById(`${graphInstance.id}_tr_${row}`);
-    this.col = this.tr.getElementsByTagName('td')[column];
+    this.col = document.getElementById(`${graphInstance.id}_col_${column}`);
     if (this.tr && this.col) {
       // create dom elements
       this.element = createClassElement(

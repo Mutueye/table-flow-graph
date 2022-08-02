@@ -3,7 +3,7 @@ export type ColumnWidth = 'auto' | 'lg' | 'md' | 'sm' | 'xs';
 // table column header data
 export interface TFGraphColumn {
   id?: string;
-  title: string;
+  title?: string;
   width?: ColumnWidth | string;
 }
 
