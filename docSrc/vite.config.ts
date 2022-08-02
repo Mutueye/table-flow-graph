@@ -7,9 +7,17 @@ import * as path from 'path';
 export default defineConfig({
   plugins: [react(), WindiCSS(), envCompatible()],
   resolve: {
-    alias: {
-      src: path.resolve(__dirname, './src'),
-    },
+    alias: [
+      {
+        find: 'src',
+        replacement: path.resolve(__dirname, './src'),
+      },
+      {
+        // this is required for the SCSS modules
+        find: /^~(.*)$/,
+        replacement: '$1',
+      },
+    ],
   },
   base: './',
   build: {

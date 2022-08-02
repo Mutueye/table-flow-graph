@@ -1,4 +1,7 @@
 import React, { PropsWithChildren } from 'react';
+// import Container from 'react-bootstrap/Container';
+// import Row from 'react-bootstrap/Row';
+// import Col from 'react-bootstrap/Col';
 
 type Props = {
   className?: string;
@@ -6,14 +9,23 @@ type Props = {
 
 const Wrapper: React.FC<PropsWithChildren<Props>> = ({ className, children }) => {
   const style = [
-    'w-screen',
-    'h-screen',
+    'w-full',
+    'min-h-screen',
+    'min-w-1300px',
     'overflow-hidden',
-    'bg-gray-700',
+    'flex',
+    'flex-col',
+    'items-center',
+    'justify-start',
+    'bg-white',
     'relative',
     className,
   ].join(' ');
-  return <div className={style}>{children}</div>;
+  return (
+    <div className={style}>
+      <div className="w-1200px flex flex-col">{children}</div>
+    </div>
+  );
 };
 
 export default Wrapper;

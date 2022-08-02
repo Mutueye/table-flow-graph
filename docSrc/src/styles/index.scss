@@ -40,13 +40,12 @@ object {
   display: block;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-}
+/* make the customizations */
+// $theme-colors: (
+//   "info": tomato,
+//   "danger": teal
+// );
 
-button {
-  box-sizing: border-box;
-  border-width: 0;
-  border-style: solid;
-}
+/* import bootstrap to set changes */
+@import "~bootstrap/scss/bootstrap";
+
