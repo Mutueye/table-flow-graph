@@ -1,13 +1,13 @@
 export declare type ColumnWidth = 'auto' | 'lg' | 'md' | 'sm' | 'xs';
-export declare type TFGraphColumn = {
+export interface TFGraphColumn {
     id?: string;
     title: string;
     width?: ColumnWidth | string;
-};
-export declare type TFGraphRow = {
+}
+export interface TFGraphRow {
     id?: string;
     title: string;
-};
+}
 export interface TFGraphNode {
     id?: string;
     title: string;
@@ -33,7 +33,7 @@ export declare type Labels = {
     adjustNodeSize?: string;
     moveNode?: string;
 };
-export declare type TFGraphOptions = {
+export interface TFGraphOptions {
     nodes?: TFGraphNode[];
     columns?: TFGraphColumn[];
     totalColumns?: number;
@@ -55,7 +55,7 @@ export declare type TFGraphOptions = {
     onEditNode?: (nodeData: TFGraphNode) => void;
     onDeleteNode?: (nodeData: TFGraphNode) => void;
     onChangeNode?: (newNode: TFGraphNode, oldNode: TFGraphNode) => void;
-};
+}
 export declare type Bearing = 'topleft' | 'top' | 'topright' | 'left' | 'center' | 'right' | 'bottomleft' | 'bottom' | 'bottomright';
 export declare type Position = {
     x: number;
@@ -72,52 +72,52 @@ export interface RowSpec {
     rowIndex: number;
 }
 export declare type TableGridRect = ColumnSpec & RowSpec;
-export declare type LineOptions = {
+export interface LineOptions {
     positionA: Position;
     positionB: Position;
     thickness: number;
     isStart: boolean;
     isEnd: boolean;
-};
-export declare type LineGroupOptions = {
+}
+export interface LineGroupOptions {
     anchorIds: string[];
     isDrawingActive: boolean;
-};
+}
 export declare type BtnType = 'default' | 'primary' | 'warning' | 'danger' | 'success' | 'clean';
-export declare type BtnOptions = {
+export interface BtnOptions {
     label?: string;
     type?: BtnType;
     className?: string;
     icon?: string;
     onClick?: (e: MouseEvent) => void;
     tooltip?: string;
-};
+}
 export declare type TogglerItem = {
     label: string;
     id?: string;
 };
-export declare type TogglerOptions = {
+export interface TogglerOptions {
     items: TogglerItem[];
     initialActiveIndex?: number;
     onChange?: (item: TogglerItem, index: number) => void;
-};
+}
 export declare type TogglerButton = {
     itemData: TogglerItem;
     el: HTMLElement;
     index: number;
 };
-export declare type PopupOptions = {
+export interface PopupOptions {
     placement?: 'top' | 'right' | 'bottom' | 'left';
     contentElement?: HTMLElement;
-};
-export declare type TooltipOptoins = {
+}
+export interface TooltipOptoins {
     placement?: 'top' | 'right' | 'bottom' | 'left';
     label?: string;
-};
-export declare type HeaderCellMenuOptions = {
+}
+export interface HeaderCellMenuOptions {
     showAdd?: boolean;
     showDelete?: boolean;
-};
+}
 export declare type PositionAndSize = {
     left: number;
     top: number;

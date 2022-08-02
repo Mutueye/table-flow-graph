@@ -107,11 +107,10 @@ export default class Table {
       });
 
       this.tableMask = new TableMask(tableGridRectList, this.graphInstance);
-
-      this.createBottomControl();
     } else {
       // TODO click node event
     }
+    this.setBottomControl();
 
     // TODO set table cell controls
     // 1. remove last row ✓
@@ -179,7 +178,7 @@ export default class Table {
     this.tableMask.submitChange();
   }
 
-  public createBottomControl() {
+  public setBottomControl() {
     if (
       this.graphInstance.mode === 'edit' &&
       !this.bottomControlEL &&
@@ -242,19 +241,22 @@ export default class Table {
     // spaned table cell id array
     const spanedTdIds = [];
     const nodes = this.graphInstance.options.nodes;
-    nodes.forEach((node) => {
-      // set spanned tabel cell ids
-      if (node.colSpan > 1 || node.rowSpan > 1) {
-        for (let i = node.column; i < node.column + node.colSpan; i++) {
-          for (let j = node.row; j < node.row + node.rowSpan; j++) {
-            if (!(i === node.column && j === node.row)) {
-              spanedTdIds.push(`${this.graphInstance.id}_td_${j}_${i}`);
-              this.occupiedList[j][i] = 1;
+    if (nodes && nodes.length > 0) {
+      nodes.forEach((node) => {
+        // set spanned tabel cell ids
+        if (node.colSpan > 1 || node.rowSpan > 1) {
+          for (let i = node.column; i < node.column + node.colSpan; i++) {
+            for (let j = node.row; j < node.row + node.rowSpan; j++) {
+              if (!(i === node.column && j === node.row)) {
+                spanedTdIds.push(`${this.graphInstance.id}_td_${j}_${i}`);
+                this.occupiedList[j][i] = 1;
+              }
             }
           }
         }
-      }
-    });
+      });
+    }
+
     // remove spaned tabell cell element
     spanedTdIds.forEach((id) => removeElement(document.getElementById(id)));
 
@@ -262,7 +264,10 @@ export default class Table {
     for (let i = 0; i < this.graphInstance.options.totalRows; i++) {
       for (let j = 0; j < this.graphInstance.options.totalColumns; j++) {
         if (!spanedTdIds.includes(`${this.graphInstance.id}_td_${i}_${j}`)) {
-          const targetNode = nodes.find((node) => node.row === i && node.column === j);
+          const targetNode =
+            nodes && nodes.length > 0
+              ? nodes.find((node) => node.row === i && node.column === j)
+              : null;
           const targetTd = document.getElementById(`${this.graphInstance.id}_td_${i}_${j}`);
           if (targetNode) {
             targetTd.setAttribute('colSpan', targetNode.colSpan.toString());

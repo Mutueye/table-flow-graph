@@ -72,9 +72,6 @@ $border-color: #ebeef5;
         transform: translate(15px, 15px);
         opacity: 0;
       }
-      &.hidden {
-        display: none;
-      }
       &:hover {
         .btn-tl,
         .btn-tr,

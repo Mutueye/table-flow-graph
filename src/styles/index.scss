@@ -8,13 +8,22 @@
 @import '../components/ui/tooltip/tooltip.scss';
 @import '../components/toolbar/toolbar.scss';
 
+.hidden {
+  display: none !important;
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+}
+
 .tfgraph {
   position: relative;
   user-select: none;
   width: 100%;
-  .hidden {
-    display: none;
-  }
   .tfgraph-anchor-layer {
     position: absolute;
     pointer-events: none;

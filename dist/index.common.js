@@ -19011,25 +19011,29 @@ var Table = /** @class */ (function () {
         // spaned table cell id array
         var spanedTdIds = [];
         var nodes = this.graphInstance.options.nodes;
-        nodes.forEach(function (node) {
-            // set spanned tabel cell ids
-            if (node.colSpan > 1 || node.rowSpan > 1) {
-                for (var i = node.column; i < node.column + node.colSpan; i++) {
-                    for (var j = node.row; j < node.row + node.rowSpan; j++) {
-                        if (!(i === node.column && j === node.row)) {
-                            spanedTdIds.push("".concat(_this.graphInstance.id, "_td_").concat(j, "_").concat(i));
-                            _this.occupiedList[j][i] = 1;
+        if (nodes && nodes.length > 0) {
+            nodes.forEach(function (node) {
+                // set spanned tabel cell ids
+                if (node.colSpan > 1 || node.rowSpan > 1) {
+                    for (var i = node.column; i < node.column + node.colSpan; i++) {
+                        for (var j = node.row; j < node.row + node.rowSpan; j++) {
+                            if (!(i === node.column && j === node.row)) {
+                                spanedTdIds.push("".concat(_this.graphInstance.id, "_td_").concat(j, "_").concat(i));
+                                _this.occupiedList[j][i] = 1;
+                            }
                         }
                     }
                 }
-            }
-        });
+            });
+        }
         // remove spaned tabell cell element
         spanedTdIds.forEach(function (id) { return removeElement(document.getElementById(id)); });
         var _loop_1 = function (i) {
             var _loop_2 = function (j) {
                 if (!spanedTdIds.includes("".concat(this_1.graphInstance.id, "_td_").concat(i, "_").concat(j))) {
-                    var targetNode = nodes.find(function (node) { return node.row === i && node.column === j; });
+                    var targetNode = nodes && nodes.length > 0
+                        ? nodes.find(function (node) { return node.row === i && node.column === j; })
+                        : null;
                     var targetTd = document.getElementById("".concat(this_1.graphInstance.id, "_td_").concat(i, "_").concat(j));
                     if (targetNode) {
                         targetTd.setAttribute('colSpan', targetNode.colSpan.toString());
