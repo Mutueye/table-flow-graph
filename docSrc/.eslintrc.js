@@ -53,9 +53,4 @@ module.exports = {
     'jsx-quotes': ['error', 'prefer-double'],
     'react/jsx-tag-spacing': 'error',
   },
-  // 项目自定义全局变量
-  // globals: {
-  //   ConstsUI: true,
-  //   Consts3D: true,
-  // },
 };
