@@ -1,5 +1,5 @@
 import { StrictMode } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 
 import Wrapper from 'src/components/Wrapper';
 import { RouterRaw } from './containers/types';
@@ -22,7 +22,7 @@ const routes = (() => {
 const App: React.FC = () => {
   return (
     <StrictMode>
-      <BrowserRouter>
+      <HashRouter>
         <Wrapper>
           <Routes>
             {routes.map((route) => (
@@ -30,7 +30,7 @@ const App: React.FC = () => {
             ))}
           </Routes>
         </Wrapper>
-      </BrowserRouter>
+      </HashRouter>
     </StrictMode>
   );
 };
