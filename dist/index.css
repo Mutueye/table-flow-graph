@@ -64735,12 +64735,19 @@
 .tfgraph-table .tfgraph-tr .tfgraph-th {
   min-width: 100px;
   font-size: 14px;
+  text-align: center;
   font-weight: normal;
   position: relative;
   padding: 15px;
   border-right: 1px solid #ebeef5;
   border-bottom: 1px solid #ebeef5;
   background-color: #f3f4f6;
+}
+.tfgraph-table .tfgraph-tr .tfgraph-th.empty {
+  padding: 0px;
+  border: none;
+  height: 0;
+  line-height: 0;
 }
 .tfgraph-table .tfgraph-tr .tfgraph-td {
   min-width: 100px;
@@ -64809,23 +64816,26 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  cursor: default !important;
   font-size: 13px;
   font-weight: 500;
   line-height: 18px;
   min-height: 36px;
   padding: 8px 10px;
+  color: #333333;
+  background-color: #f3f4f6;
   border: 1px solid #dcdcdc;
   border-radius: 8px;
   text-align: center;
   transition: all 0.2s;
 }
+.tfgraph-node.isBtn {
+  cursor: pointer !important;
+}
 .tfgraph-node.default {
   border-color: #ebeef5;
   color: #666666;
   background-color: #f3f4f6;
-}
-.tfgraph-node.default.isBtn {
-  cursor: pointer;
 }
 .tfgraph-node.default.isBtn:hover {
   border-color: #ebeef5;
@@ -64837,9 +64847,6 @@
   color: #80c269;
   background-color: #80c26910;
 }
-.tfgraph-node.success.isBtn {
-  cursor: pointer;
-}
 .tfgraph-node.success.isBtn:hover {
   border-color: #80c269;
   color: #ffffff;
@@ -64849,9 +64856,6 @@
   border-color: #f96400;
   color: #f96400;
   background-color: #f9640010;
-}
-.tfgraph-node.warning.isBtn {
-  cursor: pointer;
 }
 .tfgraph-node.warning.isBtn:hover {
   border-color: #f96400;
@@ -64863,9 +64867,6 @@
   color: #fc7373;
   background-color: #fc737310;
 }
-.tfgraph-node.danger.isBtn {
-  cursor: pointer;
-}
 .tfgraph-node.danger.isBtn:hover {
   border-color: #fc7373;
   color: #ffffff;
@@ -64875,9 +64876,6 @@
   border-color: #377df4;
   color: #377df4;
   background-color: #377df610;
-}
-.tfgraph-node.primary.isBtn {
-  cursor: pointer;
 }
 .tfgraph-node.primary.isBtn:hover {
   border-color: #377df4;
@@ -64939,6 +64937,7 @@
 }
 .tfgraph-line.hovered {
   background-color: #fc7373;
+  z-index: 100;
 }
 .tfgraph-line.hovered .start-point {
   background-color: #fc7373;
@@ -65002,11 +65001,11 @@
 }
 .tfgraph-anchor .tfgraph-anchor-area .tfgraph-anchor-circle {
   position: absolute;
-  width: 16px;
-  height: 16px;
-  left: 0;
-  top: 0;
-  border-radius: 8px;
+  width: 20px;
+  height: 20px;
+  left: -2px;
+  top: -2px;
+  border-radius: 10px;
   border: 1px solid #377df4;
   background-color: rgba(55, 125, 244, 0);
   pointer-events: none;
@@ -65133,6 +65132,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding: 4px;
 }
 .tfgraph-toggler .tfgraph-toggler-btn {
   transition: all ease 0.2s;
@@ -65146,12 +65146,6 @@
   padding: 0 8px;
   color: white;
   opacity: 0.6;
-}
-.tfgraph-toggler .tfgraph-toggler-btn:first-child {
-  padding-left: 14px;
-}
-.tfgraph-toggler .tfgraph-toggler-btn:last-child {
-  padding-right: 14px;
 }
 .tfgraph-toggler .tfgraph-toggler-btn.active {
   opacity: 1;
@@ -65289,6 +65283,7 @@
 .tfgraph-tooltip .tfgraph-tooltip-area {
   position: absolute;
   width: auto;
+  pointer-events: none;
   height: auto;
 }
 .tfgraph-tooltip .tfgraph-tooltip-area .tfgraph-tooltip-arrow {

@@ -18,6 +18,8 @@ export default class TableCell {
   public rowSpan: number;
   public colSpan: number;
   public isTarget: boolean; // is moving or resizing this cell
+  public deleteRowBtn: Button;
+  public deleteColBtn: Button;
 
   constructor(
     parentElement: HTMLElement,
@@ -135,17 +137,38 @@ export default class TableCell {
       });
       if (
         this.graphInstance.options.totalRows > 1 &&
-        this.row === this.graphInstance.options.totalRows - 1 &&
-        this.graphInstance.tableController.canDeleteRow
+        this.row === this.graphInstance.options.totalRows - 1
       ) {
-        new Button(this.controlLayer, {
-          icon: 'x',
+        this.deleteRowBtn = new Button(this.controlLayer, {
+          icon: 'delete_row',
           type: 'danger',
           className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
           tooltip: this.graphInstance.options.labels.deleteRow,
           onClick: () => {
             if (typeof this.graphInstance.options.onDeleteRow === 'function') {
               this.graphInstance.options.onDeleteRow();
+            }
+          },
+        });
+      }
+      if (
+        this.graphInstance.options.totalColumns > 1 &&
+        this.column === this.graphInstance.options.totalColumns - 1
+      ) {
+        this.deleteColBtn = new Button(this.controlLayer, {
+          icon: 'delete_col',
+          type: 'danger',
+          className: 'absolute right-6 bottom-6 p-0 sm w-28 btn-br',
+          tooltip: this.graphInstance.options.labels.deleteColumn,
+          onClick: () => {
+            if (typeof this.graphInstance.options.onDeleteColumn === 'function') {
+              if (this.graphInstance.isEmptyColumns) {
+                this.graphInstance.options.onDeleteColumn();
+              } else {
+                const targetColumn =
+                  this.graphInstance.options.columns[this.graphInstance.options.totalColumns - 1];
+                this.graphInstance.options.onDeleteColumn(targetColumn);
+              }
             }
           },
         });
@@ -157,6 +180,26 @@ export default class TableCell {
 
   onMouseEnter() {
     this.controlLayer.classList.remove('hidden');
+    if (this.deleteRowBtn) {
+      if (
+        this.graphInstance.tableController.canDeleteRow &&
+        this.graphInstance.lineController.canDeleteRow
+      ) {
+        this.deleteRowBtn.element.classList.remove('hidden');
+      } else {
+        this.deleteRowBtn.element.classList.add('hidden');
+      }
+    }
+    if (this.deleteColBtn) {
+      if (
+        this.graphInstance.tableController.canDeleteColumn &&
+        this.graphInstance.lineController.canDeleteColumn
+      ) {
+        this.deleteColBtn.element.classList.remove('hidden');
+      } else {
+        this.deleteColBtn.element.classList.add('hidden');
+      }
+    }
   }
 
   onMouseLeave() {

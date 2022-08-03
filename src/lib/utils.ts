@@ -19,3 +19,24 @@ export function debounce<F extends Function>(func: F, wait: number): F {
     }, wait);
   };
 }
+
+// check if last column/row deleteable by occupiedList
+export const setColumnAndRowDeletable = (
+  occupiedList: number[][],
+  totalRows: number,
+  totalColumns: number,
+) => {
+  let canDeleteColumn = true;
+  let canDeleteRow = true;
+  for (let i = 0; i < totalRows - 1; i++) {
+    if (occupiedList[i][totalColumns - 1] !== 0) {
+      canDeleteColumn = false;
+    }
+  }
+  for (let i = 0; i < totalColumns - 1; i++) {
+    if (occupiedList[totalRows - 1][i] !== 0) {
+      canDeleteRow = false;
+    }
+  }
+  return { canDeleteRow, canDeleteColumn };
+};

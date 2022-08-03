@@ -99,7 +99,7 @@ $border-color: #ebeef5;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  cursor: default;
+  cursor: default !important;
   font-size: 13px;
   font-weight: 500;
   line-height: 18px;
@@ -111,12 +111,14 @@ $border-color: #ebeef5;
   border-radius: 8px;
   text-align: center;
   transition: all 0.2s;
+  &.isBtn {
+    cursor: pointer !important;
+  }
   &.default {
     border-color: #ebeef5;
     color: #666666;
     background-color: #f3f4f6;
     &.isBtn {
-      cursor: pointer;
       &:hover {
         border-color: #ebeef5;
         color: #333333;
@@ -129,7 +131,6 @@ $border-color: #ebeef5;
     color: #80c269;
     background-color: #80c26910;
     &.isBtn {
-      cursor: pointer;
       &:hover {
         border-color: #80c269;
         color: #ffffff;
@@ -142,7 +143,6 @@ $border-color: #ebeef5;
     color: #f96400;
     background-color: #f9640010;
     &.isBtn {
-      cursor: pointer;
       &:hover {
         border-color: #f96400;
         color: #ffffff;
@@ -155,7 +155,6 @@ $border-color: #ebeef5;
     color: #fc7373;
     background-color: #fc737310;
     &.isBtn {
-      cursor: pointer;
       &:hover {
         border-color: #fc7373;
         color: #ffffff;
@@ -168,7 +167,6 @@ $border-color: #ebeef5;
     color: $color-theme;
     background-color: #377df610;
     &.isBtn {
-      cursor: pointer;
       &:hover {
         border-color: $color-theme;
         color: #ffffff;

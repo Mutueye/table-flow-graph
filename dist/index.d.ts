@@ -11,6 +11,7 @@ export declare class TableFlowGraph {
     id: string;
     toolbar: Toolbar;
     isAlive: boolean;
+    isEmptyColumns: boolean;
     mode: Mode;
     mousePosition: Position;
     tableController: TableController;

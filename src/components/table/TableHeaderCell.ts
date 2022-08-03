@@ -101,19 +101,19 @@ export default class TableHeaderCell {
         }
       },
     });
-    if (this.isLast && this.graphInstance.tableController.canDeleteColumn) {
-      new Button(this.controlLayer, {
-        icon: 'x',
-        type: 'danger',
-        className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
-        tooltip: this.graphInstance.options.labels.deleteColumn,
-        onClick: () => {
-          if (typeof this.graphInstance.options.onDeleteColumn === 'function') {
-            this.graphInstance.options.onDeleteColumn(this.columnData);
-          }
-        },
-      });
-    }
+    // if (this.isLast && this.graphInstance.tableController.canDeleteColumn) {
+    //   new Button(this.controlLayer, {
+    //     icon: 'x',
+    //     type: 'danger',
+    //     className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
+    //     tooltip: this.graphInstance.options.labels.deleteColumn,
+    //     onClick: () => {
+    //       if (typeof this.graphInstance.options.onDeleteColumn === 'function') {
+    //         this.graphInstance.options.onDeleteColumn(this.columnData);
+    //       }
+    //     },
+    //   });
+    // }
     this.element.addEventListener('mouseenter', () => this.onMouseEnter());
     this.element.addEventListener('mouseleave', () => this.onMouseLeave());
   }

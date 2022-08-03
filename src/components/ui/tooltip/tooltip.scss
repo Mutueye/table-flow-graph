@@ -11,6 +11,7 @@ $tooltip-color: rgba(0, 0, 0, 0.8);
   .tfgraph-tooltip-area {
     position: absolute;
     width: auto;
+    pointer-events: none;
     height: auto;
     .tfgraph-tooltip-arrow {
       position: absolute;

@@ -43,7 +43,6 @@ export default class Toggler {
   setActiveIndicator() {
     const containerRect = this.btnContainerEl.getBoundingClientRect();
     const rect = this.btnList[this.activeIndex].el.getBoundingClientRect();
-    console.log('rect.left::::containerRect.left::::::', rect.left, containerRect.left);
     setStyles(this.indicatorEl, {
       width: rect.width + 'px',
       // this.activeIndex === 0 || this.activeIndex === this.btnList.length - 1

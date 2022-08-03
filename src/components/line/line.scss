@@ -11,6 +11,7 @@
   pointer-events: all;
   &.hovered {
     background-color: $color-red;
+    z-index: 100;
     .start-point {
       background-color: $color-red;
     }

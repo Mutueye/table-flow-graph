@@ -15,7 +15,7 @@ export interface TFGraphRow {
 
 // node data
 export interface TFGraphNode {
-  id?: string;
+  id?: string | number;
   title: string;
   row: number;
   column: number;
@@ -73,7 +73,7 @@ export interface TFGraphOptions {
   onChangeLines?: (lines: string[][]) => void; // lines changed
   onAddColumn?: () => void; // add column
   onEditColumn?: (column: TFGraphColumn) => void; // edit column
-  onDeleteColumn?: (column: TFGraphColumn) => void; // delete column
+  onDeleteColumn?: (column?: TFGraphColumn) => void; // delete column
   onAddRow?: () => void; // add row
   onDeleteRow?: () => void; // delete the last row
   onAddNode?: (row: number, column: number) => void;

@@ -10,8 +10,8 @@ export default class Anchor {
   public element: HTMLElement;
   // the bearing relative to this anchor's parent table cell
   public bearing: Bearing;
-  public tr: HTMLElement;
-  public col: HTMLElement;
+  public elementTr: HTMLElement;
+  public elementCol: HTMLElement;
   // is the anchor on table cell border or on inner block border(top / bottom)
   public isOffsetX: boolean;
   // is the anchor on table cell border or on inner block border(left / right)
@@ -22,6 +22,8 @@ export default class Anchor {
   public posX = 0;
   // y position relative to table area
   public posY = 0;
+  public row: number;
+  public column: number;
   public hidden = false;
 
   constructor(
@@ -35,9 +37,11 @@ export default class Anchor {
     this.bearing = bearing;
     this.isOffsetX = isOffsetX;
     this.isOffsetY = isOffsetY;
-    this.tr = document.getElementById(`${graphInstance.id}_tr_${row}`);
-    this.col = document.getElementById(`${graphInstance.id}_col_${column}`);
-    if (this.tr && this.col) {
+    this.row = row;
+    this.column = column;
+    this.elementTr = document.getElementById(`${graphInstance.id}_tr_${row}`);
+    this.elementCol = document.getElementById(`${graphInstance.id}_col_${column}`);
+    if (this.elementTr && this.elementCol) {
       // create dom elements
       this.element = createClassElement(
         'div',
@@ -100,12 +104,14 @@ export default class Anchor {
   }
 
   public setPosition() {
-    const x_left = this.col.offsetLeft + (this.isOffsetX ? 15 : 0);
-    const x_center = this.col.offsetLeft + 0.5 * this.col.offsetWidth;
-    const x_right = this.col.offsetLeft + this.col.offsetWidth - (this.isOffsetX ? 15 : 0);
-    const y_top = this.tr.offsetTop + (this.isOffsetY ? 15 : 0);
-    const y_center = this.tr.offsetTop + 0.5 * this.tr.offsetHeight;
-    const y_bottom = this.tr.offsetTop + this.tr.offsetHeight - (this.isOffsetY ? 15 : 0);
+    const x_left = this.elementCol.offsetLeft + (this.isOffsetX ? 15 : 0);
+    const x_center = this.elementCol.offsetLeft + 0.5 * this.elementCol.offsetWidth;
+    const x_right =
+      this.elementCol.offsetLeft + this.elementCol.offsetWidth - (this.isOffsetX ? 15 : 0);
+    const y_top = this.elementTr.offsetTop + (this.isOffsetY ? 15 : 0);
+    const y_center = this.elementTr.offsetTop + 0.5 * this.elementTr.offsetHeight;
+    const y_bottom =
+      this.elementTr.offsetTop + this.elementTr.offsetHeight - (this.isOffsetY ? 15 : 0);
 
     switch (this.bearing) {
       case 'topleft':

@@ -13,6 +13,8 @@ export default class LineController {
   public isDrawingLine: boolean;
   public currentDrawingLine: LineGroup;
   public graphInstance: TableFlowGraph;
+  public canDeleteColumn: boolean;
+  public canDeleteRow: boolean;
 
   constructor(graphInstance: TableFlowGraph) {
     this.graphInstance = graphInstance;
@@ -36,6 +38,7 @@ export default class LineController {
         this.graphInstance,
       );
     });
+    this.setColAndRowDeletable();
   }
 
   public startDrawLine() {
@@ -68,7 +71,28 @@ export default class LineController {
     }
   }
 
+  setColAndRowDeletable() {
+    const totalRows = this.graphInstance.options.totalRows;
+    const totalColumns = this.graphInstance.options.totalColumns;
+    this.canDeleteColumn = true;
+    this.canDeleteRow = true;
+    this.lineAnchorIds.forEach((line) => {
+      line.forEach((id) => {
+        const idArray = id.split('_');
+        const row = idArray[1];
+        const col = idArray[2];
+        if (parseInt(col) === totalColumns - 1) {
+          this.canDeleteColumn = false;
+        }
+        if (parseInt(row) === totalRows - 1) {
+          this.canDeleteRow = false;
+        }
+      });
+    });
+  }
+
   public onChangeLines() {
+    this.setColAndRowDeletable();
     if (typeof this.graphInstance.options.onChangeLines === 'function') {
       this.graphInstance.options.onChangeLines(this.lineAnchorIds);
     }

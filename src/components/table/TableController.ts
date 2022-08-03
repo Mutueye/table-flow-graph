@@ -4,6 +4,7 @@ import TableCell from './TableCell';
 import TableHeaderCell from './TableHeaderCell';
 import TableMask from './TableMask';
 import Button from '../ui/button/Button';
+import { setColumnAndRowDeletable } from '../../lib/utils';
 import { ColumnSpec, RowSpec, TableGridRect } from '../../types';
 
 /**
@@ -51,21 +52,13 @@ export default class Table {
   public setControls() {
     const isEditMode = this.graphInstance.mode === 'edit';
     if (isEditMode) {
-      // get canDeleteColumn & canDeleteRow by this.cells
-      const totalColumns = this.graphInstance.options.totalColumns;
-      const totalRows = this.graphInstance.options.totalRows;
-      this.canDeleteColumn = true;
-      this.canDeleteRow = true;
-      for (let i = 0; i < totalRows - 1; i++) {
-        if (this.occupiedList[i][totalColumns - 1] !== 0) {
-          this.canDeleteColumn = false;
-        }
-      }
-      for (let i = 0; i < totalColumns - 1; i++) {
-        if (this.occupiedList[totalRows - 1][i] !== 0) {
-          this.canDeleteRow = false;
-        }
-      }
+      const deleteableObj = setColumnAndRowDeletable(
+        this.occupiedList,
+        this.graphInstance.options.totalRows,
+        this.graphInstance.options.totalColumns,
+      );
+      this.canDeleteColumn = deleteableObj.canDeleteColumn;
+      this.canDeleteRow = deleteableObj.canDeleteRow;
 
       const columnSpecs: ColumnSpec[] = []; // [{left, width, columnIndex}]
       const rowSpecs: RowSpec[] = []; // [{ top, height, rowIndex}]

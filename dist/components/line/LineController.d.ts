@@ -10,10 +10,13 @@ export default class LineController {
     isDrawingLine: boolean;
     currentDrawingLine: LineGroup;
     graphInstance: TableFlowGraph;
+    canDeleteColumn: boolean;
+    canDeleteRow: boolean;
     constructor(graphInstance: TableFlowGraph);
     renderLines(): void;
     startDrawLine(): void;
     endDrawLine(): void;
+    setColAndRowDeletable(): void;
     onChangeLines(): void;
     removeLineGroup(line: LineGroup): void;
     createLineGroup(anchorId: any): void;

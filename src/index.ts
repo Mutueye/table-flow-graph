@@ -36,6 +36,7 @@ export class TableFlowGraph {
   public id: string;
   public toolbar: Toolbar;
   public isAlive: boolean;
+  public isEmptyColumns: boolean;
   public mode: Mode;
   public mousePosition: Position;
   public tableController: TableController;
@@ -80,11 +81,14 @@ export class TableFlowGraph {
     }
     if (!this.options.columns || this.options.columns.length === 0) {
       this.options.columns = [];
+      this.isEmptyColumns = true;
       for (let i = 0; i < this.options.totalColumns; i++) {
         this.options.columns.push({
           width: 'auto',
         });
       }
+    } else {
+      this.isEmptyColumns = false;
     }
     if (this.options.totalRows > this.options.maxRows) {
       this.options.totalRows = this.options.maxRows;

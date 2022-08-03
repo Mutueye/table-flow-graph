@@ -1,7 +1,7 @@
 export declare type ColumnWidth = 'auto' | 'lg' | 'md' | 'sm' | 'xs';
 export interface TFGraphColumn {
     id?: string;
-    title: string;
+    title?: string;
     width?: ColumnWidth | string;
 }
 export interface TFGraphRow {
@@ -9,7 +9,7 @@ export interface TFGraphRow {
     title: string;
 }
 export interface TFGraphNode {
-    id?: string;
+    id?: string | number;
     title: string;
     row: number;
     column: number;
@@ -48,7 +48,7 @@ export interface TFGraphOptions {
     onChangeLines?: (lines: string[][]) => void;
     onAddColumn?: () => void;
     onEditColumn?: (column: TFGraphColumn) => void;
-    onDeleteColumn?: (column: TFGraphColumn) => void;
+    onDeleteColumn?: (column?: TFGraphColumn) => void;
     onAddRow?: () => void;
     onDeleteRow?: () => void;
     onAddNode?: (row: number, column: number) => void;
