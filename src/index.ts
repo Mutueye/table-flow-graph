@@ -151,10 +151,13 @@ export class TableFlowGraph {
   }
 
   onResize() {
-    debounce(() => {
-      // TODO lineController rerender lines
-      this.anchorController.resetPosition();
-    }, 100)();
+    if (this.mode === 'edit') {
+      debounce(() => {
+        // TODO lineController rerender lines
+        // this.anchorController.resetPosition();
+        this.refresh();
+      }, 100)();
+    }
   }
 
   onKeydown = (e) => {

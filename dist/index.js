@@ -1738,10 +1738,13 @@
         };
         TableFlowGraph.prototype.onResize = function () {
             var _this = this;
-            debounce(function () {
-                // TODO lineController rerender lines
-                _this.anchorController.resetPosition();
-            }, 100)();
+            if (this.mode === 'edit') {
+                debounce(function () {
+                    // TODO lineController rerender lines
+                    // this.anchorController.resetPosition();
+                    _this.refresh();
+                }, 100)();
+            }
         };
         TableFlowGraph.prototype.refresh = function (options) {
             var _this = this;
