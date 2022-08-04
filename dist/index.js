@@ -417,13 +417,13 @@
             var el = createClassElement('div', 'tfgraph-cell');
             el.setAttribute('id', "".concat(graphInstance.id, "_cell_").concat(row, "_").concat(column));
             if (data) {
-                var node = createClassElement('button', 'tfgraph-node');
+                var node = createClassElement('div', 'tfgraph-node');
                 if (data.type)
                     node.classList.add(data.type);
                 if (data.isBtn && this.graphInstance.mode !== 'edit')
                     node.classList.add('isBtn');
                 if (typeof this.graphInstance.options.renderNode === 'function') {
-                    node.appendChild(this.graphInstance.options.renderNode(data, node));
+                    node.appendChild(this.graphInstance.options.renderNode(data));
                 }
                 else {
                     node.innerText = data.title;

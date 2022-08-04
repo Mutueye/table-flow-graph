@@ -17,6 +17,7 @@ export interface TFGraphNode {
     rowSpan: number;
     type?: 'default' | 'success' | 'warning' | 'danger' | 'primary';
     isBtn?: boolean;
+    meta?: Record<string, unknown>;
 }
 export declare type Mode = 'edit' | 'preview';
 export declare type Labels = {
@@ -44,7 +45,7 @@ export interface TFGraphOptions {
     isEditor?: boolean;
     lines?: string[][];
     labels?: Labels;
-    renderNode?: (node: TFGraphNode, parentElement: HTMLElement) => HTMLElement;
+    renderNode?: (node: TFGraphNode) => HTMLElement;
     onChangeLines?: (lines: string[][]) => void;
     onAddColumn?: () => void;
     onEditColumn?: (column: TFGraphColumn) => void;
