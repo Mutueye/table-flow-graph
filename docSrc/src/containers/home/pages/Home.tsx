@@ -136,9 +136,11 @@ const Home: React.FC<Props> = ({ className }) => {
   };
 
   useEffect(() => {
-    const el = document.getElementById('home_graph');
-    const instance = new TableFlowGraph(el!, options);
-    setGraphInstance(instance);
+    setTimeout(() => {
+      const el = document.getElementById('home_graph');
+      const instance = new TableFlowGraph(el!, options);
+      setGraphInstance(instance);
+    }, 500);
   }, []);
   return <div className={'w-full bg-white relative my-20px ' + className} id="home_graph"></div>;
 };
