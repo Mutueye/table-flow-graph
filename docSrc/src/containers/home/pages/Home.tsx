@@ -31,7 +31,7 @@ const Home: React.FC<Props> = ({ className }) => {
   };
 
   const options: TFGraphOptions = {
-    isEditor: false,
+    isEditor: true,
     totalColumns: 10,
     totalRows: 12,
     lines: [
