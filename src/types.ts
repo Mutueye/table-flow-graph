@@ -23,6 +23,7 @@ export interface TFGraphNode {
   rowSpan: number;
   type?: 'default' | 'success' | 'warning' | 'danger' | 'primary';
   isBtn?: boolean;
+  meta?: Record<string, unknown>;
 }
 
 // export interface ThemeOption {
@@ -69,7 +70,7 @@ export interface TFGraphOptions {
   isEditor?: boolean;
   lines?: string[][]; // 2D array of anchor point ids to draw lines
   labels?: Labels;
-  renderNode?: (node: TFGraphNode, parentElement: HTMLElement) => HTMLElement;
+  renderNode?: (node: TFGraphNode) => HTMLElement;
   onChangeLines?: (lines: string[][]) => void; // lines changed
   onAddColumn?: () => void; // add column
   onEditColumn?: (column: TFGraphColumn) => void; // edit column

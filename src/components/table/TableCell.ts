@@ -44,11 +44,11 @@ export default class TableCell {
     const el = createClassElement('div', 'tfgraph-cell');
     el.setAttribute('id', `${graphInstance.id}_cell_${row}_${column}`);
     if (data) {
-      const node = createClassElement('button', 'tfgraph-node');
+      const node = createClassElement('div', 'tfgraph-node');
       if (data.type) node.classList.add(data.type);
       if (data.isBtn && this.graphInstance.mode !== 'edit') node.classList.add('isBtn');
       if (typeof this.graphInstance.options.renderNode === 'function') {
-        node.appendChild(this.graphInstance.options.renderNode(data, node));
+        node.appendChild(this.graphInstance.options.renderNode(data));
       } else {
         node.innerText = data.title;
       }
