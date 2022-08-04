@@ -31,7 +31,7 @@ const Home: React.FC<Props> = ({ className }) => {
   };
 
   const options: TFGraphOptions = {
-    isEditor: true,
+    isEditor: false,
     totalColumns: 10,
     totalRows: 12,
     lines: [
@@ -136,11 +136,9 @@ const Home: React.FC<Props> = ({ className }) => {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      const el = document.getElementById('home_graph');
-      const instance = new TableFlowGraph(el!, options);
-      setGraphInstance(instance);
-    }, 500);
+    const el = document.getElementById('home_graph');
+    const instance = new TableFlowGraph(el!, options);
+    setGraphInstance(instance);
   }, []);
   return <div className={'w-full bg-white relative my-20px ' + className} id="home_graph"></div>;
 };

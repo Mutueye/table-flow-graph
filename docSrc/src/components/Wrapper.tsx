@@ -23,7 +23,9 @@ const Wrapper: React.FC<PropsWithChildren<Props>> = ({ className, children }) =>
   ].join(' ');
   return (
     <div className={style}>
-      <div className="w-1200px flex flex-col">{children}</div>
+      <div className="flex flex-col" style={{ width: '1200px' }}>
+        {children}
+      </div>
     </div>
   );
 };
