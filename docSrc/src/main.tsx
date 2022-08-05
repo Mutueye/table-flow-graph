@@ -1,19 +1,20 @@
 // import * as React from 'react';
 import { createRoot } from 'react-dom/client';
+import 'antd/dist/antd.less';
 import 'src/styles/index.scss';
 import 'virtual:windi.css';
-// import 'table-flow-graph/dist/index.css';
+
 import App from './App';
 
-export const domReady = (callBack: () => void) => {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', callBack);
-  } else {
-    callBack();
-  }
-};
+// export const domReady = (callBack: () => void) => {
+//   if (document.readyState === 'loading') {
+//     document.addEventListener('DOMContentLoaded', callBack);
+//   } else {
+//     callBack();
+//   }
+// };
 
-export const windowReady = (callBack: () => void) => {
+const windowReady = (callBack: () => void) => {
   if (document.readyState === 'complete') {
     callBack();
   } else {
@@ -21,4 +22,5 @@ export const windowReady = (callBack: () => void) => {
   }
 };
 
+// render app when window ready for table-flow-graph's lines to render correctly
 windowReady(() => createRoot(document.getElementById('root')!).render(<App />));

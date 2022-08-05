@@ -19,6 +19,16 @@ export default defineConfig({
       },
     ],
   },
+  css: {
+    preprocessorOptions: {
+      less: {
+        modifyVars: {
+          'primary-color': '#377df4',
+        },
+        javascriptEnabled: true,
+      },
+    },
+  },
   base: './',
   build: {
     commonjsOptions: {
