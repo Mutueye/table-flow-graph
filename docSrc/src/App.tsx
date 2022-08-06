@@ -21,17 +21,18 @@ const routes = (() => {
 
 const App: React.FC = () => {
   return (
-    <StrictMode>
-      <HashRouter>
-        <Wrapper>
-          <Routes>
-            {routes.map((route) => (
-              <Route key={route.name} path={route.path} element={<route.component />} />
-            ))}
-          </Routes>
-        </Wrapper>
-      </HashRouter>
-    </StrictMode>
+    // react 18 StrictMode useEffect will run twice in dev mode
+    // <StrictMode>
+    <HashRouter>
+      <Wrapper>
+        <Routes>
+          {routes.map((route) => (
+            <Route key={route.name} path={route.path} element={<route.component />} />
+          ))}
+        </Routes>
+      </Wrapper>
+    </HashRouter>
+    // </StrictMode>
   );
 };
 
