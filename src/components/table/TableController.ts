@@ -188,8 +188,17 @@ export default class Table {
         label: this.graphInstance.options.labels.addRow,
         className: 'flex-1',
         onClick: () => {
-          if (typeof this.graphInstance.options.onAddRow === 'function') {
-            this.graphInstance.options.onAddRow();
+          if (typeof this.graphInstance.options.addRow === 'function') {
+            this.graphInstance.options.addRow();
+          } else {
+            this.graphInstance.refresh(
+              Object.assign({}, this.graphInstance.options, {
+                totalRows: this.graphInstance.options.totalRows + 1,
+              }),
+            );
+            if (typeof this.graphInstance.options.onAddRow === 'function') {
+              this.graphInstance.options.onAddRow();
+            }
           }
         },
       });

@@ -40,3 +40,12 @@ export const setColumnAndRowDeletable = (
   }
   return { canDeleteRow, canDeleteColumn };
 };
+
+export const uniqId = () => {
+  const eles = window.document.getElementsByTagName('body');
+  const bodyObj = eles.item(0);
+  const c = bodyObj.innerHTML.length;
+  const t = new Date().getTime();
+  const n = Math.floor(Math.random() * 100 + 1);
+  return c.toString() + t.toString() + n.toString();
+};

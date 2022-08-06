@@ -11,7 +11,7 @@ export default class Toolbar {
     modeToggler: Toggler;
     newColumnBtn: Button;
     constructor(parentElement: HTMLElement, graphInstance: TableFlowGraph);
-    addColumn(graphInstance: any): void;
+    addColumn(): void;
     disable(): void;
     enable(): void;
     setToolbarState(): void;

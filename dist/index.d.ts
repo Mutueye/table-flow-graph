@@ -11,7 +11,7 @@ export declare class TableFlowGraph {
     id: string;
     toolbar: Toolbar;
     isAlive: boolean;
-    isEmptyColumns: boolean;
+    hasTableHeader: boolean;
     mode: Mode;
     mousePosition: Position;
     tableController: TableController;
@@ -20,9 +20,10 @@ export declare class TableFlowGraph {
     constructor(el: HTMLElement, options: TFGraphOptions);
     init(options: TFGraphOptions): void;
     render(): void;
+    handleResize: () => void;
+    debouncedHandleResize: () => void;
     handleEvent(event: any): void;
     onMourseMove(event: any): void;
-    onResize(): void;
     onKeydown: (e: any) => void;
     refresh(options?: TFGraphOptions): void;
     destroy(): void;

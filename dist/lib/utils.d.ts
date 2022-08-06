@@ -3,3 +3,4 @@ export declare const setColumnAndRowDeletable: (occupiedList: number[][], totalR
     canDeleteRow: boolean;
     canDeleteColumn: boolean;
 };
+export declare const uniqId: () => string;

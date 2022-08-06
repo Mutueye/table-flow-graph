@@ -15,7 +15,7 @@ export interface TFGraphRow {
 
 // node data
 export interface TFGraphNode {
-  id?: string | number;
+  id: string | number;
   title: string;
   row: number;
   column: number;
@@ -70,17 +70,24 @@ export interface TFGraphOptions {
   isEditor?: boolean;
   lines?: string[][]; // 2D array of anchor point ids to draw lines
   labels?: Labels;
-  renderNode?: (node: TFGraphNode) => HTMLElement;
   onChangeLines?: (lines: string[][]) => void; // lines changed
-  onAddColumn?: () => void; // add column
+  // column methods
+  addColumn?: () => void; // custom add column method
+  onAddColumn?: (columnData?: TFGraphColumn) => void; // add column event
   onEditColumn?: (column: TFGraphColumn) => void; // edit column
+  deleteColumn?: () => void; // custom delete column method
   onDeleteColumn?: (column?: TFGraphColumn) => void; // delete column
+  // row methods
+  addRow?: () => void; // custom add row method
   onAddRow?: () => void; // add row
+  deleteRow?: () => void; // custom delete row method
   onDeleteRow?: () => void; // delete the last row
+  // node methods
   onAddNode?: (row: number, column: number) => void;
   onEditNode?: (nodeData: TFGraphNode) => void;
   onDeleteNode?: (nodeData: TFGraphNode) => void;
   onChangeNode?: (newNode: TFGraphNode, oldNode: TFGraphNode) => void;
+  renderNode?: (node: TFGraphNode) => HTMLElement;
 }
 
 // anchor point's relative position to a table cell

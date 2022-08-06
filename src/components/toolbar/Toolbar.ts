@@ -36,7 +36,7 @@ export default class Toolbar {
       icon: 'plus',
       label: this.graphInstance.options.labels.addColumn,
       type: 'primary',
-      onClick: () => this.addColumn(this.graphInstance),
+      onClick: () => this.addColumn(),
     });
 
     this.disabledMask = createClassElement('div', 'tfgraph-toolbar-mask hidden', this.element);
@@ -58,9 +58,25 @@ export default class Toolbar {
     this.setToolbarState();
   }
 
-  addColumn(graphInstance) {
-    if (typeof graphInstance.options.onAddColumn === 'function') {
-      graphInstance.options.onAddColumn();
+  addColumn() {
+    if (typeof this.graphInstance.options.addColumn === 'function') {
+      this.graphInstance.options.addColumn();
+    } else {
+      if (this.graphInstance.hasTableHeader) {
+        console.log('do add column:::::::::::22');
+        // TODO add column dialog
+        // TOOD onAddColumn(columnData)
+      } else {
+        this.graphInstance.refresh(
+          Object.assign({}, this.graphInstance.options, {
+            columns: null,
+            totalColumns: this.graphInstance.options.totalColumns + 1,
+          }),
+        );
+        if (typeof this.graphInstance.options.onAddColumn === 'function') {
+          this.graphInstance.options.onAddColumn();
+        }
+      }
     }
   }
 

@@ -145,8 +145,17 @@ export default class TableCell {
           className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
           tooltip: this.graphInstance.options.labels.deleteRow,
           onClick: () => {
-            if (typeof this.graphInstance.options.onDeleteRow === 'function') {
-              this.graphInstance.options.onDeleteRow();
+            if (typeof this.graphInstance.options.deleteRow === 'function') {
+              this.graphInstance.options.deleteRow();
+            } else {
+              this.graphInstance.refresh(
+                Object.assign({}, this.graphInstance.options, {
+                  totalRows: this.graphInstance.options.totalRows - 1,
+                }),
+              );
+              if (typeof this.graphInstance.options.onDeleteRow === 'function') {
+                this.graphInstance.options.onDeleteRow();
+              }
             }
           },
         });
@@ -161,13 +170,31 @@ export default class TableCell {
           className: 'absolute right-6 bottom-6 p-0 sm w-28 btn-br',
           tooltip: this.graphInstance.options.labels.deleteColumn,
           onClick: () => {
-            if (typeof this.graphInstance.options.onDeleteColumn === 'function') {
-              if (this.graphInstance.isEmptyColumns) {
-                this.graphInstance.options.onDeleteColumn();
+            if (typeof this.graphInstance.options.deleteColumn === 'function') {
+              // custom delete column method
+              this.graphInstance.options.deleteColumn();
+            } else {
+              // auto delete column
+              if (this.graphInstance.hasTableHeader) {
+                // if has options.columns data (table header will be rendered)
+                if (typeof this.graphInstance.options.onDeleteColumn === 'function') {
+                  const targetColumn =
+                    this.graphInstance.options.columns[this.graphInstance.options.totalColumns - 1];
+                  this.graphInstance.options.onDeleteColumn(targetColumn);
+                }
+                this.graphInstance.options.columns.pop();
+                this.graphInstance.refresh(Object.assign({}, this.graphInstance.options));
               } else {
-                const targetColumn =
-                  this.graphInstance.options.columns[this.graphInstance.options.totalColumns - 1];
-                this.graphInstance.options.onDeleteColumn(targetColumn);
+                // if options.columns data is null or empty
+                this.graphInstance.refresh(
+                  Object.assign({}, this.graphInstance.options, {
+                    columns: null,
+                    totalColumns: this.graphInstance.options.totalColumns - 1,
+                  }),
+                );
+                if (typeof this.graphInstance.options.onDeleteColumn === 'function') {
+                  this.graphInstance.options.onDeleteColumn();
+                }
               }
             }
           },

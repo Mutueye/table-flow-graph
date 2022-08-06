@@ -155,11 +155,13 @@ export function matches(element: HTMLElement, query: string): boolean {
  * @param {HTMLElement} element
  */
 export function removeElement(element: HTMLElement) {
-  if (element.remove) {
-    element.remove();
-  } else {
-    if (element.parentNode) {
-      element.parentNode.removeChild(element);
+  if (element) {
+    if (element.remove) {
+      element.remove();
+    } else {
+      if (element.parentNode) {
+        element.parentNode.removeChild(element);
+      }
     }
   }
 }

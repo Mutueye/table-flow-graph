@@ -30,12 +30,14 @@
      * @param {HTMLElement} element
      */
     function removeElement(element) {
-        if (element.remove) {
-            element.remove();
-        }
-        else {
-            if (element.parentNode) {
-                element.parentNode.removeChild(element);
+        if (element) {
+            if (element.remove) {
+                element.remove();
+            }
+            else {
+                if (element.parentNode) {
+                    element.parentNode.removeChild(element);
+                }
             }
         }
     }
@@ -361,7 +363,7 @@
                 icon: 'plus',
                 label: this.graphInstance.options.labels.addColumn,
                 type: 'primary',
-                onClick: function () { return _this.addColumn(_this.graphInstance); },
+                onClick: function () { return _this.addColumn(); },
             });
             this.disabledMask = createClassElement('div', 'tfgraph-toolbar-mask hidden', this.element);
             // new Button(rightBtns, { label: '添加行', type: 'primary' });
@@ -380,9 +382,25 @@
             // testBtn.setDisabled();
             this.setToolbarState();
         }
-        Toolbar.prototype.addColumn = function (graphInstance) {
-            if (typeof graphInstance.options.onAddColumn === 'function') {
-                graphInstance.options.onAddColumn();
+        Toolbar.prototype.addColumn = function () {
+            if (typeof this.graphInstance.options.addColumn === 'function') {
+                this.graphInstance.options.addColumn();
+            }
+            else {
+                if (this.graphInstance.hasTableHeader) {
+                    console.log('do add column:::::::::::22');
+                    // TODO add column dialog
+                    // TOOD onAddColumn(columnData)
+                }
+                else {
+                    this.graphInstance.refresh(Object.assign({}, this.graphInstance.options, {
+                        columns: null,
+                        totalColumns: this.graphInstance.options.totalColumns + 1,
+                    }));
+                    if (typeof this.graphInstance.options.onAddColumn === 'function') {
+                        this.graphInstance.options.onAddColumn();
+                    }
+                }
             }
         };
         Toolbar.prototype.disable = function () {
@@ -516,8 +534,16 @@
                         className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
                         tooltip: this.graphInstance.options.labels.deleteRow,
                         onClick: function () {
-                            if (typeof _this.graphInstance.options.onDeleteRow === 'function') {
-                                _this.graphInstance.options.onDeleteRow();
+                            if (typeof _this.graphInstance.options.deleteRow === 'function') {
+                                _this.graphInstance.options.deleteRow();
+                            }
+                            else {
+                                _this.graphInstance.refresh(Object.assign({}, _this.graphInstance.options, {
+                                    totalRows: _this.graphInstance.options.totalRows - 1,
+                                }));
+                                if (typeof _this.graphInstance.options.onDeleteRow === 'function') {
+                                    _this.graphInstance.options.onDeleteRow();
+                                }
                             }
                         },
                     });
@@ -530,13 +556,30 @@
                         className: 'absolute right-6 bottom-6 p-0 sm w-28 btn-br',
                         tooltip: this.graphInstance.options.labels.deleteColumn,
                         onClick: function () {
-                            if (typeof _this.graphInstance.options.onDeleteColumn === 'function') {
-                                if (_this.graphInstance.isEmptyColumns) {
-                                    _this.graphInstance.options.onDeleteColumn();
+                            if (typeof _this.graphInstance.options.deleteColumn === 'function') {
+                                // custom delete column method
+                                _this.graphInstance.options.deleteColumn();
+                            }
+                            else {
+                                // auto delete column
+                                if (_this.graphInstance.hasTableHeader) {
+                                    // if has options.columns data (table header will be rendered)
+                                    if (typeof _this.graphInstance.options.onDeleteColumn === 'function') {
+                                        var targetColumn = _this.graphInstance.options.columns[_this.graphInstance.options.totalColumns - 1];
+                                        _this.graphInstance.options.onDeleteColumn(targetColumn);
+                                    }
+                                    _this.graphInstance.options.columns.pop();
+                                    _this.graphInstance.refresh(Object.assign({}, _this.graphInstance.options));
                                 }
                                 else {
-                                    var targetColumn = _this.graphInstance.options.columns[_this.graphInstance.options.totalColumns - 1];
-                                    _this.graphInstance.options.onDeleteColumn(targetColumn);
+                                    // if options.columns data is null or empty
+                                    _this.graphInstance.refresh(Object.assign({}, _this.graphInstance.options, {
+                                        columns: null,
+                                        totalColumns: _this.graphInstance.options.totalColumns - 1,
+                                    }));
+                                    if (typeof _this.graphInstance.options.onDeleteColumn === 'function') {
+                                        _this.graphInstance.options.onDeleteColumn();
+                                    }
                                 }
                             }
                         },
@@ -1009,8 +1052,16 @@
                     label: this.graphInstance.options.labels.addRow,
                     className: 'flex-1',
                     onClick: function () {
-                        if (typeof _this.graphInstance.options.onAddRow === 'function') {
-                            _this.graphInstance.options.onAddRow();
+                        if (typeof _this.graphInstance.options.addRow === 'function') {
+                            _this.graphInstance.options.addRow();
+                        }
+                        else {
+                            _this.graphInstance.refresh(Object.assign({}, _this.graphInstance.options, {
+                                totalRows: _this.graphInstance.options.totalRows + 1,
+                            }));
+                            if (typeof _this.graphInstance.options.onAddRow === 'function') {
+                                _this.graphInstance.options.onAddRow();
+                            }
                         }
                     },
                 });
@@ -1620,6 +1671,12 @@
     var TableFlowGraph = /** @class */ (function () {
         function TableFlowGraph(el, options) {
             var _this = this;
+            this.handleResize = function () {
+                // TODO detailed resize management
+                // this.anchorController.resetPosition();
+                _this.refresh();
+            };
+            this.debouncedHandleResize = debounce(this.handleResize, 500);
             this.onKeydown = function (e) {
                 if (e.code === 'Enter') {
                     // press enter to finish drawing line
@@ -1668,12 +1725,12 @@
             if (typeof this.options.rows !== 'undefined') {
                 this.options.totalRows = this.options.rows.length;
             }
-            if (typeof this.options.columns !== 'undefined') {
+            if (this.options.columns && this.options.columns.length > 0) {
                 this.options.totalColumns = this.options.columns.length;
             }
             if (!this.options.columns || this.options.columns.length === 0) {
                 this.options.columns = [];
-                this.isEmptyColumns = true;
+                this.hasTableHeader = false;
                 for (var i = 0; i < this.options.totalColumns; i++) {
                     this.options.columns.push({
                         width: 'auto',
@@ -1681,7 +1738,7 @@
                 }
             }
             else {
-                this.isEmptyColumns = false;
+                this.hasTableHeader = true;
             }
             if (this.options.totalRows > this.options.maxRows) {
                 this.options.totalRows = this.options.maxRows;
@@ -1718,7 +1775,7 @@
         TableFlowGraph.prototype.handleEvent = function (event) {
             switch (event.type) {
                 case 'resize':
-                    this.onResize();
+                    this.debouncedHandleResize();
                     break;
                 case 'mousemove':
                     this.onMourseMove(event);
@@ -1735,16 +1792,6 @@
             this.mousePosition = { x: offsetX, y: offsetY };
             this.lineController.onMouseMove();
             this.tableController.onMouseMove();
-        };
-        TableFlowGraph.prototype.onResize = function () {
-            var _this = this;
-            if (this.mode === 'edit') {
-                debounce(function () {
-                    // TODO lineController rerender lines
-                    // this.anchorController.resetPosition();
-                    _this.refresh();
-                }, 100)();
-            }
         };
         TableFlowGraph.prototype.refresh = function (options) {
             var _this = this;

@@ -36,7 +36,7 @@ export class TableFlowGraph {
   public id: string;
   public toolbar: Toolbar;
   public isAlive: boolean;
-  public isEmptyColumns: boolean;
+  public hasTableHeader: boolean;
   public mode: Mode;
   public mousePosition: Position;
   public tableController: TableController;
@@ -76,19 +76,19 @@ export class TableFlowGraph {
     if (typeof this.options.rows !== 'undefined') {
       this.options.totalRows = this.options.rows.length;
     }
-    if (typeof this.options.columns !== 'undefined') {
+    if (this.options.columns && this.options.columns.length > 0) {
       this.options.totalColumns = this.options.columns.length;
     }
     if (!this.options.columns || this.options.columns.length === 0) {
       this.options.columns = [];
-      this.isEmptyColumns = true;
+      this.hasTableHeader = false;
       for (let i = 0; i < this.options.totalColumns; i++) {
         this.options.columns.push({
           width: 'auto',
         });
       }
     } else {
-      this.isEmptyColumns = false;
+      this.hasTableHeader = true;
     }
     if (this.options.totalRows > this.options.maxRows) {
       this.options.totalRows = this.options.maxRows;
@@ -124,11 +124,18 @@ export class TableFlowGraph {
     this.lineController.renderLines();
   }
 
+  handleResize = () => {
+    // TODO detailed resize management
+    // this.anchorController.resetPosition();
+    this.refresh();
+  };
+  debouncedHandleResize = debounce(this.handleResize, 500);
+
   // handle addEventListener events
   handleEvent(event) {
     switch (event.type) {
       case 'resize':
-        this.onResize();
+        this.debouncedHandleResize();
         break;
       case 'mousemove':
         this.onMourseMove(event);
@@ -148,16 +155,6 @@ export class TableFlowGraph {
     this.mousePosition = { x: offsetX, y: offsetY };
     this.lineController.onMouseMove();
     this.tableController.onMouseMove();
-  }
-
-  onResize() {
-    if (this.mode === 'edit') {
-      debounce(() => {
-        // TODO lineController rerender lines
-        // this.anchorController.resetPosition();
-        this.refresh();
-      }, 100)();
-    }
   }
 
   onKeydown = (e) => {

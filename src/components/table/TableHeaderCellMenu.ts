@@ -35,19 +35,6 @@ export default class TableHeaderCellMenu {
         this.headerCell.popMenu.dismiss();
       },
     });
-    // if (this.options.showAdd) {
-    //   new Button(parentElement, {
-    //     label: '添加列',
-    //     type: 'primary',
-    //     className: 'mx-5 sm',
-    //     onClick: () => {
-    //       if (typeof this.graphInstance.options.onAddColumn === 'function') {
-    //         this.graphInstance.options.onAddColumn();
-    //       }
-    //       this.headerCell.popMenu.dismiss();
-    //     },
-    //   });
-    // }
     if (this.options.showDelete) {
       new Button(parentElement, {
         icon: 'x',

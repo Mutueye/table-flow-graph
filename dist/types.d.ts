@@ -9,7 +9,7 @@ export interface TFGraphRow {
     title: string;
 }
 export interface TFGraphNode {
-    id?: string | number;
+    id: string | number;
     title: string;
     row: number;
     column: number;
@@ -45,17 +45,21 @@ export interface TFGraphOptions {
     isEditor?: boolean;
     lines?: string[][];
     labels?: Labels;
-    renderNode?: (node: TFGraphNode) => HTMLElement;
     onChangeLines?: (lines: string[][]) => void;
-    onAddColumn?: () => void;
+    addColumn?: () => void;
+    onAddColumn?: (columnData?: TFGraphColumn) => void;
     onEditColumn?: (column: TFGraphColumn) => void;
+    deleteColumn?: () => void;
     onDeleteColumn?: (column?: TFGraphColumn) => void;
+    addRow?: () => void;
     onAddRow?: () => void;
+    deleteRow?: () => void;
     onDeleteRow?: () => void;
     onAddNode?: (row: number, column: number) => void;
     onEditNode?: (nodeData: TFGraphNode) => void;
     onDeleteNode?: (nodeData: TFGraphNode) => void;
     onChangeNode?: (newNode: TFGraphNode, oldNode: TFGraphNode) => void;
+    renderNode?: (node: TFGraphNode) => HTMLElement;
 }
 export declare type Bearing = 'topleft' | 'top' | 'topright' | 'left' | 'center' | 'right' | 'bottomleft' | 'bottom' | 'bottomright';
 export declare type Position = {
