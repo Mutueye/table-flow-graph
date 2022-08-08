@@ -860,14 +860,14 @@ var TableMask = /** @class */ (function () {
             colSpan: this.targetCell.colSpan,
         };
         if (!isEqual(this.resultCellPositionAndSize, targetCellPositionAndSize)) {
-            var oldNode = cloneDeep(this.targetCell.nodeData);
+            // const oldNode = cloneDeep(this.targetCell.nodeData);
             this.targetCell.nodeData.row = this.resultCellPositionAndSize.row;
             this.targetCell.nodeData.column = this.resultCellPositionAndSize.column;
             this.targetCell.nodeData.rowSpan = this.resultCellPositionAndSize.rowSpan;
             this.targetCell.nodeData.colSpan = this.resultCellPositionAndSize.colSpan;
             // 提交变更
-            if (typeof this.graphInstance.options.onChangeNode === 'function') {
-                this.graphInstance.options.onChangeNode(this.targetCell.nodeData, oldNode);
+            if (typeof this.graphInstance.options.onEditNode === 'function') {
+                this.graphInstance.options.onEditNode(this.targetCell.nodeData);
             }
             this.graphInstance.refresh();
         }

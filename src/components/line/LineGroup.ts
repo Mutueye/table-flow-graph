@@ -55,7 +55,9 @@ export default class LineGroup {
       const targetAnchor = this.graphInstance.anchorController.anchors.find(
         (anchor) => anchor.id === anchorId,
       );
-      this.anchors.push(targetAnchor);
+      if (targetAnchor) {
+        this.anchors.push(targetAnchor);
+      }
     });
     this.element.innerHTML = '';
     const pointList: Position[] = this.anchors.map((anchor) => ({

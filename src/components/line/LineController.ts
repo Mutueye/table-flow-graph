@@ -66,6 +66,7 @@ export default class LineController {
       this.currentDrawingLine = undefined;
     }
     if (!isEqual(this.originLineAnchorIds, this.lineAnchorIds)) {
+      this.originLineAnchorIds = cloneDeep(this.lineAnchorIds);
       // trigger event: linesChanged
       this.onChangeLines();
     }
@@ -93,6 +94,9 @@ export default class LineController {
 
   public onChangeLines() {
     this.setColAndRowDeletable();
+    this.graphInstance.options = Object.assign({}, this.graphInstance.options, {
+      lines: this.lineAnchorIds,
+    });
     if (typeof this.graphInstance.options.onChangeLines === 'function') {
       this.graphInstance.options.onChangeLines(this.lineAnchorIds);
     }

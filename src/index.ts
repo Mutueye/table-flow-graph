@@ -118,10 +118,14 @@ export class TableFlowGraph {
   public render() {
     // render table
     this.tableController.renderTable();
-    // render anchors
-    this.anchorController.renderAnchors();
-    // render lines
-    this.lineController.renderLines();
+
+    // wait for table render ready; TODO set anchor position relative to table cells
+    setTimeout(() => {
+      // render anchors
+      this.anchorController.renderAnchors();
+      // render lines
+      this.lineController.renderLines();
+    }, 1);
   }
 
   handleResize = () => {

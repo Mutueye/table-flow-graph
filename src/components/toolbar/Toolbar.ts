@@ -63,7 +63,7 @@ export default class Toolbar {
       this.graphInstance.options.addColumn();
     } else {
       if (this.graphInstance.hasTableHeader) {
-        console.log('do add column:::::::::::22');
+        console.log('custom add column:::::::::::');
         // TODO add column dialog
         // TOOD onAddColumn(columnData)
       } else {

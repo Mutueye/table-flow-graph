@@ -60,46 +60,47 @@ export default class Table {
       this.canDeleteColumn = deleteableObj.canDeleteColumn;
       this.canDeleteRow = deleteableObj.canDeleteRow;
 
-      const columnSpecs: ColumnSpec[] = []; // [{left, width, columnIndex}]
-      const rowSpecs: RowSpec[] = []; // [{ top, height, rowIndex}]
-
-      this.headerCells.forEach((headerCell) => {
-        // set headerCell controls
-        headerCell.setEditControls();
-        // get columns's width and position
-        columnSpecs.push({
-          width: headerCell.element.getBoundingClientRect().width + 1,
-          left: headerCell.element.offsetLeft - 1,
-          columnIndex: headerCell.columnIndex,
-        });
-      });
-
       this.cells.forEach((cell) => {
         // set tabel cell controls
         cell.setEditControls();
       });
 
-      // get rowSpects(row top position and height)
-      for (let i = 0; i < this.graphInstance.options.totalRows; i++) {
-        const targetCell = this.getMinRowSpanCell(i, 1);
-        const targetCellHeight = targetCell.element.getBoundingClientRect().height;
-        const targetCellRowHeight = targetCellHeight / targetCell.rowSpan;
-        rowSpecs.push({
-          top: targetCell.element.offsetTop - 1 + (i - targetCell.row) * targetCellRowHeight,
-          height: targetCellRowHeight + 1,
-          rowIndex: i,
-        });
-      }
+      // wait for table render ready
+      setTimeout(() => {
+        const columnSpecs: ColumnSpec[] = []; // [{left, width, columnIndex}]
+        const rowSpecs: RowSpec[] = []; // [{ top, height, rowIndex}]
 
-      // each table grid's left, top, width, height without rowspan and colspan
-      const tableGridRectList: TableGridRect[] = [];
-      rowSpecs.forEach((rowSpec) => {
-        columnSpecs.forEach((columnSpec) => {
-          tableGridRectList.push(Object.assign({}, rowSpec, columnSpec));
+        this.headerCells.forEach((headerCell) => {
+          // set headerCell controls
+          headerCell.setEditControls();
+          // get columns's width and position
+          columnSpecs.push({
+            width: headerCell.element.getBoundingClientRect().width + 1,
+            left: headerCell.element.offsetLeft - 1,
+            columnIndex: headerCell.columnIndex,
+          });
         });
-      });
 
-      this.tableMask = new TableMask(tableGridRectList, this.graphInstance);
+        // get rowSpects(row top position and height)
+        for (let i = 0; i < this.graphInstance.options.totalRows; i++) {
+          const targetCell = this.getMinRowSpanCell(i, 1);
+          const targetCellHeight = targetCell.element.getBoundingClientRect().height;
+          const targetCellRowHeight = targetCellHeight / targetCell.rowSpan;
+          rowSpecs.push({
+            top: targetCell.element.offsetTop - 1 + (i - targetCell.row) * targetCellRowHeight,
+            height: targetCellRowHeight + 1,
+            rowIndex: i,
+          });
+        }
+        // each table grid's left, top, width, height without rowspan and colspan
+        const tableGridRectList: TableGridRect[] = [];
+        rowSpecs.forEach((rowSpec) => {
+          columnSpecs.forEach((columnSpec) => {
+            tableGridRectList.push(Object.assign({}, rowSpec, columnSpec));
+          });
+        });
+        this.tableMask = new TableMask(tableGridRectList, this.graphInstance);
+      }, 1);
     } else {
       // TODO click node event
     }

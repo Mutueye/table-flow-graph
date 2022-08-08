@@ -55,10 +55,12 @@ export interface TFGraphOptions {
     onAddRow?: () => void;
     deleteRow?: () => void;
     onDeleteRow?: () => void;
+    addNode?: (row: number, column: number) => void;
     onAddNode?: (row: number, column: number) => void;
-    onEditNode?: (nodeData: TFGraphNode) => void;
-    onDeleteNode?: (nodeData: TFGraphNode) => void;
-    onChangeNode?: (newNode: TFGraphNode, oldNode: TFGraphNode) => void;
+    editNode?: (node: TFGraphNode) => void;
+    onEditNode?: (node: TFGraphNode) => void;
+    deleteNode?: (node: TFGraphNode) => void;
+    onDeleteNode?: (node: TFGraphNode) => void;
     renderNode?: (node: TFGraphNode) => HTMLElement;
 }
 export declare type Bearing = 'topleft' | 'top' | 'topright' | 'left' | 'center' | 'right' | 'bottomleft' | 'bottom' | 'bottomright';

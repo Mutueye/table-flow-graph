@@ -83,10 +83,13 @@ export interface TFGraphOptions {
   deleteRow?: () => void; // custom delete row method
   onDeleteRow?: () => void; // delete the last row
   // node methods
-  onAddNode?: (row: number, column: number) => void;
-  onEditNode?: (nodeData: TFGraphNode) => void;
-  onDeleteNode?: (nodeData: TFGraphNode) => void;
-  onChangeNode?: (newNode: TFGraphNode, oldNode: TFGraphNode) => void;
+  addNode?: (row: number, column: number) => void; // custom add node method
+  onAddNode?: (row: number, column: number) => void; // add node callback
+  editNode?: (node: TFGraphNode) => void; // custom edit node method
+  onEditNode?: (node: TFGraphNode) => void; // edit node callback
+  deleteNode?: (node: TFGraphNode) => void; // custom delete node method
+  onDeleteNode?: (node: TFGraphNode) => void;
+  // onChangeNode?: (newNode: TFGraphNode, oldNode: TFGraphNode) => void;
   renderNode?: (node: TFGraphNode) => HTMLElement;
 }
 
