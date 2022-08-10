@@ -61,6 +61,7 @@ export interface TFGraphOptions {
     onEditNode?: (node: TFGraphNode) => void;
     deleteNode?: (node: TFGraphNode) => void;
     onDeleteNode?: (node: TFGraphNode) => void;
+    onClickNode?: (node: TFGraphNode, nodeEl: HTMLElement) => void;
     renderNode?: (node: TFGraphNode) => HTMLElement;
 }
 export declare type Bearing = 'topleft' | 'top' | 'topright' | 'left' | 'center' | 'right' | 'bottomleft' | 'bottom' | 'bottomright';

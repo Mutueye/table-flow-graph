@@ -1,5 +1,5 @@
 /**
- * table-flow-graph v0.1.5
+ * table-flow-graph v0.1.6
  * Copyright 2022 Mutueye. Licensed under MIT
  */
 
@@ -593,6 +593,12 @@ var TableCell = /** @class */ (function () {
         this.element.addEventListener('mouseenter', function () { return _this.onMouseEnter(); });
         this.element.addEventListener('mouseleave', function () { return _this.onMouseLeave(); });
     };
+    TableCell.prototype.setViewerControles = function () {
+        var _this = this;
+        if (this.nodeData) {
+            this.element.addEventListener('click', function () { return _this.onClickNode(); });
+        }
+    };
     TableCell.prototype.onMouseEnter = function () {
         this.controlLayer.classList.remove('hidden');
         if (this.deleteRowBtn) {
@@ -616,6 +622,11 @@ var TableCell = /** @class */ (function () {
     };
     TableCell.prototype.onMouseLeave = function () {
         this.controlLayer.classList.add('hidden');
+    };
+    TableCell.prototype.onClickNode = function () {
+        if (typeof this.graphInstance.options.onClickNode === 'function') {
+            this.graphInstance.options.onClickNode(this.nodeData, this.nodeEl);
+        }
     };
     TableCell.prototype.setIsTarget = function (isTarget) {
         if (isTarget && !this.isTarget) {

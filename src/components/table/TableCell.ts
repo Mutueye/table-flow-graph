@@ -212,6 +212,12 @@ export default class TableCell {
     this.element.addEventListener('mouseleave', () => this.onMouseLeave());
   }
 
+  public setViewerControles() {
+    if (this.nodeData) {
+      this.element.addEventListener('click', () => this.onClickNode());
+    }
+  }
+
   onMouseEnter() {
     this.controlLayer.classList.remove('hidden');
     if (this.deleteRowBtn) {
@@ -238,6 +244,12 @@ export default class TableCell {
 
   onMouseLeave() {
     this.controlLayer.classList.add('hidden');
+  }
+
+  onClickNode() {
+    if (typeof this.graphInstance.options.onClickNode === 'function') {
+      this.graphInstance.options.onClickNode(this.nodeData, this.nodeEl);
+    }
   }
 
   public setIsTarget(isTarget: boolean) {

@@ -21,7 +21,9 @@ export default class TableCell {
     constructor(parentElement: HTMLElement, data: TFGraphNode | null, row: number, column: number, graphInstance: TableFlowGraph);
     createTabelCell(data: TFGraphNode | null, row: any, column: any, graphInstance: TableFlowGraph): HTMLElement;
     setEditControls(): void;
+    setViewerControles(): void;
     onMouseEnter(): void;
     onMouseLeave(): void;
+    onClickNode(): void;
     setIsTarget(isTarget: boolean): void;
 }

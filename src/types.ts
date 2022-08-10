@@ -89,6 +89,7 @@ export interface TFGraphOptions {
   onEditNode?: (node: TFGraphNode) => void; // edit node callback
   deleteNode?: (node: TFGraphNode) => void; // custom delete node method
   onDeleteNode?: (node: TFGraphNode) => void;
+  onClickNode?: (node: TFGraphNode, nodeEl: HTMLElement) => void; // click event on viewer mode
   // onChangeNode?: (newNode: TFGraphNode, oldNode: TFGraphNode) => void;
   renderNode?: (node: TFGraphNode) => HTMLElement;
 }
