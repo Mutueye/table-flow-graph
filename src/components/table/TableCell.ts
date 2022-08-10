@@ -2,6 +2,7 @@ import { TableFlowGraph } from '../../index';
 import { createClassElement } from '../../lib/dom';
 import { TFGraphNode } from '../../types';
 import Button from '../ui/button/Button';
+// import Dialog from '../ui/dialog/Dialog';
 
 /**
  * table-flow-graph tabel cell
@@ -130,8 +131,14 @@ export default class TableCell {
         className: 'absolute left-6 top-6 p-0 sm w-28 btn-tl',
         tooltip: this.graphInstance.options.labels.addNode,
         onClick: () => {
-          if (typeof this.graphInstance.options.onAddNode === 'function') {
-            this.graphInstance.options.onAddNode(this.row, this.column);
+          if (typeof this.graphInstance.options.addNode === 'function') {
+            this.graphInstance.options.addNode(this.row, this.column);
+          } else {
+            // new Dialog(document.getElementsByTagName('body')[0]);
+            // TODO add node dialog
+            if (typeof this.graphInstance.options.onAddNode === 'function') {
+              this.graphInstance.options.onAddNode(this.row, this.column);
+            }
           }
         },
       });

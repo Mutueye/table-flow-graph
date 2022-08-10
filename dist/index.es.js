@@ -384,7 +384,7 @@ var Toolbar = /** @class */ (function () {
         }
         else {
             if (this.graphInstance.hasTableHeader) {
-                console.log('do add column:::::::::::22');
+                console.log('custom add column:::::::::::');
                 // TODO add column dialog
                 // TOOD onAddColumn(columnData)
             }
@@ -416,6 +416,7 @@ var Toolbar = /** @class */ (function () {
     return Toolbar;
 }());
 
+// import Dialog from '../ui/dialog/Dialog';
 /**
  * table-flow-graph tabel cell
  */
@@ -517,8 +518,15 @@ var TableCell = /** @class */ (function () {
                 className: 'absolute left-6 top-6 p-0 sm w-28 btn-tl',
                 tooltip: this.graphInstance.options.labels.addNode,
                 onClick: function () {
-                    if (typeof _this.graphInstance.options.onAddNode === 'function') {
-                        _this.graphInstance.options.onAddNode(_this.row, _this.column);
+                    if (typeof _this.graphInstance.options.addNode === 'function') {
+                        _this.graphInstance.options.addNode(_this.row, _this.column);
+                    }
+                    else {
+                        // new Dialog(document.getElementsByTagName('body')[0]);
+                        // TODO add node dialog
+                        if (typeof _this.graphInstance.options.onAddNode === 'function') {
+                            _this.graphInstance.options.onAddNode(_this.row, _this.column);
+                        }
                     }
                 },
             });
@@ -934,46 +942,50 @@ var Table = /** @class */ (function () {
         this.setControls();
     };
     Table.prototype.setControls = function () {
+        var _this = this;
         var isEditMode = this.graphInstance.mode === 'edit';
         if (isEditMode) {
             var deleteableObj = setColumnAndRowDeletable(this.occupiedList, this.graphInstance.options.totalRows, this.graphInstance.options.totalColumns);
             this.canDeleteColumn = deleteableObj.canDeleteColumn;
             this.canDeleteRow = deleteableObj.canDeleteRow;
-            var columnSpecs_1 = []; // [{left, width, columnIndex}]
-            var rowSpecs = []; // [{ top, height, rowIndex}]
-            this.headerCells.forEach(function (headerCell) {
-                // set headerCell controls
-                headerCell.setEditControls();
-                // get columns's width and position
-                columnSpecs_1.push({
-                    width: headerCell.element.getBoundingClientRect().width + 1,
-                    left: headerCell.element.offsetLeft - 1,
-                    columnIndex: headerCell.columnIndex,
-                });
-            });
             this.cells.forEach(function (cell) {
                 // set tabel cell controls
                 cell.setEditControls();
             });
-            // get rowSpects(row top position and height)
-            for (var i = 0; i < this.graphInstance.options.totalRows; i++) {
-                var targetCell = this.getMinRowSpanCell(i, 1);
-                var targetCellHeight = targetCell.element.getBoundingClientRect().height;
-                var targetCellRowHeight = targetCellHeight / targetCell.rowSpan;
-                rowSpecs.push({
-                    top: targetCell.element.offsetTop - 1 + (i - targetCell.row) * targetCellRowHeight,
-                    height: targetCellRowHeight + 1,
-                    rowIndex: i,
+            // wait for table render ready
+            setTimeout(function () {
+                var columnSpecs = []; // [{left, width, columnIndex}]
+                var rowSpecs = []; // [{ top, height, rowIndex}]
+                _this.headerCells.forEach(function (headerCell) {
+                    // set headerCell controls
+                    headerCell.setEditControls();
+                    // get columns's width and position
+                    columnSpecs.push({
+                        width: headerCell.element.getBoundingClientRect().width + 1,
+                        left: headerCell.element.offsetLeft - 1,
+                        columnIndex: headerCell.columnIndex,
+                    });
                 });
-            }
-            // each table grid's left, top, width, height without rowspan and colspan
-            var tableGridRectList_1 = [];
-            rowSpecs.forEach(function (rowSpec) {
-                columnSpecs_1.forEach(function (columnSpec) {
-                    tableGridRectList_1.push(Object.assign({}, rowSpec, columnSpec));
+                // get rowSpects(row top position and height)
+                for (var i = 0; i < _this.graphInstance.options.totalRows; i++) {
+                    var targetCell = _this.getMinRowSpanCell(i, 1);
+                    var targetCellHeight = targetCell.element.getBoundingClientRect().height;
+                    var targetCellRowHeight = targetCellHeight / targetCell.rowSpan;
+                    rowSpecs.push({
+                        top: targetCell.element.offsetTop - 1 + (i - targetCell.row) * targetCellRowHeight,
+                        height: targetCellRowHeight + 1,
+                        rowIndex: i,
+                    });
+                }
+                // each table grid's left, top, width, height without rowspan and colspan
+                var tableGridRectList = [];
+                rowSpecs.forEach(function (rowSpec) {
+                    columnSpecs.forEach(function (columnSpec) {
+                        tableGridRectList.push(Object.assign({}, rowSpec, columnSpec));
+                    });
                 });
-            });
-            this.tableMask = new TableMask(tableGridRectList_1, this.graphInstance);
+                _this.tableMask = new TableMask(tableGridRectList, _this.graphInstance);
+            }, 1);
         }
         this.setBottomControl();
         // TODO set table cell controls
@@ -1249,7 +1261,9 @@ var LineGroup = /** @class */ (function () {
             return;
         this.anchorIds.forEach(function (anchorId) {
             var targetAnchor = _this.graphInstance.anchorController.anchors.find(function (anchor) { return anchor.id === anchorId; });
-            _this.anchors.push(targetAnchor);
+            if (targetAnchor) {
+                _this.anchors.push(targetAnchor);
+            }
         });
         this.element.innerHTML = '';
         var pointList = this.anchors.map(function (anchor) { return ({
@@ -1377,6 +1391,7 @@ var LineController = /** @class */ (function () {
             this.currentDrawingLine = undefined;
         }
         if (!isEqual(this.originLineAnchorIds, this.lineAnchorIds)) {
+            this.originLineAnchorIds = cloneDeep(this.lineAnchorIds);
             // trigger event: linesChanged
             this.onChangeLines();
         }
@@ -1403,6 +1418,9 @@ var LineController = /** @class */ (function () {
     };
     LineController.prototype.onChangeLines = function () {
         this.setColAndRowDeletable();
+        this.graphInstance.options = Object.assign({}, this.graphInstance.options, {
+            lines: this.lineAnchorIds,
+        });
         if (typeof this.graphInstance.options.onChangeLines === 'function') {
             this.graphInstance.options.onChangeLines(this.lineAnchorIds);
         }
@@ -1760,12 +1778,16 @@ var TableFlowGraph = /** @class */ (function () {
         this.render();
     };
     TableFlowGraph.prototype.render = function () {
+        var _this = this;
         // render table
         this.tableController.renderTable();
-        // render anchors
-        this.anchorController.renderAnchors();
-        // render lines
-        this.lineController.renderLines();
+        // wait for table render ready; TODO set anchor position relative to table cells
+        setTimeout(function () {
+            // render anchors
+            _this.anchorController.renderAnchors();
+            // render lines
+            _this.lineController.renderLines();
+        }, 1);
     };
     // handle addEventListener events
     TableFlowGraph.prototype.handleEvent = function (event) {
