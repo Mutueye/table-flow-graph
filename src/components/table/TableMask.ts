@@ -57,8 +57,16 @@ export default class TableMask {
   private setMaskBoxStatus() {
     if (this.graphInstance.tableController.isMovingCell) {
       this.resultCellPositionAndSize = {
-        row: this.mouseGridRect.rowIndex,
-        column: this.mouseGridRect.columnIndex,
+        row:
+          this.mouseGridRect.rowIndex + this.targetCell.rowSpan >
+          this.graphInstance.options.totalRows
+            ? this.graphInstance.options.totalRows - this.targetCell.rowSpan
+            : this.mouseGridRect.rowIndex,
+        column:
+          this.mouseGridRect.columnIndex + this.targetCell.colSpan >
+          this.graphInstance.options.totalColumns
+            ? this.graphInstance.options.totalColumns - this.targetCell.colSpan
+            : this.mouseGridRect.columnIndex,
         rowSpan: this.targetCell.rowSpan,
         colSpan: this.targetCell.colSpan,
       };
@@ -78,26 +86,36 @@ export default class TableMask {
       this.resultCellPositionAndSize.row + this.resultCellPositionAndSize.rowSpan - 1,
       this.resultCellPositionAndSize.column + this.resultCellPositionAndSize.colSpan - 1,
     );
-    this.maskBox.setPositinAndSize({
-      left: topLeftRect.left,
-      top: topLeftRect.top,
-      width: bottomRightRect.left - topLeftRect.left + bottomRightRect.width + 1,
-      height: bottomRightRect.top - topLeftRect.top + bottomRightRect.height + 1,
-    });
+    if (bottomRightRect && topLeftRect) {
+      this.maskBox.setPositinAndSize({
+        left: topLeftRect.left,
+        top: topLeftRect.top,
+        width: bottomRightRect.left - topLeftRect.left + bottomRightRect.width + 1,
+        height: bottomRightRect.top - topLeftRect.top + bottomRightRect.height + 1,
+      });
+    }
 
     // set maskbox disable/enable
     let doable = true;
     for (
       let i = this.resultCellPositionAndSize.row;
-      i < this.resultCellPositionAndSize.row + this.resultCellPositionAndSize.rowSpan;
+      i <
+      Math.min(
+        this.resultCellPositionAndSize.row + this.resultCellPositionAndSize.rowSpan,
+        this.graphInstance.options.totalRows,
+      );
       i++
     ) {
       for (
         let j = this.resultCellPositionAndSize.column;
-        j < this.resultCellPositionAndSize.column + this.resultCellPositionAndSize.colSpan;
+        j <
+        Math.min(
+          this.resultCellPositionAndSize.column + this.resultCellPositionAndSize.colSpan,
+          this.graphInstance.options.totalColumns,
+        );
         j++
       ) {
-        if (this.filteredOccupiedList[i][j] > 0) {
+        if (!this.filteredOccupiedList[i] || this.filteredOccupiedList[i][j] > 0) {
           doable = false;
         }
       }

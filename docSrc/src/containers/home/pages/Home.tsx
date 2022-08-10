@@ -30,6 +30,12 @@ const Home: React.FC<Props> = ({ className }) => {
     return el;
   };
 
+  const renderNodeHoverPopup = (node: TFGraphNode) => {
+    const el = document.createElement('div');
+    createReactInstance(<NodeTitle title={node.title} info={node.meta?.info as string} />, el);
+    return el;
+  };
+
   const options: TFGraphOptions = {
     isEditor: true,
     totalColumns: 10,
@@ -83,6 +89,7 @@ const Home: React.FC<Props> = ({ className }) => {
         column: 1,
         colSpan: 3,
         title: 'Get Started',
+        showPopup: true,
       },
       {
         id: '3',
@@ -93,6 +100,7 @@ const Home: React.FC<Props> = ({ className }) => {
         column: 6,
         colSpan: 3,
         title: 'Examples',
+        showPopup: true,
       },
       {
         id: '4',
@@ -132,7 +140,11 @@ const Home: React.FC<Props> = ({ className }) => {
       },
     ],
     onChangeLines,
+    onClickNode(node, nodeEl) {
+      console.log('clickNode::::', node, nodeEl);
+    },
     renderNode,
+    renderNodeHoverPopup,
   };
 
   useEffect(() => {

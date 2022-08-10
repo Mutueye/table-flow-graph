@@ -65207,7 +65207,7 @@
   border-top-color: rgba(0, 0, 0, 0.25);
 }
 .tfgraph-popup .tfgraph-popup-area.top .tfgraph-popup-arrow::after {
-  bottom: 1px;
+  bottom: 1.5px;
   border-width: 8px 8px 0;
   border-top-color: white;
 }
@@ -65225,7 +65225,7 @@
   border-right-color: rgba(0, 0, 0, 0.25);
 }
 .tfgraph-popup .tfgraph-popup-area.right .tfgraph-popup-arrow::after {
-  left: 1px;
+  left: 1.5px;
   border-width: 8px 8px 8px 0;
   border-right-color: white;
 }
@@ -65241,7 +65241,7 @@
   border-bottom-color: rgba(0, 0, 0, 0.25);
 }
 .tfgraph-popup .tfgraph-popup-area.bottom .tfgraph-popup-arrow::after {
-  top: 1px;
+  top: 1.5px;
   border-width: 0px 8px 8px 8px;
   border-bottom-color: white;
 }
@@ -65259,7 +65259,7 @@
   border-left-color: rgba(0, 0, 0, 0.25);
 }
 .tfgraph-popup .tfgraph-popup-area.left .tfgraph-popup-arrow::after {
-  right: 1px;
+  right: 1.5px;
   border-width: 8px 0px 8px 8px;
   border-left-color: white;
 }

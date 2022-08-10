@@ -416,6 +416,84 @@ var Toolbar = /** @class */ (function () {
     return Toolbar;
 }());
 
+/**
+ * table-flow-graph popup
+ */
+var Popup = /** @class */ (function () {
+    function Popup(targetElement, options) {
+        this.targetElement = targetElement;
+        this.options = options;
+        this.rendered = false;
+    }
+    Popup.prototype.render = function () {
+        var _this = this;
+        var _a = this.options, _b = _a.placement, placement = _b === void 0 ? 'top' : _b, contentElement = _a.contentElement;
+        var targetRect = this.targetElement.getBoundingClientRect();
+        this.element = createClassElement('div', 'tfgraph-popup', document.body);
+        setStyles(this.element, {
+            left: targetRect.left + 0.5 * targetRect.width + 'px',
+            top: targetRect.top + 0.5 * targetRect.height + 'px',
+        });
+        this.areaElement = createClassElement('div', "tfgraph-popup-area ".concat(placement), this.element);
+        this.boxElement = createClassElement('div', 'tfgraph-popup-box', this.areaElement);
+        this.arrowElement = createClassElement('div', 'tfgraph-popup-arrow', this.areaElement);
+        if (contentElement)
+            this.boxElement.appendChild(contentElement);
+        var areaRect = this.areaElement.getBoundingClientRect();
+        var arrowRect = this.arrowElement.getBoundingClientRect();
+        var areaStyleObj = {};
+        var arrowStyleObj = {};
+        switch (placement) {
+            case 'top':
+                areaStyleObj.left = -0.5 * areaRect.width + 'px';
+                areaStyleObj.bottom = 0.5 * targetRect.height + 'px';
+                arrowStyleObj.left = 0.5 * (areaRect.width - arrowRect.width) + 'px';
+                break;
+            case 'right':
+                areaStyleObj.left = 0.5 * targetRect.width + 'px';
+                areaStyleObj.top = -0.5 * areaRect.height + 'px';
+                arrowStyleObj.top = 0.5 * (areaRect.height - arrowRect.height) + 'px';
+                break;
+            case 'bottom':
+                areaStyleObj.left = -0.5 * areaRect.width + 'px';
+                areaStyleObj.top = 0.5 * targetRect.height + 'px';
+                arrowStyleObj.left = 0.5 * (areaRect.width - arrowRect.width) + 'px';
+                break;
+            case 'left':
+                areaStyleObj.right = 0.5 * targetRect.width + 'px';
+                areaStyleObj.top = -0.5 * areaRect.height + 'px';
+                arrowStyleObj.top = 0.5 * (areaRect.height - arrowRect.height) + 'px';
+                break;
+        }
+        setStyles(this.areaElement, areaStyleObj);
+        setStyles(this.arrowElement, arrowStyleObj);
+        this.areaElement.addEventListener('mouseenter', function () { return _this.mouseEnter(); });
+        this.areaElement.addEventListener('mouseleave', function () { return _this.mouseLeave(); });
+        this.rendered = true;
+    };
+    Popup.prototype.dismiss = function () {
+        var _this = this;
+        this.rendered = false;
+        this.areaElement.removeEventListener('mouseenter', function () { return _this.mouseEnter(); });
+        this.areaElement.removeEventListener('mouseleave', function () { return _this.mouseLeave(); });
+        removeElement(this.element);
+    };
+    Popup.prototype.mouseEnter = function () {
+        if (!this.rendered)
+            this.render();
+        if (this.timeoutId) {
+            window.clearTimeout(this.timeoutId);
+        }
+    };
+    Popup.prototype.mouseLeave = function () {
+        var _this = this;
+        this.timeoutId = window.setTimeout(function () {
+            _this.dismiss();
+        }, 200);
+    };
+    return Popup;
+}());
+
 // import Dialog from '../ui/dialog/Dialog';
 /**
  * table-flow-graph tabel cell
@@ -593,10 +671,34 @@ var TableCell = /** @class */ (function () {
         this.element.addEventListener('mouseenter', function () { return _this.onMouseEnter(); });
         this.element.addEventListener('mouseleave', function () { return _this.onMouseLeave(); });
     };
-    TableCell.prototype.setViewerControles = function () {
+    TableCell.prototype.setViewModeControls = function () {
         var _this = this;
         if (this.nodeData) {
             this.element.addEventListener('click', function () { return _this.onClickNode(); });
+            if (this.nodeData.showPopup) {
+                var contentEl = void 0;
+                if (typeof this.graphInstance.options.renderNodeHoverPopup === 'function') {
+                    contentEl = this.graphInstance.options.renderNodeHoverPopup(this.nodeData);
+                }
+                else {
+                    contentEl = createClassElement('div', 'flex flex-col items-center p-30');
+                    contentEl.innerHTML = this.nodeData.title;
+                }
+                this.popup = new Popup(this.element, {
+                    placement: 'top',
+                    contentElement: contentEl,
+                });
+                this.element.addEventListener('mouseenter', function () {
+                    if (_this.popup) {
+                        _this.popup.mouseEnter();
+                    }
+                });
+                this.element.addEventListener('mouseleave', function () {
+                    if (_this.popup) {
+                        _this.popup.mouseLeave();
+                    }
+                });
+            }
         }
     };
     TableCell.prototype.onMouseEnter = function () {
@@ -822,8 +924,14 @@ var TableMask = /** @class */ (function () {
     TableMask.prototype.setMaskBoxStatus = function () {
         if (this.graphInstance.tableController.isMovingCell) {
             this.resultCellPositionAndSize = {
-                row: this.mouseGridRect.rowIndex,
-                column: this.mouseGridRect.columnIndex,
+                row: this.mouseGridRect.rowIndex + this.targetCell.rowSpan >
+                    this.graphInstance.options.totalRows
+                    ? this.graphInstance.options.totalRows - this.targetCell.rowSpan
+                    : this.mouseGridRect.rowIndex,
+                column: this.mouseGridRect.columnIndex + this.targetCell.colSpan >
+                    this.graphInstance.options.totalColumns
+                    ? this.graphInstance.options.totalColumns - this.targetCell.colSpan
+                    : this.mouseGridRect.columnIndex,
                 rowSpan: this.targetCell.rowSpan,
                 colSpan: this.targetCell.colSpan,
             };
@@ -838,17 +946,21 @@ var TableMask = /** @class */ (function () {
         }
         var topLeftRect = this.getRectByRowAndColumn(this.resultCellPositionAndSize.row, this.resultCellPositionAndSize.column);
         var bottomRightRect = this.getRectByRowAndColumn(this.resultCellPositionAndSize.row + this.resultCellPositionAndSize.rowSpan - 1, this.resultCellPositionAndSize.column + this.resultCellPositionAndSize.colSpan - 1);
-        this.maskBox.setPositinAndSize({
-            left: topLeftRect.left,
-            top: topLeftRect.top,
-            width: bottomRightRect.left - topLeftRect.left + bottomRightRect.width + 1,
-            height: bottomRightRect.top - topLeftRect.top + bottomRightRect.height + 1,
-        });
+        if (bottomRightRect && topLeftRect) {
+            this.maskBox.setPositinAndSize({
+                left: topLeftRect.left,
+                top: topLeftRect.top,
+                width: bottomRightRect.left - topLeftRect.left + bottomRightRect.width + 1,
+                height: bottomRightRect.top - topLeftRect.top + bottomRightRect.height + 1,
+            });
+        }
         // set maskbox disable/enable
         var doable = true;
-        for (var i = this.resultCellPositionAndSize.row; i < this.resultCellPositionAndSize.row + this.resultCellPositionAndSize.rowSpan; i++) {
-            for (var j = this.resultCellPositionAndSize.column; j < this.resultCellPositionAndSize.column + this.resultCellPositionAndSize.colSpan; j++) {
-                if (this.filteredOccupiedList[i][j] > 0) {
+        for (var i = this.resultCellPositionAndSize.row; i <
+            Math.min(this.resultCellPositionAndSize.row + this.resultCellPositionAndSize.rowSpan, this.graphInstance.options.totalRows); i++) {
+            for (var j = this.resultCellPositionAndSize.column; j <
+                Math.min(this.resultCellPositionAndSize.column + this.resultCellPositionAndSize.colSpan, this.graphInstance.options.totalColumns); j++) {
+                if (!this.filteredOccupiedList[i] || this.filteredOccupiedList[i][j] > 0) {
                     doable = false;
                 }
             }
@@ -997,6 +1109,13 @@ var Table = /** @class */ (function () {
                 });
                 _this.tableMask = new TableMask(tableGridRectList, _this.graphInstance);
             }, 1);
+        }
+        else {
+            // TODO click node event
+            this.cells.forEach(function (cell) {
+                // set tabel cell controls
+                cell.setViewModeControls();
+            });
         }
         this.setBottomControl();
         // TODO set table cell controls

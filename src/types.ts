@@ -24,6 +24,7 @@ export interface TFGraphNode {
   type?: 'default' | 'success' | 'warning' | 'danger' | 'primary';
   isBtn?: boolean;
   meta?: Record<string, unknown>;
+  showPopup?: boolean;
 }
 
 // export interface ThemeOption {
@@ -91,7 +92,8 @@ export interface TFGraphOptions {
   onDeleteNode?: (node: TFGraphNode) => void;
   onClickNode?: (node: TFGraphNode, nodeEl: HTMLElement) => void; // click event on viewer mode
   // onChangeNode?: (newNode: TFGraphNode, oldNode: TFGraphNode) => void;
-  renderNode?: (node: TFGraphNode) => HTMLElement;
+  renderNode?: (node: TFGraphNode) => HTMLElement; // custom render node content
+  renderNodeHoverPopup?: (node: TFGraphNode) => HTMLElement; // custom render node hover popup
 }
 
 // anchor point's relative position to a table cell

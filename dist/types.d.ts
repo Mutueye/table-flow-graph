@@ -18,6 +18,7 @@ export interface TFGraphNode {
     type?: 'default' | 'success' | 'warning' | 'danger' | 'primary';
     isBtn?: boolean;
     meta?: Record<string, unknown>;
+    showPopup?: boolean;
 }
 export declare type Mode = 'edit' | 'preview';
 export declare type Labels = {
@@ -63,6 +64,7 @@ export interface TFGraphOptions {
     onDeleteNode?: (node: TFGraphNode) => void;
     onClickNode?: (node: TFGraphNode, nodeEl: HTMLElement) => void;
     renderNode?: (node: TFGraphNode) => HTMLElement;
+    renderNodeHoverPopup?: (node: TFGraphNode) => HTMLElement;
 }
 export declare type Bearing = 'topleft' | 'top' | 'topright' | 'left' | 'center' | 'right' | 'bottomleft' | 'bottom' | 'bottomright';
 export declare type Position = {

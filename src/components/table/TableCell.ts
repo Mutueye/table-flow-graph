@@ -2,6 +2,7 @@ import { TableFlowGraph } from '../../index';
 import { createClassElement } from '../../lib/dom';
 import { TFGraphNode } from '../../types';
 import Button from '../ui/button/Button';
+import Popup from '../ui/popup/Popup';
 // import Dialog from '../ui/dialog/Dialog';
 
 /**
@@ -12,6 +13,7 @@ export default class TableCell {
   public element: HTMLElement;
   public nodeEl: HTMLElement;
   public controlLayer: HTMLElement;
+  public popup: Popup;
   public nodeData?: TFGraphNode;
   public hasNode: boolean;
   public row: number;
@@ -212,9 +214,33 @@ export default class TableCell {
     this.element.addEventListener('mouseleave', () => this.onMouseLeave());
   }
 
-  public setViewerControles() {
+  public setViewModeControls() {
     if (this.nodeData) {
       this.element.addEventListener('click', () => this.onClickNode());
+      if (this.nodeData.showPopup) {
+        let contentEl: HTMLElement;
+        if (typeof this.graphInstance.options.renderNodeHoverPopup === 'function') {
+          contentEl = this.graphInstance.options.renderNodeHoverPopup(this.nodeData);
+        } else {
+          contentEl = createClassElement('div', 'flex flex-col items-center p-30');
+          contentEl.innerHTML = this.nodeData.title;
+        }
+
+        this.popup = new Popup(this.element, {
+          placement: 'top',
+          contentElement: contentEl,
+        });
+        this.element.addEventListener('mouseenter', () => {
+          if (this.popup) {
+            this.popup.mouseEnter();
+          }
+        });
+        this.element.addEventListener('mouseleave', () => {
+          if (this.popup) {
+            this.popup.mouseLeave();
+          }
+        });
+      }
     }
   }
 

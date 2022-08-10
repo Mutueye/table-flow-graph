@@ -103,6 +103,10 @@ export default class Table {
       }, 1);
     } else {
       // TODO click node event
+      this.cells.forEach((cell) => {
+        // set tabel cell controls
+        cell.setViewModeControls();
+      });
     }
     this.setBottomControl();
 
