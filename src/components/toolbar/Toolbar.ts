@@ -25,6 +25,7 @@ export default class Toolbar {
       ],
       onChange: (item) => {
         graphInstance.changeMode(item.id as Mode);
+        this.setToolbarState();
       },
     });
     // new Icon(this.element, {
@@ -89,7 +90,10 @@ export default class Toolbar {
   }
 
   setToolbarState() {
-    if (this.graphInstance.options.totalColumns >= this.graphInstance.options.maxColumns) {
+    if (
+      this.graphInstance.options.totalColumns >= this.graphInstance.options.maxColumns ||
+      this.graphInstance.mode === 'preview'
+    ) {
       this.newColumnBtn.element.classList.add('hidden');
     } else {
       this.newColumnBtn.element.classList.remove('hidden');
