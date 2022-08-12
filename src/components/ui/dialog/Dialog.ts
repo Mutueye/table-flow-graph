@@ -1,4 +1,6 @@
-import { createClassElement, removeElement, setStyles } from '../../../lib/dom';
+import { createClassElement, removeElement } from '../../../lib/dom';
+import { DialogOptions } from '../../../types';
+import { Icon } from '../icon/Icon';
 
 /**
  * table-flow-graph dialog
@@ -8,18 +10,41 @@ export default class Dialog {
   public element: HTMLElement;
   public maskElement: HTMLElement;
   public boxElement: HTMLElement;
-  // public rendered: boolean;
-  // public timeoutId: number | null;
+  public titleBarElement: HTMLElement;
+  public closeBtnElement: HTMLElement;
+  public title: string;
 
-  constructor(targetElement: HTMLElement) {
-    this.targetElement = targetElement;
+  constructor(options: DialogOptions) {
+    this.title = options.title;
+    this.targetElement = options.targetElement
+      ? options.targetElement
+      : document.getElementsByTagName('body')[0];
     this.element = createClassElement('div', 'tfgraph-dialog', this.targetElement);
     this.maskElement = createClassElement('div', 'tfgraph-dialog-mask', this.element);
-    setStyles(this.targetElement, { overflow: 'hidden' });
+    this.boxElement = createClassElement('div', 'tfgraph-dialog-box', this.element);
+    this.renderTitleBar();
+    this.boxElement.appendChild(options.contentElement);
+    this.targetElement.classList.add('overflow-hidden');
     this.maskElement.addEventListener('click', () => this.close());
   }
 
-  close() {
+  renderTitleBar() {
+    this.titleBarElement = createClassElement('div', 'tfgraph-dialog-bar', this.boxElement);
+    const titleEl = createClassElement('div', 'tfgraph-dialog-bar-title', this.titleBarElement);
+    titleEl.innerText = this.title;
+    this.closeBtnElement = createClassElement(
+      'div',
+      'tfgraph-dialog-bar-btn',
+      this.titleBarElement,
+    );
+    new Icon(this.closeBtnElement, { name: 'x2', size: 18 });
+    this.closeBtnElement.addEventListener('click', () => this.close());
+  }
+
+  public close() {
+    this.closeBtnElement.removeEventListener('click', () => this.close());
+    this.maskElement.removeEventListener('click', () => this.close());
     removeElement(this.element);
+    this.targetElement.classList.remove('overflow-hidden');
   }
 }

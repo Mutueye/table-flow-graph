@@ -57,6 +57,10 @@ export type Labels = {
   deleteNode?: string;
   adjustNodeSize?: string;
   moveNode?: string;
+  newNode?: string;
+  enterNodeName?: string;
+  confirm?: string;
+  cancel?: string;
 };
 
 // table-flow-graph options
@@ -85,7 +89,7 @@ export interface TFGraphOptions {
   onDeleteRow?: () => void; // delete the last row
   // node methods
   addNode?: (row: number, column: number) => void; // custom add node method
-  onAddNode?: (row: number, column: number) => void; // add node callback
+  onAddNode?: (node: TFGraphNode) => void; // add node callback
   editNode?: (node: TFGraphNode) => void; // custom edit node method
   onEditNode?: (node: TFGraphNode) => void; // edit node callback
   deleteNode?: (node: TFGraphNode) => void; // custom delete node method
@@ -176,6 +180,12 @@ export interface PopupOptions {
 export interface TooltipOptoins {
   placement?: 'top' | 'right' | 'bottom' | 'left';
   label?: string;
+}
+
+export interface DialogOptions {
+  title: string;
+  targetElement?: HTMLElement;
+  contentElement: HTMLElement;
 }
 
 export interface HeaderCellMenuOptions {

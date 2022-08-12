@@ -3,6 +3,7 @@ import { createClassElement } from '../../lib/dom';
 import { TFGraphNode } from '../../types';
 import Button from '../ui/button/Button';
 import Popup from '../ui/popup/Popup';
+import EditNodeDialog from './EditNodeDialog';
 // import Dialog from '../ui/dialog/Dialog';
 
 /**
@@ -23,6 +24,7 @@ export default class TableCell {
   public isTarget: boolean; // is moving or resizing this cell
   public deleteRowBtn: Button;
   public deleteColBtn: Button;
+  public editDialog: EditNodeDialog | null;
 
   constructor(
     parentElement: HTMLElement,
@@ -85,6 +87,7 @@ export default class TableCell {
     //   'flex flex-row items-center justify-center p-15 flex-wrap',
     //   this.controlLayer,
     // );
+    this.editDialog = new EditNodeDialog(this, this.graphInstance);
     if (this.nodeData) {
       new Button(this.controlLayer, {
         icon: 'move',
@@ -101,8 +104,10 @@ export default class TableCell {
         tooltip: this.graphInstance.options.labels.editNode,
         className: 'absolute left-6 bottom-6 p-0 sm w-28 btn-bl',
         onClick: () => {
-          if (typeof this.graphInstance.options.onEditNode === 'function') {
-            this.graphInstance.options.onEditNode(this.nodeData);
+          if (typeof this.graphInstance.options.editNode === 'function') {
+            this.graphInstance.options.editNode(this.nodeData);
+          } else {
+            this.editDialog.show();
           }
         },
       });
@@ -136,11 +141,7 @@ export default class TableCell {
           if (typeof this.graphInstance.options.addNode === 'function') {
             this.graphInstance.options.addNode(this.row, this.column);
           } else {
-            // new Dialog(document.getElementsByTagName('body')[0]);
-            // TODO add node dialog
-            if (typeof this.graphInstance.options.onAddNode === 'function') {
-              this.graphInstance.options.onAddNode(this.row, this.column);
-            }
+            this.editDialog.show();
           }
         },
       });

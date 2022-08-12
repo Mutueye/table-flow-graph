@@ -2,6 +2,7 @@ import { TableFlowGraph } from '../../index';
 import { TFGraphNode } from '../../types';
 import Button from '../ui/button/Button';
 import Popup from '../ui/popup/Popup';
+import EditNodeDialog from './EditNodeDialog';
 /**
  * table-flow-graph tabel cell
  */
@@ -20,6 +21,7 @@ export default class TableCell {
     isTarget: boolean;
     deleteRowBtn: Button;
     deleteColBtn: Button;
+    editDialog: EditNodeDialog | null;
     constructor(parentElement: HTMLElement, data: TFGraphNode | null, row: number, column: number, graphInstance: TableFlowGraph);
     createTabelCell(data: TFGraphNode | null, row: any, column: any, graphInstance: TableFlowGraph): HTMLElement;
     setEditControls(): void;

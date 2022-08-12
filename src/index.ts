@@ -26,6 +26,10 @@ const defaultOptions: TFGraphOptions = {
     deleteNode: 'Delete Node',
     adjustNodeSize: 'Adjust Node Size',
     moveNode: 'Move Node',
+    newNode: 'New Node',
+    enterNodeName: 'Enter node name',
+    confirm: 'Confirm',
+    cancel: 'Cancel',
   },
 };
 

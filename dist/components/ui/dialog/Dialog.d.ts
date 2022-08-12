@@ -1,3 +1,4 @@
+import { DialogOptions } from '../../../types';
 /**
  * table-flow-graph dialog
  */
@@ -6,6 +7,10 @@ export default class Dialog {
     element: HTMLElement;
     maskElement: HTMLElement;
     boxElement: HTMLElement;
-    constructor(targetElement: HTMLElement);
+    titleBarElement: HTMLElement;
+    closeBtnElement: HTMLElement;
+    title: string;
+    constructor(options: DialogOptions);
+    renderTitleBar(): void;
     close(): void;
 }

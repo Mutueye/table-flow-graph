@@ -34,6 +34,10 @@ export declare type Labels = {
     deleteNode?: string;
     adjustNodeSize?: string;
     moveNode?: string;
+    newNode?: string;
+    enterNodeName?: string;
+    confirm?: string;
+    cancel?: string;
 };
 export interface TFGraphOptions {
     nodes?: TFGraphNode[];
@@ -57,7 +61,7 @@ export interface TFGraphOptions {
     deleteRow?: () => void;
     onDeleteRow?: () => void;
     addNode?: (row: number, column: number) => void;
-    onAddNode?: (row: number, column: number) => void;
+    onAddNode?: (node: TFGraphNode) => void;
     editNode?: (node: TFGraphNode) => void;
     onEditNode?: (node: TFGraphNode) => void;
     deleteNode?: (node: TFGraphNode) => void;
@@ -123,6 +127,11 @@ export interface PopupOptions {
 export interface TooltipOptoins {
     placement?: 'top' | 'right' | 'bottom' | 'left';
     label?: string;
+}
+export interface DialogOptions {
+    title: string;
+    targetElement?: HTMLElement;
+    contentElement: HTMLElement;
 }
 export interface HeaderCellMenuOptions {
     showAdd?: boolean;

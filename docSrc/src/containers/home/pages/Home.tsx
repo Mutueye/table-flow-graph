@@ -77,7 +77,7 @@ const Home: React.FC<Props> = ({ className }) => {
         colSpan: 6,
         title: 'Table Flow Graph',
         meta: {
-          info: 'A simple flow graph editor/viewer build with html & css',
+          info: 'A simple flow graph editor/viewer built with html & css',
         },
       },
       {

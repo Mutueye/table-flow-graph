@@ -101,6 +101,7 @@ var svgIconList = {
     edit: '<svg t="1657530672054" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8212" width="200" height="200"><path d="M712.96 268.373333l-128-128c-16.64-16.64-43.52-16.64-60.16 0l-384 384c-8.106667 8.106667-12.373333 18.773333-12.373333 30.293334v128c0 23.466667 19.2 42.666667 42.666666 42.666666h128c11.093333 0 22.186667-4.266667 30.293334-12.373333l264.106666-264.106667 22.186667-22.186666 97.706667-97.706667c16.213333-16.64 16.213333-43.946667-0.426667-60.586667zM281.173333 640H213.333333v-67.84l232.533334-232.533333 67.84 67.84L281.173333 640z m292.693334-292.693333l-67.84-67.84L554.666667 230.826667 622.506667 298.666667l-48.64 48.64zM853.333333 896H170.666667c-23.466667 0-42.666667-19.2-42.666667-42.666667s19.2-42.666667 42.666667-42.666666h682.666666c23.466667 0 42.666667 19.2 42.666667 42.666666s-19.2 42.666667-42.666667 42.666667z" p-id="8213"></path></svg>',
     plus: '<svg t="1657533725416" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4984" width="200" height="200"><path d="M512 85.333333C276.906667 85.333333 85.333333 276.906667 85.333333 512s191.573333 426.666667 426.666667 426.666667 426.666667-191.573333 426.666667-426.666667S747.093333 85.333333 512 85.333333z m0 768c-188.16 0-341.333333-153.173333-341.333333-341.333333s153.173333-341.333333 341.333333-341.333333 341.333333 153.173333 341.333333 341.333333-153.173333 341.333333-341.333333 341.333333z" p-id="4985"></path><path d="M725.333333 512c0 23.466667-19.2 42.666667-42.666666 42.666667h-128v128c0 23.466667-19.2 42.666667-42.666667 42.666666s-42.666667-19.2-42.666667-42.666666v-128H341.333333c-23.466667 0-42.666667-19.2-42.666666-42.666667s19.2-42.666667 42.666666-42.666667h128V341.333333c0-23.466667 19.2-42.666667 42.666667-42.666666s42.666667 19.2 42.666667 42.666666v128h128c23.466667 0 42.666667 19.2 42.666666 42.666667z" p-id="4986"></path></svg>',
     x: '<svg t="1657533744067" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5120" width="200" height="200"><path d="M512 85.333333C276.906667 85.333333 85.333333 276.906667 85.333333 512s191.573333 426.666667 426.666667 426.666667 426.666667-191.573333 426.666667-426.666667S747.093333 85.333333 512 85.333333z m0 768c-188.16 0-341.333333-153.173333-341.333333-341.333333s153.173333-341.333333 341.333333-341.333333 341.333333 153.173333 341.333333 341.333333-153.173333 341.333333-341.333333 341.333333z" p-id="5121"></path><path d="M663.04 602.453333c16.64 16.64 16.64 43.52 0 60.16-8.533333 8.533333-19.2 12.373333-30.293333 12.373334-11.093333 0-21.76-4.266667-30.293334-12.373334L512 572.16l-90.453333 90.453333c-8.533333 8.533333-19.2 12.373333-30.293334 12.373334-11.093333 0-21.76-4.266667-30.293333-12.373334-16.64-16.64-16.64-43.52 0-60.16l90.453333-90.453333-90.453333-90.453333c-16.64-16.64-16.64-43.52 0-60.16 16.64-16.64 43.52-16.64 60.16 0l90.453333 90.453333 90.453334-90.453333c16.64-16.64 43.52-16.64 60.16 0 16.64 16.64 16.64 43.52 0 60.16l-89.6 90.453333 90.453333 90.453333z" p-id="5122"></path></svg>',
+    x2: '<svg t="1660284061189" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="59188" width="200" height="200"><path d="M755.626667 695.04c16.64 16.64 16.64 43.52 0 60.16-8.533333 8.533333-19.2 12.373333-30.293334 12.373333s-21.76-4.266667-30.293333-12.373333L512 572.16 328.96 755.2c-8.533333 8.533333-19.2 12.373333-30.293333 12.373333s-21.76-4.266667-30.293334-12.373333c-16.64-16.64-16.64-43.52 0-60.16l183.04-183.04-183.04-183.04C251.733333 312.32 251.733333 285.44 268.373333 268.8c16.64-16.64 43.52-16.64 60.16 0l183.04 183.04L694.613333 268.8c16.64-16.64 43.52-16.64 60.16 0 16.64 16.64 16.64 43.52 0 60.16L572.16 512l183.466667 183.04z" p-id="59189"></path></svg>',
     expand: '<svg t="1658744557448" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9385" width="200" height="200"><path d="M170.666667 394.24c-23.466667 0-42.666667-19.2-42.666667-42.666667V170.666667c0-23.466667 19.2-42.666667 42.666667-42.666667h180.906666c23.466667 0 42.666667 19.2 42.666667 42.666667s-19.2 42.666667-42.666667 42.666666H213.333333v138.24c0 23.466667-19.2 42.666667-42.666666 42.666667zM672.426667 896c-23.466667 0-42.666667-19.2-42.666667-42.666667s19.2-42.666667 42.666667-42.666666H810.666667v-138.24c0-23.466667 19.2-42.666667 42.666666-42.666667s42.666667 19.2 42.666667 42.666667V853.333333c0 23.466667-19.2 42.666667-42.666667 42.666667h-180.906666zM170.666667 896c-11.52 0-22.186667-4.693333-30.293334-12.373333-8.106667-8.106667-12.373333-18.773333-12.373333-30.293334v-180.906666c0-23.466667 19.2-42.666667 42.666667-42.666667s42.666667 19.2 42.666666 42.666667V810.666667h138.24c23.466667 0 42.666667 19.2 42.666667 42.666666s-19.2 42.666667-42.666667 42.666667H170.666667zM853.333333 394.24c-23.466667 0-42.666667-19.2-42.666666-42.666667V213.333333h-138.24c-23.466667 0-42.666667-19.2-42.666667-42.666666s19.2-42.666667 42.666667-42.666667H853.333333c11.52 0 22.186667 4.693333 30.293334 12.373333 8.106667 8.106667 12.373333 18.773333 12.373333 30.293334v180.906666c0 23.466667-19.2 42.666667-42.666667 42.666667z" p-id="9386"></path></svg>',
     move: '<svg t="1658744606420" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9520" width="200" height="200"><path d="M426.666667 512c0 23.466667-19.2 42.666667-42.666667 42.666667H230.826667L285.866667 609.706667c16.64 16.64 16.64 43.52 0 60.16-8.106667 8.533333-19.2 12.373333-30.293334 12.373333s-21.76-4.266667-30.293333-12.373333l-128-128c-16.64-16.64-16.64-43.52 0-60.16l128-128c16.64-16.64 43.52-16.64 60.16 0 16.64 16.64 16.64 43.52 0 60.16l-54.613333 55.466666H384c23.466667 0 42.666667 19.2 42.666667 42.666667zM926.293333 542.293333l-128 128c-8.106667 8.533333-19.2 12.373333-30.293333 12.373334s-21.76-4.266667-30.293333-12.373334c-16.64-16.64-16.64-43.52 0-60.16l55.04-55.04H640c-23.466667 0-42.666667-19.2-42.666667-42.666666s19.2-42.666667 42.666667-42.666667h153.173333L738.133333 414.72c-16.64-16.64-16.64-43.52 0-60.16 16.64-16.64 43.52-16.64 60.16 0l128 128c16.64 15.786667 16.64 43.093333 0 59.733333zM670.293333 798.293333l-128 128c-8.106667 8.106667-18.773333 12.373333-30.293333 12.373334s-22.186667-4.693333-30.293333-12.373334l-128-128c-16.64-16.64-16.64-43.52 0-60.16 16.64-16.64 43.52-16.64 60.16 0l55.04 55.04V640c0-23.466667 19.2-42.666667 42.666666-42.666667s42.666667 19.2 42.666667 42.666667v153.173333l55.04-55.04c16.64-16.64 43.52-16.64 60.16 0 17.493333 16.213333 17.493333 43.52 0.853333 60.16zM670.293333 286.293333c-16.64 16.64-43.52 16.64-60.16 0l-55.466666-55.466666V384c0 23.466667-19.2 42.666667-42.666667 42.666667s-42.666667-19.2-42.666667-42.666667V230.826667l-55.04 55.466666C405.76 294.4 395.093333 298.666667 384 298.666667s-21.76-4.266667-30.293333-12.373334C337.066667 269.653333 337.066667 242.773333 353.706667 226.133333l128-128c16.64-16.64 43.52-16.64 60.16 0l128 128c17.066667 16.213333 17.066667 43.52 0.426666 60.16z" p-id="9521"></path></svg>',
     remove: '<svg t="1658744626586" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9655" width="200" height="200"><path d="M405.333333 768c-23.466667 0-42.666667-19.2-42.666666-42.666667v-256c0-23.466667 19.2-42.666667 42.666666-42.666666s42.666667 19.2 42.666667 42.666666v256c0 23.466667-19.2 42.666667-42.666667 42.666667zM618.666667 768c-23.466667 0-42.666667-19.2-42.666667-42.666667v-256c0-23.466667 19.2-42.666667 42.666667-42.666666s42.666667 19.2 42.666666 42.666666v256c0 23.466667-19.2 42.666667-42.666666 42.666667z" p-id="9656"></path><path d="M896 256h-170.666667V128c0-23.466667-19.2-42.666667-42.666666-42.666667H341.333333c-23.466667 0-42.666667 19.2-42.666666 42.666667v128H128c-23.466667 0-42.666667 19.2-42.666667 42.666667s19.2 42.666667 42.666667 42.666666h42.666667v554.666667c0 23.466667 19.2 42.666667 42.666666 42.666667h597.333334c23.466667 0 42.666667-19.2 42.666666-42.666667V341.333333h42.666667c23.466667 0 42.666667-19.2 42.666667-42.666666s-19.2-42.666667-42.666667-42.666667zM384 170.666667h256v85.333333H384V170.666667z m384 682.666666H256V341.333333h512v512z" p-id="9657"></path></svg>',
@@ -352,6 +353,7 @@ var Toolbar = /** @class */ (function () {
             ],
             onChange: function (item) {
                 graphInstance.changeMode(item.id);
+                _this.setToolbarState();
             },
         });
         // new Icon(this.element, {
@@ -410,7 +412,8 @@ var Toolbar = /** @class */ (function () {
         this.disabledMask.classList.add('hidden');
     };
     Toolbar.prototype.setToolbarState = function () {
-        if (this.graphInstance.options.totalColumns >= this.graphInstance.options.maxColumns) {
+        if (this.graphInstance.options.totalColumns >= this.graphInstance.options.maxColumns ||
+            this.graphInstance.mode === 'preview') {
             this.newColumnBtn.element.classList.add('hidden');
         }
         else {
@@ -498,6 +501,135 @@ var Popup = /** @class */ (function () {
     return Popup;
 }());
 
+/**
+ * table-flow-graph dialog
+ */
+var Dialog = /** @class */ (function () {
+    function Dialog(options) {
+        var _this = this;
+        this.title = options.title;
+        this.targetElement = options.targetElement
+            ? options.targetElement
+            : document.getElementsByTagName('body')[0];
+        this.element = createClassElement('div', 'tfgraph-dialog', this.targetElement);
+        this.maskElement = createClassElement('div', 'tfgraph-dialog-mask', this.element);
+        this.boxElement = createClassElement('div', 'tfgraph-dialog-box', this.element);
+        this.renderTitleBar();
+        this.boxElement.appendChild(options.contentElement);
+        this.targetElement.classList.add('overflow-hidden');
+        this.maskElement.addEventListener('click', function () { return _this.close(); });
+    }
+    Dialog.prototype.renderTitleBar = function () {
+        var _this = this;
+        this.titleBarElement = createClassElement('div', 'tfgraph-dialog-bar', this.boxElement);
+        var titleEl = createClassElement('div', 'tfgraph-dialog-bar-title', this.titleBarElement);
+        titleEl.innerText = this.title;
+        this.closeBtnElement = createClassElement('div', 'tfgraph-dialog-bar-btn', this.titleBarElement);
+        new Icon(this.closeBtnElement, { name: 'x2', size: 18 });
+        this.closeBtnElement.addEventListener('click', function () { return _this.close(); });
+    };
+    Dialog.prototype.close = function () {
+        var _this = this;
+        this.closeBtnElement.removeEventListener('click', function () { return _this.close(); });
+        this.maskElement.removeEventListener('click', function () { return _this.close(); });
+        removeElement(this.element);
+        this.targetElement.classList.remove('overflow-hidden');
+    };
+    return Dialog;
+}());
+
+var EditNodeDialog = /** @class */ (function () {
+    function EditNodeDialog(targetCell, graphInstance) {
+        this.graphInstance = graphInstance;
+        this.targetCell = targetCell;
+        this.dialog = null;
+        if (targetCell.nodeData) {
+            this.title = targetCell.nodeData.title;
+            this.isEdit = true;
+        }
+        else {
+            this.title = '';
+            this.isEdit = false;
+        }
+        this.renderContent();
+    }
+    EditNodeDialog.prototype.setIsEdit = function () {
+        if (this.targetCell.nodeData) {
+            this.title = this.targetCell.nodeData.title;
+            this.isEdit = true;
+        }
+        else {
+            this.title = '';
+            this.isEdit = false;
+        }
+        if (this.nodeNameInput)
+            this.nodeNameInput.value = this.title;
+    };
+    EditNodeDialog.prototype.renderContent = function () {
+        var _this = this;
+        this.contentElement = createClassElement('div', 'flex flex-col w-420 px-15 pb-15');
+        this.nodeNameInput = createClassElement('input', 'tfgraph-input', this.contentElement);
+        this.nodeNameInput.setAttribute('placeholder', this.graphInstance.options.labels.enterNodeName);
+        var btnContainer = createClassElement('div', 'flex flex-row items-center justify-end mt-15', this.contentElement);
+        this.btnCancel = new Button(btnContainer, {
+            label: this.graphInstance.options.labels.cancel,
+            type: 'default',
+            className: 'mr-10',
+            onClick: function () {
+                _this.dialog.close();
+            },
+        });
+        this.btnConfirm = new Button(btnContainer, {
+            label: this.graphInstance.options.labels.confirm,
+            type: 'primary',
+            onClick: function () {
+                // TODO
+                if (_this.nodeNameInput.value) {
+                    if (_this.title !== _this.nodeNameInput.value) {
+                        if (_this.isEdit) {
+                            _this.targetCell.nodeData.title = _this.nodeNameInput.value;
+                            _this.dialog.close();
+                            _this.graphInstance.refresh();
+                            if (typeof _this.graphInstance.options.onEditNode === 'function') {
+                                _this.graphInstance.options.onEditNode(_this.targetCell.nodeData);
+                            }
+                        }
+                        else {
+                            var nodeData = {
+                                id: "node_".concat(_this.targetCell.row, "_").concat(_this.targetCell.column),
+                                row: _this.targetCell.row,
+                                column: _this.targetCell.column,
+                                rowSpan: 1,
+                                colSpan: 1,
+                                title: _this.nodeNameInput.value,
+                            };
+                            _this.graphInstance.options.nodes.push(nodeData);
+                            _this.dialog.close();
+                            _this.graphInstance.refresh();
+                            if (typeof _this.graphInstance.options.onAddNode === 'function') {
+                                _this.graphInstance.options.onAddNode(nodeData);
+                            }
+                        }
+                    }
+                    else {
+                        _this.dialog.close();
+                    }
+                }
+            },
+        });
+    };
+    EditNodeDialog.prototype.show = function () {
+        this.setIsEdit();
+        this.dialog = new Dialog({
+            title: this.isEdit
+                ? this.graphInstance.options.labels.editNode
+                : this.graphInstance.options.labels.addNode,
+            contentElement: this.contentElement,
+        });
+    };
+    return EditNodeDialog;
+}());
+
 // import Dialog from '../ui/dialog/Dialog';
 /**
  * table-flow-graph tabel cell
@@ -551,6 +683,7 @@ var TableCell = /** @class */ (function () {
         //   'flex flex-row items-center justify-center p-15 flex-wrap',
         //   this.controlLayer,
         // );
+        this.editDialog = new EditNodeDialog(this, this.graphInstance);
         if (this.nodeData) {
             new Button(this.controlLayer, {
                 icon: 'move',
@@ -567,8 +700,11 @@ var TableCell = /** @class */ (function () {
                 tooltip: this.graphInstance.options.labels.editNode,
                 className: 'absolute left-6 bottom-6 p-0 sm w-28 btn-bl',
                 onClick: function () {
-                    if (typeof _this.graphInstance.options.onEditNode === 'function') {
-                        _this.graphInstance.options.onEditNode(_this.nodeData);
+                    if (typeof _this.graphInstance.options.editNode === 'function') {
+                        _this.graphInstance.options.editNode(_this.nodeData);
+                    }
+                    else {
+                        _this.editDialog.show();
                     }
                 },
             });
@@ -604,11 +740,7 @@ var TableCell = /** @class */ (function () {
                         _this.graphInstance.options.addNode(_this.row, _this.column);
                     }
                     else {
-                        // new Dialog(document.getElementsByTagName('body')[0]);
-                        // TODO add node dialog
-                        if (typeof _this.graphInstance.options.onAddNode === 'function') {
-                            _this.graphInstance.options.onAddNode(_this.row, _this.column);
-                        }
+                        _this.editDialog.show();
                     }
                 },
             });
@@ -1814,6 +1946,10 @@ var defaultOptions = {
         deleteNode: 'Delete Node',
         adjustNodeSize: 'Adjust Node Size',
         moveNode: 'Move Node',
+        newNode: 'New Node',
+        enterNodeName: 'Enter node name',
+        confirm: 'Confirm',
+        cancel: 'Cancel',
     },
 };
 var TableFlowGraph = /** @class */ (function () {

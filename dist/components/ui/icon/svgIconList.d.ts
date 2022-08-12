@@ -2,6 +2,7 @@ declare const svgIconList: {
     edit: string;
     plus: string;
     x: string;
+    x2: string;
     expand: string;
     move: string;
     remove: string;

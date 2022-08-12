@@ -67,3 +67,21 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.tfgraph-input {
+  outline: none;
+  line-height: 36px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid $color-gray-dc;
+  padding: 0 10px;
+  &:hover {
+    border-color: $color-gray-99;
+  }
+  &:focus, &:active {
+    border-color: $color-theme;
+  }
+  &::placeholder {
+    color: $color-gray-dc;
+  }
+}

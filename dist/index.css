@@ -65366,6 +65366,11 @@
   left: 0;
   z-index: 9999;
   overflow: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .tfgraph-dialog .tfgraph-dialog-mask {
   position: absolute;
@@ -65373,15 +65378,41 @@
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 1;
   background-color: rgba(0, 0, 0, 0.5);
 }
 .tfgraph-dialog .tfgraph-dialog-box {
+  position: relative;
+  z-index: 2;
   width: auto;
   height: auto;
   background-color: white;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.25);
   border-radius: 4px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+}
+.tfgraph-dialog .tfgraph-dialog-box .tfgraph-dialog-bar {
+  height: 44px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.tfgraph-dialog .tfgraph-dialog-box .tfgraph-dialog-bar .tfgraph-dialog-bar-title {
+  font-size: 15px;
+  padding-left: 15px;
+  color: #333333;
+  font-weight: bold;
+}
+.tfgraph-dialog .tfgraph-dialog-box .tfgraph-dialog-bar .tfgraph-dialog-bar-btn {
+  padding: 5px 15px;
+  cursor: pointer;
+}
+.tfgraph-dialog .tfgraph-dialog-box .tfgraph-dialog-bar .tfgraph-dialog-bar-btn svg {
+  fill: #999999;
+}
+.tfgraph-dialog .tfgraph-dialog-box .tfgraph-dialog-bar .tfgraph-dialog-bar-btn:hover svg {
+  fill: #377df4;
 }
 
 .tfgraph-toolbar-mask {
@@ -65450,4 +65481,22 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+
+.tfgraph-input {
+  outline: none;
+  line-height: 36px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #dcdcdc;
+  padding: 0 10px;
+}
+.tfgraph-input:hover {
+  border-color: #999999;
+}
+.tfgraph-input:focus, .tfgraph-input:active {
+  border-color: #377df4;
+}
+.tfgraph-input::placeholder {
+  color: #dcdcdc;
 }
