@@ -45,10 +45,14 @@ module.exports = outputList.map((outputData) => {
     file: outputData.file,
     format: outputData.format,
     banner: outputData.banner,
+    globals: {
+      'lodash-es': 'lodashEs',
+    },
   };
   if (outputData.name) output.name = outputData.name;
 
   return {
+    external: ['lodash-es'],
     input: resolve('src/index.ts'),
     output,
     plugins: [
