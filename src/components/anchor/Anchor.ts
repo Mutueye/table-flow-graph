@@ -75,7 +75,7 @@ export default class Anchor {
       });
       this.element.addEventListener('mouseleave', () => {
         if (graphInstance.anchorController.hoveredAnchor.id === this.id) {
-          graphInstance.anchorController.setHoveredAnchor(undefined);
+          graphInstance.anchorController.setHoveredAnchor(null);
         }
       });
       // dblclick to finish drawing lines

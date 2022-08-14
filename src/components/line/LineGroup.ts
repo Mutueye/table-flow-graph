@@ -97,6 +97,9 @@ export default class LineGroup {
       this.lines.forEach((line) => {
         line.setHoverd(hovered);
       });
+      if (!this.isDrawingActive) {
+        this.graphInstance.toolbar.hintMgr.setHint(hovered ? 'hoverLine' : 'idel');
+      }
     }
   }
 

@@ -9,7 +9,7 @@ import Anchor from './Anchor';
 export default class AnchorController {
   public element: HTMLElement;
   public anchors: Anchor[];
-  public hoveredAnchor: Anchor; // current Anchor that mouse hoverd
+  public hoveredAnchor: Anchor | null; // current Anchor that mouse hoverd
   graphInstance: TableFlowGraph;
 
   constructor(graphInstance: TableFlowGraph) {
@@ -27,8 +27,15 @@ export default class AnchorController {
     });
   }
 
-  public setHoveredAnchor(anchor: Anchor | undefined) {
+  public setHoveredAnchor(anchor: Anchor | null) {
     this.hoveredAnchor = anchor;
+    if (!this.graphInstance.lineController.isDrawingLine) {
+      if (anchor) {
+        this.graphInstance.toolbar.hintMgr.setHint('hoverAnchor');
+      } else {
+        this.graphInstance.toolbar.hintMgr.setHint('idel');
+      }
+    }
   }
 
   public resetPosition() {

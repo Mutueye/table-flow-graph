@@ -44,6 +44,7 @@ export default class LineController {
   public startDrawLine() {
     this.isDrawingLine = true;
     this.graphInstance.toolbar.disable();
+    this.graphInstance.toolbar.hintMgr.setHint('drawLine');
     // set lines layer below anchors layer when draing line
     setStyles(this.element, { zIndex: '1' });
     setStyles(this.graphInstance.anchorController.element, { zIndex: '2' });
@@ -97,6 +98,7 @@ export default class LineController {
     this.graphInstance.options = Object.assign({}, this.graphInstance.options, {
       lines: this.lineAnchorIds,
     });
+    this.graphInstance.toolbar.hintMgr.setHint('idel');
     if (typeof this.graphInstance.options.onChangeLines === 'function') {
       this.graphInstance.options.onChangeLines(this.lineAnchorIds);
     }

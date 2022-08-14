@@ -31,6 +31,12 @@ const defaultOptions: TFGraphOptions = {
     enterColumnName: 'Enter column name',
     confirm: 'Confirm',
     cancel: 'Cancel',
+    hint_drawLine:
+      'Click another anchor to draw new line segment; press [ESC] to undo prev line segment; press [ENTER] or double click left mouse to finish drawing',
+    hint_hoverLine: 'Double click to delete this line',
+    hint_hoverAnchor: 'Click to start drawing lines',
+    hint_moveNode: 'Move cursor to move this node, click left mouse to confrim moving',
+    hint_resizeNode: 'Move cursor to resize this node, click left mouse to confrim resizing',
   },
 };
 

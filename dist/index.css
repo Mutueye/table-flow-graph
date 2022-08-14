@@ -65405,7 +65405,7 @@
   font-weight: bold;
 }
 .tfgraph-dialog .tfgraph-dialog-box .tfgraph-dialog-bar .tfgraph-dialog-bar-btn {
-  padding: 5px 15px;
+  padding: 5px 13px;
   cursor: pointer;
 }
 .tfgraph-dialog .tfgraph-dialog-box .tfgraph-dialog-bar .tfgraph-dialog-bar-btn svg {
@@ -65424,6 +65424,17 @@
   background-color: rgba(255, 255, 255, 0.5);
   z-index: 10;
   cursor: not-allowed;
+}
+
+.tfgraph-toolbar-hint {
+  flex: 1;
+  text-align: center;
+  padding: 0 30px;
+  font-size: 12px;
+  color: #666666;
+  line-height: 16px;
+  position: relative;
+  z-index: 20;
 }
 
 .hidden {

@@ -454,6 +454,42 @@ var EditColumnDialog = /** @class */ (function () {
     return EditColumnDialog;
 }());
 
+var HintManager = /** @class */ (function () {
+    function HintManager(targetEl, graphInstance) {
+        this.targetEl = targetEl;
+        this.graphInstance = graphInstance;
+        this.currentHintState = 'idel';
+        this.targetEl.innerText = '';
+    }
+    HintManager.prototype.setHint = function (hintState) {
+        this.currentHintState = hintState;
+        switch (this.currentHintState) {
+            case 'idel':
+                this.targetEl.innerText = '';
+                break;
+            case 'drawLine':
+                this.targetEl.innerText = this.graphInstance.options.labels.hint_drawLine;
+                break;
+            case 'hoverLine':
+                this.targetEl.innerText = this.graphInstance.options.labels.hint_hoverLine;
+                break;
+            case 'hoverAnchor':
+                this.targetEl.innerText = this.graphInstance.options.labels.hint_hoverAnchor;
+                break;
+            case 'moveNode':
+                this.targetEl.innerText = this.graphInstance.options.labels.hint_moveNode;
+                break;
+            case 'resizeNode':
+                this.targetEl.innerText = this.graphInstance.options.labels.hint_resizeNode;
+                break;
+            default:
+                this.targetEl.innerText = '';
+                break;
+        }
+    };
+    return HintManager;
+}());
+
 // import { Icon } from './ui/Icon';
 /**
  * table-flow-graph toolbar
@@ -473,6 +509,8 @@ var Toolbar = /** @class */ (function () {
                 _this.setToolbarState();
             },
         });
+        this.hintEl = createClassElement('div', 'tfgraph-toolbar-hint', this.element);
+        this.hintMgr = new HintManager(this.hintEl, this.graphInstance);
         // new Icon(this.element, {
         //   name: 'plus',
         //   style: { width: '16px', height: '16px' },
@@ -508,7 +546,6 @@ var Toolbar = /** @class */ (function () {
         }
         else {
             if (this.graphInstance.hasTableHeader) {
-                console.log('custom add column:::::::::::');
                 // add column dialog
                 this.addColDialog.show();
             }
@@ -1360,21 +1397,25 @@ var Table = /** @class */ (function () {
     };
     Table.prototype.startMoving = function (targetCell) {
         this.isMovingCell = true;
+        this.graphInstance.toolbar.hintMgr.setHint('moveNode');
         this.graphInstance.toolbar.disable();
         this.tableMask.startMask(targetCell);
     };
     Table.prototype.stopMoving = function () {
         this.isMovingCell = false;
+        this.graphInstance.toolbar.hintMgr.setHint('idel');
         this.graphInstance.toolbar.enable();
         this.tableMask.stopMask();
     };
     Table.prototype.startResizing = function (targetCell) {
         this.isResizingCell = true;
+        this.graphInstance.toolbar.hintMgr.setHint('resizeNode');
         this.graphInstance.toolbar.disable();
         this.tableMask.startMask(targetCell);
     };
     Table.prototype.stopResizing = function () {
         this.isResizingCell = false;
+        this.graphInstance.toolbar.hintMgr.setHint('idel');
         this.graphInstance.toolbar.enable();
         this.tableMask.stopMask();
     };
@@ -1640,6 +1681,9 @@ var LineGroup = /** @class */ (function () {
             this.lines.forEach(function (line) {
                 line.setHoverd(hovered);
             });
+            if (!this.isDrawingActive) {
+                this.graphInstance.toolbar.hintMgr.setHint(hovered ? 'hoverLine' : 'idel');
+            }
         }
     };
     LineGroup.prototype.endDrawing = function () {
@@ -1709,6 +1753,7 @@ var LineController = /** @class */ (function () {
     LineController.prototype.startDrawLine = function () {
         this.isDrawingLine = true;
         this.graphInstance.toolbar.disable();
+        this.graphInstance.toolbar.hintMgr.setHint('drawLine');
         // set lines layer below anchors layer when draing line
         setStyles(this.element, { zIndex: '1' });
         setStyles(this.graphInstance.anchorController.element, { zIndex: '2' });
@@ -1758,6 +1803,7 @@ var LineController = /** @class */ (function () {
         this.graphInstance.options = Object.assign({}, this.graphInstance.options, {
             lines: this.lineAnchorIds,
         });
+        this.graphInstance.toolbar.hintMgr.setHint('idel');
         if (typeof this.graphInstance.options.onChangeLines === 'function') {
             this.graphInstance.options.onChangeLines(this.lineAnchorIds);
         }
@@ -1838,7 +1884,7 @@ var Anchor = /** @class */ (function () {
             });
             this.element.addEventListener('mouseleave', function () {
                 if (graphInstance.anchorController.hoveredAnchor.id === _this.id) {
-                    graphInstance.anchorController.setHoveredAnchor(undefined);
+                    graphInstance.anchorController.setHoveredAnchor(null);
                 }
             });
             // dblclick to finish drawing lines
@@ -1924,6 +1970,14 @@ var AnchorController = /** @class */ (function () {
     };
     AnchorController.prototype.setHoveredAnchor = function (anchor) {
         this.hoveredAnchor = anchor;
+        if (!this.graphInstance.lineController.isDrawingLine) {
+            if (anchor) {
+                this.graphInstance.toolbar.hintMgr.setHint('hoverAnchor');
+            }
+            else {
+                this.graphInstance.toolbar.hintMgr.setHint('idel');
+            }
+        }
     };
     AnchorController.prototype.resetPosition = function () {
         if (this.anchors && this.anchors.length > 0) {
@@ -2022,6 +2076,11 @@ var defaultOptions = {
         enterColumnName: 'Enter column name',
         confirm: 'Confirm',
         cancel: 'Cancel',
+        hint_drawLine: 'Click another anchor to draw new line segment; press [ESC] to undo prev line segment; press [ENTER] or double click left mouse to finish drawing',
+        hint_hoverLine: 'Double click to delete this line',
+        hint_hoverAnchor: 'Click to start drawing lines',
+        hint_moveNode: 'Move cursor to move this node, click left mouse to confrim moving',
+        hint_resizeNode: 'Move cursor to resize this node, click left mouse to confrim resizing',
     },
 };
 var TableFlowGraph = /** @class */ (function () {

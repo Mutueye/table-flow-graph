@@ -146,24 +146,28 @@ export default class Table {
 
   public startMoving(targetCell: TableCell) {
     this.isMovingCell = true;
+    this.graphInstance.toolbar.hintMgr.setHint('moveNode');
     this.graphInstance.toolbar.disable();
     this.tableMask.startMask(targetCell);
   }
 
   public stopMoving() {
     this.isMovingCell = false;
+    this.graphInstance.toolbar.hintMgr.setHint('idel');
     this.graphInstance.toolbar.enable();
     this.tableMask.stopMask();
   }
 
   public startResizing(targetCell: TableCell) {
     this.isResizingCell = true;
+    this.graphInstance.toolbar.hintMgr.setHint('resizeNode');
     this.graphInstance.toolbar.disable();
     this.tableMask.startMask(targetCell);
   }
 
   public stopResizing() {
     this.isResizingCell = false;
+    this.graphInstance.toolbar.hintMgr.setHint('idel');
     this.graphInstance.toolbar.enable();
     this.tableMask.stopMask();
   }

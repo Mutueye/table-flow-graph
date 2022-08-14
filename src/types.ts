@@ -62,6 +62,11 @@ export type Labels = {
   enterColumnName?: string;
   confirm?: string;
   cancel?: string;
+  hint_drawLine?: string;
+  hint_hoverLine?: string;
+  hint_hoverAnchor?: string;
+  hint_moveNode?: string;
+  hint_resizeNode?: string;
 };
 
 // table-flow-graph options
@@ -208,3 +213,11 @@ export type CellPositionAndSize = {
   rowSpan: number;
   colSpan: number;
 };
+
+export type HintType =
+  | 'idel'
+  | 'drawLine'
+  | 'hoverLine'
+  | 'hoverAnchor'
+  | 'moveNode'
+  | 'resizeNode';

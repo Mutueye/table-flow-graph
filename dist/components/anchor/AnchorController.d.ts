@@ -7,11 +7,11 @@ import Anchor from './Anchor';
 export default class AnchorController {
     element: HTMLElement;
     anchors: Anchor[];
-    hoveredAnchor: Anchor;
+    hoveredAnchor: Anchor | null;
     graphInstance: TableFlowGraph;
     constructor(graphInstance: TableFlowGraph);
     renderAnchors(): void;
-    setHoveredAnchor(anchor: Anchor | undefined): void;
+    setHoveredAnchor(anchor: Anchor | null): void;
     resetPosition(): void;
     setAnchorsVisible(visible: boolean): void;
     createAnchors(cell: TableCell): void;

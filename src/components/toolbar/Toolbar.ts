@@ -4,6 +4,7 @@ import Button from '../ui/button/Button';
 import Toggler from '../ui/toggler/Toggler';
 import { Mode } from '../../types';
 import EditColumnDialog from '../table/EditColumnDialog';
+import HintManager from './HintManager';
 // import { Icon } from './ui/Icon';
 
 /**
@@ -14,6 +15,8 @@ export default class Toolbar {
   public graphInstance: TableFlowGraph;
   public disabledMask: HTMLElement;
   public modeToggler: Toggler;
+  public hintEl: HTMLElement;
+  public hintMgr: HintManager;
   public newColumnBtn: Button;
   public addColDialog: EditColumnDialog;
 
@@ -30,6 +33,8 @@ export default class Toolbar {
         this.setToolbarState();
       },
     });
+    this.hintEl = createClassElement('div', 'tfgraph-toolbar-hint', this.element);
+    this.hintMgr = new HintManager(this.hintEl, this.graphInstance);
     // new Icon(this.element, {
     //   name: 'plus',
     //   style: { width: '16px', height: '16px' },
@@ -67,7 +72,6 @@ export default class Toolbar {
       this.graphInstance.options.addColumn();
     } else {
       if (this.graphInstance.hasTableHeader) {
-        console.log('custom add column:::::::::::');
         // add column dialog
         this.addColDialog.show();
       } else {
