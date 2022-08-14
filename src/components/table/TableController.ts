@@ -102,7 +102,7 @@ export default class Table {
         this.tableMask = new TableMask(tableGridRectList, this.graphInstance);
       }, 1);
     } else {
-      // TODO click node event
+      // click node event
       this.cells.forEach((cell) => {
         // set tabel cell controls
         cell.setViewModeControls();
@@ -110,12 +110,12 @@ export default class Table {
     }
     this.setBottomControl();
 
-    // TODO set table cell controls
+    // set table cell controls
     // 1. remove last row ✓
     // 2. empty cell: add node ✓
     // 3. node cell: edit node content ✓
-    // 4. node cell: adjust node size
-    // 5. node cell: move node position
+    // 4. node cell: adjust node size ✓
+    // 5. node cell: move node position ✓
   }
 
   //  recursively find min rowspan cell for targetRow

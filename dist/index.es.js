@@ -333,6 +333,123 @@ var Toggler = /** @class */ (function () {
     return Toggler;
 }());
 
+/**
+ * table-flow-graph dialog
+ */
+var Dialog = /** @class */ (function () {
+    function Dialog(options) {
+        var _this = this;
+        this.title = options.title;
+        this.targetElement = options.targetElement
+            ? options.targetElement
+            : document.getElementsByTagName('body')[0];
+        this.element = createClassElement('div', 'tfgraph-dialog', this.targetElement);
+        this.maskElement = createClassElement('div', 'tfgraph-dialog-mask', this.element);
+        this.boxElement = createClassElement('div', 'tfgraph-dialog-box', this.element);
+        this.renderTitleBar();
+        this.boxElement.appendChild(options.contentElement);
+        this.targetElement.classList.add('overflow-hidden');
+        this.maskElement.addEventListener('click', function () { return _this.close(); });
+    }
+    Dialog.prototype.renderTitleBar = function () {
+        var _this = this;
+        this.titleBarElement = createClassElement('div', 'tfgraph-dialog-bar', this.boxElement);
+        var titleEl = createClassElement('div', 'tfgraph-dialog-bar-title', this.titleBarElement);
+        titleEl.innerText = this.title;
+        this.closeBtnElement = createClassElement('div', 'tfgraph-dialog-bar-btn', this.titleBarElement);
+        new Icon(this.closeBtnElement, { name: 'x2', size: 18 });
+        this.closeBtnElement.addEventListener('click', function () { return _this.close(); });
+    };
+    Dialog.prototype.close = function () {
+        var _this = this;
+        this.closeBtnElement.removeEventListener('click', function () { return _this.close(); });
+        this.maskElement.removeEventListener('click', function () { return _this.close(); });
+        removeElement(this.element);
+        this.targetElement.classList.remove('overflow-hidden');
+    };
+    return Dialog;
+}());
+
+var EditColumnDialog = /** @class */ (function () {
+    function EditColumnDialog(graphInstance, targetHeaderCell) {
+        this.graphInstance = graphInstance;
+        this.dialog = null;
+        this.targetHeaderCell = targetHeaderCell;
+        this.setIsEdit();
+        this.renderContent();
+    }
+    EditColumnDialog.prototype.setIsEdit = function () {
+        if (this.targetHeaderCell) {
+            this.title = this.targetHeaderCell.columnData.title;
+            this.isEdit = true;
+        }
+        else {
+            this.title = '';
+            this.isEdit = false;
+        }
+        if (this.inputEl)
+            this.inputEl.value = this.title;
+    };
+    EditColumnDialog.prototype.renderContent = function () {
+        var _this = this;
+        this.contentElement = createClassElement('div', 'flex flex-col w-420 px-15 pb-15');
+        this.inputEl = createClassElement('input', 'tfgraph-input', this.contentElement);
+        this.inputEl.setAttribute('placeholder', this.graphInstance.options.labels.enterColumnName);
+        var btnContainer = createClassElement('div', 'flex flex-row items-center justify-end mt-15', this.contentElement);
+        this.btnCancel = new Button(btnContainer, {
+            label: this.graphInstance.options.labels.cancel,
+            type: 'default',
+            className: 'mr-10',
+            onClick: function () {
+                _this.dialog.close();
+            },
+        });
+        this.btnConfirm = new Button(btnContainer, {
+            label: this.graphInstance.options.labels.confirm,
+            type: 'primary',
+            onClick: function () {
+                if (_this.inputEl.value) {
+                    if (_this.title !== _this.inputEl.value) {
+                        if (_this.isEdit) {
+                            _this.targetHeaderCell.columnData.title = _this.inputEl.value;
+                            _this.dialog.close();
+                            _this.graphInstance.refresh();
+                            if (typeof _this.graphInstance.options.onEditColumn === 'function') {
+                                _this.graphInstance.options.onEditColumn(_this.targetHeaderCell.columnData);
+                            }
+                        }
+                        else {
+                            var colData = {
+                                id: "header_col_".concat(_this.graphInstance.options.totalColumns),
+                                title: _this.inputEl.value,
+                            };
+                            _this.graphInstance.options.columns.push(colData);
+                            _this.dialog.close();
+                            _this.graphInstance.refresh();
+                            if (typeof _this.graphInstance.options.onAddColumn === 'function') {
+                                _this.graphInstance.options.onAddColumn(colData);
+                            }
+                        }
+                    }
+                    else {
+                        _this.dialog.close();
+                    }
+                }
+            },
+        });
+    };
+    EditColumnDialog.prototype.show = function () {
+        this.setIsEdit();
+        this.dialog = new Dialog({
+            title: this.isEdit
+                ? this.graphInstance.options.labels.editColumn
+                : this.graphInstance.options.labels.addColumn,
+            contentElement: this.contentElement,
+        });
+    };
+    return EditColumnDialog;
+}());
+
 // import { Icon } from './ui/Icon';
 /**
  * table-flow-graph toolbar
@@ -379,6 +496,7 @@ var Toolbar = /** @class */ (function () {
         // new Button(this.element, { label: 'success', type: 'success' });
         // testBtn.setDisabled();
         this.setToolbarState();
+        this.addColDialog = new EditColumnDialog(this.graphInstance);
     }
     Toolbar.prototype.addColumn = function () {
         if (typeof this.graphInstance.options.addColumn === 'function') {
@@ -387,8 +505,8 @@ var Toolbar = /** @class */ (function () {
         else {
             if (this.graphInstance.hasTableHeader) {
                 console.log('custom add column:::::::::::');
-                // TODO add column dialog
-                // TOOD onAddColumn(columnData)
+                // add column dialog
+                this.addColDialog.show();
             }
             else {
                 this.graphInstance.refresh(Object.assign({}, this.graphInstance.options, {
@@ -424,9 +542,12 @@ var Toolbar = /** @class */ (function () {
  */
 var Popup = /** @class */ (function () {
     function Popup(targetElement, options) {
+        var _this = this;
         this.targetElement = targetElement;
         this.options = options;
         this.rendered = false;
+        this.targetElement.addEventListener('mouseenter', function () { return _this.mouseEnter(); });
+        this.targetElement.addEventListener('mouseleave', function () { return _this.mouseLeave(); });
     }
     Popup.prototype.render = function () {
         var _this = this;
@@ -497,45 +618,8 @@ var Popup = /** @class */ (function () {
     return Popup;
 }());
 
-/**
- * table-flow-graph dialog
- */
-var Dialog = /** @class */ (function () {
-    function Dialog(options) {
-        var _this = this;
-        this.title = options.title;
-        this.targetElement = options.targetElement
-            ? options.targetElement
-            : document.getElementsByTagName('body')[0];
-        this.element = createClassElement('div', 'tfgraph-dialog', this.targetElement);
-        this.maskElement = createClassElement('div', 'tfgraph-dialog-mask', this.element);
-        this.boxElement = createClassElement('div', 'tfgraph-dialog-box', this.element);
-        this.renderTitleBar();
-        this.boxElement.appendChild(options.contentElement);
-        this.targetElement.classList.add('overflow-hidden');
-        this.maskElement.addEventListener('click', function () { return _this.close(); });
-    }
-    Dialog.prototype.renderTitleBar = function () {
-        var _this = this;
-        this.titleBarElement = createClassElement('div', 'tfgraph-dialog-bar', this.boxElement);
-        var titleEl = createClassElement('div', 'tfgraph-dialog-bar-title', this.titleBarElement);
-        titleEl.innerText = this.title;
-        this.closeBtnElement = createClassElement('div', 'tfgraph-dialog-bar-btn', this.titleBarElement);
-        new Icon(this.closeBtnElement, { name: 'x2', size: 18 });
-        this.closeBtnElement.addEventListener('click', function () { return _this.close(); });
-    };
-    Dialog.prototype.close = function () {
-        var _this = this;
-        this.closeBtnElement.removeEventListener('click', function () { return _this.close(); });
-        this.maskElement.removeEventListener('click', function () { return _this.close(); });
-        removeElement(this.element);
-        this.targetElement.classList.remove('overflow-hidden');
-    };
-    return Dialog;
-}());
-
 var EditNodeDialog = /** @class */ (function () {
-    function EditNodeDialog(targetCell, graphInstance) {
+    function EditNodeDialog(graphInstance, targetCell) {
         this.graphInstance = graphInstance;
         this.targetCell = targetCell;
         this.dialog = null;
@@ -579,7 +663,6 @@ var EditNodeDialog = /** @class */ (function () {
             label: this.graphInstance.options.labels.confirm,
             type: 'primary',
             onClick: function () {
-                // TODO
                 if (_this.nodeNameInput.value) {
                     if (_this.title !== _this.nodeNameInput.value) {
                         if (_this.isEdit) {
@@ -679,7 +762,7 @@ var TableCell = /** @class */ (function () {
         //   'flex flex-row items-center justify-center p-15 flex-wrap',
         //   this.controlLayer,
         // );
-        this.editDialog = new EditNodeDialog(this, this.graphInstance);
+        this.editDialog = new EditNodeDialog(this.graphInstance, this);
         if (this.nodeData) {
             new Button(this.controlLayer, {
                 icon: 'move',
@@ -710,6 +793,7 @@ var TableCell = /** @class */ (function () {
                 tooltip: this.graphInstance.options.labels.deleteNode,
                 className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
                 onClick: function () {
+                    // TODO remove cell
                     if (typeof _this.graphInstance.options.onDeleteNode === 'function') {
                         _this.graphInstance.options.onDeleteNode(_this.nodeData);
                     }
@@ -816,19 +900,9 @@ var TableCell = /** @class */ (function () {
                     contentEl = createClassElement('div', 'flex flex-col items-center p-30');
                     contentEl.innerHTML = this.nodeData.title;
                 }
-                this.popup = new Popup(this.element, {
+                this.popup = new Popup(this.nodeEl, {
                     placement: 'top',
                     contentElement: contentEl,
-                });
-                this.element.addEventListener('mouseenter', function () {
-                    if (_this.popup) {
-                        _this.popup.mouseEnter();
-                    }
-                });
-                this.element.addEventListener('mouseleave', function () {
-                    if (_this.popup) {
-                        _this.popup.mouseLeave();
-                    }
                 });
             }
         }
@@ -875,7 +949,6 @@ var TableCell = /** @class */ (function () {
     return TableCell;
 }());
 
-// import TableHeaderCellMenu from './TableHeaderCellMenu';
 /**
  * table-flow-graph tabel header cell
  */
@@ -926,46 +999,44 @@ var TableHeaderCell = /** @class */ (function () {
     // header cell controls for edit mode
     TableHeaderCell.prototype.setEditControls = function () {
         var _this = this;
-        // this.menu = new TableHeaderCellMenu(this, {
-        //   showDelete: this.isLast && this.graphInstance.tableController.canDeleteColumn,
-        //   // showAdd: this.isLast,
-        // });
-        // this.popMenu = new Popup(this.element, { placement: 'top', contentElement: this.menu.element });
-        // this.element.addEventListener('mouseenter', () => {
-        //   if (this.popMenu) {
-        //     this.popMenu.mouseEnter();
-        //   }
-        // });
-        // this.element.addEventListener('mouseleave', () => {
-        //   if (this.popMenu) {
-        //     this.popMenu.mouseLeave();
-        //   }
-        // });
         this.controlLayer = createClassElement('div', 'tfgraph-cell-control-layer hidden', this.element);
+        this.editColDialog = new EditColumnDialog(this.graphInstance, this);
         new Button(this.controlLayer, {
             icon: 'edit',
             type: 'primary',
             className: 'absolute left-6 top-6 p-0 sm w-28 btn-tl',
             tooltip: this.graphInstance.options.labels.editColumn,
             onClick: function () {
-                if (typeof _this.graphInstance.options.onEditColumn === 'function') {
-                    _this.graphInstance.options.onEditColumn(_this.columnData);
+                if (typeof _this.graphInstance.options.editColumn === 'function') {
+                    _this.graphInstance.options.editColumn(_this.columnData);
+                }
+                else {
+                    _this.editColDialog.show();
                 }
             },
         });
-        // if (this.isLast && this.graphInstance.tableController.canDeleteColumn) {
-        //   new Button(this.controlLayer, {
-        //     icon: 'x',
-        //     type: 'danger',
-        //     className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
-        //     tooltip: this.graphInstance.options.labels.deleteColumn,
-        //     onClick: () => {
-        //       if (typeof this.graphInstance.options.onDeleteColumn === 'function') {
-        //         this.graphInstance.options.onDeleteColumn(this.columnData);
-        //       }
-        //     },
-        //   });
-        // }
+        if (this.isLast && this.graphInstance.tableController.canDeleteColumn) {
+            new Button(this.controlLayer, {
+                icon: 'delete_col',
+                type: 'danger',
+                className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
+                tooltip: this.graphInstance.options.labels.deleteColumn,
+                onClick: function () {
+                    if (typeof _this.graphInstance.options.deleteColumn === 'function') {
+                        // custom delete column method
+                        _this.graphInstance.options.deleteColumn();
+                    }
+                    else {
+                        if (typeof _this.graphInstance.options.onDeleteColumn === 'function') {
+                            var targetColumn = _this.graphInstance.options.columns[_this.graphInstance.options.totalColumns - 1];
+                            _this.graphInstance.options.onDeleteColumn(targetColumn);
+                        }
+                        _this.graphInstance.options.columns.pop();
+                        _this.graphInstance.refresh(Object.assign({}, _this.graphInstance.options));
+                    }
+                },
+            });
+        }
         this.element.addEventListener('mouseenter', function () { return _this.onMouseEnter(); });
         this.element.addEventListener('mouseleave', function () { return _this.onMouseLeave(); });
     };
@@ -1243,19 +1314,19 @@ var Table = /** @class */ (function () {
             }, 1);
         }
         else {
-            // TODO click node event
+            // click node event
             this.cells.forEach(function (cell) {
                 // set tabel cell controls
                 cell.setViewModeControls();
             });
         }
         this.setBottomControl();
-        // TODO set table cell controls
+        // set table cell controls
         // 1. remove last row ✓
         // 2. empty cell: add node ✓
         // 3. node cell: edit node content ✓
-        // 4. node cell: adjust node size
-        // 5. node cell: move node position
+        // 4. node cell: adjust node size ✓
+        // 5. node cell: move node position ✓
     };
     //  recursively find min rowspan cell for targetRow
     Table.prototype.getMinRowSpanCell = function (row, minRowSpan) {
@@ -1944,6 +2015,7 @@ var defaultOptions = {
         moveNode: 'Move Node',
         newNode: 'New Node',
         enterNodeName: 'Enter node name',
+        enterColumnName: 'Enter column name',
         confirm: 'Confirm',
         cancel: 'Cancel',
     },

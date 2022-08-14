@@ -87,7 +87,7 @@ export default class TableCell {
     //   'flex flex-row items-center justify-center p-15 flex-wrap',
     //   this.controlLayer,
     // );
-    this.editDialog = new EditNodeDialog(this, this.graphInstance);
+    this.editDialog = new EditNodeDialog(this.graphInstance, this);
     if (this.nodeData) {
       new Button(this.controlLayer, {
         icon: 'move',
@@ -117,6 +117,7 @@ export default class TableCell {
         tooltip: this.graphInstance.options.labels.deleteNode,
         className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
         onClick: () => {
+          // TODO remove cell
           if (typeof this.graphInstance.options.onDeleteNode === 'function') {
             this.graphInstance.options.onDeleteNode(this.nodeData);
           }
@@ -227,19 +228,9 @@ export default class TableCell {
           contentEl.innerHTML = this.nodeData.title;
         }
 
-        this.popup = new Popup(this.element, {
+        this.popup = new Popup(this.nodeEl, {
           placement: 'top',
           contentElement: contentEl,
-        });
-        this.element.addEventListener('mouseenter', () => {
-          if (this.popup) {
-            this.popup.mouseEnter();
-          }
-        });
-        this.element.addEventListener('mouseleave', () => {
-          if (this.popup) {
-            this.popup.mouseLeave();
-          }
         });
       }
     }

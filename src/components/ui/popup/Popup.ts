@@ -19,6 +19,8 @@ export default class Popup {
     this.targetElement = targetElement;
     this.options = options;
     this.rendered = false;
+    this.targetElement.addEventListener('mouseenter', () => this.mouseEnter());
+    this.targetElement.addEventListener('mouseleave', () => this.mouseLeave());
   }
 
   public render() {

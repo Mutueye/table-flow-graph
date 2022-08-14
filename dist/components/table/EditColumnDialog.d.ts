@@ -1,18 +1,18 @@
 import { TableFlowGraph } from '../..';
 import Button from '../ui/button/Button';
 import Dialog from '../ui/dialog/Dialog';
-import TableCell from './TableCell';
-export default class EditNodeDialog {
+import TableHeaderCell from './TableHeaderCell';
+export default class EditColumnDialog {
     dialog: Dialog | null;
-    targetCell: TableCell;
+    targetHeaderCell: TableHeaderCell;
     title: string;
     graphInstance: TableFlowGraph;
     contentElement: HTMLElement;
-    nodeNameInput: HTMLInputElement;
+    inputEl: HTMLInputElement;
     btnConfirm: Button;
     btnCancel: Button;
     isEdit: boolean;
-    constructor(graphInstance: TableFlowGraph, targetCell: TableCell);
+    constructor(graphInstance: TableFlowGraph, targetHeaderCell?: TableHeaderCell);
     setIsEdit(): void;
     renderContent(): void;
     show(): void;

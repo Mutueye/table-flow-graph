@@ -36,6 +36,7 @@ export declare type Labels = {
     moveNode?: string;
     newNode?: string;
     enterNodeName?: string;
+    enterColumnName?: string;
     confirm?: string;
     cancel?: string;
 };
@@ -53,6 +54,7 @@ export interface TFGraphOptions {
     onChangeLines?: (lines: string[][]) => void;
     addColumn?: () => void;
     onAddColumn?: (columnData?: TFGraphColumn) => void;
+    editColumn?: (column: TFGraphColumn) => void;
     onEditColumn?: (column: TFGraphColumn) => void;
     deleteColumn?: () => void;
     onDeleteColumn?: (column?: TFGraphColumn) => void;

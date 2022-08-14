@@ -3,6 +3,7 @@ import { createClassElement } from '../../lib/dom';
 import Button from '../ui/button/Button';
 import Toggler from '../ui/toggler/Toggler';
 import { Mode } from '../../types';
+import EditColumnDialog from '../table/EditColumnDialog';
 // import { Icon } from './ui/Icon';
 
 /**
@@ -14,6 +15,7 @@ export default class Toolbar {
   public disabledMask: HTMLElement;
   public modeToggler: Toggler;
   public newColumnBtn: Button;
+  public addColDialog: EditColumnDialog;
 
   constructor(parentElement: HTMLElement, graphInstance: TableFlowGraph) {
     this.graphInstance = graphInstance;
@@ -57,6 +59,7 @@ export default class Toolbar {
     // new Button(this.element, { label: 'success', type: 'success' });
     // testBtn.setDisabled();
     this.setToolbarState();
+    this.addColDialog = new EditColumnDialog(this.graphInstance);
   }
 
   addColumn() {
@@ -65,8 +68,8 @@ export default class Toolbar {
     } else {
       if (this.graphInstance.hasTableHeader) {
         console.log('custom add column:::::::::::');
-        // TODO add column dialog
-        // TOOD onAddColumn(columnData)
+        // add column dialog
+        this.addColDialog.show();
       } else {
         this.graphInstance.refresh(
           Object.assign({}, this.graphInstance.options, {

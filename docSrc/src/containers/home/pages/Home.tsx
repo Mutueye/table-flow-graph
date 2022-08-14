@@ -37,22 +37,52 @@ const Home: React.FC<Props> = ({ className }) => {
   };
 
   const options: TFGraphOptions = {
-    isEditor: true,
+    isEditor: false,
     totalColumns: 10,
+    // columns: [
+    //   {
+    //     id: '1',
+    //     title: 'col1',
+    //   },
+    //   {
+    //     id: '2',
+    //     title: 'col2',
+    //   },
+    //   {
+    //     id: '3',
+    //     title: 'col3',
+    //   },
+    //   {
+    //     id: '4',
+    //     title: 'col4',
+    //   },
+    //   {
+    //     id: '5',
+    //     title: 'col5',
+    //   },
+    //   {
+    //     id: '6',
+    //     title: 'col6',
+    //   },
+    //   {
+    //     id: '7',
+    //     title: 'col7',
+    //   },
+    //   {
+    //     id: '8',
+    //     title: 'col8',
+    //   },
+    //   {
+    //     id: '9',
+    //     title: 'col9',
+    //   },
+    //   {
+    //     id: '10',
+    //     title: 'col10',
+    //   },
+    // ],
     totalRows: 12,
     lines: [
-      [
-        'anchor_2_3_bottom_normalx_offsety',
-        'anchor_3_3_center_normalx_normaly',
-        'anchor_3_2_center_normalx_normaly',
-        'anchor_4_2_top_normalx_offsety',
-      ],
-      [
-        'anchor_2_6_bottom_normalx_offsety',
-        'anchor_3_6_center_normalx_normaly',
-        'anchor_3_7_center_normalx_normaly',
-        'anchor_4_7_top_normalx_offsety',
-      ],
       ['anchor_2_4_bottomright_normalx_offsety', 'anchor_6_4_topright_normalx_offsety'],
       ['anchor_6_4_bottomright_normalx_offsety', 'anchor_8_4_topright_normalx_offsety'],
       [
@@ -67,6 +97,16 @@ const Home: React.FC<Props> = ({ className }) => {
         'anchor_7_7_right_normalx_normaly',
         'anchor_8_7_topright_normalx_offsety',
       ],
+      [
+        'anchor_2_4_bottom_normalx_offsety',
+        'anchor_4_4_center_normalx_normaly',
+        'anchor_4_3_right_offsetx_normaly',
+      ],
+      [
+        'anchor_2_5_bottom_normalx_offsety',
+        'anchor_4_5_center_normalx_normaly',
+        'anchor_4_6_left_offsetx_normaly',
+      ],
     ],
     nodes: [
       {
@@ -77,7 +117,7 @@ const Home: React.FC<Props> = ({ className }) => {
         colSpan: 6,
         title: 'Table Flow Graph',
         meta: {
-          info: 'A simple flow graph editor/viewer built with html & css',
+          info: 'A simple flow graph editor/viewer build with html & css',
         },
       },
       {
@@ -89,7 +129,7 @@ const Home: React.FC<Props> = ({ className }) => {
         column: 1,
         colSpan: 3,
         title: 'Get Started',
-        showPopup: true,
+        // showPopup: true,
       },
       {
         id: '3',
@@ -100,7 +140,7 @@ const Home: React.FC<Props> = ({ className }) => {
         column: 6,
         colSpan: 3,
         title: 'Examples',
-        showPopup: true,
+        // showPopup: true,
       },
       {
         id: '4',

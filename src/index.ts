@@ -28,6 +28,7 @@ const defaultOptions: TFGraphOptions = {
     moveNode: 'Move Node',
     newNode: 'New Node',
     enterNodeName: 'Enter node name',
+    enterColumnName: 'Enter column name',
     confirm: 'Confirm',
     cancel: 'Cancel',
   },

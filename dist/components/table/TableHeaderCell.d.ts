@@ -1,6 +1,7 @@
 import { TableFlowGraph } from '../../index';
 import { TFGraphColumn } from '../../types';
 import Popup from '../ui/popup/Popup';
+import EditColumnDialog from './EditColumnDialog';
 /**
  * table-flow-graph tabel header cell
  */
@@ -14,6 +15,7 @@ export default class TableHeaderCell {
     canAdd: boolean;
     popMenu: Popup | null;
     controlLayer: HTMLElement;
+    editColDialog: EditColumnDialog;
     constructor(parentElement: HTMLElement, columnData: TFGraphColumn, columnIndex: number, graphInstance: TableFlowGraph);
     createElement(parentElement: HTMLElement): HTMLElement;
     setEditControls(): void;

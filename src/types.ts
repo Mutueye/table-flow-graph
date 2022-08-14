@@ -59,6 +59,7 @@ export type Labels = {
   moveNode?: string;
   newNode?: string;
   enterNodeName?: string;
+  enterColumnName?: string;
   confirm?: string;
   cancel?: string;
 };
@@ -79,9 +80,10 @@ export interface TFGraphOptions {
   // column methods
   addColumn?: () => void; // custom add column method
   onAddColumn?: (columnData?: TFGraphColumn) => void; // add column event
-  onEditColumn?: (column: TFGraphColumn) => void; // edit column
+  editColumn?: (column: TFGraphColumn) => void;
+  onEditColumn?: (column: TFGraphColumn) => void; // on edit column callback
   deleteColumn?: () => void; // custom delete column method
-  onDeleteColumn?: (column?: TFGraphColumn) => void; // delete column
+  onDeleteColumn?: (column?: TFGraphColumn) => void; // delete column callback
   // row methods
   addRow?: () => void; // custom add row method
   onAddRow?: () => void; // add row

@@ -4,6 +4,7 @@ import { TFGraphColumn } from '../../types';
 import Button from '../ui/button/Button';
 import Popup from '../ui/popup/Popup';
 // import TableHeaderCellMenu from './TableHeaderCellMenu';
+import EditColumnDialog from './EditColumnDialog';
 
 /**
  * table-flow-graph tabel header cell
@@ -19,6 +20,7 @@ export default class TableHeaderCell {
   public popMenu: Popup | null;
   // public menu: TableHeaderCellMenu | null;
   public controlLayer: HTMLElement;
+  public editColDialog: EditColumnDialog;
 
   constructor(
     parentElement: HTMLElement,
@@ -70,50 +72,47 @@ export default class TableHeaderCell {
 
   // header cell controls for edit mode
   public setEditControls() {
-    // this.menu = new TableHeaderCellMenu(this, {
-    //   showDelete: this.isLast && this.graphInstance.tableController.canDeleteColumn,
-    //   // showAdd: this.isLast,
-    // });
-    // this.popMenu = new Popup(this.element, { placement: 'top', contentElement: this.menu.element });
-    // this.element.addEventListener('mouseenter', () => {
-    //   if (this.popMenu) {
-    //     this.popMenu.mouseEnter();
-    //   }
-    // });
-    // this.element.addEventListener('mouseleave', () => {
-    //   if (this.popMenu) {
-    //     this.popMenu.mouseLeave();
-    //   }
-    // });
     this.controlLayer = createClassElement(
       'div',
       'tfgraph-cell-control-layer hidden',
       this.element,
     );
+    this.editColDialog = new EditColumnDialog(this.graphInstance, this);
     new Button(this.controlLayer, {
       icon: 'edit',
       type: 'primary',
       className: 'absolute left-6 top-6 p-0 sm w-28 btn-tl',
       tooltip: this.graphInstance.options.labels.editColumn,
       onClick: () => {
-        if (typeof this.graphInstance.options.onEditColumn === 'function') {
-          this.graphInstance.options.onEditColumn(this.columnData);
+        if (typeof this.graphInstance.options.editColumn === 'function') {
+          this.graphInstance.options.editColumn(this.columnData);
+        } else {
+          this.editColDialog.show();
         }
       },
     });
-    // if (this.isLast && this.graphInstance.tableController.canDeleteColumn) {
-    //   new Button(this.controlLayer, {
-    //     icon: 'x',
-    //     type: 'danger',
-    //     className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
-    //     tooltip: this.graphInstance.options.labels.deleteColumn,
-    //     onClick: () => {
-    //       if (typeof this.graphInstance.options.onDeleteColumn === 'function') {
-    //         this.graphInstance.options.onDeleteColumn(this.columnData);
-    //       }
-    //     },
-    //   });
-    // }
+    if (this.isLast && this.graphInstance.tableController.canDeleteColumn) {
+      new Button(this.controlLayer, {
+        icon: 'delete_col',
+        type: 'danger',
+        className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
+        tooltip: this.graphInstance.options.labels.deleteColumn,
+        onClick: () => {
+          if (typeof this.graphInstance.options.deleteColumn === 'function') {
+            // custom delete column method
+            this.graphInstance.options.deleteColumn();
+          } else {
+            if (typeof this.graphInstance.options.onDeleteColumn === 'function') {
+              const targetColumn =
+                this.graphInstance.options.columns[this.graphInstance.options.totalColumns - 1];
+              this.graphInstance.options.onDeleteColumn(targetColumn);
+            }
+            this.graphInstance.options.columns.pop();
+            this.graphInstance.refresh(Object.assign({}, this.graphInstance.options));
+          }
+        },
+      });
+    }
     this.element.addEventListener('mouseenter', () => this.onMouseEnter());
     this.element.addEventListener('mouseleave', () => this.onMouseLeave());
   }

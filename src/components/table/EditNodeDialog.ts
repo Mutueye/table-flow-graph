@@ -16,7 +16,7 @@ export default class EditNodeDialog {
   public btnCancel: Button;
   public isEdit: boolean;
 
-  constructor(targetCell: TableCell, graphInstance: TableFlowGraph) {
+  constructor(graphInstance: TableFlowGraph, targetCell: TableCell) {
     this.graphInstance = graphInstance;
     this.targetCell = targetCell;
     this.dialog = null;
@@ -62,7 +62,6 @@ export default class EditNodeDialog {
       label: this.graphInstance.options.labels.confirm,
       type: 'primary',
       onClick: () => {
-        // TODO
         if (this.nodeNameInput.value) {
           if (this.title !== this.nodeNameInput.value) {
             if (this.isEdit) {
