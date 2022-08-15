@@ -30,6 +30,10 @@ const Home: React.FC<Props> = ({ className }) => {
     return el;
   };
 
+  const onAddNode = () => {
+    console.log('nodes::::', graphInstance.options.nodes);
+  };
+
   const renderNodeHoverPopup = (node: TFGraphNode) => {
     const el = document.createElement('div');
     createReactInstance(<NodeTitle title={node.title} info={node.meta?.info as string} />, el);
@@ -39,6 +43,7 @@ const Home: React.FC<Props> = ({ className }) => {
   const options: TFGraphOptions = {
     isEditor: false,
     totalColumns: 10,
+    tableLayoutFixed: true,
     // columns: [
     //   {
     //     id: '1',
@@ -81,22 +86,8 @@ const Home: React.FC<Props> = ({ className }) => {
     //     title: 'col10',
     //   },
     // ],
-    totalRows: 12,
+    totalRows: 15,
     lines: [
-      ['anchor_2_4_bottomright_normalx_offsety', 'anchor_6_4_topright_normalx_offsety'],
-      ['anchor_6_4_bottomright_normalx_offsety', 'anchor_8_4_topright_normalx_offsety'],
-      [
-        'anchor_6_4_left_offsetx_normaly',
-        'anchor_6_3_center_normalx_normaly',
-        'anchor_7_1_right_normalx_normaly',
-        'anchor_8_1_topright_normalx_offsety',
-      ],
-      [
-        'anchor_6_5_right_offsetx_normaly',
-        'anchor_6_6_center_normalx_normaly',
-        'anchor_7_7_right_normalx_normaly',
-        'anchor_8_7_topright_normalx_offsety',
-      ],
       [
         'anchor_2_4_bottom_normalx_offsety',
         'anchor_4_4_center_normalx_normaly',
@@ -106,6 +97,31 @@ const Home: React.FC<Props> = ({ className }) => {
         'anchor_2_5_bottom_normalx_offsety',
         'anchor_4_5_center_normalx_normaly',
         'anchor_4_6_left_offsetx_normaly',
+      ],
+      ['anchor_2_4_bottomright_normalx_offsety', 'anchor_10_4_topright_normalx_offsety'],
+      [
+        'anchor_10_4_left_offsetx_normaly',
+        'anchor_10_3_center_normalx_normaly',
+        'anchor_8_3_center_normalx_normaly',
+        'anchor_8_2_right_offsetx_normaly',
+      ],
+      [
+        'anchor_10_4_left_offsetx_normaly',
+        'anchor_10_3_center_normalx_normaly',
+        'anchor_12_3_center_normalx_normaly',
+        'anchor_12_2_right_offsetx_normaly',
+      ],
+      [
+        'anchor_10_5_right_offsetx_normaly',
+        'anchor_10_6_center_normalx_normaly',
+        'anchor_8_6_center_normalx_normaly',
+        'anchor_8_7_left_offsetx_normaly',
+      ],
+      [
+        'anchor_10_5_right_offsetx_normaly',
+        'anchor_10_6_center_normalx_normaly',
+        'anchor_12_6_center_normalx_normaly',
+        'anchor_12_7_left_offsetx_normaly',
       ],
     ],
     nodes: [
@@ -129,7 +145,6 @@ const Home: React.FC<Props> = ({ className }) => {
         column: 1,
         colSpan: 3,
         title: 'Get Started',
-        // showPopup: true,
       },
       {
         id: '3',
@@ -140,12 +155,11 @@ const Home: React.FC<Props> = ({ className }) => {
         column: 6,
         colSpan: 3,
         title: 'Examples',
-        // showPopup: true,
       },
       {
         id: '4',
         type: 'default',
-        row: 6,
+        row: 10,
         rowSpan: 1,
         column: 4,
         colSpan: 2,
@@ -154,29 +168,37 @@ const Home: React.FC<Props> = ({ className }) => {
       {
         id: '5',
         type: 'default',
-        row: 8,
+        row: 7,
         rowSpan: 3,
         column: 1,
         colSpan: 2,
-        title: 'Feature1',
+        title: 'Fully Customizable',
       },
       {
         id: '6',
         type: 'default',
-        row: 8,
+        row: 11,
         rowSpan: 3,
-        column: 4,
+        column: 1,
         colSpan: 2,
-        title: 'Feature2',
+        title: 'Easy To Use',
       },
       {
         id: '7',
         type: 'default',
-        row: 8,
+        row: 7,
         rowSpan: 3,
         column: 7,
         colSpan: 2,
-        title: 'Feature3',
+        title: 'Out-of-the-box',
+      },
+      {
+        id: '8',
+        row: 11,
+        column: 7,
+        rowSpan: 3,
+        colSpan: 2,
+        title: 'Build-in Types',
       },
     ],
     onChangeLines,
@@ -184,6 +206,7 @@ const Home: React.FC<Props> = ({ className }) => {
       console.log('clickNode::::', node, nodeEl);
     },
     renderNode,
+    onAddNode,
     renderNodeHoverPopup,
   };
 
