@@ -4,6 +4,7 @@ import { TFGraphNode } from '../../types';
 import Button from '../ui/button/Button';
 import Popup from '../ui/popup/Popup';
 import EditNodeDialog from './EditNodeDialog';
+import { remove } from 'lodash-es';
 // import Dialog from '../ui/dialog/Dialog';
 
 /**
@@ -117,9 +118,17 @@ export default class TableCell {
         tooltip: this.graphInstance.options.labels.deleteNode,
         className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
         onClick: () => {
-          // TODO remove cell
-          if (typeof this.graphInstance.options.onDeleteNode === 'function') {
-            this.graphInstance.options.onDeleteNode(this.nodeData);
+          if (typeof this.graphInstance.options.deleteNode === 'function') {
+            this.graphInstance.options.deleteNode(this.nodeData);
+          } else {
+            // TODO remove cell
+            remove(this.graphInstance.options.nodes, (item) => {
+              return this.nodeData.id === item.id;
+            });
+            this.graphInstance.refresh();
+            if (typeof this.graphInstance.options.onDeleteNode === 'function') {
+              this.graphInstance.options.onDeleteNode(this.nodeData);
+            }
           }
         },
       });
