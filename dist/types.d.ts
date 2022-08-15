@@ -50,6 +50,7 @@ export interface TFGraphOptions {
     columns?: TFGraphColumn[];
     totalColumns?: number;
     maxColumns?: number;
+    tableLayoutFixed?: boolean;
     rows?: TFGraphRow[];
     totalRows?: number;
     maxRows?: number;

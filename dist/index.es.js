@@ -3,7 +3,7 @@
  * Copyright 2022 Mutueye. Licensed under MIT
  */
 
-import { cloneDeep, isEqual } from 'lodash-es';
+import { remove, cloneDeep, isEqual } from 'lodash-es';
 
 /**
  * Create an element with designated tagName，and add a className to it,
@@ -830,9 +830,18 @@ var TableCell = /** @class */ (function () {
                 tooltip: this.graphInstance.options.labels.deleteNode,
                 className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
                 onClick: function () {
-                    // TODO remove cell
-                    if (typeof _this.graphInstance.options.onDeleteNode === 'function') {
-                        _this.graphInstance.options.onDeleteNode(_this.nodeData);
+                    if (typeof _this.graphInstance.options.deleteNode === 'function') {
+                        _this.graphInstance.options.deleteNode(_this.nodeData);
+                    }
+                    else {
+                        // TODO remove cell
+                        remove(_this.graphInstance.options.nodes, function (item) {
+                            return _this.nodeData.id === item.id;
+                        });
+                        _this.graphInstance.refresh();
+                        if (typeof _this.graphInstance.options.onDeleteNode === 'function') {
+                            _this.graphInstance.options.onDeleteNode(_this.nodeData);
+                        }
                     }
                 },
             });
@@ -1458,6 +1467,9 @@ var Table = /** @class */ (function () {
     // render table header
     Table.prototype.createHeader = function () {
         var _this = this;
+        if (this.graphInstance.options.tableLayoutFixed) {
+            setStyles(this.element, { tableLayout: 'fixed' });
+        }
         if (this.graphInstance.options.columns && this.graphInstance.options.columns.length > 0) {
             var tr_1 = createClassElement('tr', 'tfgraph-tr');
             this.graphInstance.options.columns.forEach(function (column, index) {

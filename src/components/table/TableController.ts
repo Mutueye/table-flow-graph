@@ -1,5 +1,5 @@
 import { TableFlowGraph } from '../../index';
-import { createClassElement, removeElement } from '../../lib/dom';
+import { createClassElement, removeElement, setStyles } from '../../lib/dom';
 import TableCell from './TableCell';
 import TableHeaderCell from './TableHeaderCell';
 import TableMask from './TableMask';
@@ -221,6 +221,9 @@ export default class Table {
 
   // render table header
   createHeader() {
+    if (this.graphInstance.options.tableLayoutFixed) {
+      setStyles(this.element, { tableLayout: 'fixed' });
+    }
     if (this.graphInstance.options.columns && this.graphInstance.options.columns.length > 0) {
       const tr = createClassElement('tr', 'tfgraph-tr');
       this.graphInstance.options.columns.forEach((column, index) => {
