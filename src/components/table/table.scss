@@ -115,12 +115,13 @@ $border-color: #ebeef5;
     cursor: pointer !important;
   }
   &.default {
-    border-color: #ebeef5;
-    color: #666666;
+    // border-color: #ebeef5;
+    border-color: #dcdcdc;
+    color: #333333;
     background-color: #f3f4f6;
     &.isBtn {
       &:hover {
-        border-color: #ebeef5;
+        border-color: #cccccc;
         color: #333333;
         background-color: #f1f2f4;
       }
@@ -202,6 +203,12 @@ $border-color: #ebeef5;
     line-height: 18px;
     text-align: center;
     overflow: hidden;
+  }
+  &.moving {
+    cursor: move;
+  }
+  &.resizing {
+    cursor: nwse-resize;
   }
   &.disabled {
     cursor: not-allowed;

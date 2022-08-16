@@ -763,8 +763,7 @@ var TableCell = /** @class */ (function () {
         el.setAttribute('id', "".concat(graphInstance.id, "_cell_").concat(row, "_").concat(column));
         if (data) {
             var node = createClassElement('div', 'tfgraph-node');
-            if (data.type)
-                node.classList.add(data.type);
+            node.classList.add(data.type ? data.type : 'default');
             if (data.isBtn && this.graphInstance.mode !== 'edit')
                 node.classList.add('isBtn');
             if (typeof this.graphInstance.options.renderNode === 'function') {
@@ -1184,6 +1183,7 @@ var TableMask = /** @class */ (function () {
                 rowSpan: this.targetCell.rowSpan,
                 colSpan: this.targetCell.colSpan,
             };
+            this.maskBox.element.classList.add('moving');
         }
         else {
             this.resultCellPositionAndSize = {
@@ -1192,6 +1192,7 @@ var TableMask = /** @class */ (function () {
                 rowSpan: Math.abs(this.targetCellRect.rowIndex - this.mouseGridRect.rowIndex) + 1,
                 colSpan: Math.abs(this.targetCellRect.columnIndex - this.mouseGridRect.columnIndex) + 1,
             };
+            this.maskBox.element.classList.add('resizing');
         }
         var topLeftRect = this.getRectByRowAndColumn(this.resultCellPositionAndSize.row, this.resultCellPositionAndSize.column);
         var bottomRightRect = this.getRectByRowAndColumn(this.resultCellPositionAndSize.row + this.resultCellPositionAndSize.rowSpan - 1, this.resultCellPositionAndSize.column + this.resultCellPositionAndSize.colSpan - 1);
@@ -2140,18 +2141,22 @@ var TableFlowGraph = /** @class */ (function () {
         this.isAlive = true;
     }
     TableFlowGraph.prototype.init = function (options) {
+        var _this = this;
         this.baseElement.innerHTML = '';
         this.options = Object.assign({}, defaultOptions, options);
         if (options.labels) {
             this.options.labels = Object.assign({}, defaultOptions.labels, options.labels);
         }
+        // set totalRows
         if (typeof this.options.rows !== 'undefined') {
             this.options.totalRows = this.options.rows.length;
         }
+        // set totalColumns and hasTableHeader
         if (this.options.columns && this.options.columns.length > 0) {
             this.options.totalColumns = this.options.columns.length;
+            this.hasTableHeader = true;
         }
-        if (!this.options.columns || this.options.columns.length === 0) {
+        else {
             this.options.columns = [];
             this.hasTableHeader = false;
             for (var i = 0; i < this.options.totalColumns; i++) {
@@ -2160,14 +2165,19 @@ var TableFlowGraph = /** @class */ (function () {
                 });
             }
         }
-        else {
-            this.hasTableHeader = true;
-        }
+        // restrain totalRows and totalColumns
         if (this.options.totalRows > this.options.maxRows) {
             this.options.totalRows = this.options.maxRows;
         }
         if (this.options.totalColumns > this.options.maxColumns) {
             this.options.totalColumns = this.options.maxColumns;
+        }
+        // filter nodes that exceeds totalRows and totalColumns
+        if (this.options.nodes && this.options.nodes.length > 0) {
+            this.options.nodes = this.options.nodes.filter(function (node) {
+                return node.row + node.rowSpan - 1 <= _this.options.totalRows &&
+                    node.column + node.colSpan - 1 <= _this.options.totalColumns;
+            });
         }
         // create toolbar and edit state
         if (this.options.isEditor) {

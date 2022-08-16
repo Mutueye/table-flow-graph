@@ -64833,12 +64833,12 @@
   cursor: pointer !important;
 }
 .tfgraph-node.default {
-  border-color: #ebeef5;
-  color: #666666;
+  border-color: #dcdcdc;
+  color: #333333;
   background-color: #f3f4f6;
 }
 .tfgraph-node.default.isBtn:hover {
-  border-color: #ebeef5;
+  border-color: #cccccc;
   color: #333333;
   background-color: #f1f2f4;
 }
@@ -64910,6 +64910,12 @@
   line-height: 18px;
   text-align: center;
   overflow: hidden;
+}
+.tfgraph-table-mask-cell.moving {
+  cursor: move;
+}
+.tfgraph-table-mask-cell.resizing {
+  cursor: nwse-resize;
 }
 .tfgraph-table-mask-cell.disabled {
   cursor: not-allowed;

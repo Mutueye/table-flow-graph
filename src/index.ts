@@ -84,13 +84,15 @@ export class TableFlowGraph {
     if (options.labels) {
       this.options.labels = Object.assign({}, defaultOptions.labels, options.labels);
     }
+    // set totalRows
     if (typeof this.options.rows !== 'undefined') {
       this.options.totalRows = this.options.rows.length;
     }
+    // set totalColumns and hasTableHeader
     if (this.options.columns && this.options.columns.length > 0) {
       this.options.totalColumns = this.options.columns.length;
-    }
-    if (!this.options.columns || this.options.columns.length === 0) {
+      this.hasTableHeader = true;
+    } else {
       this.options.columns = [];
       this.hasTableHeader = false;
       for (let i = 0; i < this.options.totalColumns; i++) {
@@ -98,14 +100,23 @@ export class TableFlowGraph {
           width: 'auto',
         });
       }
-    } else {
-      this.hasTableHeader = true;
     }
+
+    // restrain totalRows and totalColumns
     if (this.options.totalRows > this.options.maxRows) {
       this.options.totalRows = this.options.maxRows;
     }
     if (this.options.totalColumns > this.options.maxColumns) {
       this.options.totalColumns = this.options.maxColumns;
+    }
+
+    // filter nodes that exceeds totalRows and totalColumns
+    if (this.options.nodes && this.options.nodes.length > 0) {
+      this.options.nodes = this.options.nodes.filter(
+        (node) =>
+          node.row + node.rowSpan - 1 <= this.options.totalRows &&
+          node.column + node.colSpan - 1 <= this.options.totalColumns,
+      );
     }
 
     // create toolbar and edit state

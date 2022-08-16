@@ -70,6 +70,7 @@ export default class TableMask {
         rowSpan: this.targetCell.rowSpan,
         colSpan: this.targetCell.colSpan,
       };
+      this.maskBox.element.classList.add('moving');
     } else {
       this.resultCellPositionAndSize = {
         row: Math.min(this.targetCellRect.rowIndex, this.mouseGridRect.rowIndex),
@@ -77,6 +78,7 @@ export default class TableMask {
         rowSpan: Math.abs(this.targetCellRect.rowIndex - this.mouseGridRect.rowIndex) + 1,
         colSpan: Math.abs(this.targetCellRect.columnIndex - this.mouseGridRect.columnIndex) + 1,
       };
+      this.maskBox.element.classList.add('resizing');
     }
     const topLeftRect = this.getRectByRowAndColumn(
       this.resultCellPositionAndSize.row,

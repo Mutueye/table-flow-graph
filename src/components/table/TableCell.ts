@@ -51,7 +51,7 @@ export default class TableCell {
     el.setAttribute('id', `${graphInstance.id}_cell_${row}_${column}`);
     if (data) {
       const node = createClassElement('div', 'tfgraph-node');
-      if (data.type) node.classList.add(data.type);
+      node.classList.add(data.type ? data.type : 'default');
       if (data.isBtn && this.graphInstance.mode !== 'edit') node.classList.add('isBtn');
       if (typeof this.graphInstance.options.renderNode === 'function') {
         node.appendChild(this.graphInstance.options.renderNode(data));
