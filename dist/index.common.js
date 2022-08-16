@@ -1848,6 +1848,48 @@ var LineController = /** @class */ (function () {
     return LineController;
 }());
 
+// | 'topleft'
+// | 'top'
+// | 'topright'
+// | 'left'
+// | 'center'
+// | 'right'
+// | 'bottomleft'
+// | 'bottom'
+// | 'bottomright';
+var getBearingShort = function (bearing) {
+    var shortBearing = 't';
+    switch (bearing) {
+        case 'topleft':
+            shortBearing = 'tl';
+            break;
+        case 'top':
+            shortBearing = 't';
+            break;
+        case 'topright':
+            shortBearing = 'tr';
+            break;
+        case 'left':
+            shortBearing = 'l';
+            break;
+        case 'center':
+            shortBearing = 'c';
+            break;
+        case 'right':
+            shortBearing = 'r';
+            break;
+        case 'bottomleft':
+            shortBearing = 'bl';
+            break;
+        case 'bottom':
+            shortBearing = 'b';
+            break;
+        case 'bottomright':
+            shortBearing = 'br';
+            break;
+    }
+    return shortBearing;
+};
 /**
  * Anchor point for drawing lines
  */
@@ -1876,8 +1918,8 @@ var Anchor = /** @class */ (function () {
             createClassElement('div', 'tfgraph-anchor-point', this.element);
             var area = createClassElement('div', 'tfgraph-anchor-area', this.element);
             createClassElement('div', 'tfgraph-anchor-circle', area);
-            // set Anchor instance id
-            this.id = "anchor_".concat(row, "_").concat(column, "_").concat(bearing, "_").concat(isOffsetX ? 'offsetx' : 'normalx', "_").concat(isOffsetY ? 'offsety' : 'normaly');
+            // set Anchor instance id; 'ox' meaning offsetX, 'nx' meaning normalX
+            this.id = "a_".concat(row, "_").concat(column, "_").concat(getBearingShort(bearing), "_").concat(isOffsetX ? 'ox' : 'nx', "_").concat(isOffsetY ? 'oy' : 'ny');
             // set dom id
             this.element.setAttribute('id', "".concat(graphInstance.id, "_").concat(this.id));
             graphInstance.anchorController.anchors.push(this);

@@ -2,6 +2,52 @@ import { TableFlowGraph } from '../../index';
 import { createClassElement } from '../../lib/dom';
 import { Bearing } from '../../types';
 
+// | 'topleft'
+// | 'top'
+// | 'topright'
+// | 'left'
+// | 'center'
+// | 'right'
+// | 'bottomleft'
+// | 'bottom'
+// | 'bottomright';
+
+const getBearingShort = (bearing: Bearing) => {
+  let shortBearing = 't';
+  switch (bearing) {
+    case 'topleft':
+      shortBearing = 'tl';
+      break;
+    case 'top':
+      shortBearing = 't';
+      break;
+    case 'topright':
+      shortBearing = 'tr';
+      break;
+    case 'left':
+      shortBearing = 'l';
+      break;
+    case 'center':
+      shortBearing = 'c';
+      break;
+    case 'right':
+      shortBearing = 'r';
+      break;
+    case 'bottomleft':
+      shortBearing = 'bl';
+      break;
+    case 'bottom':
+      shortBearing = 'b';
+      break;
+    case 'bottomright':
+      shortBearing = 'br';
+      break;
+    default:
+      break;
+  }
+  return shortBearing;
+};
+
 /**
  * Anchor point for drawing lines
  */
@@ -52,9 +98,9 @@ export default class Anchor {
       const area = createClassElement('div', 'tfgraph-anchor-area', this.element);
       createClassElement('div', 'tfgraph-anchor-circle', area);
 
-      // set Anchor instance id
-      this.id = `anchor_${row}_${column}_${bearing}_${isOffsetX ? 'offsetx' : 'normalx'}_${
-        isOffsetY ? 'offsety' : 'normaly'
+      // set Anchor instance id; 'ox' meaning offsetX, 'nx' meaning normalX
+      this.id = `a_${row}_${column}_${getBearingShort(bearing)}_${isOffsetX ? 'ox' : 'nx'}_${
+        isOffsetY ? 'oy' : 'ny'
       }`;
       // set dom id
       this.element.setAttribute('id', `${graphInstance.id}_${this.id}`);

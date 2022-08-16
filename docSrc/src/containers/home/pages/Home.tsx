@@ -88,41 +88,13 @@ const Home: React.FC<Props> = ({ className }) => {
     // ],
     totalRows: 15,
     lines: [
-      [
-        'anchor_2_4_bottom_normalx_offsety',
-        'anchor_4_4_center_normalx_normaly',
-        'anchor_4_3_right_offsetx_normaly',
-      ],
-      [
-        'anchor_2_5_bottom_normalx_offsety',
-        'anchor_4_5_center_normalx_normaly',
-        'anchor_4_6_left_offsetx_normaly',
-      ],
-      ['anchor_2_4_bottomright_normalx_offsety', 'anchor_10_4_topright_normalx_offsety'],
-      [
-        'anchor_10_4_left_offsetx_normaly',
-        'anchor_10_3_center_normalx_normaly',
-        'anchor_8_3_center_normalx_normaly',
-        'anchor_8_2_right_offsetx_normaly',
-      ],
-      [
-        'anchor_10_4_left_offsetx_normaly',
-        'anchor_10_3_center_normalx_normaly',
-        'anchor_12_3_center_normalx_normaly',
-        'anchor_12_2_right_offsetx_normaly',
-      ],
-      [
-        'anchor_10_5_right_offsetx_normaly',
-        'anchor_10_6_center_normalx_normaly',
-        'anchor_8_6_center_normalx_normaly',
-        'anchor_8_7_left_offsetx_normaly',
-      ],
-      [
-        'anchor_10_5_right_offsetx_normaly',
-        'anchor_10_6_center_normalx_normaly',
-        'anchor_12_6_center_normalx_normaly',
-        'anchor_12_7_left_offsetx_normaly',
-      ],
+      ['a_2_4_b_nx_oy', 'a_4_4_c_nx_ny', 'a_4_3_r_ox_ny'],
+      ['a_2_5_b_nx_oy', 'a_4_5_c_nx_ny', 'a_4_6_l_ox_ny'],
+      ['a_2_4_br_nx_oy', 'a_10_4_tr_nx_oy'],
+      ['a_10_4_l_ox_ny', 'a_10_3_c_nx_ny', 'a_8_3_c_nx_ny', 'a_8_2_r_ox_ny'],
+      ['a_10_4_l_ox_ny', 'a_10_3_c_nx_ny', 'a_12_3_c_nx_ny', 'a_12_2_r_ox_ny'],
+      ['a_10_5_r_ox_ny', 'a_10_6_c_nx_ny', 'a_8_6_c_nx_ny', 'a_8_7_l_ox_ny'],
+      ['a_10_5_r_ox_ny', 'a_10_6_c_nx_ny', 'a_12_6_c_nx_ny', 'a_12_7_l_ox_ny'],
     ],
     nodes: [
       {
