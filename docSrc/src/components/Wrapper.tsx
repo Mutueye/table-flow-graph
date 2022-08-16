@@ -11,7 +11,7 @@ const Wrapper: React.FC<PropsWithChildren<Props>> = ({ className, children }) =>
   const style = [
     'w-full',
     'min-h-screen',
-    'min-w-1300px',
+    'min-w-1366px',
     'overflow-hidden',
     'flex',
     'flex-col',
@@ -23,9 +23,7 @@ const Wrapper: React.FC<PropsWithChildren<Props>> = ({ className, children }) =>
   ].join(' ');
   return (
     <div className={style}>
-      <div className="flex flex-col" style={{ width: '1200px' }}>
-        {children}
-      </div>
+      <div className="flex flex-col w-1200px">{children}</div>
     </div>
   );
 };

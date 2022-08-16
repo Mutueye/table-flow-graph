@@ -34,6 +34,7 @@ export default defineConfig({
         '2xl': '1536px',
       },
       colors: {
+        theme: '#377df4',
         gray: colors.gray,
         blue: colors.sky,
         red: colors.rose,
