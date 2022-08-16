@@ -41,7 +41,7 @@ const Home: React.FC<Props> = ({ className }) => {
   };
 
   const options: TFGraphOptions = {
-    isEditor: false,
+    isEditor: true,
     totalColumns: 10,
     tableLayoutFixed: true,
     // columns: [
@@ -129,8 +129,8 @@ const Home: React.FC<Props> = ({ className }) => {
         id: '1',
         row: 1,
         rowSpan: 2,
-        column: 2,
-        colSpan: 6,
+        column: 1,
+        colSpan: 8,
         title: 'Table Flow Graph',
         meta: {
           info: 'A simple flow graph editor/viewer build with html & css',
@@ -172,7 +172,7 @@ const Home: React.FC<Props> = ({ className }) => {
         rowSpan: 3,
         column: 1,
         colSpan: 2,
-        title: 'Fully Customizable',
+        title: 'Grid-based Lines',
       },
       {
         id: '6',
@@ -181,7 +181,7 @@ const Home: React.FC<Props> = ({ className }) => {
         rowSpan: 3,
         column: 1,
         colSpan: 2,
-        title: 'Easy To Use',
+        title: 'Fully Customizable',
       },
       {
         id: '7',
@@ -190,7 +190,7 @@ const Home: React.FC<Props> = ({ className }) => {
         rowSpan: 3,
         column: 7,
         colSpan: 2,
-        title: 'Out-of-the-box',
+        title: 'Moveable & Resizable',
       },
       {
         id: '8',
@@ -198,7 +198,7 @@ const Home: React.FC<Props> = ({ className }) => {
         column: 7,
         rowSpan: 3,
         colSpan: 2,
-        title: 'Build-in Types',
+        title: 'Build-in @types',
       },
     ],
     onChangeLines,
