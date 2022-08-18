@@ -60,22 +60,22 @@ $border-color: #ebeef5;
       // border: 1px solid $color-theme;
       background-color: rgba(0, 0, 0, 0.05);
       .btn-tl {
-        transition: all ease-out 0.1;
+        transition: all ease-out 0.1s;
         transform: translate(-15px, -15px);
         opacity: 0;
       }
       .btn-tr {
-        transition: all ease-out 0.1;
+        transition: all ease-out 0.1s;
         transform: translate(15px, -15px);
         opacity: 0;
       }
       .btn-bl {
-        transition: all ease-out 0.1;
+        transition: all ease-out 0.1s;
         transform: translate(-15px, 15px);
         opacity: 0;
       }
       .btn-br {
-        transition: all ease-out 0.1;
+        transition: all ease-out 0.1s;
         transform: translate(15px, 15px);
         opacity: 0;
       }

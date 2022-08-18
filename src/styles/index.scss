@@ -13,18 +13,23 @@
   display: none !important;
 }
 
-*,
-::before,
-::after {
-  box-sizing: border-box;
-  border-width: 0;
-  border-style: solid;
-}
+// *,
+// ::before,
+// ::after {
+//   box-sizing: border-box;
+//   border-width: 0;
+//   border-style: solid;
+// }
 
 .tfgraph {
   position: relative;
   user-select: none;
   width: 100%;
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
   .tfgraph-anchor-layer {
     position: absolute;
     pointer-events: none;
@@ -66,6 +71,11 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
 }
 
 .tfgraph-input {

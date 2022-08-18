@@ -6,6 +6,7 @@
   outline: none;
   cursor: pointer;
   border-width: 1px;
+  border-style: solid;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -14,6 +15,7 @@
   color: white;
   transition: all ease 0.2s;
   font-size: 14px;
+  box-sizing: border-box;
   .tfgraph-icon {
     fill: white;
     transition: all ease 0.2s;
