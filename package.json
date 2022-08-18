@@ -1,6 +1,6 @@
 {
   "name": "table-flow-graph",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A simple flow graph editor/viewer",
   "author": "mutueye <mutuyueniao@gmail.com>",
   "license": "MIT",
