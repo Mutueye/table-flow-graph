@@ -100,12 +100,11 @@ export default class TableHeaderCell {
         onClick: () => {
           if (typeof this.graphInstance.options.deleteColumn === 'function') {
             // custom delete column method
-            this.graphInstance.options.deleteColumn();
+            this.graphInstance.options.deleteColumn(this.columnData);
           } else {
             if (typeof this.graphInstance.options.onDeleteColumn === 'function') {
-              const targetColumn =
-                this.graphInstance.options.columns[this.graphInstance.options.totalColumns - 1];
-              this.graphInstance.options.onDeleteColumn(targetColumn);
+              // const targetColumn = this.graphInstance.options.columns[this.graphInstance.options.totalColumns - 1];
+              this.graphInstance.options.onDeleteColumn(this.columnData);
             }
             this.graphInstance.options.columns.pop();
             this.graphInstance.refresh(Object.assign({}, this.graphInstance.options));

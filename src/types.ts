@@ -88,7 +88,7 @@ export interface TFGraphOptions {
   onAddColumn?: (columnData?: TFGraphColumn) => void; // add column event
   editColumn?: (column: TFGraphColumn) => void;
   onEditColumn?: (column: TFGraphColumn) => void; // on edit column callback
-  deleteColumn?: () => void; // custom delete column method
+  deleteColumn?: (column?: TFGraphColumn) => void; // custom delete column method
   onDeleteColumn?: (column?: TFGraphColumn) => void; // delete column callback
   // row methods
   addRow?: () => void; // custom add row method

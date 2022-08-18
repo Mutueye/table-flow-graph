@@ -901,7 +901,8 @@ var TableCell = /** @class */ (function () {
                     onClick: function () {
                         if (typeof _this.graphInstance.options.deleteColumn === 'function') {
                             // custom delete column method
-                            _this.graphInstance.options.deleteColumn();
+                            var targetColumn = _this.graphInstance.options.columns[_this.graphInstance.options.totalColumns - 1];
+                            _this.graphInstance.options.deleteColumn(targetColumn);
                         }
                         else {
                             // auto delete column
@@ -1069,12 +1070,12 @@ var TableHeaderCell = /** @class */ (function () {
                 onClick: function () {
                     if (typeof _this.graphInstance.options.deleteColumn === 'function') {
                         // custom delete column method
-                        _this.graphInstance.options.deleteColumn();
+                        _this.graphInstance.options.deleteColumn(_this.columnData);
                     }
                     else {
                         if (typeof _this.graphInstance.options.onDeleteColumn === 'function') {
-                            var targetColumn = _this.graphInstance.options.columns[_this.graphInstance.options.totalColumns - 1];
-                            _this.graphInstance.options.onDeleteColumn(targetColumn);
+                            // const targetColumn = this.graphInstance.options.columns[this.graphInstance.options.totalColumns - 1];
+                            _this.graphInstance.options.onDeleteColumn(_this.columnData);
                         }
                         _this.graphInstance.options.columns.pop();
                         _this.graphInstance.refresh(Object.assign({}, _this.graphInstance.options));

@@ -192,7 +192,9 @@ export default class TableCell {
           onClick: () => {
             if (typeof this.graphInstance.options.deleteColumn === 'function') {
               // custom delete column method
-              this.graphInstance.options.deleteColumn();
+              const targetColumn =
+                this.graphInstance.options.columns[this.graphInstance.options.totalColumns - 1];
+              this.graphInstance.options.deleteColumn(targetColumn);
             } else {
               // auto delete column
               if (this.graphInstance.hasTableHeader) {

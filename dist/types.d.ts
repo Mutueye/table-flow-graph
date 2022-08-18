@@ -62,7 +62,7 @@ export interface TFGraphOptions {
     onAddColumn?: (columnData?: TFGraphColumn) => void;
     editColumn?: (column: TFGraphColumn) => void;
     onEditColumn?: (column: TFGraphColumn) => void;
-    deleteColumn?: () => void;
+    deleteColumn?: (column?: TFGraphColumn) => void;
     onDeleteColumn?: (column?: TFGraphColumn) => void;
     addRow?: () => void;
     onAddRow?: () => void;
