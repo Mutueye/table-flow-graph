@@ -1,5 +1,4 @@
-import { TableFlowGraph } from '../../index';
-import { Bearing } from '../../types';
+import { TableFlowGraph, Bearing } from '../../index';
 /**
  * Anchor point for drawing lines
  */

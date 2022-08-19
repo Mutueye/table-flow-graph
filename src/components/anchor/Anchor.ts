@@ -1,6 +1,5 @@
-import { TableFlowGraph } from '../../index';
+import { TableFlowGraph, Bearing } from '../../index';
 import { createClassElement } from '../../lib/dom';
-import { Bearing } from '../../types';
 
 // | 'topleft'
 // | 'top'

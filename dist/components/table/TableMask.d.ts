@@ -1,5 +1,4 @@
-import { TableFlowGraph } from '../../index';
-import { CellPositionAndSize, TableGridRect } from '../../types';
+import { TableFlowGraph, CellPositionAndSize, TableGridRect } from '../../index';
 import TableCell from './TableCell';
 import TableMaskBox from './TableMaskBox';
 /**

@@ -1,6 +1,5 @@
-import { TableFlowGraph } from '../../index';
+import { TableFlowGraph, CellPositionAndSize, TableGridRect } from '../../index';
 import { createClassElement, removeElement } from '../../lib/dom';
-import { CellPositionAndSize, TableGridRect } from '../../types';
 import TableCell from './TableCell';
 import TableMaskBox from './TableMaskBox';
 import { isEqual, cloneDeep } from 'lodash-es';

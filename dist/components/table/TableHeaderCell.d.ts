@@ -1,5 +1,4 @@
-import { TableFlowGraph } from '../../index';
-import { TFGraphColumn } from '../../types';
+import { TableFlowGraph, TFGraphColumn } from '../../index';
 import Popup from '../ui/popup/Popup';
 import EditColumnDialog from './EditColumnDialog';
 /**

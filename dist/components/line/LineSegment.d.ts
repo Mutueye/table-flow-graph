@@ -1,4 +1,4 @@
-import { LineOptions, Position } from '../../types';
+import { LineOptions, Position } from '../../index';
 import LineGroup from './LineGroup';
 /**
  * table-flow-graph line

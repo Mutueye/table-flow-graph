@@ -1,5 +1,4 @@
-import { TableFlowGraph } from '../../index';
-import { TFGraphNode } from '../../types';
+import { TableFlowGraph, TFGraphNode } from '../../index';
 import Button from '../ui/button/Button';
 import Popup from '../ui/popup/Popup';
 import EditNodeDialog from './EditNodeDialog';

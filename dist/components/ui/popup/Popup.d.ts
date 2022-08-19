@@ -1,4 +1,4 @@
-import { PopupOptions } from '../../../types';
+import { PopupOptions } from '../../../index';
 /**
  * table-flow-graph popup
  */

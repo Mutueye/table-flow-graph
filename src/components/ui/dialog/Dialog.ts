@@ -1,5 +1,5 @@
 import { createClassElement, removeElement } from '../../../lib/dom';
-import { DialogOptions } from '../../../types';
+import { DialogOptions } from '../../../index';
 import { Icon } from '../icon/Icon';
 
 /**

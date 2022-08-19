@@ -1,4 +1,4 @@
-import { TableFlowGraph } from '../..';
+import { TableFlowGraph } from '../../index';
 import Button from '../ui/button/Button';
 import Dialog from '../ui/dialog/Dialog';
 import TableHeaderCell from './TableHeaderCell';

@@ -1,4 +1,4 @@
-import { DialogOptions } from '../../../types';
+import { DialogOptions } from '../../../index';
 /**
  * table-flow-graph dialog
  */

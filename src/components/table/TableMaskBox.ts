@@ -1,6 +1,5 @@
-import { TableFlowGraph } from '../../index';
+import { TableFlowGraph, PositionAndSize } from '../../index';
 import { createClassElement, setStyles } from '../../lib/dom';
-import { PositionAndSize } from '../../types';
 import TableCell from './TableCell';
 
 /**

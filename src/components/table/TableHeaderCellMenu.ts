@@ -1,6 +1,5 @@
-import { TableFlowGraph } from '../../index';
+import { TableFlowGraph, HeaderCellMenuOptions } from '../../index';
 import { createClassElement } from '../../lib/dom';
-import { HeaderCellMenuOptions } from '../../types';
 import Button from '../ui/button/Button';
 import TableHeaderCell from './TableHeaderCell';
 

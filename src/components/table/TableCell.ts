@@ -1,6 +1,5 @@
-import { TableFlowGraph } from '../../index';
+import { TableFlowGraph, TFGraphNode } from '../../index';
 import { createClassElement } from '../../lib/dom';
-import { TFGraphNode } from '../../types';
 import Button from '../ui/button/Button';
 import Popup from '../ui/popup/Popup';
 import EditNodeDialog from './EditNodeDialog';

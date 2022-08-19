@@ -1,5 +1,5 @@
 import { createClassElement } from '../../../lib/dom';
-import { BtnOptions } from '../../../types';
+import { BtnOptions } from '../../../index';
 import { Icon } from '../icon/Icon';
 import Tooltip from '../tooltip/Tooltip';
 

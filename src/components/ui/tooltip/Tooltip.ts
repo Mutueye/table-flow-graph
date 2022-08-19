@@ -1,5 +1,5 @@
 import { createClassElement, removeElement, setStyles } from '../../../lib/dom';
-import { TooltipOptoins } from '../../../types';
+import { TooltipOptoins } from '../../../index';
 
 /**
  * table-flow-graph popup

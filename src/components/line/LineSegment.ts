@@ -1,6 +1,6 @@
 // import { TableFlowGraph } from '../index';
 import { createClassElement, removeElement } from '../../lib/dom';
-import { LineOptions, Position } from '../../types';
+import { LineOptions, Position } from '../../index';
 import LineGroup from './LineGroup';
 
 /**

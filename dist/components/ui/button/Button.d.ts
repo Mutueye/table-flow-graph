@@ -1,4 +1,4 @@
-import { BtnOptions } from '../../../types';
+import { BtnOptions } from '../../../index';
 import Tooltip from '../tooltip/Tooltip';
 /**
  * table-flow-graph button

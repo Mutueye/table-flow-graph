@@ -1,5 +1,4 @@
-import { TableFlowGraph } from '../../index';
-import { PositionAndSize } from '../../types';
+import { TableFlowGraph, PositionAndSize } from '../../index';
 import TableCell from './TableCell';
 /**
  * table-flow-graph anchor controller

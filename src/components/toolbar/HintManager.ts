@@ -1,5 +1,4 @@
-import { TableFlowGraph } from '../..';
-import { HintType } from '../../types';
+import { TableFlowGraph, HintType } from '../../index';
 
 export default class HintManager {
   public targetEl: HTMLElement;

@@ -1,5 +1,4 @@
-import { TableFlowGraph } from '../../index';
-import { HeaderCellMenuOptions } from '../../types';
+import { TableFlowGraph, HeaderCellMenuOptions } from '../../index';
 import TableHeaderCell from './TableHeaderCell';
 /**
  * table-flow-graph tabel header cell menu

@@ -1,4 +1,4 @@
-import { TogglerOptions, TogglerButton } from '../../../types';
+import { TogglerOptions, TogglerButton } from '../../../index';
 /**
  * table-flow-graph toggler btn group
  */

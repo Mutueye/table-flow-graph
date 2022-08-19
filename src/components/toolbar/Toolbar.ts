@@ -1,8 +1,7 @@
-import { TableFlowGraph } from '../../index';
+import { TableFlowGraph, Mode } from '../../index';
 import { createClassElement } from '../../lib/dom';
 import Button from '../ui/button/Button';
 import Toggler from '../ui/toggler/Toggler';
-import { Mode } from '../../types';
 import EditColumnDialog from '../table/EditColumnDialog';
 import HintManager from './HintManager';
 // import { Icon } from './ui/Icon';

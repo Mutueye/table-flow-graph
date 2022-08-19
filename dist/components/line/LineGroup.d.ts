@@ -1,5 +1,4 @@
-import { TableFlowGraph } from '../../index';
-import { LineGroupOptions, Position } from '../../types';
+import { TableFlowGraph, LineGroupOptions, Position } from '../../index';
 import Anchor from '../anchor/Anchor';
 import LineSegment from './LineSegment';
 /**

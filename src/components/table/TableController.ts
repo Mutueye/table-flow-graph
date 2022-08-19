@@ -1,11 +1,10 @@
-import { TableFlowGraph } from '../../index';
+import { TableFlowGraph, ColumnSpec, RowSpec, TableGridRect } from '../../index';
 import { createClassElement, removeElement, setStyles } from '../../lib/dom';
 import TableCell from './TableCell';
 import TableHeaderCell from './TableHeaderCell';
 import TableMask from './TableMask';
 import Button from '../ui/button/Button';
 import { setColumnAndRowDeletable } from '../../lib/utils';
-import { ColumnSpec, RowSpec, TableGridRect } from '../../types';
 
 /**
  * table-flow-graph tabel
