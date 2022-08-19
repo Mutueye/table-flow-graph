@@ -1,5 +1,5 @@
 /**
- * table-flow-graph v0.2.2
+ * table-flow-graph v0.2.3
  * Copyright 2022 Mutueye. Licensed under MIT
  */
 

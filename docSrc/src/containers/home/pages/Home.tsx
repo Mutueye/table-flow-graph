@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { TableFlowGraph } from '../../../../../src';
-import { TFGraphNode, TFGraphOptions } from '../../../../../src/types';
+import { TableFlowGraph, TFGraphNode, TFGraphOptions } from '../../../../../dist/index.es.js';
 import NodeTitle from '../components/NodeTitle';
 import { createReactInstance } from '../../createReactInstance';
 
