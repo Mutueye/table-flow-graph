@@ -116,6 +116,7 @@ const Home: React.FC<Props> = ({ className }) => {
         column: 1,
         colSpan: 3,
         title: 'Get Started',
+        showPopup: true,
       },
       {
         id: '3',

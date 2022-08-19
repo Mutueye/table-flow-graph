@@ -45,21 +45,21 @@ export default class Popup {
     switch (placement) {
       case 'top':
         areaStyleObj.left = -0.5 * areaRect.width + 'px';
-        areaStyleObj.bottom = 0.5 * targetRect.height + 'px';
+        areaStyleObj.bottom = 0.5 * targetRect.height + 10 + 'px';
         arrowStyleObj.left = 0.5 * (areaRect.width - arrowRect.width) + 'px';
         break;
       case 'right':
-        areaStyleObj.left = 0.5 * targetRect.width + 'px';
+        areaStyleObj.left = 0.5 * targetRect.width + 10 + 'px';
         areaStyleObj.top = -0.5 * areaRect.height + 'px';
         arrowStyleObj.top = 0.5 * (areaRect.height - arrowRect.height) + 'px';
         break;
       case 'bottom':
         areaStyleObj.left = -0.5 * areaRect.width + 'px';
-        areaStyleObj.top = 0.5 * targetRect.height + 'px';
+        areaStyleObj.top = 0.5 * targetRect.height + 10 + 'px';
         arrowStyleObj.left = 0.5 * (areaRect.width - arrowRect.width) + 'px';
         break;
       case 'left':
-        areaStyleObj.right = 0.5 * targetRect.width + 'px';
+        areaStyleObj.right = 0.5 * targetRect.width + 10 + 'px';
         areaStyleObj.top = -0.5 * areaRect.height + 'px';
         arrowStyleObj.top = 0.5 * (areaRect.height - arrowRect.height) + 'px';
         break;

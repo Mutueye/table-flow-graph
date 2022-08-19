@@ -1,4 +1,3 @@
-
 # Table-Flow-Graph
 
 A simple flow graph editor/viewer. (working in progress)
