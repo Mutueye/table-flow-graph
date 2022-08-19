@@ -2195,9 +2195,9 @@
                 this.options.labels = Object.assign({}, defaultOptions.labels, options.labels);
             }
             // set totalRows
-            if (typeof this.options.rows !== 'undefined') {
-                this.options.totalRows = this.options.rows.length;
-            }
+            // if (typeof this.options.rows !== 'undefined') {
+            //   this.options.totalRows = this.options.rows.length;
+            // }
             // set totalColumns and hasTableHeader
             if (this.options.columns && this.options.columns.length > 0) {
                 this.options.totalColumns = this.options.columns.length;

@@ -1,7 +1,7 @@
 
 # Table-Flow-Graph
 
-A simple flow graph editor/viewer.
+A simple flow graph editor/viewer. (working in progress)
 
 
 ## Features
@@ -50,7 +50,7 @@ import { TableFlowGraph } from 'table-flow-graph';
 #### Step3: initiate the TableFlowGraph instance:
 ```javascript
 const el = document.getElementById('my_flow_graph');
-// create a table-flow-graph weith 10x10 cells
+// create a table-flow-graph with 10x10 cells
 const graphInstance = new TableFlowGraph(el, {
     isEditor: true,
     totalColumns: 10,
@@ -62,5 +62,16 @@ const graphInstance = new TableFlowGraph(el, {
 
 ## Options
 
-TODO
+| Option | Type | Description | default
+| --- | --- | --- | --- |
+| `isEditor` | Boolean | Is this flow graph instance an editor or viewer | false
+| `nodes` | Array | nodes(blocks) of the flow graph | []
+| `columns` | Array | stores data of table header title and column width | []
+| `totalRows` | positive integer | Total row number of flow graph table | 8
+| `totalColumns` | positive integer | Total column numbe fo flow graph table | 8
+| `maxRows` | positive integer | Disable add row functionalitiy when totalRows reaches maxRows | 30
+| `maxColumns` | positive integer | Disable add column functionalitiy when totalColumns reaches maxColumns | 12
+| `tableLayoutFixed` | Boolean |  If `true`, the width of each column will be equal | false
+| `labels` | Object | No i18n functionalitiy provided in this project, you can use this option to customize strings displayed on ui | \-
+| ...
 

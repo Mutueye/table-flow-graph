@@ -76,7 +76,7 @@ export interface TFGraphOptions {
   totalColumns?: number;
   maxColumns?: number;
   tableLayoutFixed?: boolean;
-  rows?: TFGraphRow[];
+  // rows?: TFGraphRow[];
   totalRows?: number;
   maxRows?: number;
   isEditor?: boolean;
