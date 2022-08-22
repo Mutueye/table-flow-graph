@@ -9,89 +9,75 @@
 @import '../components/ui/dialog/dialog.scss';
 @import '../components/toolbar/toolbar.scss';
 
-.hidden {
-  display: none !important;
-}
-
-// *,
-// ::before,
-// ::after {
-//   box-sizing: border-box;
-//   border-width: 0;
-//   border-style: solid;
-// }
-
-.tfgraph {
-  position: relative;
-  user-select: none;
-  width: 100%;
+.tfgraph-wrapper {
   *,
   ::before,
   ::after {
     box-sizing: border-box;
   }
-  .tfgraph-anchor-layer {
-    position: absolute;
-    pointer-events: none;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
+  .hidden {
+    display: none !important;
   }
-  .tfgraph-line-layer {
-    position: absolute;
-    pointer-events: none;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 2;
+  .tfgraph {
+    position: relative;
+    user-select: none;
+    width: 100%;
+    .tfgraph-anchor-layer {
+      position: absolute;
+      pointer-events: none;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+    }
+    .tfgraph-line-layer {
+      position: absolute;
+      pointer-events: none;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 2;
+    }
+    .tfgraph-cell-mask-layer {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 3;
+    }
   }
-  .tfgraph-cell-mask-layer {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 3;
+  .edit {
+    .tfgraph-line {
+      cursor: pointer;
+    }
   }
-}
-
-.edit {
-  .tfgraph-line {
-    cursor: pointer;
+  .tfgraph-toolbar {
+    position: relative;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
-}
-
-.tfgraph-toolbar {
-  position: relative;
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  *,
-  ::before,
-  ::after {
-    box-sizing: border-box;
-  }
-}
-
-.tfgraph-input {
-  outline: none;
-  line-height: 36px;
-  font-size: 14px;
-  border-radius: 4px;
-  border: 1px solid $color-gray-dc;
-  padding: 0 10px;
-  &:hover {
-    border-color: $color-gray-99;
-  }
-  &:focus, &:active {
-    border-color: $color-theme;
-  }
-  &::placeholder {
-    color: $color-gray-dc;
+  .tfgraph-input {
+    outline: none;
+    line-height: 36px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid $color-gray-dc;
+    padding: 0 10px;
+    &:hover {
+      border-color: $color-gray-99;
+    }
+    &:focus,
+    &:active {
+      border-color: $color-theme;
+    }
+    &::placeholder {
+      color: $color-gray-dc;
+    }
   }
 }

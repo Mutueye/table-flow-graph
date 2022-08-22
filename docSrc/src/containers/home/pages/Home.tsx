@@ -10,6 +10,7 @@ type Props = {
 
 const Home: React.FC<Props> = ({ className }) => {
   const [graphInstance, setGraphInstance] = useState<TableFlowGraph | null>(null);
+  const customClassName = className ? className : '';
 
   const onChangeLines = (lines: string[][]) => {
     console.log('lines:::::::', lines);
@@ -116,7 +117,7 @@ const Home: React.FC<Props> = ({ className }) => {
         column: 1,
         colSpan: 3,
         title: 'Get Started',
-        showPopup: true,
+        showPopup: false,
       },
       {
         id: '3',
@@ -127,6 +128,7 @@ const Home: React.FC<Props> = ({ className }) => {
         column: 6,
         colSpan: 3,
         title: 'Examples',
+        showPopup: false,
       },
       {
         id: '4',
@@ -187,7 +189,9 @@ const Home: React.FC<Props> = ({ className }) => {
     const instance = new TableFlowGraph(el!, options);
     setGraphInstance(instance);
   }, []);
-  return <div className={'w-full bg-white relative my-20px ' + className} id="home_graph"></div>;
+  return (
+    <div className={'w-full bg-white relative my-20px ' + customClassName} id="home_graph"></div>
+  );
 };
 
 export default Home;

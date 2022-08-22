@@ -14,6 +14,7 @@ export default class Popup {
     timeoutId: number | null;
     constructor(targetElement: HTMLElement, options: PopupOptions);
     render(): void;
+    updatePosition(): void;
     dismiss(): void;
     mouseEnter(): void;
     mouseLeave(): void;

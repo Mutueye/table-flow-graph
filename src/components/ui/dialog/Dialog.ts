@@ -19,7 +19,7 @@ export default class Dialog {
     this.targetElement = options.targetElement
       ? options.targetElement
       : document.getElementsByTagName('body')[0];
-    this.element = createClassElement('div', 'tfgraph-dialog', this.targetElement);
+    this.element = createClassElement('div', 'tfgraph-dialog tfgraph-wrapper', this.targetElement);
     this.maskElement = createClassElement('div', 'tfgraph-dialog-mask', this.element);
     this.boxElement = createClassElement('div', 'tfgraph-dialog-box', this.element);
     this.renderTitleBar();

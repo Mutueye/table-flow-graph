@@ -57,21 +57,41 @@ const graphInstance = new TableFlowGraph(el, {
 });
 ```
 
-
-
 ## Options
 
-| Option | Type | Description | default
+| Option | Type | Description | Default
 | --- | --- | --- | --- |
-| `isEditor` | Boolean | Is this flow graph instance an editor or viewer | false
-| `nodes` | Array | nodes(blocks) of the flow graph | []
-| `columns` | Array | stores data of table header title and column width | []
-| `lines` | Array | 2D array of anchor point ids to draw lines | []
-| `totalRows` | positive integer | Total row number of flow graph table | 8
-| `totalColumns` | positive integer | Total column numbe fo flow graph table | 8
-| `maxRows` | positive integer | Disable add row functionalitiy when totalRows reaches maxRows | 30
-| `maxColumns` | positive integer | Disable add column functionalitiy when totalColumns reaches maxColumns | 12
-| `tableLayoutFixed` | Boolean |  If `true`, the width of each column will be equal | false
-| `labels` | Object | No i18n functionalitiy provided in this project, you can use this option to customize all the used texts | -
-| ...
+| `isEditor` | Boolean | If set to true, this flow graph instance will be editable. | false
+| `nodes` | Array | nodes(blocks) of the flow graph. | []
+| `columns` | Array | stores data of table header title and column width. | []
+| `lines` | Array | 2D array of anchor point ids to draw lines. | []
+| `totalRows` | positive integer | Total row number of flow graph table. | 8
+| `totalColumns` | positive integer | Total column numbe fo flow graph table. | 8
+| `maxRows` | positive integer | Disable add row functionalitiy when totalRows reaches maxRows. | 30
+| `maxColumns` | positive integer | Disable add column functionalitiy when totalColumns reaches maxColumns. | 12
+| `tableLayoutFixed` | Boolean |  If `true`, the width of each column will be equal. | false
+| `labels` | Object | No i18n functionalitiy provided in this project, you can use this option to customize all the texts/labels. | -
+| `onChangeLines` | Function | Event hook triggered when new line is drawn or a line is deleted. | -
+| `addColumn` | Function | Event hook triggered when 'Add Column' button is pressed. This will overwrite the build in functionalitiy of adding new column(which will trigger `onAddColumn`). You need to call `refresh(newOptions)` to refresh the flow graph instance after adding column with this method. | -
+| `onAddColumn` | Function | Event hook triggered after adding column with build in method. | -
+| `editColumn` | Function | Event hook triggered when 'Edit Column' button is pressed. This will overwrite the build in functionalitiy of editing a column(which will trigger `onEditColumn`). You need to call `refresh(newOptions)` to refresh the flow graph instance after editing column with this method.  | -
+| `onEditColumn` | Function | Event hook triggered after editing column with build in method. | -
+| `deleteColumn` | Function | Event hook triggered when 'Delete Column' button is pressed. This will overwrite the build in functionalitiy of deleting a column(which will trigger `onDeleteColumn`). You need to call `refresh(newOptions)` to refresh the flow graph instance after deleting column with this method. | -
+| `onDeleteColumn` | Function | Event hook triggered after deleting column with build in method. | -
+| `addRow` | Function | Event hook triggered when 'Add Row' button is pressed. This will overwrite the build in functionalitiy of adding new row(which will trigger `onAddRow`). You need to call `refresh(newOptions)` to refresh the flow graph instance after adding row with this method. | -
+| `onAddRow` | Function | Event hook triggered after adding row with build in method. | -
+| `deleteRow` | Function | Event hook triggered when 'Delete Row' button is pressed. This will overwrite the build in functionalitiy of deleting a row(which will trigger `onDeleteRow`). You need to call `refresh(newOptions)` to refresh the flow graph instance after deleting row with this method. | -
+| `onDeleteRow` | Function | Event hook triggered after deleting row with build in method. | -
+| `addNode` | Function | Event hook triggered when 'Add Node' button is pressed. This will overwrite the build in functionalitiy of adding a node(which will trigger `onAddNode`). You need to call `refresh(newOptions)` to refresh the flow graph instance after adding node with this method. | -
+| `onAddNode` | Function | Event hook triggered after adding node with build in method. | -
+| `editNode` | Function | Event hook triggered when 'Edit Node' button is pressed. This will overwrite the build in functionalitiy of editing node(which will trigger `onEditNode`). You need to call `refresh(newOptions` to refresh the flow graph instance after editing node with this method. | -
+| `onEditNode` | Function | Event hook triggered after editing node with build in method. | -
+| `deleteNode` | Function | Event hook triggered when 'Delete Node' button is pressed. This will overwrite the build in functionalitiy of deleting a node(which will trigger `onDeleteNode`). You need to call `refresh(newOptions)` | -
+| `onDeleteNode` | Function | Event hook triggered after deleting node with build in method. | -
+| `onClickNode` | Function | Event hook triggered when node is clicked in viewer mode. | -
+| `renderNode` | Function | Customize how the node content is rendered. | -
+| `renderNodeHoverPopup` | Function | Customize how the node's hover Popup is rendered. | -
+
+
+
 

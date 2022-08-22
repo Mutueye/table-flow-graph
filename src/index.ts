@@ -58,6 +58,7 @@ export class TableFlowGraph {
       throw new Error('no element is specified to initialize TableFlowGraph');
     } else {
       this.baseElement = el;
+      this.baseElement.classList.add('tfgraph-wrapper');
     }
 
     // use id as unique key, to support multiple table-flow-graph instances in one page.

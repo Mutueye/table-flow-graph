@@ -15,6 +15,7 @@ export default class Tooltip {
     showTimeoutId: number | null;
     constructor(targetElement: HTMLElement, options: TooltipOptoins);
     render(): void;
+    updatePosition(): void;
     dismiss(): void;
     mouseEnter(): void;
     mouseLeave(): void;

@@ -28,7 +28,7 @@ export default class Tooltip {
     const { placement = 'top', label } = this.options;
 
     const targetRect = this.targetElement.getBoundingClientRect();
-    this.element = createClassElement('div', 'tfgraph-tooltip', document.body);
+    this.element = createClassElement('div', 'tfgraph-tooltip tfgraph-wrapper', document.body);
     setStyles(this.element, {
       left: targetRect.left + 0.5 * targetRect.width + 'px',
       top: targetRect.top + 0.5 * targetRect.height + 'px',
@@ -70,6 +70,7 @@ export default class Tooltip {
     setStyles(this.areaElement, areaStyleObj);
     setStyles(this.arrowElement, arrowStyleObj);
 
+    document.addEventListener('scroll', () => this.updatePosition());
     this.rendered = true;
     if (this.showTimeoutId) {
       window.clearTimeout(this.showTimeoutId);
@@ -77,10 +78,19 @@ export default class Tooltip {
     }
   }
 
+  public updatePosition() {
+    const targetRect = this.targetElement.getBoundingClientRect();
+    setStyles(this.element, {
+      left: targetRect.left + 0.5 * targetRect.width + 'px',
+      top: targetRect.top + 0.5 * targetRect.height + 'px',
+    });
+  }
+
   public dismiss() {
     this.rendered = false;
     this.targetElement.removeEventListener('mouseenter', () => this.mouseEnter());
     this.targetElement.removeEventListener('mouseleave', () => this.mouseLeave());
+    document.removeEventListener('scroll', () => this.updatePosition());
     if (this.element) removeElement(this.element);
   }
 

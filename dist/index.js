@@ -160,9 +160,10 @@
             this.targetElement.addEventListener('mouseleave', function () { return _this.mouseLeave(); });
         }
         Tooltip.prototype.render = function () {
+            var _this = this;
             var _a = this.options, _b = _a.placement, placement = _b === void 0 ? 'top' : _b, label = _a.label;
             var targetRect = this.targetElement.getBoundingClientRect();
-            this.element = createClassElement('div', 'tfgraph-tooltip', document.body);
+            this.element = createClassElement('div', 'tfgraph-tooltip tfgraph-wrapper', document.body);
             setStyles(this.element, {
                 left: targetRect.left + 0.5 * targetRect.width + 'px',
                 top: targetRect.top + 0.5 * targetRect.height + 'px',
@@ -200,17 +201,26 @@
             }
             setStyles(this.areaElement, areaStyleObj);
             setStyles(this.arrowElement, arrowStyleObj);
+            document.addEventListener('scroll', function () { return _this.updatePosition(); });
             this.rendered = true;
             if (this.showTimeoutId) {
                 window.clearTimeout(this.showTimeoutId);
                 this.showTimeoutId = null;
             }
         };
+        Tooltip.prototype.updatePosition = function () {
+            var targetRect = this.targetElement.getBoundingClientRect();
+            setStyles(this.element, {
+                left: targetRect.left + 0.5 * targetRect.width + 'px',
+                top: targetRect.top + 0.5 * targetRect.height + 'px',
+            });
+        };
         Tooltip.prototype.dismiss = function () {
             var _this = this;
             this.rendered = false;
             this.targetElement.removeEventListener('mouseenter', function () { return _this.mouseEnter(); });
             this.targetElement.removeEventListener('mouseleave', function () { return _this.mouseLeave(); });
+            document.removeEventListener('scroll', function () { return _this.updatePosition(); });
             if (this.element)
                 removeElement(this.element);
         };
@@ -347,7 +357,7 @@
             this.targetElement = options.targetElement
                 ? options.targetElement
                 : document.getElementsByTagName('body')[0];
-            this.element = createClassElement('div', 'tfgraph-dialog', this.targetElement);
+            this.element = createClassElement('div', 'tfgraph-dialog tfgraph-wrapper', this.targetElement);
             this.maskElement = createClassElement('div', 'tfgraph-dialog-mask', this.element);
             this.boxElement = createClassElement('div', 'tfgraph-dialog-box', this.element);
             this.renderTitleBar();
@@ -594,7 +604,7 @@
             var _this = this;
             var _a = this.options, _b = _a.placement, placement = _b === void 0 ? 'top' : _b, contentElement = _a.contentElement;
             var targetRect = this.targetElement.getBoundingClientRect();
-            this.element = createClassElement('div', 'tfgraph-popup', document.body);
+            this.element = createClassElement('div', 'tfgraph-popup tfgraph-wrapper', document.body);
             setStyles(this.element, {
                 left: targetRect.left + 0.5 * targetRect.width + 'px',
                 top: targetRect.top + 0.5 * targetRect.height + 'px',
@@ -634,13 +644,22 @@
             setStyles(this.arrowElement, arrowStyleObj);
             this.areaElement.addEventListener('mouseenter', function () { return _this.mouseEnter(); });
             this.areaElement.addEventListener('mouseleave', function () { return _this.mouseLeave(); });
+            document.addEventListener('scroll', function () { return _this.updatePosition(); });
             this.rendered = true;
+        };
+        Popup.prototype.updatePosition = function () {
+            var targetRect = this.targetElement.getBoundingClientRect();
+            setStyles(this.element, {
+                left: targetRect.left + 0.5 * targetRect.width + 'px',
+                top: targetRect.top + 0.5 * targetRect.height + 'px',
+            });
         };
         Popup.prototype.dismiss = function () {
             var _this = this;
             this.rendered = false;
             this.areaElement.removeEventListener('mouseenter', function () { return _this.mouseEnter(); });
             this.areaElement.removeEventListener('mouseleave', function () { return _this.mouseLeave(); });
+            document.removeEventListener('scroll', function () { return _this.updatePosition(); });
             removeElement(this.element);
         };
         Popup.prototype.mouseEnter = function () {
@@ -2173,6 +2192,7 @@
             }
             else {
                 this.baseElement = el;
+                this.baseElement.classList.add('tfgraph-wrapper');
             }
             // use id as unique key, to support multiple table-flow-graph instances in one page.
             if (this.baseElement.getAttribute('id')) {

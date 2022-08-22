@@ -27,7 +27,7 @@ export default class Popup {
     const { placement = 'top', contentElement } = this.options;
 
     const targetRect = this.targetElement.getBoundingClientRect();
-    this.element = createClassElement('div', 'tfgraph-popup', document.body);
+    this.element = createClassElement('div', 'tfgraph-popup tfgraph-wrapper', document.body);
     setStyles(this.element, {
       left: targetRect.left + 0.5 * targetRect.width + 'px',
       top: targetRect.top + 0.5 * targetRect.height + 'px',
@@ -71,13 +71,23 @@ export default class Popup {
 
     this.areaElement.addEventListener('mouseenter', () => this.mouseEnter());
     this.areaElement.addEventListener('mouseleave', () => this.mouseLeave());
+    document.addEventListener('scroll', () => this.updatePosition());
     this.rendered = true;
+  }
+
+  public updatePosition() {
+    const targetRect = this.targetElement.getBoundingClientRect();
+    setStyles(this.element, {
+      left: targetRect.left + 0.5 * targetRect.width + 'px',
+      top: targetRect.top + 0.5 * targetRect.height + 'px',
+    });
   }
 
   public dismiss() {
     this.rendered = false;
     this.areaElement.removeEventListener('mouseenter', () => this.mouseEnter());
     this.areaElement.removeEventListener('mouseleave', () => this.mouseLeave());
+    document.removeEventListener('scroll', () => this.updatePosition());
     removeElement(this.element);
   }
 
