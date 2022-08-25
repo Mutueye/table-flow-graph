@@ -1,0 +1,85 @@
+.tfgraph-node {
+  display: flex;
+  overflow: hidden;
+  align-self: stretch;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: default !important;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  min-height: 36px;
+  padding: 8px 10px;
+  color: #333333;
+  background-color: #f3f4f6;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.2s;
+  &.isBtn {
+    cursor: pointer !important;
+  }
+  // &.default {
+  //   // border-color: #ebeef5;
+  //   border-color: #dcdcdc;
+  //   color: #333333;
+  //   background-color: #f3f4f6;
+  //   &.isBtn {
+  //     &:hover {
+  //       border-color: #cccccc;
+  //       color: #333333;
+  //       background-color: #f1f2f4;
+  //     }
+  //   }
+  // }
+  // &.primary {
+  //   border-color: $color-theme;
+  //   color: $color-theme;
+  //   background-color: #377df410;
+  //   &.isBtn {
+  //     &:hover {
+  //       border-color: $color-theme;
+  //       color: #ffffff;
+  //       background-color: $color-theme;
+  //     }
+  //   }
+  // }
+  // &.success {
+  //   border-color: #80c269;
+  //   color: #80c269;
+  //   background-color: #80c26910;
+  //   &.isBtn {
+  //     &:hover {
+  //       border-color: #80c269;
+  //       color: #ffffff;
+  //       background-color: #80c269;
+  //     }
+  //   }
+  // }
+  // &.warning {
+  //   border-color: #f96400;
+  //   color: #f96400;
+  //   background-color: #f9640010;
+  //   &.isBtn {
+  //     &:hover {
+  //       border-color: #f96400;
+  //       color: #ffffff;
+  //       background-color: #f96400;
+  //     }
+  //   }
+  // }
+  // &.danger {
+  //   border-color: #fc7373;
+  //   color: #fc7373;
+  //   background-color: #fc737310;
+  //   &.isBtn {
+  //     &:hover {
+  //       border-color: #fc7373;
+  //       color: #ffffff;
+  //       background-color: #fc7373;
+  //     }
+  //   }
+  // }
+}

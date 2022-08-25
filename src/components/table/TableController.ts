@@ -61,7 +61,7 @@ export default class Table {
 
       this.cells.forEach((cell) => {
         // set tabel cell controls
-        cell.setEditControls();
+        cell.setEditorControls();
       });
 
       // wait for table render ready
@@ -104,7 +104,7 @@ export default class Table {
       // click node event
       this.cells.forEach((cell) => {
         // set tabel cell controls
-        cell.setViewModeControls();
+        cell.setViewerControls();
       });
     }
     this.setBottomControl();

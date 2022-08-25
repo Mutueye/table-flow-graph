@@ -83,7 +83,7 @@ export default class LineGroup {
         positionA: this.cursorLineStartPosition,
         positionB: this.graphInstance.mousePosition,
         thickness: 2,
-        isStart: pointList.length === 0,
+        isStart: pointList.length === 1,
         isEnd: true,
       });
       this.lines.push(this.cursorLine);

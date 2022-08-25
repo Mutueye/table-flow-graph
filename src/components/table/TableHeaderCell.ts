@@ -45,7 +45,7 @@ export default class TableHeaderCell {
       // TODO load width value from options
       let width = this.columnData.width;
       switch (this.columnData.width) {
-        case 'large':
+        case 'lg':
           width = '200';
           break;
         case 'md':

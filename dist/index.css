@@ -26,364 +26,364 @@
   -------------------------- */
 }
 .tfgraph-wrapper .bg-blue {
-  background-color: #377df4;
+  background-color: #3366FF;
 }
 .tfgraph-wrapper .bg-blue.is-hoverable:hover {
-  background-color: #5591f6;
+  background-color: #527dff;
 }
 .tfgraph-wrapper .text-blue {
-  color: #377df4;
+  color: #3366FF;
 }
 .tfgraph-wrapper .text-blue.is-hoverable:hover {
-  color: #5591f6;
+  color: #527dff;
 }
 .tfgraph-wrapper .border-blue {
-  border-color: #377df4;
+  border-color: #3366FF;
 }
 .tfgraph-wrapper .border-blue.is-hoverable:hover {
-  border-color: #5591f6;
+  border-color: #527dff;
 }
 .tfgraph-wrapper .fill-blue {
-  fill: #377df4;
+  fill: #3366FF;
 }
 .tfgraph-wrapper .fill-blue.is-hoverable:hover {
-  fill: #5591f6;
+  fill: #527dff;
 }
 .tfgraph-wrapper .bg-blue-light {
-  background-color: #d7e5fd;
+  background-color: #d6e0ff;
 }
 .tfgraph-wrapper .bg-blue-light.is-hoverable:hover {
-  background-color: #dde9fd;
+  background-color: #dce5ff;
 }
 .tfgraph-wrapper .text-blue-light {
-  color: #d7e5fd;
+  color: #d6e0ff;
 }
 .tfgraph-wrapper .text-blue-light.is-hoverable:hover {
-  color: #dde9fd;
+  color: #dce5ff;
 }
 .tfgraph-wrapper .border-blue-light {
-  border-color: #d7e5fd;
+  border-color: #d6e0ff;
 }
 .tfgraph-wrapper .border-blue-light.is-hoverable:hover {
-  border-color: #dde9fd;
+  border-color: #dce5ff;
 }
 .tfgraph-wrapper .fill-blue-light {
-  fill: #d7e5fd;
+  fill: #d6e0ff;
 }
 .tfgraph-wrapper .fill-blue-light.is-hoverable:hover {
-  fill: #dde9fd;
+  fill: #dce5ff;
 }
 .tfgraph-wrapper .bg-blue-lighter {
-  background-color: #ebf2fe;
+  background-color: #ebf0ff;
 }
 .tfgraph-wrapper .bg-blue-lighter.is-hoverable:hover {
-  background-color: #eef4fe;
+  background-color: #eef2ff;
 }
 .tfgraph-wrapper .text-blue-lighter {
-  color: #ebf2fe;
+  color: #ebf0ff;
 }
 .tfgraph-wrapper .text-blue-lighter.is-hoverable:hover {
-  color: #eef4fe;
+  color: #eef2ff;
 }
 .tfgraph-wrapper .border-blue-lighter {
-  border-color: #ebf2fe;
+  border-color: #ebf0ff;
 }
 .tfgraph-wrapper .border-blue-lighter.is-hoverable:hover {
-  border-color: #eef4fe;
+  border-color: #eef2ff;
 }
 .tfgraph-wrapper .fill-blue-lighter {
-  fill: #ebf2fe;
+  fill: #ebf0ff;
 }
 .tfgraph-wrapper .fill-blue-lighter.is-hoverable:hover {
-  fill: #eef4fe;
+  fill: #eef2ff;
 }
 .tfgraph-wrapper .bg-red {
-  background-color: #fc7373;
+  background-color: #FA5151;
 }
 .tfgraph-wrapper .bg-red.is-hoverable:hover {
-  background-color: #fc8888;
+  background-color: #fb6b6b;
 }
 .tfgraph-wrapper .text-red {
-  color: #fc7373;
+  color: #FA5151;
 }
 .tfgraph-wrapper .text-red.is-hoverable:hover {
-  color: #fc8888;
+  color: #fb6b6b;
 }
 .tfgraph-wrapper .border-red {
-  border-color: #fc7373;
+  border-color: #FA5151;
 }
 .tfgraph-wrapper .border-red.is-hoverable:hover {
-  border-color: #fc8888;
+  border-color: #fb6b6b;
 }
 .tfgraph-wrapper .fill-red {
-  fill: #fc7373;
+  fill: #FA5151;
 }
 .tfgraph-wrapper .fill-red.is-hoverable:hover {
-  fill: #fc8888;
+  fill: #fb6b6b;
 }
 .tfgraph-wrapper .bg-red-light {
-  background-color: #fee3e3;
+  background-color: #fedcdc;
 }
 .tfgraph-wrapper .bg-red-light.is-hoverable:hover {
-  background-color: #fee7e7;
+  background-color: #fee1e1;
 }
 .tfgraph-wrapper .text-red-light {
-  color: #fee3e3;
+  color: #fedcdc;
 }
 .tfgraph-wrapper .text-red-light.is-hoverable:hover {
-  color: #fee7e7;
+  color: #fee1e1;
 }
 .tfgraph-wrapper .border-red-light {
-  border-color: #fee3e3;
+  border-color: #fedcdc;
 }
 .tfgraph-wrapper .border-red-light.is-hoverable:hover {
-  border-color: #fee7e7;
+  border-color: #fee1e1;
 }
 .tfgraph-wrapper .fill-red-light {
-  fill: #fee3e3;
+  fill: #fedcdc;
 }
 .tfgraph-wrapper .fill-red-light.is-hoverable:hover {
-  fill: #fee7e7;
+  fill: #fee1e1;
 }
 .tfgraph-wrapper .bg-red-lighter {
-  background-color: #fff1f1;
+  background-color: #ffeeee;
 }
 .tfgraph-wrapper .bg-red-lighter.is-hoverable:hover {
-  background-color: #fff3f3;
+  background-color: #fff1f1;
 }
 .tfgraph-wrapper .text-red-lighter {
-  color: #fff1f1;
+  color: #ffeeee;
 }
 .tfgraph-wrapper .text-red-lighter.is-hoverable:hover {
-  color: #fff3f3;
+  color: #fff1f1;
 }
 .tfgraph-wrapper .border-red-lighter {
-  border-color: #fff1f1;
+  border-color: #ffeeee;
 }
 .tfgraph-wrapper .border-red-lighter.is-hoverable:hover {
-  border-color: #fff3f3;
+  border-color: #fff1f1;
 }
 .tfgraph-wrapper .fill-red-lighter {
-  fill: #fff1f1;
+  fill: #ffeeee;
 }
 .tfgraph-wrapper .fill-red-lighter.is-hoverable:hover {
-  fill: #fff3f3;
+  fill: #fff1f1;
 }
 .tfgraph-wrapper .bg-yellow {
-  background-color: #f8af40;
+  background-color: #FCB42C;
 }
 .tfgraph-wrapper .bg-yellow.is-hoverable:hover {
-  background-color: #f9bb5d;
+  background-color: #fcbf4c;
 }
 .tfgraph-wrapper .text-yellow {
-  color: #f8af40;
+  color: #FCB42C;
 }
 .tfgraph-wrapper .text-yellow.is-hoverable:hover {
-  color: #f9bb5d;
+  color: #fcbf4c;
 }
 .tfgraph-wrapper .border-yellow {
-  border-color: #f8af40;
+  border-color: #FCB42C;
 }
 .tfgraph-wrapper .border-yellow.is-hoverable:hover {
-  border-color: #f9bb5d;
+  border-color: #fcbf4c;
 }
 .tfgraph-wrapper .fill-yellow {
-  fill: #f8af40;
+  fill: #FCB42C;
 }
 .tfgraph-wrapper .fill-yellow.is-hoverable:hover {
-  fill: #f9bb5d;
+  fill: #fcbf4c;
 }
 .tfgraph-wrapper .bg-yellow-light {
-  background-color: #feefd9;
+  background-color: #fef0d5;
 }
 .tfgraph-wrapper .bg-yellow-light.is-hoverable:hover {
-  background-color: #fef1df;
+  background-color: #fef2db;
 }
 .tfgraph-wrapper .text-yellow-light {
-  color: #feefd9;
+  color: #fef0d5;
 }
 .tfgraph-wrapper .text-yellow-light.is-hoverable:hover {
-  color: #fef1df;
+  color: #fef2db;
 }
 .tfgraph-wrapper .border-yellow-light {
-  border-color: #feefd9;
+  border-color: #fef0d5;
 }
 .tfgraph-wrapper .border-yellow-light.is-hoverable:hover {
-  border-color: #fef1df;
+  border-color: #fef2db;
 }
 .tfgraph-wrapper .fill-yellow-light {
-  fill: #feefd9;
+  fill: #fef0d5;
 }
 .tfgraph-wrapper .fill-yellow-light.is-hoverable:hover {
-  fill: #fef1df;
+  fill: #fef2db;
 }
 .tfgraph-wrapper .bg-yellow-lighter {
-  background-color: #fef7ec;
+  background-color: #fff8ea;
 }
 .tfgraph-wrapper .bg-yellow-lighter.is-hoverable:hover {
-  background-color: #fef8ef;
+  background-color: #fff9ed;
 }
 .tfgraph-wrapper .text-yellow-lighter {
-  color: #fef7ec;
+  color: #fff8ea;
 }
 .tfgraph-wrapper .text-yellow-lighter.is-hoverable:hover {
-  color: #fef8ef;
+  color: #fff9ed;
 }
 .tfgraph-wrapper .border-yellow-lighter {
-  border-color: #fef7ec;
+  border-color: #fff8ea;
 }
 .tfgraph-wrapper .border-yellow-lighter.is-hoverable:hover {
-  border-color: #fef8ef;
+  border-color: #fff9ed;
 }
 .tfgraph-wrapper .fill-yellow-lighter {
-  fill: #fef7ec;
+  fill: #fff8ea;
 }
 .tfgraph-wrapper .fill-yellow-lighter.is-hoverable:hover {
-  fill: #fef8ef;
+  fill: #fff9ed;
 }
 .tfgraph-wrapper .bg-green {
-  background-color: #80c269;
+  background-color: #68DE4D;
 }
 .tfgraph-wrapper .bg-green.is-hoverable:hover {
-  background-color: #93cb80;
+  background-color: #7fe368;
 }
 .tfgraph-wrapper .text-green {
-  color: #80c269;
+  color: #68DE4D;
 }
 .tfgraph-wrapper .text-green.is-hoverable:hover {
-  color: #93cb80;
+  color: #7fe368;
 }
 .tfgraph-wrapper .border-green {
-  border-color: #80c269;
+  border-color: #68DE4D;
 }
 .tfgraph-wrapper .border-green.is-hoverable:hover {
-  border-color: #93cb80;
+  border-color: #7fe368;
 }
 .tfgraph-wrapper .fill-green {
-  fill: #80c269;
+  fill: #68DE4D;
 }
 .tfgraph-wrapper .fill-green.is-hoverable:hover {
-  fill: #93cb80;
+  fill: #7fe368;
 }
 .tfgraph-wrapper .bg-green-light {
-  background-color: #e6f3e1;
+  background-color: #e1f8db;
 }
 .tfgraph-wrapper .bg-green-light.is-hoverable:hover {
-  background-color: #eaf5e6;
+  background-color: #e6f9e0;
 }
 .tfgraph-wrapper .text-green-light {
-  color: #e6f3e1;
+  color: #e1f8db;
 }
 .tfgraph-wrapper .text-green-light.is-hoverable:hover {
-  color: #eaf5e6;
+  color: #e6f9e0;
 }
 .tfgraph-wrapper .border-green-light {
-  border-color: #e6f3e1;
+  border-color: #e1f8db;
 }
 .tfgraph-wrapper .border-green-light.is-hoverable:hover {
-  border-color: #eaf5e6;
+  border-color: #e6f9e0;
 }
 .tfgraph-wrapper .fill-green-light {
-  fill: #e6f3e1;
+  fill: #e1f8db;
 }
 .tfgraph-wrapper .fill-green-light.is-hoverable:hover {
-  fill: #eaf5e6;
+  fill: #e6f9e0;
 }
 .tfgraph-wrapper .bg-green-lighter {
-  background-color: #f2f9f0;
+  background-color: #f0fced;
 }
 .tfgraph-wrapper .bg-green-lighter.is-hoverable:hover {
-  background-color: #f4faf2;
+  background-color: #f2fcf0;
 }
 .tfgraph-wrapper .text-green-lighter {
-  color: #f2f9f0;
+  color: #f0fced;
 }
 .tfgraph-wrapper .text-green-lighter.is-hoverable:hover {
-  color: #f4faf2;
+  color: #f2fcf0;
 }
 .tfgraph-wrapper .border-green-lighter {
-  border-color: #f2f9f0;
+  border-color: #f0fced;
 }
 .tfgraph-wrapper .border-green-lighter.is-hoverable:hover {
-  border-color: #f4faf2;
+  border-color: #f2fcf0;
 }
 .tfgraph-wrapper .fill-green-lighter {
-  fill: #f2f9f0;
+  fill: #f0fced;
 }
 .tfgraph-wrapper .fill-green-lighter.is-hoverable:hover {
-  fill: #f4faf2;
+  fill: #f2fcf0;
 }
 .tfgraph-wrapper .bg-purple {
-  background-color: #aa62d4;
+  background-color: #8433FF;
 }
 .tfgraph-wrapper .bg-purple.is-hoverable:hover {
-  background-color: #b77ada;
+  background-color: #9652ff;
 }
 .tfgraph-wrapper .text-purple {
-  color: #aa62d4;
+  color: #8433FF;
 }
 .tfgraph-wrapper .text-purple.is-hoverable:hover {
-  color: #b77ada;
+  color: #9652ff;
 }
 .tfgraph-wrapper .border-purple {
-  border-color: #aa62d4;
+  border-color: #8433FF;
 }
 .tfgraph-wrapper .border-purple.is-hoverable:hover {
-  border-color: #b77ada;
+  border-color: #9652ff;
 }
 .tfgraph-wrapper .fill-purple {
-  fill: #aa62d4;
+  fill: #8433FF;
 }
 .tfgraph-wrapper .fill-purple.is-hoverable:hover {
-  fill: #b77ada;
+  fill: #9652ff;
 }
 .tfgraph-wrapper .bg-purple-light {
-  background-color: #eee0f6;
+  background-color: #e6d6ff;
 }
 .tfgraph-wrapper .bg-purple-light.is-hoverable:hover {
-  background-color: #f1e5f7;
+  background-color: #eadcff;
 }
 .tfgraph-wrapper .text-purple-light {
-  color: #eee0f6;
+  color: #e6d6ff;
 }
 .tfgraph-wrapper .text-purple-light.is-hoverable:hover {
-  color: #f1e5f7;
+  color: #eadcff;
 }
 .tfgraph-wrapper .border-purple-light {
-  border-color: #eee0f6;
+  border-color: #e6d6ff;
 }
 .tfgraph-wrapper .border-purple-light.is-hoverable:hover {
-  border-color: #f1e5f7;
+  border-color: #eadcff;
 }
 .tfgraph-wrapper .fill-purple-light {
-  fill: #eee0f6;
+  fill: #e6d6ff;
 }
 .tfgraph-wrapper .fill-purple-light.is-hoverable:hover {
-  fill: #f1e5f7;
+  fill: #eadcff;
 }
 .tfgraph-wrapper .bg-purple-lighter {
-  background-color: #f7effb;
+  background-color: #f3ebff;
 }
 .tfgraph-wrapper .bg-purple-lighter.is-hoverable:hover {
-  background-color: #f8f1fc;
+  background-color: #f5eeff;
 }
 .tfgraph-wrapper .text-purple-lighter {
-  color: #f7effb;
+  color: #f3ebff;
 }
 .tfgraph-wrapper .text-purple-lighter.is-hoverable:hover {
-  color: #f8f1fc;
+  color: #f5eeff;
 }
 .tfgraph-wrapper .border-purple-lighter {
-  border-color: #f7effb;
+  border-color: #f3ebff;
 }
 .tfgraph-wrapper .border-purple-lighter.is-hoverable:hover {
-  border-color: #f8f1fc;
+  border-color: #f5eeff;
 }
 .tfgraph-wrapper .fill-purple-lighter {
-  fill: #f7effb;
+  fill: #f3ebff;
 }
 .tfgraph-wrapper .fill-purple-lighter.is-hoverable:hover {
-  fill: #f8f1fc;
+  fill: #f5eeff;
 }
 .tfgraph-wrapper .bg-black {
   background-color: #000000;
@@ -49227,8 +49227,55 @@
   opacity: 1;
 }
 
+.tfgraph-table-mask-cell {
+  position: absolute;
+  background-color: rgba(104, 222, 77, 0.5);
+  border: 1px solid #68DE4D;
+  pointer-events: all;
+  transition: all ease-out 0.2s;
+}
+.tfgraph-table-mask-cell .tfgraph-table-mask-node {
+  top: 15px;
+  right: 15px;
+  bottom: 15px;
+  left: 15px;
+  position: absolute;
+  border: 1px solid #68DE4D;
+  border-radius: 8px;
+  background-color: rgba(104, 222, 77, 0.7);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 10px;
+  font-size: 13px;
+  color: white;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: center;
+  overflow: hidden;
+}
+.tfgraph-table-mask-cell.moving {
+  cursor: move;
+}
+.tfgraph-table-mask-cell.resizing {
+  cursor: nwse-resize;
+}
+.tfgraph-table-mask-cell.disabled {
+  cursor: not-allowed;
+  border: 1px solid #FA5151;
+  background-color: rgba(250, 81, 81, 0.5);
+}
+.tfgraph-table-mask-cell.disabled .tfgraph-table-mask-node {
+  position: absolute;
+  border: 1px solid #FA5151;
+  border-radius: 8px;
+  background-color: rgba(250, 81, 81, 0.7);
+}
+
 .tfgraph-node {
   display: flex;
+  overflow: hidden;
   align-self: stretch;
   width: 100%;
   flex-direction: row;
@@ -49250,109 +49297,13 @@
 .tfgraph-node.isBtn {
   cursor: pointer !important;
 }
-.tfgraph-node.default {
-  border-color: #dcdcdc;
-  color: #333333;
-  background-color: #f3f4f6;
-}
-.tfgraph-node.default.isBtn:hover {
-  border-color: #cccccc;
-  color: #333333;
-  background-color: #f1f2f4;
-}
-.tfgraph-node.success {
-  border-color: #80c269;
-  color: #80c269;
-  background-color: #80c26910;
-}
-.tfgraph-node.success.isBtn:hover {
-  border-color: #80c269;
-  color: #ffffff;
-  background-color: #80c269;
-}
-.tfgraph-node.warning {
-  border-color: #f96400;
-  color: #f96400;
-  background-color: #f9640010;
-}
-.tfgraph-node.warning.isBtn:hover {
-  border-color: #f96400;
-  color: #ffffff;
-  background-color: #f96400;
-}
-.tfgraph-node.danger {
-  border-color: #fc7373;
-  color: #fc7373;
-  background-color: #fc737310;
-}
-.tfgraph-node.danger.isBtn:hover {
-  border-color: #fc7373;
-  color: #ffffff;
-  background-color: #fc7373;
-}
-.tfgraph-node.primary {
-  border-color: #377df4;
-  color: #377df4;
-  background-color: #377df610;
-}
-.tfgraph-node.primary.isBtn:hover {
-  border-color: #377df4;
-  color: #ffffff;
-  background-color: #377df4;
-}
-
-.tfgraph-table-mask-cell {
-  position: absolute;
-  background-color: rgba(128, 194, 105, 0.4);
-  border: 1px solid #80c269;
-  pointer-events: all;
-  transition: all ease-out 0.2s;
-}
-.tfgraph-table-mask-cell .tfgraph-table-mask-node {
-  top: 15px;
-  right: 15px;
-  bottom: 15px;
-  left: 15px;
-  position: absolute;
-  border: 1px solid #80c269;
-  border-radius: 8px;
-  background-color: rgba(128, 194, 105, 0.4);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 10px;
-  font-size: 13px;
-  color: white;
-  font-weight: 500;
-  line-height: 18px;
-  text-align: center;
-  overflow: hidden;
-}
-.tfgraph-table-mask-cell.moving {
-  cursor: move;
-}
-.tfgraph-table-mask-cell.resizing {
-  cursor: nwse-resize;
-}
-.tfgraph-table-mask-cell.disabled {
-  cursor: not-allowed;
-  border: 1px solid #fc7373;
-  background-color: rgba(252, 115, 115, 0.5);
-}
-.tfgraph-table-mask-cell.disabled .tfgraph-table-mask-node {
-  position: absolute;
-  border: 1px solid #fc7373;
-  border-radius: 8px;
-  background-color: rgba(252, 115, 115, 0.5);
-}
 
 .tfgraph-line-group {
   pointer-events: none;
 }
 
 .tfgraph-line {
-  background-color: #377df4;
+  background-color: #3366FF;
   padding: 0;
   margin: 0;
   position: absolute;
@@ -49360,14 +49311,14 @@
   pointer-events: all;
 }
 .tfgraph-line.hovered {
-  background-color: #fc7373;
+  background-color: #FA5151;
   z-index: 100;
 }
 .tfgraph-line.hovered .start-point {
-  background-color: #fc7373;
+  background-color: #FA5151;
 }
 .tfgraph-line.hovered .arrow::before {
-  border-left-color: #fc7373;
+  border-left-color: #FA5151;
 }
 .tfgraph-line .start-point {
   position: absolute;
@@ -49376,7 +49327,7 @@
   border-radius: 4px;
   top: -2.5px;
   left: -2.5px;
-  background-color: #377df4;
+  background-color: #3366FF;
 }
 .tfgraph-line .arrow {
   position: absolute;
@@ -49395,7 +49346,7 @@
   border-bottom-width: 6px;
   border-color: transparent;
   border-style: solid;
-  border-left-color: #377df4;
+  border-left-color: #3366FF;
 }
 
 .tfgraph-anchor {
@@ -49431,8 +49382,8 @@
   left: -2px;
   top: -2px;
   border-radius: 10px;
-  border: 1px solid #377df4;
-  background-color: rgba(55, 125, 244, 0);
+  border: 1px solid #3366FF;
+  background-color: rgba(51, 102, 255, 0);
   pointer-events: none;
   transform: scale(0.3);
   opacity: 0;
@@ -49440,7 +49391,7 @@
 }
 .tfgraph-anchor .tfgraph-anchor-area:hover .tfgraph-anchor-circle {
   transform: scale(1);
-  background-color: rgba(55, 125, 244, 0.2);
+  background-color: rgba(51, 102, 255, 0.2);
   opacity: 1;
 }
 .tfgraph-anchor:hover .tfgraph-anchor-point {
@@ -49496,11 +49447,11 @@
   fill: #333333;
 }
 .tfgraph-button.default:hover {
-  color: #377df4;
-  border-color: #377df4;
+  color: #3366FF;
+  border-color: #3366FF;
 }
 .tfgraph-button.default:hover .tfgraph-icon {
-  fill: #377df4;
+  fill: #3366FF;
 }
 .tfgraph-button.clean {
   border: none;
@@ -49511,47 +49462,47 @@
   fill: #333333;
 }
 .tfgraph-button.clean:hover {
-  color: #377df4;
+  color: #3366FF;
   background-color: #f2f2f2;
 }
 .tfgraph-button.clean:hover .tfgraph-icon {
-  fill: #377df4;
+  fill: #3366FF;
 }
 .tfgraph-button.primary {
-  background-color: #377df4;
+  background-color: #3366FF;
   color: #ffffff;
-  border-color: #377df4;
+  border-color: #3366FF;
 }
 .tfgraph-button.primary:hover {
-  background-color: #5591f6;
+  background-color: #527dff;
 }
 .tfgraph-button.warning {
-  background-color: #f8af40;
+  background-color: #FCB42C;
   color: #ffffff;
-  border-color: #f8af40;
+  border-color: #FCB42C;
 }
 .tfgraph-button.warning:hover {
-  background-color: #f9bb5d;
+  background-color: #fcbf4c;
 }
 .tfgraph-button.danger {
-  background-color: #fc7373;
+  background-color: #FA5151;
   color: #ffffff;
-  border-color: #fc7373;
+  border-color: #FA5151;
 }
 .tfgraph-button.danger:hover {
-  background-color: #fc8888;
+  background-color: #fb6b6b;
 }
 .tfgraph-button.success {
-  background-color: #80c269;
+  background-color: #68DE4D;
   color: #ffffff;
-  border-color: #80c269;
+  border-color: #68DE4D;
 }
 .tfgraph-button.success:hover {
-  background-color: #93cb80;
+  background-color: #7fe368;
 }
 
 .tfgraph-toggler {
-  background-color: #377df4;
+  background-color: #3366FF;
   height: 36px;
   position: relative;
   border-radius: 4px;
@@ -49578,14 +49529,14 @@
 .tfgraph-toggler .tfgraph-toggler-btn.active {
   opacity: 1;
   cursor: default;
-  color: #377df4;
+  color: #3366FF;
 }
 .tfgraph-toggler .tfgraph-toggler-btn:hover {
   color: white;
   opacity: 1;
 }
 .tfgraph-toggler .tfgraph-toggler-btn:hover.active {
-  color: #377df4;
+  color: #3366FF;
   opacity: 1;
 }
 .tfgraph-toggler .tfgraph-toggler-indicator {
@@ -49838,7 +49789,7 @@
   fill: #999999;
 }
 .tfgraph-dialog .tfgraph-dialog-box .tfgraph-dialog-bar .tfgraph-dialog-bar-btn:hover svg {
-  fill: #377df4;
+  fill: #3366FF;
 }
 
 .tfgraph-toolbar-mask {
@@ -49925,7 +49876,7 @@
   border-color: #999999;
 }
 .tfgraph-wrapper .tfgraph-input:focus, .tfgraph-wrapper .tfgraph-input:active {
-  border-color: #377df4;
+  border-color: #3366FF;
 }
 .tfgraph-wrapper .tfgraph-input::placeholder {
   color: #dcdcdc;

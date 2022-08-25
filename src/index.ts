@@ -258,6 +258,36 @@ export interface TFGraphRow {
   title: string;
 }
 
+type RGB = `rgb(${number}, ${number}, ${number})`;
+type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;
+type HEX = `#${string}`;
+
+export type ColorValue = RGB | RGBA | HEX;
+
+export type Color =
+  | 'red'
+  | 'orange'
+  | 'yellow'
+  | 'green'
+  | 'cyan'
+  | 'blue'
+  | 'purple'
+  | 'gray'
+  | 'black'
+  | 'white';
+
+export type FunctionalColor = 'primary' | 'success' | 'info' | 'warning' | 'danger';
+
+export type NodeType = 'default' | FunctionalColor;
+
+export type NodeStyleType = {
+  [K in NodeType]: {
+    type: K;
+    normalStyle?: Partial<CSSStyleDeclaration>;
+    hoverStyle?: Partial<CSSStyleDeclaration>;
+  };
+};
+
 // node data
 export interface TFGraphNode {
   id: string | number;
@@ -266,7 +296,7 @@ export interface TFGraphNode {
   column: number;
   colSpan: number;
   rowSpan: number;
-  type?: 'default' | 'success' | 'warning' | 'danger' | 'primary';
+  type?: NodeType;
   isBtn?: boolean;
   meta?: Record<string, unknown>;
   showPopup?: boolean;

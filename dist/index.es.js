@@ -16,7 +16,8 @@ import { remove, cloneDeep, isEqual } from 'lodash-es';
 function createClassElement(tagName, className, parentNode) {
     if (parentNode === void 0) { parentNode = null; }
     var el = document.createElement(tagName);
-    el.className = className;
+    if (className)
+        el.className = className;
     if (parentNode)
         parentNode.appendChild(el);
     return el;
@@ -92,6 +93,25 @@ var setColumnAndRowDeletable = function (occupiedList, totalRows, totalColumns) 
     }
     return { canDeleteRow: canDeleteRow, canDeleteColumn: canDeleteColumn };
 };
+var ColorPlate = {
+    red: '#FA5151',
+    orange: '#F96400',
+    yellow: '#FCB42C',
+    green: '#68DE4D',
+    cyan: '#28E1F0',
+    blue: '#3366FF',
+    purple: '#8433FF',
+    gray: '#9398A5',
+    black: '#000000',
+    white: '#FFFFFF',
+};
+var FunctionalColors = {
+    primary: ColorPlate.blue,
+    success: ColorPlate.green,
+    info: ColorPlate.gray,
+    warning: ColorPlate.orange,
+    danger: ColorPlate.red,
+};
 
 var svgIconList = {
     edit: '<svg t="1657530672054" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8212" width="200" height="200"><path d="M712.96 268.373333l-128-128c-16.64-16.64-43.52-16.64-60.16 0l-384 384c-8.106667 8.106667-12.373333 18.773333-12.373333 30.293334v128c0 23.466667 19.2 42.666667 42.666666 42.666666h128c11.093333 0 22.186667-4.266667 30.293334-12.373333l264.106666-264.106667 22.186667-22.186666 97.706667-97.706667c16.213333-16.64 16.213333-43.946667-0.426667-60.586667zM281.173333 640H213.333333v-67.84l232.533334-232.533333 67.84 67.84L281.173333 640z m292.693334-292.693333l-67.84-67.84L554.666667 230.826667 622.506667 298.666667l-48.64 48.64zM853.333333 896H170.666667c-23.466667 0-42.666667-19.2-42.666667-42.666667s19.2-42.666667 42.666667-42.666666h682.666666c23.466667 0 42.666667 19.2 42.666667 42.666666s-19.2 42.666667-42.666667 42.666667z" p-id="8213"></path></svg>',
@@ -103,6 +123,7 @@ var svgIconList = {
     remove: '<svg t="1658744626586" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9655" width="200" height="200"><path d="M405.333333 768c-23.466667 0-42.666667-19.2-42.666666-42.666667v-256c0-23.466667 19.2-42.666667 42.666666-42.666666s42.666667 19.2 42.666667 42.666666v256c0 23.466667-19.2 42.666667-42.666667 42.666667zM618.666667 768c-23.466667 0-42.666667-19.2-42.666667-42.666667v-256c0-23.466667 19.2-42.666667 42.666667-42.666666s42.666667 19.2 42.666666 42.666666v256c0 23.466667-19.2 42.666667-42.666666 42.666667z" p-id="9656"></path><path d="M896 256h-170.666667V128c0-23.466667-19.2-42.666667-42.666666-42.666667H341.333333c-23.466667 0-42.666667 19.2-42.666666 42.666667v128H128c-23.466667 0-42.666667 19.2-42.666667 42.666667s19.2 42.666667 42.666667 42.666666h42.666667v554.666667c0 23.466667 19.2 42.666667 42.666666 42.666667h597.333334c23.466667 0 42.666667-19.2 42.666666-42.666667V341.333333h42.666667c23.466667 0 42.666667-19.2 42.666667-42.666666s-19.2-42.666667-42.666667-42.666667zM384 170.666667h256v85.333333H384V170.666667z m384 682.666666H256V341.333333h512v512z" p-id="9657"></path></svg>',
     delete_row: '<svg t="1659516333894" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="12036" width="200" height="200"><path d="M663.04 602.453333c16.64 16.64 16.64 43.52 0 60.16-8.533333 8.106667-19.2 12.373333-30.293333 12.373334-11.093333 0-21.76-4.266667-30.293334-12.373334L512 572.586667l-90.453333 90.453333c-8.106667 8.106667-19.2 12.373333-30.293334 12.373333-11.093333 0-21.76-4.266667-30.293333-12.373333-16.64-16.64-16.64-43.52 0-60.16l90.453333-90.453333-90.453333-90.88c-16.64-16.64-16.64-43.52 0-60.586667 16.64-16.64 43.52-16.64 60.16 0l90.453333 90.453333 90.453334-90.453333c16.64-16.64 43.52-16.64 60.16 0 16.64 16.64 16.64 43.52 0 60.586667L572.16 512l90.88 90.453333zM896 170.666667c0 23.466667-19.2 42.666667-42.666667 42.666666H170.666667c-23.466667 0-42.666667-19.2-42.666667-42.666666s19.2-42.666667 42.666667-42.666667h682.666666c23.466667 0 42.666667 19.2 42.666667 42.666667zM853.333333 896H170.666667c-23.466667 0-42.666667-19.2-42.666667-42.666667s19.2-42.666667 42.666667-42.666666h682.666666c23.466667 0 42.666667 19.2 42.666667 42.666666s-19.2 42.666667-42.666667 42.666667z" p-id="12037"></path></svg>',
     delete_col: '<svg t="1659516365239" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="12171" width="200" height="200"><path d="M421.546667 663.04c-16.64 16.64-43.52 16.64-60.16 0-8.106667-8.533333-12.373333-19.2-12.373334-30.293333 0-11.093333 4.266667-21.76 12.373334-30.293334l90.453333-90.453333-90.88-90.453333c-8.106667-8.106667-12.373333-19.2-12.373333-30.293334 0-11.093333 4.266667-21.76 12.373333-30.293333 16.64-16.64 43.52-16.64 60.16 0l90.453333 90.453333 90.453334-90.453333c16.64-16.64 43.52-16.64 60.586666 0 16.64 16.64 16.64 43.52 0 60.16L572.16 512l90.453333 90.453333c16.64 16.64 16.64 43.52 0 60.16-16.64 16.64-43.52 16.64-60.586666 0L512 572.16l-90.453333 90.88zM853.333333 896c-23.466667 0-42.666667-19.2-42.666666-42.666667V170.666667c0-23.466667 19.2-42.666667 42.666666-42.666667s42.666667 19.2 42.666667 42.666667v682.666666c0 23.466667-19.2 42.666667-42.666667 42.666667zM128 853.333333V170.666667c0-23.466667 19.2-42.666667 42.666667-42.666667s42.666667 19.2 42.666666 42.666667v682.666666c0 23.466667-19.2 42.666667-42.666666 42.666667s-42.666667-19.2-42.666667-42.666667z" p-id="12172"></path></svg>',
+    check: '<svg t="1661393057943" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13190" width="200" height="200"><path d="M426.666667 746.666667c-11.093333 0-21.76-4.266667-30.293334-12.373334l-213.333333-213.333333c-16.64-16.64-16.64-43.52 0-60.16 16.64-16.64 43.52-16.64 60.16 0l183.04 183.04L779.946667 290.133333c16.64-16.64 43.52-16.64 60.16 0 16.64 16.64 16.64 43.52 0 60.16l-384 384c-7.68 8.106667-18.346667 12.373333-29.44 12.373334z" p-id="13191"></path></svg>',
 };
 
 // const svgIconList = {
@@ -584,96 +605,6 @@ var Toolbar = /** @class */ (function () {
     return Toolbar;
 }());
 
-/**
- * table-flow-graph popup
- */
-var Popup = /** @class */ (function () {
-    function Popup(targetElement, options) {
-        var _this = this;
-        this.targetElement = targetElement;
-        this.options = options;
-        this.rendered = false;
-        this.targetElement.addEventListener('mouseenter', function () { return _this.mouseEnter(); });
-        this.targetElement.addEventListener('mouseleave', function () { return _this.mouseLeave(); });
-    }
-    Popup.prototype.render = function () {
-        var _this = this;
-        var _a = this.options, _b = _a.placement, placement = _b === void 0 ? 'top' : _b, contentElement = _a.contentElement;
-        var targetRect = this.targetElement.getBoundingClientRect();
-        this.element = createClassElement('div', 'tfgraph-popup tfgraph-wrapper', document.body);
-        setStyles(this.element, {
-            left: targetRect.left + 0.5 * targetRect.width + 'px',
-            top: targetRect.top + 0.5 * targetRect.height + 'px',
-        });
-        this.areaElement = createClassElement('div', "tfgraph-popup-area ".concat(placement), this.element);
-        this.boxElement = createClassElement('div', 'tfgraph-popup-box', this.areaElement);
-        this.arrowElement = createClassElement('div', 'tfgraph-popup-arrow', this.areaElement);
-        if (contentElement)
-            this.boxElement.appendChild(contentElement);
-        var areaRect = this.areaElement.getBoundingClientRect();
-        var arrowRect = this.arrowElement.getBoundingClientRect();
-        var areaStyleObj = {};
-        var arrowStyleObj = {};
-        switch (placement) {
-            case 'top':
-                areaStyleObj.left = -0.5 * areaRect.width + 'px';
-                areaStyleObj.bottom = 0.5 * targetRect.height + 10 + 'px';
-                arrowStyleObj.left = 0.5 * (areaRect.width - arrowRect.width) + 'px';
-                break;
-            case 'right':
-                areaStyleObj.left = 0.5 * targetRect.width + 10 + 'px';
-                areaStyleObj.top = -0.5 * areaRect.height + 'px';
-                arrowStyleObj.top = 0.5 * (areaRect.height - arrowRect.height) + 'px';
-                break;
-            case 'bottom':
-                areaStyleObj.left = -0.5 * areaRect.width + 'px';
-                areaStyleObj.top = 0.5 * targetRect.height + 10 + 'px';
-                arrowStyleObj.left = 0.5 * (areaRect.width - arrowRect.width) + 'px';
-                break;
-            case 'left':
-                areaStyleObj.right = 0.5 * targetRect.width + 10 + 'px';
-                areaStyleObj.top = -0.5 * areaRect.height + 'px';
-                arrowStyleObj.top = 0.5 * (areaRect.height - arrowRect.height) + 'px';
-                break;
-        }
-        setStyles(this.areaElement, areaStyleObj);
-        setStyles(this.arrowElement, arrowStyleObj);
-        this.areaElement.addEventListener('mouseenter', function () { return _this.mouseEnter(); });
-        this.areaElement.addEventListener('mouseleave', function () { return _this.mouseLeave(); });
-        document.addEventListener('scroll', function () { return _this.updatePosition(); });
-        this.rendered = true;
-    };
-    Popup.prototype.updatePosition = function () {
-        var targetRect = this.targetElement.getBoundingClientRect();
-        setStyles(this.element, {
-            left: targetRect.left + 0.5 * targetRect.width + 'px',
-            top: targetRect.top + 0.5 * targetRect.height + 'px',
-        });
-    };
-    Popup.prototype.dismiss = function () {
-        var _this = this;
-        this.rendered = false;
-        this.areaElement.removeEventListener('mouseenter', function () { return _this.mouseEnter(); });
-        this.areaElement.removeEventListener('mouseleave', function () { return _this.mouseLeave(); });
-        document.removeEventListener('scroll', function () { return _this.updatePosition(); });
-        removeElement(this.element);
-    };
-    Popup.prototype.mouseEnter = function () {
-        if (!this.rendered)
-            this.render();
-        if (this.timeoutId) {
-            window.clearTimeout(this.timeoutId);
-        }
-    };
-    Popup.prototype.mouseLeave = function () {
-        var _this = this;
-        this.timeoutId = window.setTimeout(function () {
-            _this.dismiss();
-        }, 200);
-    };
-    return Popup;
-}());
-
 var EditNodeDialog = /** @class */ (function () {
     function EditNodeDialog(graphInstance, targetCell) {
         this.graphInstance = graphInstance;
@@ -765,7 +696,240 @@ var EditNodeDialog = /** @class */ (function () {
     return EditNodeDialog;
 }());
 
-// import Dialog from '../ui/dialog/Dialog';
+/**
+ * table-flow-graph popup
+ */
+var Popup = /** @class */ (function () {
+    function Popup(targetElement, options) {
+        var _this = this;
+        this.targetElement = targetElement;
+        this.options = options;
+        this.rendered = false;
+        this.targetElement.addEventListener('mouseenter', function () { return _this.mouseEnter(); });
+        this.targetElement.addEventListener('mouseleave', function () { return _this.mouseLeave(); });
+    }
+    Popup.prototype.render = function () {
+        var _this = this;
+        var _a = this.options, _b = _a.placement, placement = _b === void 0 ? 'top' : _b, contentElement = _a.contentElement;
+        var targetRect = this.targetElement.getBoundingClientRect();
+        this.element = createClassElement('div', 'tfgraph-popup tfgraph-wrapper', document.body);
+        setStyles(this.element, {
+            left: targetRect.left + 0.5 * targetRect.width + 'px',
+            top: targetRect.top + 0.5 * targetRect.height + 'px',
+        });
+        this.areaElement = createClassElement('div', "tfgraph-popup-area ".concat(placement), this.element);
+        this.boxElement = createClassElement('div', 'tfgraph-popup-box', this.areaElement);
+        this.arrowElement = createClassElement('div', 'tfgraph-popup-arrow', this.areaElement);
+        if (contentElement)
+            this.boxElement.appendChild(contentElement);
+        var areaRect = this.areaElement.getBoundingClientRect();
+        var arrowRect = this.arrowElement.getBoundingClientRect();
+        var areaStyleObj = {};
+        var arrowStyleObj = {};
+        switch (placement) {
+            case 'top':
+                areaStyleObj.left = -0.5 * areaRect.width + 'px';
+                areaStyleObj.bottom = 0.5 * targetRect.height + 10 + 'px';
+                arrowStyleObj.left = 0.5 * (areaRect.width - arrowRect.width) + 'px';
+                break;
+            case 'right':
+                areaStyleObj.left = 0.5 * targetRect.width + 10 + 'px';
+                areaStyleObj.top = -0.5 * areaRect.height + 'px';
+                arrowStyleObj.top = 0.5 * (areaRect.height - arrowRect.height) + 'px';
+                break;
+            case 'bottom':
+                areaStyleObj.left = -0.5 * areaRect.width + 'px';
+                areaStyleObj.top = 0.5 * targetRect.height + 10 + 'px';
+                arrowStyleObj.left = 0.5 * (areaRect.width - arrowRect.width) + 'px';
+                break;
+            case 'left':
+                areaStyleObj.right = 0.5 * targetRect.width + 10 + 'px';
+                areaStyleObj.top = -0.5 * areaRect.height + 'px';
+                arrowStyleObj.top = 0.5 * (areaRect.height - arrowRect.height) + 'px';
+                break;
+        }
+        setStyles(this.areaElement, areaStyleObj);
+        setStyles(this.arrowElement, arrowStyleObj);
+        this.areaElement.addEventListener('mouseenter', function () { return _this.mouseEnter(); });
+        this.areaElement.addEventListener('mouseleave', function () { return _this.mouseLeave(); });
+        document.addEventListener('scroll', function () { return _this.updatePosition(); });
+        this.rendered = true;
+    };
+    Popup.prototype.updatePosition = function () {
+        var targetRect = this.targetElement.getBoundingClientRect();
+        setStyles(this.element, {
+            left: targetRect.left + 0.5 * targetRect.width + 'px',
+            top: targetRect.top + 0.5 * targetRect.height + 'px',
+        });
+    };
+    Popup.prototype.dismiss = function () {
+        var _this = this;
+        this.rendered = false;
+        this.areaElement.removeEventListener('mouseenter', function () { return _this.mouseEnter(); });
+        this.areaElement.removeEventListener('mouseleave', function () { return _this.mouseLeave(); });
+        document.removeEventListener('scroll', function () { return _this.updatePosition(); });
+        removeElement(this.element);
+    };
+    Popup.prototype.mouseEnter = function () {
+        if (!this.rendered)
+            this.render();
+        if (this.timeoutId) {
+            window.clearTimeout(this.timeoutId);
+        }
+    };
+    Popup.prototype.mouseLeave = function () {
+        var _this = this;
+        this.timeoutId = window.setTimeout(function () {
+            _this.dismiss();
+        }, 200);
+    };
+    return Popup;
+}());
+
+var NodeStyle = {
+    default: {
+        type: 'default',
+        normalStyle: {
+            borderColor: '#dcdcdc',
+            backgroundColor: '#f3f4f7',
+            color: '#333333',
+        },
+        hoverStyle: {
+            borderColor: '#cccccc',
+            backgroundColor: '#f1f2f4',
+            color: '#333333',
+        },
+    },
+    primary: {
+        type: 'primary',
+        normalStyle: {
+            borderColor: FunctionalColors.primary,
+            backgroundColor: FunctionalColors.primary + '10',
+            color: FunctionalColors.primary,
+        },
+        hoverStyle: {
+            borderColor: FunctionalColors.primary,
+            backgroundColor: FunctionalColors.primary,
+            color: ColorPlate.white,
+        },
+    },
+    success: {
+        type: 'success',
+        normalStyle: {
+            borderColor: FunctionalColors.success,
+            backgroundColor: FunctionalColors.success + '10',
+            color: FunctionalColors.success,
+        },
+        hoverStyle: {
+            borderColor: FunctionalColors.success,
+            backgroundColor: FunctionalColors.success,
+            color: ColorPlate.white,
+        },
+    },
+    info: {
+        type: 'info',
+        normalStyle: {
+            borderColor: FunctionalColors.info,
+            backgroundColor: FunctionalColors.info + '10',
+            color: '#333333',
+        },
+        hoverStyle: {
+            borderColor: FunctionalColors.info,
+            backgroundColor: FunctionalColors.info,
+            color: ColorPlate.white,
+        },
+    },
+    warning: {
+        type: 'warning',
+        normalStyle: {
+            borderColor: FunctionalColors.warning,
+            backgroundColor: FunctionalColors.warning + '10',
+            color: FunctionalColors.warning,
+        },
+        hoverStyle: {
+            borderColor: FunctionalColors.warning,
+            backgroundColor: FunctionalColors.warning,
+            color: ColorPlate.white,
+        },
+    },
+    danger: {
+        type: 'danger',
+        normalStyle: {
+            borderColor: FunctionalColors.danger,
+            backgroundColor: FunctionalColors.danger + '10',
+            color: FunctionalColors.danger,
+        },
+        hoverStyle: {
+            borderColor: FunctionalColors.danger,
+            backgroundColor: FunctionalColors.danger,
+            color: ColorPlate.white,
+        },
+    },
+};
+
+/**
+ * table-flow-graph node
+ */
+var Node = /** @class */ (function () {
+    function Node(cell) {
+        this.tableCell = cell;
+        this.graphInstance = this.tableCell.graphInstance;
+        this.hoverd = false;
+        this.createNode();
+    }
+    Node.prototype.createNode = function () {
+        this.element = createClassElement('div', 'tfgraph-node', this.tableCell.element);
+        var data = this.tableCell.nodeData;
+        this.type = data.type ? data.type : 'default';
+        setStyles(this.element, NodeStyle[this.type].normalStyle);
+        // this.element.classList.add(data.type ? data.type : 'default');
+        if (data.isBtn && this.graphInstance.mode !== 'edit')
+            this.element.classList.add('isBtn');
+        if (typeof this.graphInstance.options.renderNode === 'function') {
+            this.element.appendChild(this.graphInstance.options.renderNode(data));
+        }
+        else {
+            this.element.innerText = data.title;
+        }
+    };
+    Node.prototype.toggleHovered = function (hovered) {
+        this.hoverd = hovered;
+        this.element.setAttribute('style', '');
+        if (this.hoverd) {
+            setStyles(this.element, NodeStyle[this.type].hoverStyle);
+        }
+        else {
+            setStyles(this.element, NodeStyle[this.type].normalStyle);
+        }
+    };
+    Node.prototype.setViewerControls = function () {
+        var _this = this;
+        this.element.addEventListener('click', function () { return _this.onClickNode(); });
+        this.element.addEventListener('mouseenter', function () { return _this.toggleHovered(true); });
+        this.element.addEventListener('mouseleave', function () { return _this.toggleHovered(false); });
+        if (this.tableCell.nodeData.showPopup) {
+            var contentEl = void 0;
+            if (typeof this.graphInstance.options.renderNodeHoverPopup === 'function') {
+                contentEl = this.graphInstance.options.renderNodeHoverPopup(this.tableCell.nodeData);
+            }
+            else {
+                contentEl = createClassElement('div', 'flex flex-col items-center p-30');
+                contentEl.innerHTML = this.tableCell.nodeData.title;
+            }
+            new Popup(this.element, {
+                placement: 'top',
+                contentElement: contentEl,
+            });
+        }
+    };
+    Node.prototype.onClickNode = function () {
+        if (typeof this.graphInstance.options.onClickNode === 'function') {
+            this.graphInstance.options.onClickNode(this.tableCell.nodeData, this.element);
+        }
+    };
+    return Node;
+}());
+
 /**
  * table-flow-graph tabel cell
  */
@@ -774,30 +938,17 @@ var TableCell = /** @class */ (function () {
         this.graphInstance = graphInstance;
         this.row = row;
         this.column = column;
-        this.element = this.createTabelCell(data, row, column, this.graphInstance);
-        parentElement.appendChild(this.element);
+        this.createTabelCell(data, row, column, parentElement);
     }
-    TableCell.prototype.createTabelCell = function (data, row, column, graphInstance) {
-        var el = createClassElement('div', 'tfgraph-cell');
-        el.setAttribute('id', "".concat(graphInstance.id, "_cell_").concat(row, "_").concat(column));
+    TableCell.prototype.createTabelCell = function (data, row, column, parentElement) {
+        this.element = createClassElement('div', 'tfgraph-cell', parentElement);
+        this.element.setAttribute('id', "".concat(this.graphInstance.id, "_cell_").concat(row, "_").concat(column));
         if (data) {
-            var node = createClassElement('div', 'tfgraph-node');
-            node.classList.add(data.type ? data.type : 'default');
-            if (data.isBtn && this.graphInstance.mode !== 'edit')
-                node.classList.add('isBtn');
-            if (typeof this.graphInstance.options.renderNode === 'function') {
-                node.appendChild(this.graphInstance.options.renderNode(data));
-            }
-            else {
-                node.innerText = data.title;
-            }
-            // node.innerText = data.id;
-            el.appendChild(node);
             this.hasNode = true;
-            this.nodeEl = node;
             this.nodeData = data;
             this.rowSpan = data.rowSpan;
             this.colSpan = data.colSpan;
+            this.node = new Node(this);
         }
         else {
             this.rowSpan = 1;
@@ -805,20 +956,15 @@ var TableCell = /** @class */ (function () {
             this.hasNode = false;
         }
         // set min height base on row span
-        el.style.minHeight = 80 * this.rowSpan + 'px';
-        return el;
+        this.element.style.minHeight = 80 * this.rowSpan + 'px';
     };
     // cell controls for edit mode
-    TableCell.prototype.setEditControls = function () {
+    TableCell.prototype.setEditorControls = function () {
         var _this = this;
         this.controlLayer = createClassElement('div', 'tfgraph-cell-control-layer hidden', this.element);
-        // const controlRowEl = createClassElement(
-        //   'div',
-        //   'flex flex-row items-center justify-center p-15 flex-wrap',
-        //   this.controlLayer,
-        // );
         this.editDialog = new EditNodeDialog(this.graphInstance, this);
         if (this.nodeData) {
+            // Move node button
             new Button(this.controlLayer, {
                 icon: 'move',
                 type: 'primary',
@@ -828,6 +974,7 @@ var TableCell = /** @class */ (function () {
                     _this.graphInstance.tableController.startMoving(_this);
                 },
             });
+            // Edit node button
             new Button(this.controlLayer, {
                 icon: 'edit',
                 type: 'primary',
@@ -842,8 +989,9 @@ var TableCell = /** @class */ (function () {
                     }
                 },
             });
+            // Delete node button
             new Button(this.controlLayer, {
-                icon: 'remove',
+                icon: 'x',
                 type: 'danger',
                 tooltip: this.graphInstance.options.labels.deleteNode,
                 className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
@@ -863,6 +1011,7 @@ var TableCell = /** @class */ (function () {
                     }
                 },
             });
+            // Resize node button
             new Button(this.controlLayer, {
                 icon: 'expand',
                 type: 'primary',
@@ -874,6 +1023,7 @@ var TableCell = /** @class */ (function () {
             });
         }
         else {
+            // Add node button
             new Button(this.controlLayer, {
                 icon: 'plus',
                 type: 'primary',
@@ -890,6 +1040,7 @@ var TableCell = /** @class */ (function () {
             });
             if (this.graphInstance.options.totalRows > 1 &&
                 this.row === this.graphInstance.options.totalRows - 1) {
+                // Delete row button
                 this.deleteRowBtn = new Button(this.controlLayer, {
                     icon: 'delete_row',
                     type: 'danger',
@@ -912,6 +1063,7 @@ var TableCell = /** @class */ (function () {
             }
             if (this.graphInstance.options.totalColumns > 1 &&
                 this.column === this.graphInstance.options.totalColumns - 1) {
+                // Delete column button
                 this.deleteColBtn = new Button(this.controlLayer, {
                     icon: 'delete_col',
                     type: 'danger',
@@ -952,24 +1104,9 @@ var TableCell = /** @class */ (function () {
         this.element.addEventListener('mouseenter', function () { return _this.onMouseEnter(); });
         this.element.addEventListener('mouseleave', function () { return _this.onMouseLeave(); });
     };
-    TableCell.prototype.setViewModeControls = function () {
-        var _this = this;
+    TableCell.prototype.setViewerControls = function () {
         if (this.nodeData) {
-            this.element.addEventListener('click', function () { return _this.onClickNode(); });
-            if (this.nodeData.showPopup) {
-                var contentEl = void 0;
-                if (typeof this.graphInstance.options.renderNodeHoverPopup === 'function') {
-                    contentEl = this.graphInstance.options.renderNodeHoverPopup(this.nodeData);
-                }
-                else {
-                    contentEl = createClassElement('div', 'flex flex-col items-center p-30');
-                    contentEl.innerHTML = this.nodeData.title;
-                }
-                this.popup = new Popup(this.nodeEl, {
-                    placement: 'top',
-                    contentElement: contentEl,
-                });
-            }
+            this.node.setViewerControls();
         }
     };
     TableCell.prototype.onMouseEnter = function () {
@@ -995,11 +1132,6 @@ var TableCell = /** @class */ (function () {
     };
     TableCell.prototype.onMouseLeave = function () {
         this.controlLayer.classList.add('hidden');
-    };
-    TableCell.prototype.onClickNode = function () {
-        if (typeof this.graphInstance.options.onClickNode === 'function') {
-            this.graphInstance.options.onClickNode(this.nodeData, this.nodeEl);
-        }
     };
     TableCell.prototype.setIsTarget = function (isTarget) {
         if (isTarget && !this.isTarget) {
@@ -1037,7 +1169,7 @@ var TableHeaderCell = /** @class */ (function () {
             // TODO load width value from options
             var width = this.columnData.width;
             switch (this.columnData.width) {
-                case 'large':
+                case 'lg':
                     width = '200';
                     break;
                 case 'md':
@@ -1343,7 +1475,7 @@ var Table = /** @class */ (function () {
             this.canDeleteRow = deleteableObj.canDeleteRow;
             this.cells.forEach(function (cell) {
                 // set tabel cell controls
-                cell.setEditControls();
+                cell.setEditorControls();
             });
             // wait for table render ready
             setTimeout(function () {
@@ -1384,7 +1516,7 @@ var Table = /** @class */ (function () {
             // click node event
             this.cells.forEach(function (cell) {
                 // set tabel cell controls
-                cell.setViewModeControls();
+                cell.setViewerControls();
             });
         }
         this.setBottomControl();
@@ -1566,7 +1698,6 @@ var Table = /** @class */ (function () {
     return Table;
 }());
 
-// import { TableFlowGraph } from '../index';
 /**
  * table-flow-graph line
  */
@@ -1697,7 +1828,7 @@ var LineGroup = /** @class */ (function () {
                 positionA: this.cursorLineStartPosition,
                 positionB: this.graphInstance.mousePosition,
                 thickness: 2,
-                isStart: pointList.length === 0,
+                isStart: pointList.length === 1,
                 isEnd: true,
             });
             this.lines.push(this.cursorLine);

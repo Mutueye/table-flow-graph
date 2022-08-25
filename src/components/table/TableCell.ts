@@ -1,10 +1,9 @@
 import { TableFlowGraph, TFGraphNode } from '../../index';
 import { createClassElement } from '../../lib/dom';
 import Button from '../ui/button/Button';
-import Popup from '../ui/popup/Popup';
-import EditNodeDialog from './EditNodeDialog';
+import EditNodeDialog from './node/EditNodeDialog';
 import { remove } from 'lodash-es';
-// import Dialog from '../ui/dialog/Dialog';
+import Node from './node/Node';
 
 /**
  * table-flow-graph tabel cell
@@ -12,9 +11,8 @@ import { remove } from 'lodash-es';
 export default class TableCell {
   public graphInstance: TableFlowGraph;
   public element: HTMLElement;
-  public nodeEl: HTMLElement;
   public controlLayer: HTMLElement;
-  public popup: Popup;
+  public node: Node;
   public nodeData?: TFGraphNode;
   public hasNode: boolean;
   public row: number;
@@ -36,59 +34,37 @@ export default class TableCell {
     this.graphInstance = graphInstance;
     this.row = row;
     this.column = column;
-    this.element = this.createTabelCell(data, row, column, this.graphInstance);
-    parentElement.appendChild(this.element);
+    this.createTabelCell(data, row, column, parentElement);
   }
 
-  createTabelCell(
-    data: TFGraphNode | null,
-    row,
-    column,
-    graphInstance: TableFlowGraph,
-  ): HTMLElement {
-    const el = createClassElement('div', 'tfgraph-cell');
-    el.setAttribute('id', `${graphInstance.id}_cell_${row}_${column}`);
+  createTabelCell(data: TFGraphNode | null, row, column, parentElement) {
+    this.element = createClassElement('div', 'tfgraph-cell', parentElement);
+    this.element.setAttribute('id', `${this.graphInstance.id}_cell_${row}_${column}`);
     if (data) {
-      const node = createClassElement('div', 'tfgraph-node');
-      node.classList.add(data.type ? data.type : 'default');
-      if (data.isBtn && this.graphInstance.mode !== 'edit') node.classList.add('isBtn');
-      if (typeof this.graphInstance.options.renderNode === 'function') {
-        node.appendChild(this.graphInstance.options.renderNode(data));
-      } else {
-        node.innerText = data.title;
-      }
-
-      // node.innerText = data.id;
-      el.appendChild(node);
       this.hasNode = true;
-      this.nodeEl = node;
       this.nodeData = data;
       this.rowSpan = data.rowSpan;
       this.colSpan = data.colSpan;
+      this.node = new Node(this);
     } else {
       this.rowSpan = 1;
       this.colSpan = 1;
       this.hasNode = false;
     }
     // set min height base on row span
-    el.style.minHeight = 80 * this.rowSpan + 'px';
-    return el;
+    this.element.style.minHeight = 80 * this.rowSpan + 'px';
   }
 
   // cell controls for edit mode
-  setEditControls() {
+  setEditorControls() {
     this.controlLayer = createClassElement(
       'div',
       'tfgraph-cell-control-layer hidden',
       this.element,
     );
-    // const controlRowEl = createClassElement(
-    //   'div',
-    //   'flex flex-row items-center justify-center p-15 flex-wrap',
-    //   this.controlLayer,
-    // );
     this.editDialog = new EditNodeDialog(this.graphInstance, this);
     if (this.nodeData) {
+      // Move node button
       new Button(this.controlLayer, {
         icon: 'move',
         type: 'primary',
@@ -98,6 +74,7 @@ export default class TableCell {
           this.graphInstance.tableController.startMoving(this);
         },
       });
+      // Edit node button
       new Button(this.controlLayer, {
         icon: 'edit',
         type: 'primary',
@@ -111,8 +88,9 @@ export default class TableCell {
           }
         },
       });
+      // Delete node button
       new Button(this.controlLayer, {
-        icon: 'remove',
+        icon: 'x',
         type: 'danger',
         tooltip: this.graphInstance.options.labels.deleteNode,
         className: 'absolute right-6 top-6 p-0 sm w-28 btn-tr',
@@ -131,6 +109,7 @@ export default class TableCell {
           }
         },
       });
+      // Resize node button
       new Button(this.controlLayer, {
         icon: 'expand',
         type: 'primary',
@@ -141,6 +120,7 @@ export default class TableCell {
         },
       });
     } else {
+      // Add node button
       new Button(this.controlLayer, {
         icon: 'plus',
         type: 'primary',
@@ -158,6 +138,7 @@ export default class TableCell {
         this.graphInstance.options.totalRows > 1 &&
         this.row === this.graphInstance.options.totalRows - 1
       ) {
+        // Delete row button
         this.deleteRowBtn = new Button(this.controlLayer, {
           icon: 'delete_row',
           type: 'danger',
@@ -183,6 +164,7 @@ export default class TableCell {
         this.graphInstance.options.totalColumns > 1 &&
         this.column === this.graphInstance.options.totalColumns - 1
       ) {
+        // Delete column button
         this.deleteColBtn = new Button(this.controlLayer, {
           icon: 'delete_col',
           type: 'danger',
@@ -226,23 +208,9 @@ export default class TableCell {
     this.element.addEventListener('mouseleave', () => this.onMouseLeave());
   }
 
-  public setViewModeControls() {
+  public setViewerControls() {
     if (this.nodeData) {
-      this.element.addEventListener('click', () => this.onClickNode());
-      if (this.nodeData.showPopup) {
-        let contentEl: HTMLElement;
-        if (typeof this.graphInstance.options.renderNodeHoverPopup === 'function') {
-          contentEl = this.graphInstance.options.renderNodeHoverPopup(this.nodeData);
-        } else {
-          contentEl = createClassElement('div', 'flex flex-col items-center p-30');
-          contentEl.innerHTML = this.nodeData.title;
-        }
-
-        this.popup = new Popup(this.nodeEl, {
-          placement: 'top',
-          contentElement: contentEl,
-        });
-      }
+      this.node.setViewerControls();
     }
   }
 
@@ -272,12 +240,6 @@ export default class TableCell {
 
   onMouseLeave() {
     this.controlLayer.classList.add('hidden');
-  }
-
-  onClickNode() {
-    if (typeof this.graphInstance.options.onClickNode === 'function') {
-      this.graphInstance.options.onClickNode(this.nodeData, this.nodeEl);
-    }
   }
 
   public setIsTarget(isTarget: boolean) {

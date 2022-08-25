@@ -38,6 +38,20 @@ export interface TFGraphRow {
     id?: string;
     title: string;
 }
+declare type RGB = `rgb(${number}, ${number}, ${number})`;
+declare type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;
+declare type HEX = `#${string}`;
+export declare type ColorValue = RGB | RGBA | HEX;
+export declare type Color = 'red' | 'orange' | 'yellow' | 'green' | 'cyan' | 'blue' | 'purple' | 'gray' | 'black' | 'white';
+export declare type FunctionalColor = 'primary' | 'success' | 'info' | 'warning' | 'danger';
+export declare type NodeType = 'default' | FunctionalColor;
+export declare type NodeStyleType = {
+    [K in NodeType]: {
+        type: K;
+        normalStyle?: Partial<CSSStyleDeclaration>;
+        hoverStyle?: Partial<CSSStyleDeclaration>;
+    };
+};
 export interface TFGraphNode {
     id: string | number;
     title: string;
@@ -45,7 +59,7 @@ export interface TFGraphNode {
     column: number;
     colSpan: number;
     rowSpan: number;
-    type?: 'default' | 'success' | 'warning' | 'danger' | 'primary';
+    type?: NodeType;
     isBtn?: boolean;
     meta?: Record<string, unknown>;
     showPopup?: boolean;
@@ -187,3 +201,4 @@ export declare type CellPositionAndSize = {
     colSpan: number;
 };
 export declare type HintType = 'idel' | 'drawLine' | 'hoverLine' | 'hoverAnchor' | 'moveNode' | 'resizeNode';
+export {};

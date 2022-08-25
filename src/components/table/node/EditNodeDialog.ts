@@ -1,8 +1,8 @@
-import { TableFlowGraph, TFGraphNode } from '../../index';
-import { createClassElement } from '../../lib/dom';
-import Button from '../ui/button/Button';
-import Dialog from '../ui/dialog/Dialog';
-import TableCell from './TableCell';
+import { TableFlowGraph, TFGraphNode } from '../../../index';
+import { createClassElement } from '../../../lib/dom';
+import Button from '../../ui/button/Button';
+import Dialog from '../../ui/dialog/Dialog';
+import TableCell from '../TableCell';
 
 export default class EditNodeDialog {
   public dialog: Dialog | null;

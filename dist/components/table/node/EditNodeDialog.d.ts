@@ -1,7 +1,7 @@
-import { TableFlowGraph } from '../../index';
-import Button from '../ui/button/Button';
-import Dialog from '../ui/dialog/Dialog';
-import TableCell from './TableCell';
+import { TableFlowGraph } from '../../../index';
+import Button from '../../ui/button/Button';
+import Dialog from '../../ui/dialog/Dialog';
+import TableCell from '../TableCell';
 export default class EditNodeDialog {
     dialog: Dialog | null;
     targetCell: TableCell;

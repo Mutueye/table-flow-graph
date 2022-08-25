@@ -1,3 +1,5 @@
+import { FunctionalColor, ColorValue, Color } from '..';
+
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function debounce<F extends Function>(func: F, wait: number): F {
   let timeoutID: number;
@@ -48,4 +50,25 @@ export const uniqId = () => {
   const t = new Date().getTime();
   const n = Math.floor(Math.random() * 100 + 1);
   return c.toString() + t.toString() + n.toString();
+};
+
+export const ColorPlate: Record<Color, ColorValue> = {
+  red: '#FA5151',
+  orange: '#F96400',
+  yellow: '#FCB42C',
+  green: '#68DE4D',
+  cyan: '#28E1F0',
+  blue: '#3366FF',
+  purple: '#8433FF',
+  gray: '#9398A5',
+  black: '#000000',
+  white: '#FFFFFF',
+};
+
+export const FunctionalColors: Record<FunctionalColor, ColorValue> = {
+  primary: ColorPlate.blue,
+  success: ColorPlate.green,
+  info: ColorPlate.gray,
+  warning: ColorPlate.orange,
+  danger: ColorPlate.red,
 };

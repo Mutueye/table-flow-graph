@@ -133,7 +133,7 @@ export function createClassElement<K extends keyof HTMLElementTagNameMap>(
   parentNode: HTMLElement = null,
 ): HTMLElementTagNameMap[K] {
   const el = document.createElement(tagName);
-  el.className = className;
+  if (className) el.className = className;
   if (parentNode) parentNode.appendChild(el);
   return el;
 }

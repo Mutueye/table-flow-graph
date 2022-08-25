@@ -8,5 +8,6 @@ declare const svgIconList: {
     remove: string;
     delete_row: string;
     delete_col: string;
+    check: string;
 };
 export default svgIconList;
