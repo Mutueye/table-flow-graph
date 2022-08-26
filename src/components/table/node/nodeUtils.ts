@@ -2,7 +2,7 @@ import { NodeStyleType, NodeType } from '../../..';
 import { ColorPlate, FunctionalColors } from '../../../lib/utils';
 
 export const NodeTypeList: NodeType[] = [
-  'danger',
+  'default',
   'primary',
   'success',
   'info',
@@ -19,8 +19,8 @@ export const NodeStyle: NodeStyleType = {
       color: '#333333',
     },
     hoverStyle: {
-      borderColor: '#cccccc',
-      backgroundColor: '#f1f2f4',
+      borderColor: '#aaaaaa',
+      backgroundColor: '#aaaaaa',
       color: '#333333',
     },
   },

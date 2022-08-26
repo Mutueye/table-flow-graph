@@ -1,7 +1,8 @@
-import { TableFlowGraph, TFGraphNode } from '../../../index';
+import { NodeType, TableFlowGraph, TFGraphNode } from '../../../index';
 import { createClassElement } from '../../../lib/dom';
 import Button from '../../ui/button/Button';
 import Dialog from '../../ui/dialog/Dialog';
+import NodeTypePicker from './NodeTypePicker';
 import TableCell from '../TableCell';
 
 export default class EditNodeDialog {
@@ -14,11 +15,18 @@ export default class EditNodeDialog {
   public btnConfirm: Button;
   public btnCancel: Button;
   public isEdit: boolean;
+  public type: NodeType;
+  public initialType: NodeType;
 
   constructor(graphInstance: TableFlowGraph, targetCell: TableCell) {
     this.graphInstance = graphInstance;
     this.targetCell = targetCell;
     this.dialog = null;
+    this.type =
+      this.targetCell.nodeData && this.targetCell.nodeData.type
+        ? this.targetCell.nodeData.type
+        : 'default';
+    this.initialType = this.type;
     if (targetCell.nodeData) {
       this.title = targetCell.nodeData.title;
       this.isEdit = true;
@@ -42,8 +50,15 @@ export default class EditNodeDialog {
 
   renderContent() {
     this.contentElement = createClassElement('div', 'flex flex-col w-420 px-15 pb-15');
-    this.nodeNameInput = createClassElement('input', 'tfgraph-input', this.contentElement);
+    this.nodeNameInput = createClassElement('input', 'tfgraph-input mb-20', this.contentElement);
     this.nodeNameInput.setAttribute('placeholder', this.graphInstance.options.labels.enterNodeName);
+    new NodeTypePicker({
+      parentEl: this.contentElement,
+      initialType: this.type,
+      onChange: (type) => {
+        this.type = type;
+      },
+    });
     const btnContainer = createClassElement(
       'div',
       'flex flex-row items-center justify-end mt-15',
@@ -62,9 +77,10 @@ export default class EditNodeDialog {
       type: 'primary',
       onClick: () => {
         if (this.nodeNameInput.value) {
-          if (this.title !== this.nodeNameInput.value) {
+          if (this.title !== this.nodeNameInput.value || this.initialType !== this.type) {
             if (this.isEdit) {
               this.targetCell.nodeData.title = this.nodeNameInput.value;
+              this.targetCell.nodeData.type = this.type;
               this.dialog.close();
               this.graphInstance.refresh();
               if (typeof this.graphInstance.options.onEditNode === 'function') {
@@ -78,6 +94,7 @@ export default class EditNodeDialog {
                 rowSpan: 1,
                 colSpan: 1,
                 title: this.nodeNameInput.value,
+                type: this.type,
               };
               this.graphInstance.options.nodes.push(nodeData);
               this.dialog.close();

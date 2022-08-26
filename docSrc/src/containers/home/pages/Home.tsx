@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import { TableFlowGraph, TFGraphNode, TFGraphOptions } from '../../../../../dist/index.es.js';
 import NodeTitle from '../components/NodeTitle';
@@ -30,9 +30,14 @@ const Home: React.FC<Props> = ({ className }) => {
     return el;
   };
 
-  const onAddNode = () => {
-    console.log('nodes::::', graphInstance.options.nodes);
-  };
+  const onAddNode = useCallback(
+    (nodeData) => {
+      console.log('onAddNode:::::', nodeData);
+      console.log('graphInstance:::::', graphInstance);
+      // console.log('nodes::::', graphInstance.options.nodes);
+    },
+    [graphInstance],
+  );
 
   const renderNodeHoverPopup = (node: TFGraphNode) => {
     const el = document.createElement('div');
@@ -180,7 +185,7 @@ const Home: React.FC<Props> = ({ className }) => {
       console.log('clickNode::::', node, nodeEl);
     },
     renderNode,
-    onAddNode,
+    onAddNode: (nodeData) => onAddNode(nodeData),
     renderNodeHoverPopup,
   };
 

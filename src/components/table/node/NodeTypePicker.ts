@@ -19,6 +19,7 @@ export default class NodeTypePicker {
     this.option = option;
     this.currentType = this.option.initialType;
     this.element = createClassElement('div', 'flex flex-row items-center', this.option.parentEl);
+    this.btnList = [];
     NodeTypeList.forEach((type) => {
       const btn = new NodeTypeBtn({
         parentEl: this.element,

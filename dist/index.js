@@ -609,11 +609,236 @@
         return Toolbar;
     }());
 
+    var NodeTypeList = [
+        'default',
+        'primary',
+        'success',
+        'info',
+        'warning',
+        'danger',
+    ];
+    var NodeStyle = {
+        default: {
+            type: 'default',
+            normalStyle: {
+                borderColor: '#dcdcdc',
+                backgroundColor: '#f3f4f7',
+                color: '#333333',
+            },
+            hoverStyle: {
+                borderColor: '#aaaaaa',
+                backgroundColor: '#aaaaaa',
+                color: '#333333',
+            },
+        },
+        primary: {
+            type: 'primary',
+            normalStyle: {
+                borderColor: FunctionalColors.primary,
+                backgroundColor: FunctionalColors.primary + '10',
+                color: FunctionalColors.primary,
+            },
+            hoverStyle: {
+                borderColor: FunctionalColors.primary,
+                backgroundColor: FunctionalColors.primary,
+                color: ColorPlate.white,
+            },
+        },
+        success: {
+            type: 'success',
+            normalStyle: {
+                borderColor: FunctionalColors.success,
+                backgroundColor: FunctionalColors.success + '10',
+                color: FunctionalColors.success,
+            },
+            hoverStyle: {
+                borderColor: FunctionalColors.success,
+                backgroundColor: FunctionalColors.success,
+                color: ColorPlate.white,
+            },
+        },
+        info: {
+            type: 'info',
+            normalStyle: {
+                borderColor: FunctionalColors.info,
+                backgroundColor: FunctionalColors.info + '10',
+                color: '#333333',
+            },
+            hoverStyle: {
+                borderColor: FunctionalColors.info,
+                backgroundColor: FunctionalColors.info,
+                color: ColorPlate.white,
+            },
+        },
+        warning: {
+            type: 'warning',
+            normalStyle: {
+                borderColor: FunctionalColors.warning,
+                backgroundColor: FunctionalColors.warning + '10',
+                color: FunctionalColors.warning,
+            },
+            hoverStyle: {
+                borderColor: FunctionalColors.warning,
+                backgroundColor: FunctionalColors.warning,
+                color: ColorPlate.white,
+            },
+        },
+        danger: {
+            type: 'danger',
+            normalStyle: {
+                borderColor: FunctionalColors.danger,
+                backgroundColor: FunctionalColors.danger + '10',
+                color: FunctionalColors.danger,
+            },
+            hoverStyle: {
+                borderColor: FunctionalColors.danger,
+                backgroundColor: FunctionalColors.danger,
+                color: ColorPlate.white,
+            },
+        },
+    };
+
+    /*! *****************************************************************************
+    Copyright (c) Microsoft Corporation.
+
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
+
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
+    ***************************************************************************** */
+
+    var __assign = function() {
+        __assign = Object.assign || function __assign(t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+            }
+            return t;
+        };
+        return __assign.apply(this, arguments);
+    };
+
+    var btnStyle = {
+        border: '2px solid transparent',
+        padding: '2px',
+        borderRadius: '4px',
+        margin: '0 5px 0 0',
+        cursor: 'pointer',
+    };
+    var NodeTypeBtn = /** @class */ (function () {
+        function NodeTypeBtn(option) {
+            this.option = option;
+            this.type = this.option.type;
+            this.hovered = false;
+            this.createNodeTypeBtn();
+        }
+        NodeTypeBtn.prototype.createNodeTypeBtn = function () {
+            var _this = this;
+            this.element = createClassElement('div', 'm5', this.option.parentEl);
+            setStyles(this.element, btnStyle);
+            this.nodeEl = createClassElement('div', 'w-16 h-16 flex items-center justify-center', this.element);
+            setStyles(this.nodeEl, __assign(__assign({}, NodeStyle[this.type].normalStyle), { borderWidth: '1px', borderRadius: '2px', borderStyle: 'solid' }));
+            this.icon = new Icon(this.nodeEl, {
+                name: 'check',
+                size: 16,
+                color: '#FFFFFF',
+                className: this.active ? '' : 'hidden',
+            });
+            this.element.addEventListener('click', function () {
+                if (typeof _this.option.onClick === 'function')
+                    _this.option.onClick(_this.type);
+            });
+            this.element.addEventListener('mouseenter', function () { return _this.toggleHover(true); });
+            this.element.addEventListener('mouseleave', function () { return _this.toggleHover(false); });
+        };
+        NodeTypeBtn.prototype.toggleHover = function (hovered) {
+            this.hovered = hovered;
+            if (this.hovered) {
+                setStyles(this.element, { borderColor: NodeStyle[this.type].hoverStyle.borderColor });
+                // setStyles(this.nodeEl, NodeStyle[this.type].hoverStyle);
+            }
+            else {
+                if (!this.active) {
+                    setStyles(this.element, { borderColor: 'transparent' });
+                    // setStyles(this.nodeEl, NodeStyle[this.type].normalStyle);
+                }
+            }
+        };
+        NodeTypeBtn.prototype.toggleActive = function (active) {
+            this.active = active;
+            if (this.active) {
+                this.icon.element.classList.remove('hidden');
+                setStyles(this.element, { borderColor: NodeStyle[this.type].hoverStyle.borderColor });
+                setStyles(this.nodeEl, NodeStyle[this.type].hoverStyle);
+            }
+            else {
+                this.icon.element.classList.add('hidden');
+                if (!this.hovered) {
+                    setStyles(this.element, { borderColor: 'transparent' });
+                    setStyles(this.nodeEl, NodeStyle[this.type].normalStyle);
+                }
+            }
+        };
+        return NodeTypeBtn;
+    }());
+
+    var NodeTypePicker = /** @class */ (function () {
+        function NodeTypePicker(option) {
+            var _this = this;
+            this.option = option;
+            this.currentType = this.option.initialType;
+            this.element = createClassElement('div', 'flex flex-row items-center', this.option.parentEl);
+            this.btnList = [];
+            NodeTypeList.forEach(function (type) {
+                var btn = new NodeTypeBtn({
+                    parentEl: _this.element,
+                    type: type,
+                    onClick: function (t) { return _this.clickType(t); },
+                });
+                if (_this.currentType === type)
+                    btn.toggleActive(true);
+                _this.btnList.push(btn);
+            });
+        }
+        NodeTypePicker.prototype.clickType = function (t) {
+            if (this.currentType !== t) {
+                this.currentType = t;
+                this.setActiveType();
+                if (typeof this.option.onChange === 'function')
+                    this.option.onChange(t);
+            }
+        };
+        NodeTypePicker.prototype.setActiveType = function () {
+            var _this = this;
+            this.btnList.forEach(function (btn) {
+                if (_this.currentType === btn.type) {
+                    if (!btn.active)
+                        btn.toggleActive(true);
+                }
+                else if (btn.active) {
+                    btn.toggleActive(false);
+                }
+            });
+        };
+        return NodeTypePicker;
+    }());
+
     var EditNodeDialog = /** @class */ (function () {
         function EditNodeDialog(graphInstance, targetCell) {
             this.graphInstance = graphInstance;
             this.targetCell = targetCell;
             this.dialog = null;
+            this.type =
+                this.targetCell.nodeData && this.targetCell.nodeData.type
+                    ? this.targetCell.nodeData.type
+                    : 'default';
+            this.initialType = this.type;
             if (targetCell.nodeData) {
                 this.title = targetCell.nodeData.title;
                 this.isEdit = true;
@@ -639,8 +864,15 @@
         EditNodeDialog.prototype.renderContent = function () {
             var _this = this;
             this.contentElement = createClassElement('div', 'flex flex-col w-420 px-15 pb-15');
-            this.nodeNameInput = createClassElement('input', 'tfgraph-input', this.contentElement);
+            this.nodeNameInput = createClassElement('input', 'tfgraph-input mb-20', this.contentElement);
             this.nodeNameInput.setAttribute('placeholder', this.graphInstance.options.labels.enterNodeName);
+            new NodeTypePicker({
+                parentEl: this.contentElement,
+                initialType: this.type,
+                onChange: function (type) {
+                    _this.type = type;
+                },
+            });
             var btnContainer = createClassElement('div', 'flex flex-row items-center justify-end mt-15', this.contentElement);
             this.btnCancel = new Button(btnContainer, {
                 label: this.graphInstance.options.labels.cancel,
@@ -655,9 +887,10 @@
                 type: 'primary',
                 onClick: function () {
                     if (_this.nodeNameInput.value) {
-                        if (_this.title !== _this.nodeNameInput.value) {
+                        if (_this.title !== _this.nodeNameInput.value || _this.initialType !== _this.type) {
                             if (_this.isEdit) {
                                 _this.targetCell.nodeData.title = _this.nodeNameInput.value;
+                                _this.targetCell.nodeData.type = _this.type;
                                 _this.dialog.close();
                                 _this.graphInstance.refresh();
                                 if (typeof _this.graphInstance.options.onEditNode === 'function') {
@@ -672,6 +905,7 @@
                                     rowSpan: 1,
                                     colSpan: 1,
                                     title: _this.nodeNameInput.value,
+                                    type: _this.type,
                                 };
                                 _this.graphInstance.options.nodes.push(nodeData);
                                 _this.dialog.close();
@@ -789,87 +1023,6 @@
         };
         return Popup;
     }());
-
-    var NodeStyle = {
-        default: {
-            type: 'default',
-            normalStyle: {
-                borderColor: '#dcdcdc',
-                backgroundColor: '#f3f4f7',
-                color: '#333333',
-            },
-            hoverStyle: {
-                borderColor: '#cccccc',
-                backgroundColor: '#f1f2f4',
-                color: '#333333',
-            },
-        },
-        primary: {
-            type: 'primary',
-            normalStyle: {
-                borderColor: FunctionalColors.primary,
-                backgroundColor: FunctionalColors.primary + '10',
-                color: FunctionalColors.primary,
-            },
-            hoverStyle: {
-                borderColor: FunctionalColors.primary,
-                backgroundColor: FunctionalColors.primary,
-                color: ColorPlate.white,
-            },
-        },
-        success: {
-            type: 'success',
-            normalStyle: {
-                borderColor: FunctionalColors.success,
-                backgroundColor: FunctionalColors.success + '10',
-                color: FunctionalColors.success,
-            },
-            hoverStyle: {
-                borderColor: FunctionalColors.success,
-                backgroundColor: FunctionalColors.success,
-                color: ColorPlate.white,
-            },
-        },
-        info: {
-            type: 'info',
-            normalStyle: {
-                borderColor: FunctionalColors.info,
-                backgroundColor: FunctionalColors.info + '10',
-                color: '#333333',
-            },
-            hoverStyle: {
-                borderColor: FunctionalColors.info,
-                backgroundColor: FunctionalColors.info,
-                color: ColorPlate.white,
-            },
-        },
-        warning: {
-            type: 'warning',
-            normalStyle: {
-                borderColor: FunctionalColors.warning,
-                backgroundColor: FunctionalColors.warning + '10',
-                color: FunctionalColors.warning,
-            },
-            hoverStyle: {
-                borderColor: FunctionalColors.warning,
-                backgroundColor: FunctionalColors.warning,
-                color: ColorPlate.white,
-            },
-        },
-        danger: {
-            type: 'danger',
-            normalStyle: {
-                borderColor: FunctionalColors.danger,
-                backgroundColor: FunctionalColors.danger + '10',
-                color: FunctionalColors.danger,
-            },
-            hoverStyle: {
-                borderColor: FunctionalColors.danger,
-                backgroundColor: FunctionalColors.danger,
-                color: ColorPlate.white,
-            },
-        },
-    };
 
     /**
      * table-flow-graph node

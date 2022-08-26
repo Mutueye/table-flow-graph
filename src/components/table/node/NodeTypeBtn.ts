@@ -3,10 +3,12 @@ import { createClassElement, setStyles } from '../../../lib/dom';
 import { Icon } from '../../ui/icon/Icon';
 import { NodeStyle } from './nodeUtils';
 
-const btnStyle = {
+const btnStyle: Partial<CSSStyleDeclaration> = {
   border: '2px solid transparent',
   padding: '2px',
-  margin: '5px',
+  borderRadius: '4px',
+  margin: '0 5px 0 0',
+  cursor: 'pointer',
 };
 
 export interface NodeTypeBtnOption {
@@ -34,15 +36,20 @@ export class NodeTypeBtn {
   private createNodeTypeBtn() {
     this.element = createClassElement('div', 'm5', this.option.parentEl);
     setStyles(this.element, btnStyle);
-    this.nodeEl = createClassElement('div', 'w-12 h-12', this.element);
+    this.nodeEl = createClassElement(
+      'div',
+      'w-16 h-16 flex items-center justify-center',
+      this.element,
+    );
     setStyles(this.nodeEl, {
       ...NodeStyle[this.type].normalStyle,
       borderWidth: '1px',
+      borderRadius: '2px',
       borderStyle: 'solid',
     });
     this.icon = new Icon(this.nodeEl, {
       name: 'check',
-      size: 10,
+      size: 16,
       color: '#FFFFFF',
       className: this.active ? '' : 'hidden',
     });
