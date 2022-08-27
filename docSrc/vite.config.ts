@@ -13,6 +13,10 @@ export default defineConfig({
         replacement: path.resolve(__dirname, './src'),
       },
       {
+        find: 'public',
+        replacement: path.resolve(__dirname, './public'),
+      },
+      {
         // this is required for the SCSS modules
         find: /^~(.*)$/,
         replacement: '$1',
@@ -23,7 +27,7 @@ export default defineConfig({
     preprocessorOptions: {
       less: {
         modifyVars: {
-          'primary-color': '#377df4',
+          'primary-color': '#3366FF',
         },
         javascriptEnabled: true,
       },

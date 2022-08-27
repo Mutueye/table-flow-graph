@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256px" height="256px" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>feature-icon-grid-based-lines2</title>
+    <g id="feature-icon-grid-based-lines2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="矩形" stroke="#EAEAEA" stroke-width="8" fill="#FFFFFF" x="34" y="34" width="188" height="188" rx="20"></rect>
+        <g id="grid-2" transform="translate(42.000000, 42.000000)" fill="#EAEAEA">
+            <circle id="椭圆形" cx="10" cy="10" r="10"></circle>
+            <circle id="椭圆形备份" cx="61" cy="10" r="10"></circle>
+            <circle id="椭圆形备份-2" cx="111" cy="10" r="10"></circle>
+            <circle id="椭圆形备份-3" cx="162" cy="10" r="10"></circle>
+            <circle id="椭圆形备份-7" cx="10" cy="61" r="10"></circle>
+            <circle id="椭圆形备份-6" cx="61" cy="61" r="10"></circle>
+            <circle id="椭圆形备份-5" cx="111" cy="61" r="10"></circle>
+            <circle id="椭圆形备份-4" cx="162" cy="61" r="10"></circle>
+            <circle id="椭圆形备份-11" cx="10" cy="111" r="10"></circle>
+            <circle id="椭圆形备份-10" cx="61" cy="111" r="10"></circle>
+            <circle id="椭圆形备份-9" cx="111" cy="111" r="10"></circle>
+            <circle id="椭圆形备份-8" cx="162" cy="111" r="10"></circle>
+            <circle id="椭圆形备份-15" cx="10" cy="162" r="10"></circle>
+            <circle id="椭圆形备份-14" cx="61" cy="162" r="10"></circle>
+            <circle id="椭圆形备份-13" cx="111" cy="162" r="10"></circle>
+            <circle id="椭圆形备份-12" cx="161.99" cy="162" r="10"></circle>
+        </g>
+        <path d="M207.363961,48.636039 L202.414214,69.1421356 L197.464,64.192039 L157,104.656 L157,153 C157,155.142195 155.316032,156.891079 153.19964,156.995105 L153,157 L56,157 L56.0011597,197.070929 C58.3917256,198.454331 60,201.039349 60,204 C60,208.418278 56.418278,212 52,212 C47.581722,212 44,208.418278 44,204 C44,201.038937 45.6087228,198.453611 47.99984,197.07035 L48,153 C48,150.857805 49.6839685,149.108921 51.8003597,149.004895 L52,149 L149,149 L149,103 C149,102.01491 149.363374,101.067285 150.015893,100.336328 L150.171573,100.171573 L191.807,58.535039 L186.857864,53.5857864 L207.363961,48.636039 Z" id="line" fill="#3366FF" fill-rule="nonzero"></path>
+    </g>
+</svg>

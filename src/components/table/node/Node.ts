@@ -26,7 +26,6 @@ export default class Node {
     const data = this.tableCell.nodeData;
     this.type = data.type ? data.type : 'default';
     setStyles(this.element, NodeStyle[this.type].normalStyle);
-    // this.element.classList.add(data.type ? data.type : 'default');
     if (data.isBtn && this.graphInstance.mode !== 'edit') this.element.classList.add('isBtn');
     if (typeof this.graphInstance.options.renderNode === 'function') {
       this.element.appendChild(this.graphInstance.options.renderNode(data));
@@ -47,8 +46,10 @@ export default class Node {
 
   public setViewerControls() {
     this.element.addEventListener('click', () => this.onClickNode());
-    this.element.addEventListener('mouseenter', () => this.toggleHovered(true));
-    this.element.addEventListener('mouseleave', () => this.toggleHovered(false));
+    if (this.tableCell.nodeData.isBtn) {
+      this.element.addEventListener('mouseenter', () => this.toggleHovered(true));
+      this.element.addEventListener('mouseleave', () => this.toggleHovered(false));
+    }
     if (this.tableCell.nodeData.showPopup) {
       let contentEl: HTMLElement;
       if (typeof this.graphInstance.options.renderNodeHoverPopup === 'function') {

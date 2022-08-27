@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256px" height="256px" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>feature-icon-moveable-resizable</title>
+    <g id="feature-icon-moveable-resizable" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="矩形" stroke="#EAEAEA" stroke-width="8" fill="#FFFFFF" x="34" y="34" width="188" height="188" rx="20"></rect>
+        <path d="M128,85 L139,103 L131.999,102.999 L131.999,124 L153,124 L153,117 L171,128 L153,139 L153,132 L131.999,132 L131.999,152.999 L139,153 L128,171 L117,153 L123.999,152.999 L123.999,132 L103,132 L103,139 L85,128 L103,117 L103,124 L123.999,124 L123.999,103 L117,103 L128,85 Z" id="line备份" fill="#3366FF" fill-rule="nonzero"></path>
+        <path d="M73,47 L73,55 L55,55 L55,73 L47,73 L47,47 L73,47 Z" id="形状结合" fill="#3366FF"></path>
+        <path d="M209,183 L209,191 L191,191 L191,209 L183,209 L183,183 L209,183 Z" id="形状结合备份" fill="#3366FF" transform="translate(196.000000, 196.000000) rotate(-180.000000) translate(-196.000000, -196.000000) "></path>
+        <path d="M73,183 L73,191 L55,191 L55,209 L47,209 L47,183 L73,183 Z" id="形状结合备份-3" fill="#3366FF" transform="translate(60.000000, 196.000000) rotate(-90.000000) translate(-60.000000, -196.000000) "></path>
+        <path d="M209,47 L209,55 L191,55 L191,73 L183,73 L183,47 L209,47 Z" id="形状结合备份-2" fill="#3366FF" transform="translate(196.000000, 60.000000) rotate(-270.000000) translate(-196.000000, -60.000000) "></path>
+    </g>
+</svg>

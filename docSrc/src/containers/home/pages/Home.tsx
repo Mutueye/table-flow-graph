@@ -2,7 +2,8 @@ import React, { useEffect, useState, useCallback } from 'react';
 
 import { TableFlowGraph, TFGraphNode, TFGraphOptions } from '../../../../../dist/index.es.js';
 import NodeTitle from '../components/NodeTitle';
-import { createReactInstance } from '../../createReactInstance';
+import FeatureNode from '../components/FeatureNode.js';
+import { createReactInstance } from 'src/createReactInstance';
 
 type Props = {
   className?: string;
@@ -21,6 +22,18 @@ const Home: React.FC<Props> = ({ className }) => {
     switch (node.id) {
       case '1':
         createReactInstance(<NodeTitle title={node.title} info={node.meta.info as string} />, el);
+        break;
+      case '5':
+        createReactInstance(<FeatureNode iconName="Grid" label={node.title} />, el);
+        break;
+      case '6':
+        createReactInstance(<FeatureNode iconName="Customizable" label={node.title} />, el);
+        break;
+      case '7':
+        createReactInstance(<FeatureNode iconName="Movable" label={node.title} />, el);
+        break;
+      case '8':
+        createReactInstance(<FeatureNode iconName="Ts" label={node.title} />, el);
         break;
       default:
         el.className = 'flex flex-row items-center justify-center text-size-16px';
@@ -46,7 +59,7 @@ const Home: React.FC<Props> = ({ className }) => {
   };
 
   const options: TFGraphOptions = {
-    isEditor: true,
+    isEditor: false,
     totalColumns: 10,
     tableLayoutFixed: true,
     // columns: [
@@ -169,7 +182,7 @@ const Home: React.FC<Props> = ({ className }) => {
         rowSpan: 3,
         column: 7,
         colSpan: 2,
-        title: 'Moveable & Resizable',
+        title: 'Moveable & Resizable Nodes',
       },
       {
         id: '8',
@@ -194,9 +207,7 @@ const Home: React.FC<Props> = ({ className }) => {
     const instance = new TableFlowGraph(el!, options);
     setGraphInstance(instance);
   }, []);
-  return (
-    <div className={'w-full bg-white relative my-20px ' + customClassName} id="home_graph"></div>
-  );
+  return <div className={'w-full bg-white relative my-20px ' + customClassName} id="home_graph" />;
 };
 
 export default Home;

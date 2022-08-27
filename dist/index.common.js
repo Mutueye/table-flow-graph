@@ -99,9 +99,9 @@ var setColumnAndRowDeletable = function (occupiedList, totalRows, totalColumns) 
 };
 var ColorPlate = {
     red: '#FA5151',
-    orange: '#F96400',
+    orange: '#F96A00',
     yellow: '#FCB42C',
-    green: '#68DE4D',
+    green: '#59BE41',
     cyan: '#28E1F0',
     blue: '#3366FF',
     purple: '#8433FF',
@@ -1039,7 +1039,6 @@ var Node = /** @class */ (function () {
         var data = this.tableCell.nodeData;
         this.type = data.type ? data.type : 'default';
         setStyles(this.element, NodeStyle[this.type].normalStyle);
-        // this.element.classList.add(data.type ? data.type : 'default');
         if (data.isBtn && this.graphInstance.mode !== 'edit')
             this.element.classList.add('isBtn');
         if (typeof this.graphInstance.options.renderNode === 'function') {
@@ -1062,8 +1061,10 @@ var Node = /** @class */ (function () {
     Node.prototype.setViewerControls = function () {
         var _this = this;
         this.element.addEventListener('click', function () { return _this.onClickNode(); });
-        this.element.addEventListener('mouseenter', function () { return _this.toggleHovered(true); });
-        this.element.addEventListener('mouseleave', function () { return _this.toggleHovered(false); });
+        if (this.tableCell.nodeData.isBtn) {
+            this.element.addEventListener('mouseenter', function () { return _this.toggleHovered(true); });
+            this.element.addEventListener('mouseleave', function () { return _this.toggleHovered(false); });
+        }
         if (this.tableCell.nodeData.showPopup) {
             var contentEl = void 0;
             if (typeof this.graphInstance.options.renderNodeHoverPopup === 'function') {

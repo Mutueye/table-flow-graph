@@ -54,9 +54,9 @@ export const uniqId = () => {
 
 export const ColorPlate: Record<Color, ColorValue> = {
   red: '#FA5151',
-  orange: '#F96400',
+  orange: '#F96A00',
   yellow: '#FCB42C',
-  green: '#68DE4D',
+  green: '#59BE41',
   cyan: '#28E1F0',
   blue: '#3366FF',
   purple: '#8433FF',
