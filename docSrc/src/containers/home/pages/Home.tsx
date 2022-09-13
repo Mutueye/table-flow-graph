@@ -46,8 +46,15 @@ const Home: React.FC<Props> = ({ className }) => {
   const onAddNode = useCallback(
     (nodeData) => {
       console.log('onAddNode:::::', nodeData);
-      console.log('graphInstance:::::', graphInstance);
+      // console.log('graphInstance:::::', graphInstance);
       // console.log('nodes::::', graphInstance.options.nodes);
+    },
+    [graphInstance],
+  );
+
+  const onEditNode = useCallback(
+    (nodeData) => {
+      console.log('onEditNode:::', nodeData);
     },
     [graphInstance],
   );
@@ -59,7 +66,7 @@ const Home: React.FC<Props> = ({ className }) => {
   };
 
   const options: TFGraphOptions = {
-    isEditor: false,
+    isEditor: true,
     totalColumns: 10,
     tableLayoutFixed: true,
     // columns: [
@@ -199,6 +206,7 @@ const Home: React.FC<Props> = ({ className }) => {
     },
     renderNode,
     onAddNode: (nodeData) => onAddNode(nodeData),
+    onEditNode: (nodeData) => onEditNode(nodeData),
     renderNodeHoverPopup,
   };
 

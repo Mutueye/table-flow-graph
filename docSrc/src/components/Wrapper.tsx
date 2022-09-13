@@ -17,8 +17,11 @@ const Wrapper: React.FC<PropsWithChildren<Props>> = ({ className, children }) =>
     'flex-col',
     'items-center',
     'justify-start',
+    'h-100vh',
     'bg-white',
     'relative',
+    'overflow-x-hidden',
+    'overflow-y-auto',
     className,
   ].join(' ');
   return (
