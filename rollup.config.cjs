@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const glob = require('glob');
-import terser from '@rollup/plugin-terser';
-import typescript from '@rollup/plugin-typescript';
-import scss from 'rollup-plugin-scss';
-import pkg from './package.json';
+const terser = require('@rollup/plugin-terser');
+const typescript = require('@rollup/plugin-typescript');
+const scss = require('rollup-plugin-scss');
+const pkg = require('./package.json');
 
 const banner = `/**
  * table-flow-graph v${pkg.version}
@@ -63,7 +63,7 @@ module.exports = outputList.map((outputData) => {
     plugins: [
       typescript({ tsconfig: './tsconfig.json' }),
       scss({
-        output: resolve('dist/index.css'),
+        fileName: 'index.css',
         watch: glob.sync('src/**/*.@(sa|sc|c)ss'),
       }),
       outputData.min ? terser() : null,
