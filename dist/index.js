@@ -1,6 +1,6 @@
 /**
  * table-flow-graph v0.2.6
- * Copyright 2022 Mutueye. Licensed under MIT
+ * Copyright 2023 Mutueye. Licensed under MIT
  */
 
 (function (global, factory) {

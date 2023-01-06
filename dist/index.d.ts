@@ -28,7 +28,7 @@ export declare class TableFlowGraph {
     destroy(): void;
     changeMode(mode: Mode): void;
 }
-export declare type ColumnWidth = 'auto' | 'lg' | 'md' | 'sm' | 'xs';
+export type ColumnWidth = 'auto' | 'lg' | 'md' | 'sm' | 'xs';
 export interface TFGraphColumn {
     id?: string;
     title?: string;
@@ -38,14 +38,14 @@ export interface TFGraphRow {
     id?: string;
     title: string;
 }
-declare type RGB = `rgb(${number}, ${number}, ${number})`;
-declare type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;
-declare type HEX = `#${string}`;
-export declare type ColorValue = RGB | RGBA | HEX;
-export declare type Color = 'red' | 'orange' | 'yellow' | 'green' | 'cyan' | 'blue' | 'purple' | 'gray' | 'black' | 'white';
-export declare type FunctionalColor = 'primary' | 'success' | 'info' | 'warning' | 'danger';
-export declare type NodeType = 'default' | FunctionalColor;
-export declare type NodeStyleType = {
+type RGB = `rgb(${number}, ${number}, ${number})`;
+type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;
+type HEX = `#${string}`;
+export type ColorValue = RGB | RGBA | HEX;
+export type Color = 'red' | 'orange' | 'yellow' | 'green' | 'cyan' | 'blue' | 'purple' | 'gray' | 'black' | 'white';
+export type FunctionalColor = 'primary' | 'success' | 'info' | 'warning' | 'danger';
+export type NodeType = 'default' | FunctionalColor;
+export type NodeStyleType = {
     [K in NodeType]: {
         type: K;
         normalStyle?: Partial<CSSStyleDeclaration>;
@@ -64,8 +64,8 @@ export interface TFGraphNode {
     meta?: Record<string, unknown>;
     showPopup?: boolean;
 }
-export declare type Mode = 'edit' | 'preview';
-export declare type Labels = {
+export type Mode = 'edit' | 'preview';
+export type Labels = {
     editMode?: string;
     previewMode?: string;
     editColumn?: string;
@@ -121,8 +121,8 @@ export interface TFGraphOptions {
     renderNode?: (node: TFGraphNode) => HTMLElement;
     renderNodeHoverPopup?: (node: TFGraphNode) => HTMLElement;
 }
-export declare type Bearing = 'topleft' | 'top' | 'topright' | 'left' | 'center' | 'right' | 'bottomleft' | 'bottom' | 'bottomright';
-export declare type Position = {
+export type Bearing = 'topleft' | 'top' | 'topright' | 'left' | 'center' | 'right' | 'bottomleft' | 'bottom' | 'bottomright';
+export type Position = {
     x: number;
     y: number;
 };
@@ -136,7 +136,7 @@ export interface RowSpec {
     height: number;
     rowIndex: number;
 }
-export declare type TableGridRect = ColumnSpec & RowSpec;
+export type TableGridRect = ColumnSpec & RowSpec;
 export interface LineOptions {
     positionA: Position;
     positionB: Position;
@@ -148,7 +148,7 @@ export interface LineGroupOptions {
     anchorIds: string[];
     isDrawingActive: boolean;
 }
-export declare type BtnType = 'default' | 'primary' | 'warning' | 'danger' | 'success' | 'clean';
+export type BtnType = 'default' | 'primary' | 'warning' | 'danger' | 'success' | 'clean';
 export interface BtnOptions {
     label?: string;
     type?: BtnType;
@@ -157,7 +157,7 @@ export interface BtnOptions {
     onClick?: (e: MouseEvent) => void;
     tooltip?: string;
 }
-export declare type TogglerItem = {
+export type TogglerItem = {
     label: string;
     id?: string;
 };
@@ -166,7 +166,7 @@ export interface TogglerOptions {
     initialActiveIndex?: number;
     onChange?: (item: TogglerItem, index: number) => void;
 }
-export declare type TogglerButton = {
+export type TogglerButton = {
     itemData: TogglerItem;
     el: HTMLElement;
     index: number;
@@ -188,17 +188,17 @@ export interface HeaderCellMenuOptions {
     showAdd?: boolean;
     showDelete?: boolean;
 }
-export declare type PositionAndSize = {
+export type PositionAndSize = {
     left: number;
     top: number;
     width: number;
     height: number;
 };
-export declare type CellPositionAndSize = {
+export type CellPositionAndSize = {
     row: number;
     column: number;
     rowSpan: number;
     colSpan: number;
 };
-export declare type HintType = 'idel' | 'drawLine' | 'hoverLine' | 'hoverAnchor' | 'moveNode' | 'resizeNode';
+export type HintType = 'idel' | 'drawLine' | 'hoverLine' | 'hoverAnchor' | 'moveNode' | 'resizeNode';
 export {};

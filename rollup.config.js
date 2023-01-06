@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const glob = require('glob');
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import scss from 'rollup-plugin-scss';
 import pkg from './package.json';
@@ -20,6 +20,7 @@ const outputList = [
     format: 'umd',
     name: 'TableFlowGraph',
     banner,
+    sourcemap: true,
   },
   {
     file: resolve('dist/index.min.js'),
@@ -27,16 +28,19 @@ const outputList = [
     name: 'TableFlowGraph',
     banner,
     min: true,
+    sourcemap: false,
   },
   {
     file: pkg.main,
     format: 'cjs',
     banner,
+    sourcemap: true,
   },
   {
     file: pkg.module,
     format: 'es',
     banner,
+    sourcemap: true,
   },
 ];
 
@@ -48,6 +52,7 @@ module.exports = outputList.map((outputData) => {
     globals: {
       'lodash-es': 'lodashEs',
     },
+    sourcemap: outputData.sourcemap,
   };
   if (outputData.name) output.name = outputData.name;
 
