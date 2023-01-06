@@ -1,6 +1,6 @@
 // import * as React from 'react';
 import { createRoot } from 'react-dom/client';
-import 'antd/dist/antd.less';
+// import 'antd/dist/antd.less';
 import '../../dist/index.css';
 import 'src/styles/index.scss';
 import 'virtual:windi.css';
