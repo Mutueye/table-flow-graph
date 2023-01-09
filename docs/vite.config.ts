@@ -38,7 +38,7 @@ export default defineConfig({
     commonjsOptions: {
       ignoreDynamicRequires: false,
     },
-    outDir: '../docs',
+    outDir: '../docsdist',
   },
   server: {
     open: true,

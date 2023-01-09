@@ -24,7 +24,9 @@
     "watch": "rimraf dist && rollup -cw",
     "lint": "eslint --ext .js,.ts --ignore-path .eslintignore --fix src",
     "prepare": "simple-git-hooks",
-    "docs:dev": "pnpm -C docSrc dev"
+    "docs:dev": "pnpm -C docs dev",
+    "docs:build": "pnpm -C docs build",
+    "deploy:pages": "gh-pages -d docsdist"
   },
   "devDependencies": {
     "@rollup/plugin-terser": "^0.2.1",
@@ -35,6 +37,7 @@
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "gh-pages": "^4.0.0",
     "glob": "^8.0.3",
     "lint-staged": "^13.1.0",
     "prettier": "^2.8.1",
