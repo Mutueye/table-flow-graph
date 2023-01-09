@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="312px" height="115px" viewBox="0 0 312 115" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>basic/logo</title>
+    <g id="basic/logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M156,0 L182,13 L182,102 L156,115 L130,102 L130,13 L156,0 Z M120,28 L120,83 L72,59 L72,28 L120,28 Z M62,51 L62,65 L98,83 L56,83 L56,79 L0,51 L62,51 Z M312,51 L256,79 L256,83 L214,83 L250,65 L250,51 L312,51 Z M240,28 L240,59 L192,83 L192,28 L240,28 Z" id="形状结合" fill="#FFFFFF"></path>
+    </g>
+</svg>
