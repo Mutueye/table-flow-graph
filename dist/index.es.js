@@ -1,5 +1,5 @@
 /**
- * table-flow-graph v0.2.6
+ * table-flow-graph v0.2.7
  * Copyright 2023 Mutueye. Licensed under MIT
  */
 
@@ -95,13 +95,13 @@ var setColumnAndRowDeletable = function (occupiedList, totalRows, totalColumns) 
 };
 var ColorPlate = {
     red: '#FA5151',
-    orange: '#F96A00',
+    orange: '#F39700',
     yellow: '#FCB42C',
     green: '#59BE41',
     cyan: '#28E1F0',
-    blue: '#3366FF',
+    blue: '#67AEF7',
     purple: '#8433FF',
-    gray: '#9398A5',
+    gray: '#999999',
     black: '#000000',
     white: '#FFFFFF',
 };
@@ -617,9 +617,9 @@ var NodeStyle = {
     default: {
         type: 'default',
         normalStyle: {
-            borderColor: '#dcdcdc',
-            backgroundColor: '#f3f4f7',
-            color: '#333333',
+            borderColor: '#999999',
+            backgroundColor: '#FFFFFF',
+            color: '#999999',
         },
         hoverStyle: {
             borderColor: '#aaaaaa',
@@ -631,7 +631,7 @@ var NodeStyle = {
         type: 'primary',
         normalStyle: {
             borderColor: FunctionalColors.primary,
-            backgroundColor: FunctionalColors.primary + '10',
+            backgroundColor: '#E8F3FF',
             color: FunctionalColors.primary,
         },
         hoverStyle: {
@@ -657,8 +657,8 @@ var NodeStyle = {
         type: 'info',
         normalStyle: {
             borderColor: FunctionalColors.info,
-            backgroundColor: FunctionalColors.info + '10',
-            color: '#333333',
+            backgroundColor: '#ECE9E9',
+            color: FunctionalColors.info,
         },
         hoverStyle: {
             borderColor: FunctionalColors.info,
@@ -670,7 +670,7 @@ var NodeStyle = {
         type: 'warning',
         normalStyle: {
             borderColor: FunctionalColors.warning,
-            backgroundColor: FunctionalColors.warning + '10',
+            backgroundColor: '#FFF2DE',
             color: FunctionalColors.warning,
         },
         hoverStyle: {
