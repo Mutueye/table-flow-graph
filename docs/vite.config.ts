@@ -33,7 +33,7 @@ export default defineConfig({
       },
     },
   },
-  base: './',
+  base: '/table-flow-graph',
   build: {
     commonjsOptions: {
       ignoreDynamicRequires: false,
