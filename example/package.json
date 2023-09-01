@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build --emptyOutDir",
     "preview": "vite preview",
-    "deploy:pages": "pnpm build & cd dist && cp index.html 404.html && cd .. && gh-pages -d dist"
+    "deploy:pages": "pnpm build && cd dist && cp index.html 404.html && cd .. && gh-pages -d dist"
   },
   "author": "mutueye <mutuyueniao@gmail.com>",
   "license": "MIT",
