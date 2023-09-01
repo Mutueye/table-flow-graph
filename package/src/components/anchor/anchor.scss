@@ -1,0 +1,52 @@
+.tfgraph-anchor {
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  .tfgraph-anchor-point {
+    width: 7px;
+    height: 7px;
+    position: absolute;
+    border-radius: 4px;
+    left: -3.5px;
+    top: -3.5px;
+    opacity: 0.2;
+    background-color: #666666;
+  }
+  .tfgraph-anchor-area {
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    left: -8px;
+    top: -8px;
+    background-color: transparent;
+    cursor: pointer;
+    pointer-events: all;
+    position: absolute;
+    .tfgraph-anchor-circle {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left: -2px;
+      top: -2px;
+      border-radius: 10px;
+      border: 1px solid $color-theme;
+      background-color: transparentize($color-theme, 1);
+      pointer-events: none;
+      transform: scale(0.3);
+      opacity: 0;
+      transition: all ease-out 0.1s;
+    }
+    &:hover {
+      .tfgraph-anchor-circle {
+        transform: scale(1);
+        background-color: transparentize($color-theme, 0.8);
+        opacity: 1;
+      }
+    }
+  }
+  &:hover {
+    .tfgraph-anchor-point {
+      opacity: 1;
+    }
+  }
+}

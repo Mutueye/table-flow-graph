@@ -1,0 +1,90 @@
+$popup-border-color: rgba(0, 0, 0, 0.25);
+$tooltip-color: rgba(0, 0, 0, 0.8);
+
+.tfgraph-tooltip {
+  width: 0;
+  height: 0;
+  position: fixed;
+  z-index: 999;
+  // transition: all ease 0.2s;
+  overflow: visible;
+  .tfgraph-tooltip-area {
+    position: absolute;
+    width: auto;
+    pointer-events: none;
+    height: auto;
+    .tfgraph-tooltip-arrow {
+      position: absolute;
+      display: block;
+      width: 16px;
+      height: 8px;
+      &::before {
+        position: absolute;
+        display: block;
+        content: '';
+        border-color: transparent;
+        border-style: solid;
+      }
+    }
+    &.top {
+      bottom: 0;
+      .tfgraph-tooltip-arrow {
+        &::before {
+          bottom: 0;
+          border-width: 8px 8px 0;
+          border-top-color: $tooltip-color;
+        }
+      }
+    }
+    &.right {
+      left: 0;
+      .tfgraph-tooltip-arrow {
+        width: 8px;
+        height: 16px;
+        left: -7px;
+        &::before {
+          left: 0;
+          border-width: 8px 8px 8px 0;
+          border-right-color: $tooltip-color;
+        }
+      }
+    }
+    &.bottom {
+      top: 0;
+      .tfgraph-tooltip-arrow {
+        top: -7px;
+        &::before {
+          top: 0;
+          border-width: 0px 8px 8px 8px;
+          border-bottom-color: $tooltip-color;
+        }
+      }
+    }
+    &.left {
+      right: 0;
+      .tfgraph-tooltip-arrow {
+        width: 8px;
+        height: 16px;
+        right: -7px;
+        &::before {
+          right: 0;
+          border-width: 8px 0px 8px 8px;
+          border-left-color: $tooltip-color;
+        }
+      }
+    }
+    .tfgraph-tooltip-box {
+      width: auto;
+      height: auto;
+      white-space: nowrap;
+      background-color: white;
+      overflow: hidden;
+      background-color: $tooltip-color;
+      color: white;
+      padding: 5px 10px;
+      font-size: 13px;
+      line-height: 16px;
+      border-radius: 4px;
+    }
+  }
+}

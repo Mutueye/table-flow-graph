@@ -1,0 +1,42 @@
+{
+  "name": "table-flow-graph-example",
+  "version": "1.0.0",
+  "description": "Example for table-flow-graph",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build --emptyOutDir",
+    "preview": "vite preview",
+    "deploy:pages": "pnpm build & cd dist && cp index.html 404.html && cd .. && gh-pages -d dist"
+  },
+  "author": "mutueye <mutuyueniao@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.15.0",
+    "table-flow-graph": "workspace:^"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.7",
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.5.0",
+    "@typescript-eslint/parser": "^6.5.0",
+    "@vitejs/plugin-react": "^4.0.4",
+    "eslint": "^8.48.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.33.2",
+    "gh-pages": "^6.0.0",
+    "prettier": "^3.0.3",
+    "sass": "^1.66.1",
+    "typescript": "^5.2.2",
+    "vite": "^4.4.9",
+    "vite-plugin-env-compatible": "^1.1.1",
+    "vite-plugin-windicss": "^1.9.1",
+    "windicss": "^3.5.6"
+  }
+}

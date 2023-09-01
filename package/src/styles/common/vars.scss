@@ -1,0 +1,133 @@
+/**********************************************************
+ * 颜色变量
+ **********************************************************/
+
+/* 中性色
+-------------------------- */
+$color-black: #000000;
+$color-gray-33: #333333;
+$color-gray-66: #666666;
+$color-gray-7e: #7e7e7e;
+$color-gray-99: #999999;
+$color-gray-cc: #cccccc;
+$color-gray-dc: #dcdcdc;
+$color-gray-e6: #e6e6e6;
+$color-gray-ea: #eaeaea;
+$color-gray-f2: #f2f2f2;
+$color-gray-f5: #f5f5f5;
+$color-gray-f8: #f8f8f8;
+$color-gray-fa: #fafafa;
+$color-white: #ffffff;
+
+/* 色盘
+-------------------------- */
+$color-blue: #3366ff; // 蓝
+$color-blue-active-light: mxi($color-white, $color-blue, 20%);
+$color-blue-light: mix($color-white, $color-blue, 80%); // 浅蓝
+$color-blue-lighter: mix($color-white, $color-blue, 90%); // 淡蓝
+$color-blue-active-dark: mix($color-black, $color-blue, 20%); // 深蓝
+$color-red: #fa5151; // 红
+$color-red-active-light: mxi($color-white, $color-red, 20%);
+$color-red-light: mix($color-white, $color-red, 80%); // 浅红
+$color-red-lighter: mix($color-white, $color-red, 90%); // 淡红
+$color-red-active-dark: mix($color-black, $color-red, 20%); // 深红
+$color-yellow: #fcb42c; // 黄
+$color-yellow-active-light: mxi($color-white, $color-yellow, 20%);
+$color-yellow-light: mix($color-white, $color-yellow, 80%); // 浅黄
+$color-yellow-lighter: mix($color-white, $color-yellow, 90%); // 淡黄
+$color-yellow-active-dark: mxi($color-black, $color-yellow, 20%);
+$color-green: #59be41; // 绿
+$color-green-active-light: mxi($color-white, $color-green, 20%);
+$color-green-light: mix($color-white, $color-green, 80%); // 浅绿
+$color-green-lighter: mix($color-white, $color-green, 90%); // 淡绿
+$color-green-active-dark: mxi($color-black, $color-green, 20%);
+$color-purple: #8433ff; // 紫
+$color-purple-active-light: mxi($color-white, $color-purple, 20%);
+$color-purple-light: mix($color-white, $color-purple, 80%); // 浅紫
+$color-purple-lighter: mix($color-white, $color-purple, 90%); // 淡紫
+$color-purple-active-dark: mxi($color-black, $color-purple, 20%);
+
+/* 基础功能色
+-------------------------- */
+$color-theme: $color-blue; // 主题色
+$color-assist: $color-blue-light; // 主题辅助色
+$color-warning: $color-yellow; // 警告色
+$color-danger: $color-red; // 危险/错误
+$color-success: $color-green; // 成功
+$color-info: $color-gray-99; // 信息
+
+/* 边框色
+-------------------------- */
+$color-border-dark: $color-gray-dc; // 边框/线条 深色
+$color-border: $color-gray-e6; // 边框/线条
+$color-border-light: $color-gray-ea; // 边框/线条浅色
+$color-border-lighter: $color-gray-f2; // 边框/线条 超浅色
+
+/* 背景色
+-------------------------- */
+$color-bg-dark: $color-gray-f2; // 背景深色
+$color-bg: $color-white; // 背景色
+$color-bg-light: $color-gray-f8; // 背景浅色
+$color-bg-blue: $color-blue-light; // 淡蓝背景色
+
+/* 字色
+-------------------------- */
+$font-color-title: $color-gray-33; // 字色-标题
+$font-color-body: $color-gray-7e; // 字色-内容
+$font-color-assist: $color-gray-99; // 字色-辅助
+$font-color-placeholder: $color-gray-cc; // 字色-占位符
+
+/**********************************************************
+ * 尺寸变量
+ **********************************************************/
+
+// 间距
+$space: 15px;
+$space-xs: 5px;
+$space-sm: 10px;
+$space-md: $space;
+$space-lg: 20px;
+$space-xl: 25px;
+$space-xxl: 30px;
+// 间距map
+$spaces: (
+  'xs': $space-xs,
+  'sm': $space-sm,
+  'md': $space-md,
+  'lg': $space-lg,
+  'xl': $space-xl,
+  'xxl': $space-xxl,
+);
+
+// 圆角
+$border-radius-xs: 2px;
+$border-radius-sm: 4px;
+$border-radius: 6px;
+$border-radius-lg: 8px;
+$border-radius-xl: 10px;
+
+// 字号
+$font-size: 14px;
+$font-size-xs: 12px;
+$font-size-sm: 13px;
+$font-size-md: $font-size;
+$font-size-lg: 16px;
+$font-size-xl: 18px;
+$font-size-xxl: 20px;
+// 间距map
+$font-sizes: (
+  'xs': $font-size-xs,
+  'sm': $font-size-sm,
+  'md': $font-size-md,
+  'lg': $font-size-lg,
+  'xl': $font-size-xl,
+  'xxl': $font-size-xxl,
+);
+
+// 字体粗细
+$font-weight-bold: 600;
+$font-weight-slim: 100;
+
+// ui组件
+$control-height: 36px;
+$control-height-sm: 28px;

@@ -1,61 +1,22 @@
 {
-  "name": "table-flow-graph",
-  "version": "0.2.7",
-  "description": "A simple flow graph editor/viewer",
-  "author": "mutueye <mutuyueniao@gmail.com>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Mutueye/table-flow-graph"
-  },
-  "main": "dist/index.common.js",
-  "module": "dist/index.es.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "keywords": [
-    "table",
-    "flow",
-    "graph"
-  ],
+  "name": "table-flow-graph-monorepo",
+  "version": "1.0.0",
+  "description": "",
   "scripts": {
-    "build": "rimraf dist && rollup -c",
-    "watch": "rimraf dist && rollup -cw",
-    "lint": "eslint --ext .js,.ts --ignore-path .eslintignore --fix src",
     "prepare": "simple-git-hooks",
-    "docs:dev": "pnpm -C docs dev",
-    "docs:build": "pnpm -C docs build",
-    "deploy:pages": "gh-pages -d docsdist"
+    "build": "pnpm -r build:lib",
+    "dev": "pnpm build && pnpm -r dev",
+    "pub": "pnpm -r pub --no-git-checks",
+    "lint": "pnpm -r --workspace-concurrency=1 lint",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "@rollup/plugin-terser": "^0.2.1",
-    "@rollup/plugin-typescript": "^10.0.1",
-    "@types/lodash-es": "^4.17.6",
-    "@typescript-eslint/eslint-plugin": "^5.48.0",
-    "@typescript-eslint/parser": "^5.48.0",
-    "eslint": "^8.31.0",
-    "eslint-config-prettier": "^8.6.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "gh-pages": "^4.0.0",
-    "glob": "^8.0.3",
-    "lint-staged": "^13.1.0",
-    "prettier": "^2.8.1",
-    "rimraf": "^3.0.2",
-    "rollup": "^3.9.1",
-    "rollup-plugin-scss": "^4.0.0",
-    "sass": "^1.57.1",
-    "simple-git-hooks": "^2.8.1",
-    "typescript": "^4.9.4"
-  },
-  "lint-staged": {
-    "*.{js,ts}": "eslint --cache --fix"
+    "simple-git-hooks": "^2.9.0"
   },
   "simple-git-hooks": {
-    "pre-commit": "npx lint-staged"
-  },
-  "dependencies": {
-    "@floating-ui/dom": "^1.1.0",
-    "lodash-es": "^4.17.21"
+    "pre-commit": "pnpm -r --workspace-concurrency=1 lint"
   }
 }

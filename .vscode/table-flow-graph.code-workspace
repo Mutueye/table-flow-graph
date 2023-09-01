@@ -1,0 +1,31 @@
+{
+  "folders": [
+    {
+      "name": "ROOT",
+      "path": "../"
+    },
+    {
+      "name": "package",
+      "path": "../package"
+    },
+    {
+      "name": "example",
+      "path": "../example"
+    }
+  ],
+  "settings": {
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "css.validate": false,
+    "scss.validate": false,
+    "less.validate": false,
+    "stylelint.snippet": ["css", "less", "postcss", "scss", "vue"],
+    "stylelint.validate": ["css", "less", "postcss", "scss", "vue"],
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true,
+      "source.fixAll.stylelint": true
+    },
+    "diffEditor.wordWrap": "off",
+    "unocss.root": ["examples/main"]
+  }
+}

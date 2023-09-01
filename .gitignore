@@ -1,40 +1,22 @@
-lib-cov
-*.seed
-*.log
-*.csv
-*.dat
-*.out
-*.pid
-*.gz
-*.swp
-
-pids
+# Logs
 logs
-results
-tmp
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Coverage reports
-coverage
-
-# API keys and secrets
-.env
-
-# Dependency directory
 node_modules
-bower_components
+dist
+dist-ssr
+*.local
+!.env.local
 
-# Editors
-.idea
-*.iml
-
-# OS metadata
+# Editor directories and files
 .DS_Store
-Thumbs.db
-.eslintcache
-
-# Ignore built ts files
-# dist
-docsdist
-
-# ignore yarn.lock
-# yarn.lock
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
