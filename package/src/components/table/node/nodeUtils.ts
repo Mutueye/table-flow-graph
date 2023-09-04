@@ -14,9 +14,9 @@ export const NodeStyle: NodeStyleType = {
   default: {
     type: 'default',
     normalStyle: {
-      borderColor: '#999999',
-      backgroundColor: '#FFFFFF',
-      color: '#999999',
+      borderColor: '#dcdcdc',
+      backgroundColor: '#f3f4f7',
+      color: '#333333',
     },
     hoverStyle: {
       borderColor: '#aaaaaa',
@@ -28,7 +28,7 @@ export const NodeStyle: NodeStyleType = {
     type: 'primary',
     normalStyle: {
       borderColor: FunctionalColors.primary,
-      backgroundColor: '#E8F3FF',
+      backgroundColor: FunctionalColors.primary + '10',
       color: FunctionalColors.primary,
     },
     hoverStyle: {
@@ -54,7 +54,7 @@ export const NodeStyle: NodeStyleType = {
     type: 'info',
     normalStyle: {
       borderColor: FunctionalColors.info,
-      backgroundColor: '#ECE9E9',
+      backgroundColor: FunctionalColors.info + '10',
       color: FunctionalColors.info,
     },
     hoverStyle: {
@@ -67,7 +67,7 @@ export const NodeStyle: NodeStyleType = {
     type: 'warning',
     normalStyle: {
       borderColor: FunctionalColors.warning,
-      backgroundColor: '#FFF2DE',
+      backgroundColor: FunctionalColors.warning + '10',
       color: FunctionalColors.warning,
     },
     hoverStyle: {
