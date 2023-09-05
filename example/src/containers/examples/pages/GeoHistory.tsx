@@ -1,22 +1,23 @@
 import React, { useEffect, useState, useCallback } from 'react';
 
-import { TableFlowGraph, TFGraphNode, TFGraphOptions, TFGraphColumn } from 'table-flow-graph';
-import { loadGraphData, saveGraphData } from '../dataStorage';
+import { TableFlowGraph, TFGraphNode, TFGraphOptions } from 'table-flow-graph';
 import { createReactInstance } from 'src/createReactInstance';
 import NodeTitle from 'src/containers/home/components/NodeTitle';
+import { loadGraphData, saveGraphData } from 'src/utils/storageManager';
+import { defaultGeoHistoryData } from '../datas';
 
 type Props = {
   className?: string;
 };
 
-const Example: React.FC<Props> = ({ className }) => {
+const GeoHistory: React.FC<Props> = ({ className }) => {
   const [graphInstance, setGraphInstance] = useState<TableFlowGraph | null>(null);
   const customClassName = className ? className : '';
 
   const onChangeLines = (lines: string[][]) => {
-    const data = loadGraphData();
+    const data = loadGraphData('geo_history', defaultGeoHistoryData);
     data.lines = lines;
-    saveGraphData(data);
+    saveGraphData('geo_history', data);
   };
 
   const renderNode = useCallback(
@@ -36,9 +37,9 @@ const Example: React.FC<Props> = ({ className }) => {
   const onAddNode = useCallback(
     (nodeData: TFGraphNode) => {
       console.log('onAddNode:::::', nodeData);
-      const data = loadGraphData();
+      const data = loadGraphData('geo_history', defaultGeoHistoryData);
       data.nodes.push(nodeData);
-      saveGraphData(data);
+      saveGraphData('geo_history', data);
       // console.log('graphInstance:::::', graphInstance);
       // console.log('nodes::::', graphInstance.options.nodes);
     },
@@ -48,11 +49,11 @@ const Example: React.FC<Props> = ({ className }) => {
   const onEditNode = useCallback(
     (nodeData: TFGraphNode) => {
       console.log('onEditNode:::', nodeData);
-      const data = loadGraphData();
+      const data = loadGraphData('geo_history', defaultGeoHistoryData);
       const index = data.nodes.findIndex((item) => item.id === nodeData.id);
       if (index > -1) {
         data.nodes[index] = nodeData;
-        saveGraphData(data);
+        saveGraphData('geo_history', data);
       }
     },
     [graphInstance],
@@ -60,32 +61,10 @@ const Example: React.FC<Props> = ({ className }) => {
 
   const onDeleteNode = (node: TFGraphNode) => {
     console.log('node:::', node);
-    const data = loadGraphData();
+    const data = loadGraphData('geo_history', defaultGeoHistoryData);
     const nodeList = data.nodes.filter((item) => item.id !== node.id);
     data.nodes = nodeList;
-    saveGraphData(data);
-  };
-
-  const onAddColumn = (column: TFGraphColumn) => {
-    const data = loadGraphData();
-    data.columns.push(column);
-    saveGraphData(data);
-  };
-
-  const onEditColumn = (column: TFGraphColumn) => {
-    const data = loadGraphData();
-    const index = data.columns.findIndex((item) => item.id === column.id);
-    if (index > -1) {
-      data.columns[index] = column;
-      saveGraphData(data);
-    }
-  };
-
-  const onDeleteColumn = (column: TFGraphColumn) => {
-    const data = loadGraphData();
-    const list = data.columns.filter((item) => item.id !== column.id);
-    data.columns = list;
-    saveGraphData(data);
+    saveGraphData('geo_history', data);
   };
 
   const renderNodeHoverPopup = (node: TFGraphNode) => {
@@ -94,16 +73,17 @@ const Example: React.FC<Props> = ({ className }) => {
     return el;
   };
 
-  const savedGraphData = loadGraphData();
+  const savedGraphData = loadGraphData('geo_history', defaultGeoHistoryData);
 
   const options: TFGraphOptions = {
     isEditor: true,
-    totalColumns: 8,
+    totalColumns: 12,
+    maxColumns: 25,
     tableLayoutFixed: true,
     labels: {
       editMode: '编辑模式',
       previewMode: '查看模式',
-      editColumn: '编辑当前列表头',
+      editColumn: '编辑当前列',
       addColumn: '添加列',
       deleteColumn: '删除当前列',
       addRow: '添加行',
@@ -126,9 +106,9 @@ const Example: React.FC<Props> = ({ className }) => {
       hint_resizeNode: '移动光标调整大小，点击鼠标左键完成调整',
     },
     nodes: savedGraphData.nodes,
-    columns: savedGraphData.columns,
     lines: savedGraphData.lines,
-    totalRows: 8,
+    totalRows: 25,
+    maxRows: 25,
     // onClickNode: (node, nodeEl) => { console.log('clickNode::::', node, nodeEl); },
     renderNode,
     renderNodeHoverPopup,
@@ -136,20 +116,15 @@ const Example: React.FC<Props> = ({ className }) => {
     onAddNode,
     onEditNode,
     onDeleteNode,
-    onAddColumn,
-    onEditColumn,
-    onDeleteColumn,
   };
 
   useEffect(() => {
-    const el = document.getElementById('example_graph');
+    const el = document.getElementById('geo_history');
     const instance = new TableFlowGraph(el!, options);
     setGraphInstance(instance);
   }, []);
 
-  return (
-    <div className={`w-full bg-white relative my-20px ${customClassName}`} id="example_graph" />
-  );
+  return <div className={`w-full bg-white relative my-20px ${customClassName}`} id="geo_history" />;
 };
 
-export default Example;
+export default GeoHistory;
